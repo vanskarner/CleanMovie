@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/upcomingNav"
+    app:startDestination="@id/upcomingScreen">
+
+    <fragment
+        android:id="@+id/upcomingScreen"
+        android:name="com.vanskarner.cleanmovie.features.movie.upcoming.UpcomingFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/upcoming_fragment">
+        <action
+            android:id="@+id/upcomingAction"
+            app:destination="@id/upcomingDetailScreen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/upcomingDetailScreen"
+        android:name="com.vanskarner.cleanmovie.features.movie.upcomingDetail.UpcomingDetailFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/upcoming_detail_fragment">
+        <argument
+            android:name="movieId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>
