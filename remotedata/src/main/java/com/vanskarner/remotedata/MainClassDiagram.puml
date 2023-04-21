@@ -1,0 +1,88 @@
+@startuml
+!include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+/'Specification'/
+package com.vanskarner.remotedata{
+    class MovieRemoteRxRepository{
+        - rxFutureFactory: RxFutureFactory
+        - apiKey: String
+        + MovieRemoteRxRepository(RxFutureFactory,MovieApiClient,String)
+        + getMovies(int): FutureResult<List<MovieBO>>
+        + getMovie(int): FutureResult<MovieBO>
+    }
+    class MovieDeserializer{
+        - baseImageUrl: String
+        - gson: Gson
+        + MovieDeserializer(String,Gson)
+        + deserialize(JsonElement,Type,JsonDeserializationContext): MovieDTO
+        - getImagePath(String): String
+    }
+    class MovieDTO<<(D,orange)Data Structure>>{
+        + id: int
+        + overview: String
+        + posterPath: String
+        + backdropPath: String
+        + releaseDate: String
+        + title: String
+        + voteCount: int
+        + voteAverage: float
+    }
+    class MovieRemoteDataMapper {
+        - MovieRemoteDataMapper()
+        ~ {static} convert(MovieDTO): MovieBO
+        ~ {static} convert(List<MovieDTO>): List<MovieBO>
+    }
+    interface MovieApiClient<<interface>> {
+        + getUpcomingMovies(int,String): Single<MoviesResultDTO>
+        + getMovieDetail(int,String): Single<MovieDTO>
+    }
+    class MoviesResultDTO<<(D,orange)Data Structure>>
+    class RemoteDataErrorFilter{
+        + RemoteDataErrorFilter(Map<String, Provider<RemoteError>>,RemoteError)
+        + filter(String): RemoteError
+        + getNoInternetError(): RemoteError
+    }
+    abstract class RemoteError<<abstract>>
+    class Unauthorised
+    class NotFound
+    class Server
+    class ServiceUnavailable
+    class NoInternet
+    class RemoteErrorInterceptor{
+        + RemoteErrorInterceptor(RemoteDataErrorFilter)
+        + intercept(Chain): Response
+    }
+}
+
+/'Relations'/
+MovieRemoteRxRepository --> MovieApiClient: -service
+MovieRemoteRxRepository ..> MovieRemoteDataMapper
+MovieApiClient ..> MovieDTO
+MovieApiClient ..> MoviesResultDTO
+MovieRemoteDataMapper ..> MovieDTO
+MovieDeserializer ..> MovieDTO
+MoviesResultDTO -> "0..*" MovieDTO:  ~results
+
+RemoteDataErrorFilter --> "1..*" RemoteError: - mapError
+RemoteDataErrorFilter --> RemoteError: - defaultError
+RemoteError <|-- NoInternet
+RemoteError <|-- NotFound
+RemoteError <|-- Server
+RemoteError <|-- ServiceUnavailable
+RemoteError <|-- Unauthorised
+RemoteErrorInterceptor --> RemoteDataErrorFilter: - errorFilter
+
+/'Visualization'/
+hide RemoteDataErrorFilter attributes
+hide RemoteErrorInterceptor attributes
+hide MovieRemoteDataMapper attributes
+hide RemoteError members
+hide Unauthorised members
+hide NotFound members
+hide Server members
+hide ServiceUnavailable members
+hide NoInternet members
+hide MovieDTO methods
+hide MoviesResultDTO members
+
+@enduml
