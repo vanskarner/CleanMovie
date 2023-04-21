@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Clean Movie</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string name="delete">Delete</string>
+    <string name="favorite">Favorite</string>
+    <string name="information">Information</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="free">Free</string>
+    <string name="pro">Pro</string>
+    <string name="recommended">Recommended</string>
+    <string name="services">Services</string>
+    <string name="service_1">Access to movies and series</string>
+    <string name="service_2">Exclusive content</string>
+    <string name="service_3">Custom notifications</string>
+    <string name="service_4">Extended local save</string>
+    <string name="service_5">Offline viewing</string>
+
+    <string name="error_image_tag">Error image</string>
+    <string name="detail_image_tag">Detail image</string>
+    <string name="item_image_tag">Item image</string>
+    <string name="check_tag">Yes</string>
+    <string name="cancel_tag">No</string>
+
+    <string name="msg_deleted_items">Deleted items: %d</string>
+    <string name="msg_no_favorites">You have no favorite movies added.</string>
+    <string name="msg_delete_favorites">Do you want to delete all your favorites?</string>
+    <string name="msg_no_internet">No internet, turn on wifi or mobile data.</string>
+    <string name="msg_not_found">The searched item was not found.</string>
+    <string name="msg_server_error">There is a problem with the server, please try again
+        later.</string>
+    <string name="msg_service_unavailable">The server is currently undergoing maintenance, please
+        try again later.</string>
+    <string name="msg_unauthorized">You do not have access permission.</string>
+    <string name="msg_unknown_error">Something went wrong</string>
 </resources>
