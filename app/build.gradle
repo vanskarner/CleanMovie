@@ -1,39 +1,75 @@
 plugins {
     id 'com.android.application'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
     namespace 'com.vanskarner.cleanmovie'
-    compileSdk 32
+    compileSdk androidParameters.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.vanskarner.cleanmovie"
-        minSdk 21
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId androidParameters.applicationId
+        minSdk androidParameters.minSdkVersion
+        targetSdk androidParameters.targetSdkVersion
+        versionCode androidParameters.versionCode
+        versionName androidParameters.versionName
+        multiDexEnabled androidParameters.multiDexEnabled
+        testInstrumentationRunner androidParameters.testInstrumentationRunner
     }
 
     buildTypes {
+        Properties dataProperties = new Properties()
+        dataProperties.load(new FileInputStream(file('../data.properties')))
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "String", "themoviedbApiKey", dataProperties["themoviedbApiKey"]
+            buildConfigField "String", "themoviedbURL", dataProperties["themoviedbURL"]
+            buildConfigField "String", "themoviedbImageURL", dataProperties["themoviedbImageURL"]
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        dataBinding true
+        // for view binding:
+        // viewBinding true
+    }
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation project(':core')
+    implementation project(':localdata')
+    implementation project(':remotedata')
+    implementation project(':domain:usecases')
+    implementation files('./libs/singleAdapter2.0.0-release.aar')
+    implementation presentation.main.appcompat
+    implementation presentation.main.material
+    implementation presentation.main.constraintLayout
+    implementation presentation.main.navigationFragment
+    implementation presentation.main.navigationUI
+    implementation presentation.main.rxAndroid
+    implementation presentation.main.glide
+    implementation presentation.main.daggerAndroidSupport
+    annotationProcessor presentation.main.daggerAndroidProcessor
+    annotationProcessor common.main.daggerCompiler
+
+    testImplementation common.test.junit
+    androidTestImplementation common.test.androidJunit
+    androidTestImplementation presentation.test.espressoCore
+    androidTestImplementation presentation.test.espressoContrib
+    androidTestImplementation presentation.test.navigationTesting
+    androidTestAnnotationProcessor common.main.daggerCompiler
+    androidTestImplementation testFixtures(project(":localdata"))
+    androidTestImplementation testFixtures(project(":remotedata"))
+    androidTestImplementation common.test.mockWebServer
+    androidTestImplementation presentation.test.rx2Idler
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+    debugImplementation presentation.test.fragmentTesting
 }
