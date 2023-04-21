@@ -29,7 +29,9 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.4.20/c6761d7805b5312302f2bbd78cda68c976ce0c70/kotlin-stdlib-common-1.4.20.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
         </processorPath>
+        <module name="Clean_Movie.remotedata.testFixtures" />
         <module name="Clean_Movie.core.main" />
+        <module name="Clean_Movie.remotedata.main" />
         <module name="Clean_Movie.domain.usecases.main" />
       </profile>
     </annotationProcessing>

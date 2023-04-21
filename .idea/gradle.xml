@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/domain/entities" />
             <option value="$PROJECT_DIR$/domain/usecases" />
             <option value="$PROJECT_DIR$/localdata" />
+            <option value="$PROJECT_DIR$/remotedata" />
           </set>
         </option>
       </GradleProjectSettings>
