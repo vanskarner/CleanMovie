@@ -16,3 +16,4 @@ rootProject.name = "Clean Movie"
 include ':app'
 include ':core'
 include ':domain:entities'
+include ':domain:usecases'
