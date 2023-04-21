@@ -1,0 +1,97 @@
+@startuml
+!include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+/'Specification'/
+package com.vanskarner.usecases{
+    class MovieDetailDS<<(D,orange)Data Structure>>
+    class MovieDS<<(D,orange)Data Structure>>
+    class MoviesDS<<(D,orange)Data Structure>>
+    class MoviesFilterDS<<(D,orange)Data Structure>>
+    interface MovieServices<<interface>>
+    class MovieDefaultServices
+    class FilterUpcomingMoviesUseCase
+    class ActionFavoriteMovieUseCase
+    class CheckFavoriteMovieUseCase
+    class DeleteAllFavoriteMoviesUseCase
+    class FindFavoriteMovieUseCase
+    class ShowFavoriteMoviesUseCase
+    class ShowUpcomingMoviesUseCase
+    class FindUpcomingMovieUseCase
+    together {
+        interface MovieLocalRepository<<interface>>
+        interface MovieRemoteRepository<<interface>>
+    }
+    class MovieMapper
+    together {
+        class DomainErrorFilter
+        abstract DomainError<<abstract>>
+        class MovieFavoriteLimit
+    }
+    abstract class BaseAsyncOutPutUseCase<OutPut><<abstract>>
+    abstract class BaseAsyncUseCase<InPut, OutPut><<abstract>>
+    abstract class BaseUseCase<InPut, OutPut><<abstract>>
+}
+
+package com.vanskarner.entities{
+    entity MovieBO
+}
+
+package com.vanskarner.core{
+    interface FutureResult<T><<interface>>
+    interface Result<T><<interface>>
+}
+/'Relations'/
+MovieServices ..> MoviesDS
+MovieServices ..> MovieDetailDS
+MovieServices ..> MoviesFilterDS
+MoviesDS --> "0..*" MovieDS: +list
+MoviesFilterDS --> "0..*" MovieDS: +fullList
+MoviesFilterDS --> "0..*" MovieDS: +filterList
+
+MovieDefaultServices .left.|> MovieServices
+MovieDefaultServices --> ShowUpcomingMoviesUseCase
+MovieDefaultServices --> FindUpcomingMovieUseCase
+MovieDefaultServices --> ShowFavoriteMoviesUseCase
+MovieDefaultServices --> FindFavoriteMovieUseCase
+MovieDefaultServices --> CheckFavoriteMovieUseCase
+MovieDefaultServices --> ActionFavoriteMovieUseCase
+MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
+MovieDefaultServices --> FilterUpcomingMoviesUseCase
+
+CheckFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
+ActionFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
+DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
+FindFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
+ShowFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
+ShowUpcomingMoviesUseCase --> MovieRemoteRepository: - remoteRepository
+FindUpcomingMovieUseCase --> MovieRemoteRepository: - remoteRepository
+
+ShowUpcomingMoviesUseCase ..> MovieMapper
+FindUpcomingMovieUseCase ..> MovieMapper
+ShowFavoriteMoviesUseCase ..> MovieMapper
+FindFavoriteMovieUseCase ..> MovieMapper
+
+ActionFavoriteMovieUseCase --> DomainErrorFilter: -domainErrorFilter
+DomainErrorFilter --> "1..*" DomainError: -mapError
+DomainError <|- MovieFavoriteLimit
+
+DeleteAllFavoriteMoviesUseCase --|> BaseAsyncOutPutUseCase
+ShowFavoriteMoviesUseCase --|> BaseAsyncOutPutUseCase
+
+CheckFavoriteMovieUseCase --|> BaseAsyncUseCase
+ActionFavoriteMovieUseCase --|> BaseAsyncUseCase
+FindFavoriteMovieUseCase --|> BaseAsyncUseCase
+ShowUpcomingMoviesUseCase --|> BaseAsyncUseCase
+FindUpcomingMovieUseCase --|> BaseAsyncUseCase
+FilterUpcomingMoviesUseCase --|> BaseUseCase
+
+MovieLocalRepository ..> MovieBO: <<use>>
+MovieRemoteRepository ..> MovieBO: <<use>>
+
+FutureResult <.. MovieServices: <<use>>
+Result <.. MovieServices: <<use>>
+
+/'Visualization'/
+hide members
+skinparam LineType ortho
+@enduml
