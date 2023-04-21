@@ -1,0 +1,19 @@
+@startuml
+!include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+package com.vanskarner.entities{
+    entity MovieBO{
+        - id: int
+        - title: String
+        - image: String
+        - backgroundImage: String
+        - voteCount: int
+        - voteAverage: float
+        - releaseDate: String
+        - overview: String
+
+        + MovieBO(int, String, String, String, int , float , String , String)
+        + calculateRecommendation(): boolean
+    }
+}
+@enduml
