@@ -1,0 +1,22 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle ASSOCIATION{
+    class Person{
+        + Person(...)
+        + setPassport(Passport): void
+    }
+    class Passport{
+        + Passport(...)
+        + setPerson(Person): void
+    }
+    class Language
+    note "'has'" as N1
+}
+
+Person "1" --  "1" Passport
+Person --> "1..*"Language: -languages
+
+hide class attributes
+hide Language members
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle "ENTITY EXAMPLE" {
+    entity Loan {
+        - borrowedAmount: double
+        - interestRate: double
+        - termInMonths: int
+        + Loan(double,double,int)
+        + calculateInterest(): double
+    }
+}
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+!define classNotVisible #A6A6A6;text:black
+
+/'for Package'/
+skinparam packageBackgroundColor #FEFECE
+
+/'for Component'/
+
+
+/'for Class'/
+skinparam class {
+    BackgroundColor<<interface>> paleGreen
+    BackgroundColor<<abstract>> lightCyan
+    BackgroundColor skyBlue
+}
+hide interface attributes
+/'for Figures'/
+skinparam rectangleBackgroundColor white
+
+@enduml

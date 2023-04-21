@@ -1,0 +1,48 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+<style>
+    caption {
+    FontColor green
+    FontSize 18
+    FontStyle bold
+    }
+</style>
+
+rectangle "LISKOV’S SUBSTITUTION PRINCIPLE" {
+
+class AnyClass{
+    + startFlying(FlyingBird)
+}
+interface Bird <<interface>>{
+    + eat(): String
+    + reproduce(): void
+}
+interface FlyingBird<<interface>>{
+    + fly(): void
+}
+class Pigeon{
+    + Pigeon(...)
+    + eat(): String
+    + reproduce(): void
+    + fly(): void
+}
+class Raven{
+    + Raven(...)
+    + eat(): String
+    + reproduce(): void
+    + fly(): void
+}
+class Penguin{
+    + Penguin(...)
+    + eat(): String
+    + reproduce(): void
+}
+caption CORRECT
+AnyClass ..> FlyingBird
+Bird <|-- FlyingBird
+Bird <|. Penguin
+FlyingBird <|.. Pigeon
+FlyingBird <|.. Raven
+
+hide attributes
+@enduml

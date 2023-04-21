@@ -1,0 +1,40 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle "CONTROL FLOW CROSSES THE LIMIT"{
+    package Layer1{
+        class User
+    }
+    package Layer2{
+        class Service{
+            + anyService(Data): void
+        }
+        class Data<<(D,orange)Data Structure>>
+        Service -> Data
+    }
+
+    User .> Service: <<use>>
+    User ..> Data: <<use>>
+}
+rectangle "CROSSING THE BOUNDARY AGAINST THE FLOW OF CONTROL"{
+    package Layer1 as LayerA{
+        class "User" as clientB
+        interface "Service" as ServiceB<<interface>>{
+            +anyService(Data): void
+        }
+        class "Data" as DataB<<(D,orange)Data Structure>>
+
+        ServiceB <-left clientB
+        DataB <-up- clientB
+    }
+    package Layer2 as LayerB{
+        class DefaultService
+    }
+
+    ServiceB <|.. DefaultService
+    DataB <.. DefaultService: <<use>>
+}
+
+hide class members
+show Service methods
+@enduml

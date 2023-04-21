@@ -1,0 +1,36 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+<style>
+    caption {
+    FontColor green
+    FontSize 18
+    FontStyle bold
+    }
+</style>
+
+rectangle "SINGLE RESPONSIBILITY PRINCIPLE" {
+    class Worker{
+        - name: String
+        - baseSalary: double
+        - hourlyRate: HourlyRate
+        - bonuses: Bonuses
+        + Worker(...)
+        ..Getter and Setter..
+    }
+    class CompensationCalculator{
+        + CompensationCalculator(...)
+        + calculateSalary(Worker): double
+    }
+    class ReportGenerator{
+        + ReportGenerator(...)
+        + generateReport(Worker): void
+    }
+}
+caption CORRECT
+
+Worker <.. CompensationCalculator
+Worker <. ReportGenerator
+
+hide CompensationCalculator attributes
+hide ReportGenerator attributes
+@enduml

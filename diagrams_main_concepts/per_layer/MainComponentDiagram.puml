@@ -1,0 +1,24 @@
+@startuml
+!include ../VanskarnerStyle.puml
+
+left to right direction
+title COMPONENT DIAGRAM
+rectangle "domain" {
+    component useCases
+    component entities
+}
+rectangle "data" {
+    component localData
+    component remoteData
+}
+rectangle presentation {
+    component app
+}
+
+useCases .> entities
+useCases <.. localData
+useCases <.. remoteData
+entities <.. localData
+entities <.. remoteData
+app ..> useCases
+@enduml

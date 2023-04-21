@@ -1,0 +1,32 @@
+@startmindmap
+
+title COMPONENT MAIN
+* :app
+** AppComponent
+*** ProjectParametersModule
+*** :core
+**** CoreModule
+*** :usecases
+**** DomainModule
+***** MovieServicesModule
+****** MovieErrorModule
+*** :localData
+**** LocalDataModule
+***** MovieLocalModule
+*** :remoteData
+**** RemoteDataModule
+***** RemoteErrorsModule
+***** MovieRemoteModule
+*** ViewModule
+**** AndroidInjectionModule
+**** FragmentBuildersModule
+***** FavoritesModule
+***** UpcomingModule
+***** UpcomingDetailModule
+**** ViewErrorTypesModule
+legend
+It establishes the initial conditions and configurations
+end legend
+
+skinparam legendBackgroundColor #FEFECE
+@endmindmap

@@ -1,0 +1,25 @@
+@startuml
+!include ../VanskarnerStyle.puml
+
+title COMPONENT DIAGRAM WITH MAIN
+component core
+component movie #white{
+    component localData
+    component remoteData
+    component domain
+
+    domain <.. remoteData
+    domain <.. localData
+}
+rectangle presentation{
+    component app
+}
+component main
+
+main ..> core
+main ..> app
+main ..> movie
+core <.. movie
+core <.. app
+movie <.left. app
+@enduml

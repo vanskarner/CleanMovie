@@ -1,0 +1,8 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle "BASIC REPRESENTATION"{
+    component Order
+    component Product <<component>>
+}
+@enduml

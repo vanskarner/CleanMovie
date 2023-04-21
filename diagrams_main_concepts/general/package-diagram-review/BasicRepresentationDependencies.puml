@@ -1,0 +1,31 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle "BASIC REPRESENTATION AND DEPENDENCIES"{
+    package app {
+        class Presenter
+    }
+    package domain{
+        class UseCase
+        interface Repository<<interface>>
+
+        UseCase --> Repository
+    }
+    package data{
+        class DefaultRepository
+    }
+
+    /'---'/
+    package "app" as app2{}
+    package "domain" as domain2{}
+    package "data" as data2{}
+}
+
+Presenter ..> UseCase: <<use>>
+Repository <|.. DefaultRepository
+app2 ..> domain2: <<use>>
+domain2 <.. data2: <<use>>
+
+left to right direction
+hide members
+@enduml

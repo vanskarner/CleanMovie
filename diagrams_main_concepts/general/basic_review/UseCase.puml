@@ -1,0 +1,17 @@
+@startuml
+
+note as DescriptionUseCase
+                                                          Login Validation
+Input: Email and password
+OutPut: Confirmation of successful login or error message indicating the reason for failure
+
+Steps:
+    1. The user enters their email and password.
+    2. The system verifies that the fields are not empty and meet the format requirements.
+    3. The system searches the account in the database.
+    4. If the account exists, the system verifies the password.
+    5. If the password is correct, the user logs in.
+    6. If the account does not exist or the password is incorrect, the system displays an error message.
+end note
+
+@enduml

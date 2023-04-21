@@ -1,0 +1,33 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+<style>
+    caption {
+    FontColor green
+    FontSize 18
+    FontStyle bold
+    }
+</style>
+
+rectangle "INTERFACE SEGREGATION PRINCIPLE"{
+    interface LocalRepository<<interface>>{
+        + getLocalItems(): List<Item>
+    }
+    interface RemoteRepository<<interface>>{
+        + getRemoteItems(): List<Item>
+    }
+    class ItemRemoteRepository{
+        + ItemRemoteRepository(...)
+        + getRemoteItems(): List<Item>
+    }
+    class ItemLocalRepository{
+        + ItemLocalRepository(...)
+        + getLocalItems(): List<Item>
+    }
+}
+caption CORRECT
+
+ItemLocalRepository ..|> LocalRepository
+ItemRemoteRepository ..|> RemoteRepository
+
+hide class attributes
+@enduml

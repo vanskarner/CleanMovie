@@ -1,0 +1,34 @@
+@startuml
+!include ../VanskarnerStyle.puml
+
+title SERVICE EXPOSURE
+
+interface MovieServices<<interface>>
+class MovieDetailDS<<(D,orange)Data Structure>>
+class MovieDS<<(D,orange)Data Structure>>
+class MoviesDS<<(D,orange)Data Structure>>
+class MoviesFilterDS<<(D,orange)Data Structure>>
+abstract MovieError<<abstract>>
+class FavoriteLimit
+abstract class MovieRemoteError<<abstract>>
+class Unauthorised
+class NotFound
+class Server
+class ServiceUnavailable
+class NoInternet
+
+MovieServices ..> MoviesDS
+MovieServices ..> MovieDetailDS
+MovieServices ..> MoviesFilterDS
+MoviesDS --> "0..*" MovieDS
+MoviesFilterDS --> "0..*" MovieDS
+MoviesFilterDS --> "0..*" MovieDS
+MovieError <|-- FavoriteLimit
+MovieRemoteError <|-- NoInternet
+MovieRemoteError <|-- NotFound
+MovieRemoteError <|-- Server
+MovieRemoteError <|-- ServiceUnavailable
+MovieRemoteError <|-- Unauthorised
+
+hide members
+@enduml

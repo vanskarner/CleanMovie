@@ -1,0 +1,30 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle "BASIC REPRESENTATIONS" {
+    class AnyClass{
+        - attrib1: String
+        # attrib2: int
+        ~ attrib3: float
+        + attrib4: double
+        + AnyClass(String,int,float,double)
+        + AnyClass(...)
+        - method1(String): String
+        # method2(double): int
+        ~ method3(int): float
+        + method4(): void
+        +{static} staticMethod():void
+    }
+    interface AnyInterface<<interface>>{
+        + someMethod(String): void
+    }
+    abstract AnyAbstract<<abstract>>{
+        - attrib1: String
+        # attrib2: int
+        ~ attrib3: float
+        + attrib4: double
+        + AnyAbstract(...)
+        +{abstract} abstractMethod(String): void
+    }
+}
+@enduml

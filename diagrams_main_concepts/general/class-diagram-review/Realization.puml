@@ -1,0 +1,15 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle REALIZATION{
+    interface Fee<<interface>>
+    class NormalFee
+    class SpecialFee
+    note "'implements'" as N4
+}
+
+Fee <|.. NormalFee
+Fee <|. SpecialFee
+
+hide members
+@enduml

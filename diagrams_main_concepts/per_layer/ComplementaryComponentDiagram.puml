@@ -1,0 +1,33 @@
+@startuml
+!include ../VanskarnerStyle.puml
+
+left to right direction
+title COMPLEMENTARY COMPONENT DIAGRAM
+rectangle "domain" {
+    component useCases
+    component entities
+    interface services
+
+    services - useCases
+}
+rectangle "data" {
+    component localData
+    component remoteData
+}
+rectangle presentation {
+    component app
+}
+component core
+
+core <.. app
+core <.. useCases
+core <.. localData
+core <.. remoteData
+
+useCases ..> entities
+useCases <.. localData
+useCases <.. remoteData
+entities <.. localData
+entities <.. remoteData
+app ..> services
+@enduml

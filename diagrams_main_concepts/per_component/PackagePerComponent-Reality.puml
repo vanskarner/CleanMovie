@@ -1,0 +1,28 @@
+@startuml
+!include ../VanskarnerStyle.puml
+
+title REALITY DUE TO CONTEXT
+package com.vanskarner.cleanmovie{
+    class FavoritesPresenter
+}
+package com.vanskarner.movie{
+    interface MovieServices<<interface>>
+    class MovieDefaultServices
+    interface MovieLocalRepository<<interface>>
+    class FindFavoriteMovieUseCase
+    class MovieLocalRxRepository
+
+    MovieServices <|.. MovieDefaultServices
+    MovieDefaultServices --> FindFavoriteMovieUseCase
+    FindFavoriteMovieUseCase --> MovieLocalRepository
+    MovieLocalRepository <|.. MovieLocalRxRepository
+}
+
+FavoritesPresenter ..> MovieServices
+
+skinparam titleFontColor red
+class MovieDefaultServices classNotVisible
+class FindFavoriteMovieUseCase classNotVisible
+class MovieLocalRxRepository classNotVisible
+hide members
+@enduml

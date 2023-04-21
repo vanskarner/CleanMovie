@@ -1,0 +1,49 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+rectangle "OBJECT"{
+    interface Shape<<interface>>{
+        + area(): float
+    }
+    class Circle{
+        - radius: float
+        + area(): float
+    }
+    class Square{
+        - side: float
+        + area(): float
+    }
+    Shape <|.. Circle
+    Shape <|.. Square
+
+    note as N1
+      <b><color:green>It's easy to add new types.</color>
+      <b><color:red>It's difficult to add new functions.</color>
+    end note
+}
+rectangle "DATA STRUCTURE"{
+    enum "Shape" as Shape2{
+        Circle
+        Square
+    }
+    class Shapes{
+        + type: Shape
+        + radius: float
+        + side: float
+        + area(): float
+    }
+    note bottom
+    Discriminated Unions:
+    Data structure that allows different types of data to be stored in a single variable
+    end note
+
+    Shapes - Shape2
+
+    note as N2
+      <b><color:red>It's difficult to add new types.</color>
+      <b><color:green>It's easy to add new functions.</color>
+    end note
+
+    hide Shape2 methods
+}
+
+@enduml

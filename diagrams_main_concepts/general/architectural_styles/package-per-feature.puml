@@ -1,0 +1,25 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+
+rectangle "PACKAGE PER FEATURE" {
+    package app{
+        class MoviePresenter
+        interface MovieServices<<interface>>
+        class MovieDefaultServices
+        interface MovieRepository<<interface>>
+        class MovieDefaultRepository
+
+        MovieServices <|.. MovieDefaultServices
+        MovieRepository <|.. MovieDefaultRepository
+    }
+}
+
+MoviePresenter --> MovieServices
+MovieDefaultServices --> MovieRepository
+
+interface MovieServices classNotVisible
+class MovieDefaultServices classNotVisible
+interface MovieRepository classNotVisible
+class MovieDefaultRepository classNotVisible
+hide members
+@enduml
