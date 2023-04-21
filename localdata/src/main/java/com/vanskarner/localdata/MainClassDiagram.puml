@@ -1,0 +1,51 @@
+@startuml
+!include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+/'Specification'/
+package com.vanskarner.localdata{
+    interface MovieDao<<interface>>{
+        + insert(MovieEntity): Completable
+        + find(int): Single<MovieEntity>
+        + toList(): Single<List<MovieEntity>>
+        + deleteItem(int): Completable
+        + deleteAll(): Single<Integer>
+        + getQuantity(): Single<Integer>
+        + checkExistence(int): Single<Boolean>
+    }
+    class MovieEntity<<(D,orange)Data Structure>> {
+        + id: int
+        + title: String
+        + encodedImage: String
+        + encodedBackgroundImage: String
+        + voteCount: int
+        + voteAverage: float
+        + releaseDate: String
+        + overview: String
+        +MovieEntity(int,String,String,String,
+        int,float,String,String)
+    }
+    class MovieLocalRxRepository{
+        - rxFutureFactory: RxFutureFactory
+        + MovieLocalRxRepository(RxFutureFactory,MovieDao)
+        + getMovies(): FutureResult<List<MovieBO>>
+        + getMovie(int): FutureResult<MovieBO>
+        + deleteMovie(int): FutureSimpleResult
+        + deleteAllMovies(): FutureResult<Integer>
+        + getNumberMovies(): FutureResult<Integer>
+        + checkMovie(int): FutureResult<Boolean>
+        + saveMovie(MovieBO): FutureSimpleResult
+    }
+    class MovieLocalDataMapper {
+        - MovieLocalDataMapper()
+        ~{static} convert(MovieEntity): MovieBO
+        ~{static} convert(MovieBO): MovieEntity
+        ~{static} convert(List<MovieEntity>): List<MovieBO>
+    }
+}
+
+/'Relations'/
+MovieLocalRxRepository --> MovieDao: -dao
+MovieDao ..> MovieEntity
+MovieLocalRxRepository ..> MovieLocalDataMapper
+MovieLocalDataMapper ..> MovieEntity
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+!include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+/'Specification'/
+package com.vanskarner.localdata{
+    interface MovieDao<<interface>>
+    class MovieEntity<<(D,orange)Data Structure>>
+    class MovieLocalRxRepository
+    class MovieLocalDataMapper
+}
+package com.vanskarner.entities {
+    entity MovieBO
+}
+package com.vanskarner.usecases {
+    interface MovieLocalRepository<<interface>>
+}
+
+/'Relations'/
+MovieLocalRxRepository --> MovieDao: -dao
+MovieDao ..> MovieEntity
+MovieLocalRxRepository ..> MovieLocalDataMapper
+MovieLocalDataMapper ..> MovieEntity
+MovieLocalRepository .> MovieBO: <<use>>
+MovieLocalRepository <|.. MovieLocalRxRepository
+
+/'Visualization'/
+hide members
+@enduml
