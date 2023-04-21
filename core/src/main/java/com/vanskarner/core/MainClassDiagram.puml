@@ -1,0 +1,91 @@
+@startuml
+!include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+package com.vanskarner.core{
+    interface Result<T><<interface>>{
+        + map(ExceptionFunction<? super T, ? extends U>): Result<U>
+        + flatMap(ExceptionFunction<? super T, ? extends Result< U >>): Result<U>
+        + get(): T
+        + onSuccess(Consumer<? super T>): Result<T>
+        + onFailure(Consumer<? super Exception>): Result<T>
+        + onResult(Consumer<? super T>, Consumer<? super Exception>): void
+        + {static} failure(Exception): Result<T>
+        + {static} success(T): Result<T>
+    }
+    class Success<T>{
+        - value: T
+        + Success(T)
+        + map(ExceptionFunction<? super T, ? extends U>): Result<U>
+        + flatMap(ExceptionFunction<? super T, ? extends Result< U >>): Result<U>
+        + get(): T
+        + onSuccess(Consumer<? super T>): Result<T>
+        + onFailure(Consumer<? super Exception>): Result<T>
+        + onResult(Consumer<? super T>, Consumer<? super Exception>): void
+    }
+    class Failure<T>{
+        - error : Exception
+        + Failure(Exception)
+        + map(ExceptionFunction<? super T, ? extends U>): Result<U>
+        + flatMap(ExceptionFunction<? super T, ? extends Result< U >>): Result<U>
+        + get(): T
+        + onSuccess(Consumer<? super T>): Result<T>
+        + onFailure(Consumer<? super Exception>): Result<T>
+        + onResult(Consumer<? super T>, Consumer<? super Exception>): void
+    }
+    interface FutureResult<T><<interface>>{
+        + map(ExceptionFunction<? super T, ? extends U>): FutureResult<U>
+        + flatMap(ExceptionFunction<? super T, ? extends FutureResult< U>>): FutureResult<U>
+        + onResult(Consumer<? super T>, Consumer<? super Throwable>): void
+        + get(): T
+    }
+    interface FutureSimpleResult<<interface>>{
+        + onResult(Runnable, Consumer<? super Throwable>): void
+        + await(): void
+        + toFutureResult(T): <T> FutureResult<T>
+    }
+    interface RxFutureFactory<<interface>>{
+        + fromSingle(Single<T>): <T> FutureResult<T>
+        + fromCompletable(Completable): FutureSimpleResult
+    }
+    class DefaultRxFutureFactory{
+        - compositeDisposable: CompositeDisposable
+        - executorThread: Scheduler
+        - responseThread: Scheduler
+        + DefaultRxFutureFactory(CompositeDisposable Scheduler,Scheduler)
+        + fromSingle(Single<T>): <T> FutureResult<T>
+        + fromCompletable(Completable): FutureSimpleResult
+    }
+    class SingleFutureResult<T>{
+        - tSingle: Single<T>
+        - compositeDisposable: CompositeDisposable
+        - executorThread: Scheduler
+        - responseThread: Scheduler
+        ~ SingleFutureResult(Single<T>,CompositeDisposable,Scheduler,Scheduler)
+        + map(ExceptionFunction<? super T, ? extends U>): FutureResult<U>
+        + flatMap(ExceptionFunction<? super T, ? extends FutureResult< U>>): FutureResult<U>
+        + onResult(Consumer<? super T>, Consumer<? super Throwable>): void
+        + get(): T
+    }
+    class CompletableFutureSimpleResult{
+        - completable: Completable
+        - compositeDisposable: CompositeDisposable
+        - executorThread: Scheduler
+        - responseThread: Scheduler
+        ~ CompletableFutureSimpleResult(Completable,CompositeDisposable,Scheduler,Scheduler)
+        + onResult(Runnable, Consumer<? super Throwable>): void
+        + await(): void
+        + toFutureResult(T): <T> FutureResult<T>
+    }
+}
+
+Result <|.. Success
+Result <|.. Failure
+FutureResult <.. RxFutureFactory
+FutureSimpleResult <.. RxFutureFactory
+RxFutureFactory <|.. DefaultRxFutureFactory
+SingleFutureResult <.. DefaultRxFutureFactory
+CompletableFutureSimpleResult <.. DefaultRxFutureFactory
+FutureResult <|.. SingleFutureResult
+FutureSimpleResult <|.. CompletableFutureSimpleResult
+FutureSimpleResult .> FutureResult
+@enduml

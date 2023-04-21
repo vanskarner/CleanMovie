@@ -1,0 +1,31 @@
+@startuml
+!include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+/'Specification'/
+package com.vanskarner.core{
+    interface Result<T><<interface>>
+    class Success<T>
+    class Failure<T>
+    interface FutureResult<T><<interface>>
+    interface FutureSimpleResult<<interface>>
+    interface RxFutureFactory<<interface>>
+    class DefaultRxFutureFactory
+    class SingleFutureResult<T>
+    class CompletableFutureSimpleResult
+}
+
+/'Relations'/
+Result <|.. Success
+Result <|.. Failure
+FutureResult <.. RxFutureFactory
+FutureSimpleResult <.. RxFutureFactory
+RxFutureFactory <|.. DefaultRxFutureFactory
+SingleFutureResult <.. DefaultRxFutureFactory
+CompletableFutureSimpleResult <.. DefaultRxFutureFactory
+FutureResult <|.. SingleFutureResult
+FutureSimpleResult <|.. CompletableFutureSimpleResult
+FutureSimpleResult .> FutureResult
+
+/'Visualization'/
+hide members
+@enduml
