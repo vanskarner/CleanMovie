@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--networkSecurityConfig >= API 24-->
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:node="merge"
+        tools:targetApi="n"
+        tools:ignore="MissingApplicationIcon" />
+
+</manifest>
