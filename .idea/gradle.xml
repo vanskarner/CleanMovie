@@ -15,6 +15,8 @@
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/entities" />
             <option value="$PROJECT_DIR$/domain/usecases" />
+            <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/movie" />
             <option value="$PROJECT_DIR$/localdata" />
             <option value="$PROJECT_DIR$/remotedata" />
           </set>
