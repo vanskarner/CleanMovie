@@ -4,11 +4,11 @@ import javax.inject.Qualifier;
 
 public class MovieRemoteDataQualifiers {
     @Qualifier
-    public @interface BaseImageUrl {
+    public @interface MovieImageUrl {
     }
 
     @Qualifier
-    public @interface BaseUrl {
+    public @interface MovieUrl {
     }
 
     @Qualifier
