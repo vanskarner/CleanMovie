@@ -1,0 +1,124 @@
+@startuml
+!include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+/'Specification'/
+package com.vanskarner.movie{
+    package domain{
+        class MovieDetailDS<<(D,orange)Data Structure>>
+        class MovieDS<<(D,orange)Data Structure>>
+        class MoviesDS<<(D,orange)Data Structure>>
+        class MoviesFilterDS<<(D,orange)Data Structure>>
+        interface MovieServices<<interface>>
+        class MovieDefaultServices
+        class FilterUpcomingMoviesUseCase
+        class ActionFavoriteMovieUseCase
+        class CheckFavoriteMovieUseCase
+        class DeleteAllFavoriteMoviesUseCase
+        class FindFavoriteMovieUseCase
+        class ShowFavoriteMoviesUseCase
+        class ShowUpcomingMoviesUseCase
+        class FindUpcomingMovieUseCase
+        together {
+            interface MovieLocalRepository<<interface>>
+            interface MovieRemoteRepository<<interface>>
+        }
+        class MovieMapper
+        together {
+            class MovieErrorFilter
+            abstract MovieError<<abstract>>
+            class FavoriteLimit
+        }
+        entity MovieBO
+    }
+    package data.local{
+        interface MovieDao<<interface>>
+        class MovieEntity<<(D,orange)Data Structure>>
+        class MovieLocalRxRepository
+        class MovieLocalDataMapper
+    }
+    package data.remote{
+        class MovieRemoteRxRepository
+        class MovieDeserializer
+        class MovieDTO<<(D,orange)Data Structure>>
+        class MovieRemoteDataMapper
+        interface MovieApiClient<<interface>>
+        class MoviesResultDTO<<(D,orange)Data Structure>>
+        class MovieRemoteDataErrorFilter
+        abstract class MovieRemoteError<<abstract>>
+        class Unauthorised
+        class NotFound
+        class Server
+        class ServiceUnavailable
+        class NoInternet
+        class MovieRemoteErrorInterceptor
+    }
+}
+
+/'Relations'/
+MovieServices ..> MoviesDS
+MovieServices ..> MovieDetailDS
+MovieServices ..> MoviesFilterDS
+MoviesDS --> "0..*" MovieDS
+MoviesFilterDS --> "0..*" MovieDS
+MoviesFilterDS --> "0..*" MovieDS
+
+MovieDefaultServices .left.|> MovieServices
+MovieDefaultServices --> ShowUpcomingMoviesUseCase
+MovieDefaultServices --> FindUpcomingMovieUseCase
+MovieDefaultServices --> ShowFavoriteMoviesUseCase
+MovieDefaultServices --> FindFavoriteMovieUseCase
+MovieDefaultServices --> CheckFavoriteMovieUseCase
+MovieDefaultServices --> ActionFavoriteMovieUseCase
+MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
+MovieDefaultServices --> FilterUpcomingMoviesUseCase
+
+CheckFavoriteMovieUseCase --> MovieLocalRepository
+ActionFavoriteMovieUseCase --> MovieLocalRepository
+DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository
+FindFavoriteMovieUseCase --> MovieLocalRepository
+ShowFavoriteMoviesUseCase --> MovieLocalRepository
+ShowUpcomingMoviesUseCase --> MovieRemoteRepository
+FindUpcomingMovieUseCase --> MovieRemoteRepository
+
+ShowUpcomingMoviesUseCase ..> MovieMapper
+FindUpcomingMovieUseCase ..> MovieMapper
+ShowFavoriteMoviesUseCase ..> MovieMapper
+FindFavoriteMovieUseCase ..> MovieMapper
+
+ActionFavoriteMovieUseCase --> MovieErrorFilter
+MovieErrorFilter --> "1..*" MovieError
+MovieError <|- FavoriteLimit
+
+MovieLocalRepository ..> MovieBO
+MovieRemoteRepository ..> MovieBO
+/'Relations - local-data:start'/
+MovieLocalRxRepository --> MovieDao
+MovieDao ..> MovieEntity
+MovieLocalRxRepository ..> MovieLocalDataMapper
+MovieLocalDataMapper ..> MovieEntity
+MovieLocalRxRepository ..|> MovieLocalRepository
+/'Relations - local-data:end'/
+
+/'Relations - remote-data:start'/
+MovieRemoteRxRepository ..|> MovieRemoteRepository
+MovieRemoteRxRepository --> MovieApiClient
+MovieRemoteRxRepository ..> MovieRemoteDataMapper
+MovieApiClient ..> MovieDTO
+MovieApiClient ..> MoviesResultDTO
+MovieRemoteDataMapper ..> MovieDTO
+MovieDeserializer ..> MovieDTO
+MoviesResultDTO -> "0..*" MovieDTO
+MovieRemoteDataErrorFilter --> "1..*" MovieRemoteError
+MovieRemoteDataErrorFilter --> "1" MovieRemoteError
+MovieRemoteError <|-- NoInternet
+MovieRemoteError <|-- NotFound
+MovieRemoteError <|-- Server
+MovieRemoteError <|-- ServiceUnavailable
+MovieRemoteError <|-- Unauthorised
+MovieRemoteErrorInterceptor --> MovieRemoteDataErrorFilter
+/'Relations - remote-data:end'/
+
+/'Visualization'/
+hide members
+skinparam LineType ortho
+@enduml
