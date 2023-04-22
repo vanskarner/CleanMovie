@@ -3,15 +3,14 @@ package com.vanskarner.cleanmovie.di;
 import android.content.Context;
 
 import com.vanskarner.cleanmovie.TestApp;
+import com.vanskarner.cleanmovie.db.TestAppDBModule;
 import com.vanskarner.cleanmovie.di.modules.ViewModule;
 import com.vanskarner.cleanmovie.features.MenuActivityTest;
 import com.vanskarner.cleanmovie.features.movie.favorites.FavoritesFragmentTest;
 import com.vanskarner.cleanmovie.features.movie.upcoming.UpcomingFragmentTest;
 import com.vanskarner.cleanmovie.features.movie.upcomingDetail.UpcomingDetailFragmentTest;
 import com.vanskarner.core.CoreModule;
-import com.vanskarner.localdata.TestLocalDataModule;
-import com.vanskarner.remotedata.TestRemoteDataModule;
-import com.vanskarner.usecases.DomainModule;
+import com.vanskarner.movie.MovieTestModule;
 
 import javax.inject.Singleton;
 
@@ -22,10 +21,9 @@ import dagger.android.AndroidInjector;
 @Singleton
 @Component(modules = {
         TestParametersModule.class,
+        TestAppDBModule.class,
         CoreModule.class,
-        DomainModule.class,
-        TestLocalDataModule.class,
-        TestRemoteDataModule.class,
+        MovieTestModule.class,
         ViewModule.class
 })
 public interface TestAppComponent extends AndroidInjector<TestApp> {

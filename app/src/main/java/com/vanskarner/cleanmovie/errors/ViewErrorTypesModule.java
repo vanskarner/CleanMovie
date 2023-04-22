@@ -8,8 +8,8 @@ import com.vanskarner.cleanmovie.errors.types.ServerError;
 import com.vanskarner.cleanmovie.errors.types.ServiceUnavailableError;
 import com.vanskarner.cleanmovie.errors.types.UnauthorisedError;
 import com.vanskarner.cleanmovie.errors.types.UnknownError;
-import com.vanskarner.remotedata.RemoteError;
-import com.vanskarner.usecases.movie.error.MovieFavoriteLimit;
+import com.vanskarner.movie.data.remote.MovieRemoteError;
+import com.vanskarner.movie.domain.error.MovieError;
 
 import dagger.Binds;
 import dagger.Module;
@@ -24,32 +24,32 @@ public abstract class ViewErrorTypesModule {
 
     @Binds
     @IntoMap
-    @ClassKey(RemoteError.NotFound.class)
+    @ClassKey(MovieRemoteError.NotFound.class)
     abstract ErrorView<?> bindNotFound(NotFoundError notFoundError);
 
     @Binds
     @IntoMap
-    @ClassKey(RemoteError.ServiceUnavailable.class)
+    @ClassKey(MovieRemoteError.ServiceUnavailable.class)
     abstract ErrorView<?> bindServiceUnavailable(ServiceUnavailableError serviceUnavailableError);
 
     @Binds
     @IntoMap
-    @ClassKey(RemoteError.NoInternet.class)
+    @ClassKey(MovieRemoteError.NoInternet.class)
     abstract ErrorView<?> bindNoInternet(NoInternetError noInternetError);
 
     @Binds
     @IntoMap
-    @ClassKey(RemoteError.Unauthorised.class)
+    @ClassKey(MovieRemoteError.Unauthorised.class)
     abstract ErrorView<?> bindUnauthorised(UnauthorisedError unauthorisedError);
 
     @Binds
     @IntoMap
-    @ClassKey(RemoteError.Server.class)
+    @ClassKey(MovieRemoteError.Server.class)
     abstract ErrorView<?> bindServer(ServerError serverError);
 
     @Binds
     @IntoMap
-    @ClassKey(MovieFavoriteLimit.class)
+    @ClassKey(MovieError.FavoriteLimit.class)
     abstract ErrorView<?> bindFavoritesLimit(FavoritesLimitError favoritesLimitError);
 
 }

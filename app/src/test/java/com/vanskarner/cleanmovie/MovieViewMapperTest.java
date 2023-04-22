@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import com.vanskarner.cleanmovie.features.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.features.movie.MovieModel;
 import com.vanskarner.cleanmovie.features.movie.MovieViewMapper;
-import com.vanskarner.usecases.movie.ds.MovieDS;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
+import com.vanskarner.movie.domain.ds.MovieDS;
+import com.vanskarner.movie.domain.ds.MovieDetailDS;
+import com.vanskarner.movie.domain.ds.MoviesFilterDS;
 
 import org.junit.Test;
 

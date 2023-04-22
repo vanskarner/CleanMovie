@@ -3,12 +3,11 @@ package com.vanskarner.cleanmovie.di;
 import android.content.Context;
 
 import com.vanskarner.cleanmovie.App;
+import com.vanskarner.cleanmovie.db.AppDBModule;
 import com.vanskarner.cleanmovie.di.modules.ProjectParametersModule;
 import com.vanskarner.cleanmovie.di.modules.ViewModule;
 import com.vanskarner.core.CoreModule;
-import com.vanskarner.localdata.LocalDataModule;
-import com.vanskarner.remotedata.RemoteDataModule;
-import com.vanskarner.usecases.DomainModule;
+import com.vanskarner.movie.MovieModule;
 
 import javax.inject.Singleton;
 
@@ -19,10 +18,9 @@ import dagger.android.AndroidInjector;
 @Singleton
 @Component(modules = {
         ProjectParametersModule.class,
+        AppDBModule.class,
         CoreModule.class,
-        DomainModule.class,
-        LocalDataModule.class,
-        RemoteDataModule.class,
+        MovieModule.class,
         ViewModule.class
 })
 public interface AppComponent extends AndroidInjector<App> {

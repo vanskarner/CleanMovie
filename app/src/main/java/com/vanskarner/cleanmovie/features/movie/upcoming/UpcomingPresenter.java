@@ -3,8 +3,8 @@ package com.vanskarner.cleanmovie.features.movie.upcoming;
 import com.vanskarner.cleanmovie.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.features.movie.MovieModel;
 import com.vanskarner.cleanmovie.features.movie.MovieViewMapper;
-import com.vanskarner.usecases.movie.MovieServices;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
+import com.vanskarner.movie.domain.ds.MoviesFilterDS;
+import com.vanskarner.movie.domain.services.MovieServices;
 
 import java.util.List;
 

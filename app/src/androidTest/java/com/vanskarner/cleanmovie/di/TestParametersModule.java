@@ -3,7 +3,7 @@ package com.vanskarner.cleanmovie.di;
 import com.vanskarner.cleanmovie.BuildConfig;
 import com.vanskarner.cleanmovie.di.qualiers.ViewQualifiers;
 import com.vanskarner.core.CoreQualifiers;
-import com.vanskarner.remotedata.MovieRemoteDataQualifiers;
+import com.vanskarner.movie.data.remote.MovieRemoteDataQualifiers;
 
 import javax.inject.Singleton;
 
@@ -47,14 +47,14 @@ public class TestParametersModule {
 
     @Provides
     @Singleton
-    @MovieRemoteDataQualifiers.BaseUrl
+    @MovieRemoteDataQualifiers.MovieUrl
     static String provideBaseurl() {
         return "http://localhost:8080/";
     }
 
     @Provides
     @Singleton
-    @MovieRemoteDataQualifiers.BaseImageUrl
+    @MovieRemoteDataQualifiers.MovieImageUrl
     static String provideBaseImageUrl() {
         return BuildConfig.themoviedbImageURL;
     }

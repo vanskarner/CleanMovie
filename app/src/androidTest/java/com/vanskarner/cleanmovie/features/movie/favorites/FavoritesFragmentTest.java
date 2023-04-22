@@ -22,14 +22,15 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import com.vanskarner.cleanmovie.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.TestApp;
 import com.vanskarner.cleanmovie.utils.FileUtils;
-import com.vanskarner.usecases.movie.MovieServices;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.vanskarner.cleanmovie.R;
+import com.vanskarner.movie.domain.ds.MovieDetailDS;
+import com.vanskarner.movie.domain.services.MovieServices;
+
 import java.io.IOException;
 
 import javax.inject.Inject;

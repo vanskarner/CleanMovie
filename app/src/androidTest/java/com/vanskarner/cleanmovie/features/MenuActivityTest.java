@@ -28,16 +28,16 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import com.vanskarner.cleanmovie.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.TestApp;
 import com.vanskarner.cleanmovie.utils.TestMockWebServer;
-import com.vanskarner.usecases.movie.MovieServices;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.usecases.movie.ds.MovieDS;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
+import com.vanskarner.movie.domain.ds.MovieDS;
+import com.vanskarner.movie.domain.ds.MovieDetailDS;
+import com.vanskarner.movie.domain.ds.MoviesFilterDS;
+import com.vanskarner.movie.domain.services.MovieServices;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

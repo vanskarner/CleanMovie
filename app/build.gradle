@@ -44,9 +44,7 @@ android {
 dependencies {
 
     implementation project(':core')
-    implementation project(':localdata')
-    implementation project(':remotedata')
-    implementation project(':domain:usecases')
+    implementation project(':features:movie')
     implementation files('./libs/singleAdapter2.0.0-release.aar')
     implementation presentation.main.appcompat
     implementation presentation.main.material
@@ -56,6 +54,9 @@ dependencies {
     implementation presentation.main.rxAndroid
     implementation presentation.main.glide
     implementation presentation.main.daggerAndroidSupport
+    implementation localData.main.roomRuntime
+    implementation localData.main.roomRxjava2
+    annotationProcessor localData.main.roomCompiler
     annotationProcessor presentation.main.daggerAndroidProcessor
     annotationProcessor common.main.daggerCompiler
 
@@ -65,8 +66,7 @@ dependencies {
     androidTestImplementation presentation.test.espressoContrib
     androidTestImplementation presentation.test.navigationTesting
     androidTestAnnotationProcessor common.main.daggerCompiler
-    androidTestImplementation testFixtures(project(":localdata"))
-    androidTestImplementation testFixtures(project(":remotedata"))
+    androidTestImplementation testFixtures(project(":features:movie"))
     androidTestImplementation common.test.mockWebServer
     androidTestImplementation presentation.test.rx2Idler
     // Testing code should not be included in the main code.
