@@ -7,7 +7,7 @@ Review of the most relevant concepts of the book in a simple android project
 The project has been built using the most basic elements to ensure simplicity in understanding, without getting lost in the multitude of details that exist in current Android development. However, the main reason for using JAVA in development is to explain the significance of context, which becomes highly relevant towards the end of these guides.
 
 ## Project division
-he repository has 2 branches that represent the same project. These branches represent the design and organization of the code adapted for these series of guides
+The repository has 2 branches that represent the same project. These branches represent the design and organization of the code adapted for these series of guides
 
 ## Testing capability
 Each module of the project has its associated unit and integration tests according to the branch of the project.
