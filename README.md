@@ -23,4 +23,14 @@ End-to-end and integration testing:
 ![TestResult_CleanMovie](https://user-images.githubusercontent.com/39975255/234136214-c9aa2faa-cde7-41e8-be7d-a1633991d3f0.jpg)
 ![TestResult_CleanMovie](https://user-images.githubusercontent.com/39975255/234135918-05f205b7-6296-43a5-b0f5-b2d5ed23d5d8.gif)
 
-You can refer to the [Wiki](https://github.com/vanskarner/CleanMovie/wiki) for further explanation.
+## Considerations
+- If you want to use the app, you need to first generate your developer api key at [Themoviedb API](https://www.themoviedb.org/settings/api). Then once generated, you must put in the file [data.properties](https://github.com/vanskarner/CleanMovie/blob/package_per_component/data.properties):
+```properties
+#Project properties
+themoviedbApiKey="HERE_YOUR_KEY"
+```
+- To run any type of test, an API key is not necessary.
+
+## Wiki
+The important thing is not what the system does, but how we integrate the main concepts from a practical point of view.
+Know in detail the explanation of clean architecture following the guides that I provide [HERE](https://github.com/vanskarner/CleanMovie/wiki)
