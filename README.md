@@ -23,7 +23,7 @@ The repository has 2 branches that represent the same project. These branches re
 ## Testing capability
 Each module of the project has its associated unit and integration tests according to the branch of the project.
 
-|End-to-end test running|End-to-end test report|
+|Execution of end-to-end and integration tests|End-to-end and integration test report|
 |-|-|
 |![EndToEndTestRunning](https://user-images.githubusercontent.com/39975255/234135918-05f205b7-6296-43a5-b0f5-b2d5ed23d5d8.gif)|![EndToEndTestReport](https://user-images.githubusercontent.com/39975255/234136214-c9aa2faa-cde7-41e8-be7d-a1633991d3f0.jpg)|
 
@@ -31,7 +31,7 @@ Each module of the project has its associated unit and integration tests accordi
 Get a broader understanding of clean architecture by following the guidelines provided [HERE](https://github.com/vanskarner/CleanMovie/wiki)
 
 ## Discussions
-Refer to the issues section [HERE](https://github.com/vanskarner/CleanMovie/discussions)
+Refer to the discussions section [HERE](https://github.com/vanskarner/CleanMovie/discussions)
 
 ## Considerations
 - If you want to use the app, you need to first generate your developer api key at [Themoviedb API](https://www.themoviedb.org/settings/api). Then once generated, you must put in the file [data.properties](https://github.com/vanskarner/CleanMovie/blob/package_per_component/data.properties):
