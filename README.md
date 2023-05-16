@@ -1,4 +1,6 @@
-# Clean Architecture - Android
+![CleanMovieCover](https://github.com/vanskarner/CleanMovie/assets/39975255/5984299f-24c4-436f-ac1e-086a2aecc399)
+
+# Clean Architecture | Android
 Application of the concepts and principles from Uncle Bob's Clean Architecture book in a simple Android project.
 
 |Martin, Robert C. Clean Architecture: A Craftsman's Guide to Software Structure and Design. Prentice Hall, 2017|
