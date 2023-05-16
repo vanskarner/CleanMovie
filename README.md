@@ -31,7 +31,7 @@ Each module of the project has its associated unit and integration tests accordi
 Get a broader understanding of clean architecture by following the guidelines provided [HERE](https://github.com/vanskarner/CleanMovie/wiki)
 
 ## Discussions
-Refer to the issues section [HERE](https://github.com/vanskarner/CleanMovie/wiki)
+Refer to the issues section [HERE](https://github.com/vanskarner/CleanMovie/discussions)
 
 ## Considerations
 - If you want to use the app, you need to first generate your developer api key at [Themoviedb API](https://www.themoviedb.org/settings/api). Then once generated, you must put in the file [data.properties](https://github.com/vanskarner/CleanMovie/blob/package_per_component/data.properties):
