@@ -7,10 +7,10 @@ Application of the concepts and principles from Uncle Bob's Clean Architecture b
 |:---:|
 |![book](https://m.media-amazon.com/images/I/41-sN-mzwKL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg)|
 <p align="center">
-  <img src="https://github.com/vanskarner/CleanMovie/assets/39975255/b1e694e8-42bc-4d2e-ae50-324b9f883be9" alt="CleanArchitectureCover_2017" style="display: block; margin: auto;">
+  <img src="https://github.com/vanskarner/CleanMovie/assets/39975255/7d7c53a6-7c85-4456-a725-99814d3b1eb5" alt="CleanArchitectureCover_2017" style="display: block; margin: auto;">
 </p>
 
-## Presentation
+## Introduction
 To ensure project comprehension, we have chosen to utilize the most basic elements, avoiding the overload of details that is often encountered in Android development. The focus is on maintaining simplicity, making it accessible to those who are getting familiar with the subject. It is also important to mention that, while the project is based on Java to highlight [the significance of context](https://github.com/vanskarner/CleanMovie/wiki/The-Context-Matters) in these guides, Kotlin is generally recommended as the primary language for Android application development, as it offers a modern and concise syntax, officially endorsed by Google.
 
 ![ExampleCleanMovie](https://user-images.githubusercontent.com/39975255/234139272-fc119831-0b79-4ca6-aaf5-6898d4624408.gif)
