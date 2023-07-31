@@ -35,6 +35,8 @@
         <module name="Clean_Movie.domain.usecases.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Clean_Movie.features.movie" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
