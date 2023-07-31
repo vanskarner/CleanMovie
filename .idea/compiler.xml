@@ -33,7 +33,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
-      <module name="Clean_Movie.localdata" target="11" />
+      <module name="Clean_Movie.localdata" target="17" />
       <module name="Clean_Movie.movie" target="11" />
     </bytecodeTargetLevel>
   </component>
