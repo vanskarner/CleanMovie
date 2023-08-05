@@ -3,9 +3,9 @@ package com.vanskarner.cleanmovie;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.cleanmovie.features.movie.MovieDetailModel;
-import com.vanskarner.cleanmovie.features.movie.MovieModel;
-import com.vanskarner.cleanmovie.features.movie.MovieViewMapper;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
 import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".features.movie.upcomingDetail.UpcomingDetailFragment">
+    tools:context=".ui.movie.upcomingDetail.UpcomingDetailFragment">
 
     <data>
 
@@ -10,7 +10,7 @@
 
         <variable
             name="movieDetail"
-            type="com.vanskarner.cleanmovie.features.movie.MovieDetailModel" />
+            type="com.vanskarner.cleanmovie.ui.movie.MovieDetailModel" />
 
     </data>
 

@@ -5,10 +5,10 @@ import android.content.Context;
 import com.vanskarner.cleanmovie.TestApp;
 import com.vanskarner.cleanmovie.db.TestAppDBModule;
 import com.vanskarner.cleanmovie.di.modules.ViewModule;
-import com.vanskarner.cleanmovie.features.MenuActivityTest;
-import com.vanskarner.cleanmovie.features.movie.favorites.FavoritesFragmentTest;
-import com.vanskarner.cleanmovie.features.movie.upcoming.UpcomingFragmentTest;
-import com.vanskarner.cleanmovie.features.movie.upcomingDetail.UpcomingDetailFragmentTest;
+import com.vanskarner.cleanmovie.ui.MenuActivityTest;
+import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragmentTest;
+import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;
+import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragmentTest;
 import com.vanskarner.core.CoreModule;
 import com.vanskarner.movie.MovieTestModule;
 
