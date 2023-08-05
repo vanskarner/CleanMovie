@@ -6,7 +6,7 @@ import com.vanskarner.cleanmovie.main.App;
 import com.vanskarner.cleanmovie.main.db.AppDBModule;
 import com.vanskarner.cleanmovie.main.di.modules.ProjectParametersModule;
 import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
-import com.vanskarner.core.CoreModule;
+import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.movie.MovieModule;
 
 import javax.inject.Singleton;

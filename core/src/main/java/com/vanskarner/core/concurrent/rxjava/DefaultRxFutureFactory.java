@@ -1,6 +1,6 @@
 package com.vanskarner.core.concurrent.rxjava;
 
-import com.vanskarner.core.CoreQualifiers;
+import com.vanskarner.core.main.CoreQualifiers;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 

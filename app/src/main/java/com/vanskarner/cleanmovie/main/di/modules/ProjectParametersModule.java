@@ -2,7 +2,7 @@ package com.vanskarner.cleanmovie.main.di.modules;
 
 import com.vanskarner.cleanmovie.BuildConfig;
 import com.vanskarner.cleanmovie.main.di.qualiers.ViewQualifiers;
-import com.vanskarner.core.CoreQualifiers;
+import com.vanskarner.core.main.CoreQualifiers;
 import com.vanskarner.movie.persistence.remote.MovieRemoteDataQualifiers;
 
 import javax.inject.Singleton;

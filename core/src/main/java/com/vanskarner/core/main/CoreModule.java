@@ -1,4 +1,4 @@
-package com.vanskarner.core;
+package com.vanskarner.core.main;
 
 import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;

@@ -1,4 +1,4 @@
-package com.vanskarner.core;
+package com.vanskarner.core.main;
 
 import javax.inject.Qualifier;
 

@@ -9,7 +9,7 @@ import com.vanskarner.cleanmovie.ui.MenuActivityTest;
 import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragmentTest;
-import com.vanskarner.core.CoreModule;
+import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.movie.MovieTestModule;
 
 import javax.inject.Singleton;
