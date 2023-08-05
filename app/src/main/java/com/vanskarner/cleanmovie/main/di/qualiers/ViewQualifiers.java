@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.di.qualiers;
+package com.vanskarner.cleanmovie.main.di.qualiers;
 
 import javax.inject.Qualifier;
 

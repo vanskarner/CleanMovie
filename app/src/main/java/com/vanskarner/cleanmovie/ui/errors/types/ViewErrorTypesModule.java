@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.errors;
+package com.vanskarner.cleanmovie.ui.errors.types;
 
 import com.vanskarner.cleanmovie.ui.errors.types.ErrorView;
 import com.vanskarner.cleanmovie.ui.errors.types.FavoritesLimitError;

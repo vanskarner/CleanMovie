@@ -1,7 +1,7 @@
-package com.vanskarner.cleanmovie.di.modules;
+package com.vanskarner.cleanmovie.main.di;
 
 import com.vanskarner.cleanmovie.BuildConfig;
-import com.vanskarner.cleanmovie.di.qualiers.ViewQualifiers;
+import com.vanskarner.cleanmovie.main.di.qualiers.ViewQualifiers;
 import com.vanskarner.core.CoreQualifiers;
 import com.vanskarner.movie.persistence.remote.MovieRemoteDataQualifiers;
 
@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 @Module
-public abstract class ProjectParametersModule {
+public class TestParametersModule {
 
     @Provides
     @Singleton
@@ -35,7 +35,7 @@ public abstract class ProjectParametersModule {
     @Singleton
     @ViewQualifiers.ComputingThread
     static Scheduler provideSchedulerComputation() {
-        return Schedulers.computation();
+        return Schedulers.trampoline();
     }
 
     @Provides
@@ -49,7 +49,7 @@ public abstract class ProjectParametersModule {
     @Singleton
     @MovieRemoteDataQualifiers.MovieUrl
     static String provideBaseurl() {
-        return BuildConfig.themoviedbURL;
+        return "http://localhost:8080/";
     }
 
     @Provides
@@ -63,7 +63,7 @@ public abstract class ProjectParametersModule {
     @Singleton
     @MovieRemoteDataQualifiers.Apikey
     static String provideApiKey() {
-        return BuildConfig.themoviedbApiKey;
+        return "any";
     }
 
 }

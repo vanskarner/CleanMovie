@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class NotFoundError implements ErrorView<CommonErrorDialogBinding> {
+class NotFoundError implements ErrorView<CommonErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject

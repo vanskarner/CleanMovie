@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie;
+package com.vanskarner.cleanmovie.ui;
 
 import android.util.Base64;
 import android.widget.ImageView;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+import com.vanskarner.cleanmovie.R;
 
 public class BindingAdapters {
 

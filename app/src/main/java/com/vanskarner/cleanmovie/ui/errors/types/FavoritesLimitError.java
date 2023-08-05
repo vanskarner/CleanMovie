@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class FavoritesLimitError implements ErrorView<PremiumErrorDialogBinding> {
+class FavoritesLimitError implements ErrorView<PremiumErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject

@@ -1,11 +1,11 @@
-package com.vanskarner.cleanmovie.di;
+package com.vanskarner.cleanmovie.main.di;
 
 import android.content.Context;
 
-import com.vanskarner.cleanmovie.App;
-import com.vanskarner.cleanmovie.db.AppDBModule;
-import com.vanskarner.cleanmovie.di.modules.ProjectParametersModule;
-import com.vanskarner.cleanmovie.di.modules.ViewModule;
+import com.vanskarner.cleanmovie.main.App;
+import com.vanskarner.cleanmovie.main.db.AppDBModule;
+import com.vanskarner.cleanmovie.main.di.modules.ProjectParametersModule;
+import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
 import com.vanskarner.core.CoreModule;
 import com.vanskarner.movie.MovieModule;
 

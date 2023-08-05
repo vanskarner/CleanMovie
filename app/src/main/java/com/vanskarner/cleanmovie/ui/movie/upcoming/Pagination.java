@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.vanskarner.cleanmovie.di.scopes.PerFragment;
+import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 
 import javax.inject.Inject;
 

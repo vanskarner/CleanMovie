@@ -1,6 +1,6 @@
-package com.vanskarner.cleanmovie.di.modules;
+package com.vanskarner.cleanmovie.main.di.modules;
 
-import com.vanskarner.cleanmovie.di.scopes.PerFragment;
+import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragment;
 import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesModule;
 import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragment;

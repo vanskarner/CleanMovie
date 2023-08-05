@@ -1,6 +1,6 @@
 package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
 
-import com.vanskarner.cleanmovie.di.scopes.PerFragment;
+import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 
 import dagger.Binds;
 import dagger.Module;

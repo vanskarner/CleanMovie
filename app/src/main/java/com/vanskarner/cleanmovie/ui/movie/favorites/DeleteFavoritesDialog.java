@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.cleanmovie.di.scopes.PerFragment;
+import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 
 import javax.inject.Inject;
 

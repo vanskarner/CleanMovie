@@ -1,6 +1,6 @@
-package com.vanskarner.cleanmovie.di.modules;
+package com.vanskarner.cleanmovie.main.di.modules;
 
-import com.vanskarner.cleanmovie.ui.errors.ViewErrorTypesModule;
+import com.vanskarner.cleanmovie.ui.errors.types.ViewErrorTypesModule;
 
 import dagger.Module;
 import dagger.android.AndroidInjectionModule;

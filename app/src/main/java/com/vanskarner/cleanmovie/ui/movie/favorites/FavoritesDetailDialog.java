@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.vanskarner.cleanmovie.databinding.FavoriteDetailDialogBinding;
-import com.vanskarner.cleanmovie.di.scopes.PerFragment;
+import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 
 import javax.inject.Inject;

@@ -1,6 +1,6 @@
-package com.vanskarner.cleanmovie;
+package com.vanskarner.cleanmovie.main;
 
-import com.vanskarner.cleanmovie.di.DaggerAppComponent;
+import com.vanskarner.cleanmovie.main.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;

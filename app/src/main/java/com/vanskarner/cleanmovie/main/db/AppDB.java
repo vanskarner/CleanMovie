@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.db;
+package com.vanskarner.cleanmovie.main.db;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

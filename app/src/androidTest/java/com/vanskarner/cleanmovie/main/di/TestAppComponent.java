@@ -1,10 +1,10 @@
-package com.vanskarner.cleanmovie.di;
+package com.vanskarner.cleanmovie.main.di;
 
 import android.content.Context;
 
 import com.vanskarner.cleanmovie.TestApp;
-import com.vanskarner.cleanmovie.db.TestAppDBModule;
-import com.vanskarner.cleanmovie.di.modules.ViewModule;
+import com.vanskarner.cleanmovie.main.db.TestAppDBModule;
+import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
 import com.vanskarner.cleanmovie.ui.MenuActivityTest;
 import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;

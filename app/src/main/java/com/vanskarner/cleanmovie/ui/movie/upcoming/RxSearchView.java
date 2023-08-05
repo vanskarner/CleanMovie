@@ -2,8 +2,8 @@ package com.vanskarner.cleanmovie.ui.movie.upcoming;
 
 import androidx.appcompat.widget.SearchView;
 
-import com.vanskarner.cleanmovie.di.qualiers.ViewQualifiers;
-import com.vanskarner.cleanmovie.di.scopes.PerFragment;
+import com.vanskarner.cleanmovie.main.di.qualiers.ViewQualifiers;
+import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 
 import java.util.concurrent.TimeUnit;
 

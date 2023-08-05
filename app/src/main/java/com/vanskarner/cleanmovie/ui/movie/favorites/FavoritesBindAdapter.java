@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.cleanmovie.databinding.FavoriteItemBinding;
-import com.vanskarner.cleanmovie.di.scopes.PerFragment;
+import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
 import com.vanskarner.singleadapter.BindAdapter;
 

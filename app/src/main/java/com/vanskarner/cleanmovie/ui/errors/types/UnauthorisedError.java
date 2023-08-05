@@ -8,7 +8,7 @@ import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
 import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 
 @Singleton
-public class UnauthorisedError implements ErrorView<CommonErrorDialogBinding> {
+class UnauthorisedError implements ErrorView<CommonErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject

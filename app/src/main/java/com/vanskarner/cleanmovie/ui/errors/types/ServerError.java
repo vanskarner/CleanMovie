@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 import com.vanskarner.cleanmovie.R;
 
 @Singleton
-public class ServerError implements ErrorView<CommonErrorDialogBinding> {
+class ServerError implements ErrorView<CommonErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject
