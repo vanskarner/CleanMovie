@@ -11,9 +11,12 @@ public class CustomViewAction {
     public static ViewAction swipeUpSlow() {
         return new GeneralSwipeAction(
                 Swipe.SLOW,
-                GeneralLocation.BOTTOM_CENTER,
-                GeneralLocation.TOP_CENTER,
+                GeneralLocation.CENTER,
+                view -> {
+                    float[] coordinates = GeneralLocation.CENTER.calculateCoordinates(view);
+                    coordinates[1] = 0;
+                    return coordinates;
+                },
                 Press.FINGER);
     }
-
 }

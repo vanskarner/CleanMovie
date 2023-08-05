@@ -69,9 +69,9 @@ dependencies {
     androidTestImplementation testFixtures(project(":features:movie"))
     androidTestImplementation common.test.mockWebServer
     androidTestImplementation presentation.test.rx2Idler
-    // Testing code should not be included in the main code.
-    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
-    debugImplementation presentation.test.fragmentTesting
+    debugImplementation presentation.test.fragmentTestingManifest
+    androidTestImplementation presentation.test.fragmentTesting
+
     //issue: https://youtrack.jetbrains.com/issue/KT-54136/Duplicated-classes-cause-build-failure-if-a-dependency-to-kotlin-stdlib-specified-in-an-android-project
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {

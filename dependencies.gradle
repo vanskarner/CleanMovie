@@ -16,10 +16,10 @@ ext {
     //Test
     junitVersion = "4.13.2"
     androidJunitVersion = "1.1.3"
-    espressoVersion = "3.4.0"
+    espressoVersion = "3.5.0"
     mockwebserverVersion = "4.10.0"
     rx2Idler = "0.11.0"
-    fragmentTestingVersion = "1.4.0"
+    fragmentTestingVersion = "1.6.0"
     androidRunnerVersion = "1.4.0"
 
     androidParameters = [
@@ -65,7 +65,8 @@ ext {
                     espressoContrib  : "androidx.test.espresso:espresso-contrib:${espressoVersion}",
                     navigationTesting: "androidx.navigation:navigation-testing:${navigationVersion}",
                     rx2Idler         : "com.squareup.rx.idler:rx2-idler:${rx2Idler}",
-                    fragmentTesting  : "androidx.fragment:fragment-testing:${fragmentTestingVersion}"
+                    fragmentTestingManifest  : "androidx.fragment:fragment-testing-manifest:${fragmentTestingVersion}",
+                    fragmentTesting: "androidx.fragment:fragment-testing:${fragmentTestingVersion}"
             ]
     ]
 
