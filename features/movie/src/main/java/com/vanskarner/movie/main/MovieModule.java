@@ -1,4 +1,4 @@
-package com.vanskarner.movie;
+package com.vanskarner.movie.main;
 
 import com.vanskarner.movie.persistence.local.MovieLocalModule;
 import com.vanskarner.movie.persistence.remote.MovieRemoteModule;
