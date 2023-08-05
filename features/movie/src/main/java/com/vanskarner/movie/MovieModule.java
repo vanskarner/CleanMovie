@@ -1,8 +1,8 @@
 package com.vanskarner.movie;
 
-import com.vanskarner.movie.data.local.MovieLocalModule;
-import com.vanskarner.movie.data.remote.MovieRemoteModule;
-import com.vanskarner.movie.domain.services.MovieDomainModule;
+import com.vanskarner.movie.persistence.local.MovieLocalModule;
+import com.vanskarner.movie.persistence.remote.MovieRemoteModule;
+import com.vanskarner.movie.businesslogic.services.MovieDomainModule;
 
 import dagger.Module;
 

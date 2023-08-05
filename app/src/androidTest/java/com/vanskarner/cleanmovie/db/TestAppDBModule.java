@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.vanskarner.movie.data.local.MovieDao;
+import com.vanskarner.movie.persistence.local.MovieDao;
 
 import javax.inject.Singleton;
 

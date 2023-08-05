@@ -30,8 +30,8 @@ import com.vanskarner.cleanmovie.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.TestApp;
 import com.vanskarner.cleanmovie.utils.TestMockWebServer;
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.movie.domain.ds.MovieDetailDS;
-import com.vanskarner.movie.domain.services.MovieServices;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.services.MovieServices;
 
 import org.junit.After;
 import org.junit.Before;

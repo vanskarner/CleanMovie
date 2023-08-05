@@ -28,8 +28,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.movie.domain.ds.MovieDetailDS;
-import com.vanskarner.movie.domain.services.MovieServices;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.services.MovieServices;
 
 import java.io.IOException;
 

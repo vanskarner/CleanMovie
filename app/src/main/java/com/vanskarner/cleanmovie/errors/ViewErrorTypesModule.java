@@ -8,8 +8,8 @@ import com.vanskarner.cleanmovie.errors.types.ServerError;
 import com.vanskarner.cleanmovie.errors.types.ServiceUnavailableError;
 import com.vanskarner.cleanmovie.errors.types.UnauthorisedError;
 import com.vanskarner.cleanmovie.errors.types.UnknownError;
-import com.vanskarner.movie.data.remote.MovieRemoteError;
-import com.vanskarner.movie.domain.error.MovieError;
+import com.vanskarner.movie.persistence.remote.MovieRemoteError;
+import com.vanskarner.movie.businesslogic.error.MovieError;
 
 import dagger.Binds;
 import dagger.Module;

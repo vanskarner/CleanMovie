@@ -2,7 +2,7 @@ package com.vanskarner.cleanmovie.features.movie.favorites;
 
 import com.vanskarner.cleanmovie.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.features.movie.MovieViewMapper;
-import com.vanskarner.movie.domain.services.MovieServices;
+import com.vanskarner.movie.businesslogic.services.MovieServices;
 
 import java.util.Collections;
 
