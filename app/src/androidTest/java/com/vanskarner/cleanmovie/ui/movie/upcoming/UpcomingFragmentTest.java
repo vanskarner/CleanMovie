@@ -33,8 +33,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.DataBindingIdlingResource;
-import com.vanskarner.cleanmovie.TestApp;
+import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.main.TestApp;
 import com.vanskarner.cleanmovie.utils.TestMockWebServer;
 import com.vanskarner.cleanmovie.R;
 

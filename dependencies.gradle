@@ -30,7 +30,7 @@ ext {
             targetSdkVersion         : 33,
             versionCode              : 1,
             versionName              : "1.0",
-            testInstrumentationRunner: "com.vanskarner.cleanmovie.CustomTestRunner",
+            testInstrumentationRunner: "com.vanskarner.cleanmovie.main.CustomTestRunner",
             multiDexEnabled          : true
     ]
 

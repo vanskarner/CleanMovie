@@ -1,11 +1,8 @@
-package com.vanskarner.cleanmovie;
+package com.vanskarner.cleanmovie.ui.movie;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
 import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;

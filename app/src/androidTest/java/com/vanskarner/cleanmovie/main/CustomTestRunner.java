@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie;
+package com.vanskarner.cleanmovie.main;
 
 import android.app.Application;
 import android.content.Context;
