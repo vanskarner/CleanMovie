@@ -25,12 +25,12 @@ public class FakeLocalRepository implements MovieLocalRepository {
 
     @Override
     public FutureResult<MovieBO> getMovie(int movieId) {
-        Optional<MovieBO> optional = data
+        MovieBO item = data
                 .stream()
-                .filter(item -> item.getId() == movieId)
-                .findFirst();
-        return testFuturesUtils.fromDataOrElse(optional.orElse(null),
-                new NoSuchElementException());
+                .filter(i -> i.getId() == movieId)
+                .findFirst()
+                .orElse(null);
+        return testFuturesUtils.fromDataOrElse(item, new NoSuchElementException());
     }
 
     @Override

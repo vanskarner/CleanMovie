@@ -6,7 +6,6 @@ import com.vanskarner.movie.businesslogic.entities.MovieBO;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class FakeRemoteRepository implements MovieRemoteRepository {
     private final TestFuturesUtils testFuturesUtils;
@@ -24,12 +23,12 @@ public class FakeRemoteRepository implements MovieRemoteRepository {
 
     @Override
     public FutureResult<MovieBO> getMovie(int movieId) {
-        Optional<MovieBO> optional = data
+        MovieBO item = data
                 .stream()
-                .filter(item -> item.getId() == movieId)
-                .findFirst();
-        return testFuturesUtils.fromDataOrElse(optional.orElse(null),
-                new NoSuchElementException());
+                .filter(i -> i.getId() == movieId)
+                .findFirst()
+                .orElse(null);
+        return testFuturesUtils.fromDataOrElse(item, new NoSuchElementException());
     }
 
 }
