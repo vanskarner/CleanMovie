@@ -55,7 +55,7 @@ public class MovieBO {
         return overview;
     }
 
-    public boolean calculateRecommendation() {
+    public boolean isRecommended() {
         return voteCount >= 75 && voteAverage >= 7.5;
     }
 
