@@ -10,27 +10,21 @@ public class MovieBOTest {
 
     @Test
     public void isRecommended_voteAverageIsInferior_false() {
-        int voteCount = 100;
-        float voteAverage = 7.4f;
-        MovieBO movieBO = createMovie(voteCount, voteAverage);
+        MovieBO movieBO = createMovie(100, 7.4f);
 
         assertFalse(movieBO.isRecommended());
     }
 
     @Test
     public void isRecommended_voteCountIsInferior_false() {
-        int voteCount = 74;
-        float voteAverage = 10;
-        MovieBO movieBO = createMovie(voteCount, voteAverage);
+        MovieBO movieBO = createMovie(74, 10);
 
         assertFalse(movieBO.isRecommended());
     }
 
     @Test
     public void isRecommended_voteCountAverageVoteAreSuperior_true() {
-        int voteCount = 76;
-        float voteAverage = 7.5f;
-        MovieBO movieBO = createMovie(voteCount, voteAverage);
+        MovieBO movieBO = createMovie(76, 7.5f);
 
         assertTrue(movieBO.isRecommended());
     }
