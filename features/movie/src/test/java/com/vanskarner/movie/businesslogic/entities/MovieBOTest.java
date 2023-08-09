@@ -9,25 +9,40 @@ public class MovieBOTest {
     static int counter = 0;
 
     @Test
-    public void isRecommended_voteAverageIsInferior_false() {
-        MovieBO movieBO = createMovie(100, 7.4f);
+    public void isRecommended_voteCountAverageVoteAreSuperior_true() {
+        MovieBO movieBO = createMovie(76, 7.6f);
 
-        assertFalse(movieBO.isRecommended());
+        assertTrue(movieBO.isRecommended());
+    }
+
+    @Test
+    public void isRecommended_voteCountAverageVoteAreExact_true() {
+        MovieBO movieBO = createMovie(75, 7.5f);
+
+        assertTrue(movieBO.isRecommended());
     }
 
     @Test
     public void isRecommended_voteCountIsInferior_false() {
-        MovieBO movieBO = createMovie(74, 10);
+        MovieBO movieBO = createMovie(74, 7.5f);
 
         assertFalse(movieBO.isRecommended());
     }
 
     @Test
-    public void isRecommended_voteCountAverageVoteAreSuperior_true() {
-        MovieBO movieBO = createMovie(76, 7.5f);
+    public void isRecommended_voteCountAverageVoteAreInferior_false() {
+        MovieBO movieBO = createMovie(74, 7.4f);
 
-        assertTrue(movieBO.isRecommended());
+        assertFalse(movieBO.isRecommended());
     }
+
+    @Test
+    public void isRecommended_voteAverageIsInferior_false() {
+        MovieBO movieBO = createMovie(75, 7.4f);
+
+        assertFalse(movieBO.isRecommended());
+    }
+
 
     private MovieBO createMovie(int voteCount, float voteAverage) {
         int uniqueId = getUniqueInt();
