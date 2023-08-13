@@ -2,40 +2,47 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.TestFuturesUtils;
+import com.vanskarner.movie.businesslogic.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.RepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
-import com.vanskarner.movie.businesslogic.repository.FakeLocalRepository;
-import com.vanskarner.movie.businesslogic.repository.MovieData;
-import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
+import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.repository.FakeRepository;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ShowFavoriteMoviesUseCaseTest {
-    TestFuturesUtils testFuturesUtils;
     ShowFavoriteMoviesUseCase useCase;
+    FakeRepository fakeRepository;
 
     @Before
     public void setUp() {
-        testFuturesUtils = new TestFuturesUtils();
-        MovieLocalRepository localRepository = new FakeLocalRepository(testFuturesUtils,
-                MovieData.getData());
+        fakeRepository = RepositoryFactory.createRepository();
+        MovieBO firstItem = MovieBOBuilder.getInstance()
+                .withId(1)
+                .build();
+        MovieBO secondItem = MovieBOBuilder.getInstance()
+                .withId(2)
+                .build();
+        fakeRepository.saveMovie(firstItem).await();
+        fakeRepository.saveMovie(secondItem).await();
 
-        useCase = new ShowFavoriteMoviesUseCase(localRepository);
+        useCase = new ShowFavoriteMoviesUseCase(fakeRepository);
     }
 
     @After
     public void tearDown() {
-        testFuturesUtils.clear();
+        fakeRepository.clear();
     }
 
     @Test
     public void execute_returnItems() {
+        int expectedQuantity = fakeRepository.getNumberMovies().get();
         MoviesDS moviesDS = useCase.execute().get();
         int actualQuantity = moviesDS.list.size();
 
-        assertEquals(MovieData.getQuantity(), actualQuantity);
+        assertEquals(expectedQuantity, actualQuantity);
     }
 
 }

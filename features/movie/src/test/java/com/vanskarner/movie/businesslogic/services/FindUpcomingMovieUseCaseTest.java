@@ -2,12 +2,11 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.TestFuturesUtils;
+import com.vanskarner.movie.businesslogic.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.RepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeRemoteRepository;
-import com.vanskarner.movie.businesslogic.repository.MovieData;
-import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
+import com.vanskarner.movie.businesslogic.repository.FakeRepository;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,26 +15,27 @@ import org.junit.Test;
 import java.util.NoSuchElementException;
 
 public class FindUpcomingMovieUseCaseTest {
-    TestFuturesUtils testFuturesUtils;
     FindUpcomingMovieUseCase useCase;
+    FakeRepository fakeRepository;
 
     @Before
     public void setUp() {
-        testFuturesUtils = new TestFuturesUtils();
-        MovieRemoteRepository remoteRepository = new FakeRemoteRepository(testFuturesUtils,
-                MovieData.getData());
+        fakeRepository = RepositoryFactory.createRepository();
 
-        useCase = new FindUpcomingMovieUseCase(remoteRepository);
+        useCase = new FindUpcomingMovieUseCase(fakeRepository);
     }
 
     @After
     public void tearDown() {
-        testFuturesUtils.clear();
+        fakeRepository.clear();
     }
 
     @Test
-    public void execute_validID_returnItem() {
-        MovieBO expected = MovieData.getAnyItem();
+    public void execute_withValidID_returnItem() {
+        MovieBO expected = MovieBOBuilder.getInstance()
+                .withId(1)
+                .build();
+        fakeRepository.saveMovie(expected).await();
         MovieDetailDS actual = useCase.execute(expected.getId()).get();
 
         assertEquals(expected.getId(), actual.id);
@@ -50,8 +50,8 @@ public class FindUpcomingMovieUseCaseTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void execute_invalidID_noSuchElementException() {
-        useCase.execute(MovieData.getInvalidID()).get();
+    public void execute_withInvalidID_noSuchElementException() {
+        useCase.execute(0).get();
     }
 
 }

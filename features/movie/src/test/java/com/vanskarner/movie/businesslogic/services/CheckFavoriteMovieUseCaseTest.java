@@ -3,50 +3,51 @@ package com.vanskarner.movie.businesslogic.services;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
-import com.vanskarner.movie.businesslogic.TestFuturesUtils;
-import com.vanskarner.movie.businesslogic.repository.FakeLocalRepository;
-import com.vanskarner.movie.businesslogic.repository.MovieData;
-import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
+import com.vanskarner.movie.businesslogic.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.RepositoryFactory;
+import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.repository.FakeRepository;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class CheckFavoriteMovieUseCaseTest {
-    TestFuturesUtils testFuturesUtils;
+    FakeRepository fakeRepository;
     CheckFavoriteMovieUseCase useCase;
 
     @Before
     public void setUp() {
-        testFuturesUtils = new TestFuturesUtils();
-        MovieLocalRepository localRepository = new FakeLocalRepository(testFuturesUtils,
-                MovieData.getData());
+        fakeRepository = RepositoryFactory.createRepository();
 
-        useCase = new CheckFavoriteMovieUseCase(localRepository);
+        useCase = new CheckFavoriteMovieUseCase(fakeRepository);
     }
 
     @After
     public void tearDown() {
-        testFuturesUtils.clear();
+        fakeRepository.clear();
     }
 
     @Test
-    public void execute_validID_returnTrue() {
-        boolean actualValue = useCase
-                .execute(MovieData.getAnyItem().getId())
+    public void execute_withValidID_true() {
+        MovieBO item = MovieBOBuilder.getInstance()
+                .withId(1)
+                .build();
+        fakeRepository.saveMovie(item).await();
+        boolean isItemPresent = useCase
+                .execute(item.getId())
                 .get();
 
-        assertTrue(actualValue);
+        assertTrue(isItemPresent);
     }
 
     @Test
-    public void execute_invalidID_returnFalse() {
-        boolean actualValue = useCase
-                .execute(MovieData.getInvalidID())
+    public void execute_withInvalidID_false() {
+        boolean isItemPresent = useCase
+                .execute(0)
                 .get();
 
-        assertFalse(actualValue);
+        assertFalse(isItemPresent);
     }
 
 }

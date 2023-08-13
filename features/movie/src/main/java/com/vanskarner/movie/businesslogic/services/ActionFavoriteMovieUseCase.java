@@ -25,17 +25,23 @@ class ActionFavoriteMovieUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean
 
     @Override
     public FutureResult<Boolean> execute(MovieDetailDS movieDetailDS) {
-        FutureResult<Boolean> deleteItem = localRepository.deleteMovie(movieDetailDS.id)
-                .toFutureResult(false);
-        FutureResult<Boolean> saveItem = localRepository.getNumberMovies()
+        return localRepository.checkMovie(movieDetailDS.id)
+                .flatMap(exist -> exist ? deleteMovie(movieDetailDS) : saveMovie(movieDetailDS));
+    }
+
+    private FutureResult<Boolean> saveMovie(MovieDetailDS movieDetailDS) {
+        return localRepository.getNumberMovies()
                 .flatMap(integer -> {
                     if (integer >= MAXIMUM_MOVIES_SAVED)
                         throw movieErrorFilter.filter(MovieError.FavoriteLimit.class);
                     return localRepository.saveMovie(MovieMapper.convert(movieDetailDS))
                             .toFutureResult(true);
                 });
-        return localRepository.checkMovie(movieDetailDS.id)
-                .flatMap(exists -> exists ? deleteItem : saveItem);
     }
+
+    private FutureResult<Boolean> deleteMovie(MovieDetailDS movieDetailDS) {
+        return localRepository.deleteMovie(movieDetailDS.id).toFutureResult(false);
+    }
+
 
 }
