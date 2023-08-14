@@ -2,10 +2,12 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
+import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,50 +15,77 @@ import java.util.Collections;
 import java.util.List;
 
 public class MovieMapperTest {
-    MovieBO expectedBO = new MovieBO(
-            1, "Clean movie BO", "any image", "any background image",
-            75, 7.4f, "2023-01-12", "My overview"
-    );
-    MovieDetailDS expectedDS = new MovieDetailDS(2, "Clean Movie DS", "other image",
-            "other background image", 60, 7.8f,
-            "2023-01-13", "Other overview");
+
+    static MovieBO businessObject;
+    static MovieDetailDS dataStructure;
+
+    @BeforeClass
+    public static void setup() {
+        businessObject = MovieBOBuilder.getInstance()
+                .withId(1)
+                .withTitle("Clean Architecture")
+                .withImage("https://blog.cleancoder.com/anyImage.jpg")
+                .withBackgroundImage("https://blog.cleancoder.com/anyBackImage.jpg")
+                .withVoteCount(100)
+                .withVoteAverage(9.5f)
+                .withReleaseDate("2023-08-15")
+                .withOverview("Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.")
+                .build();
+        dataStructure = new MovieDetailDS(1,
+                "Clean Architecture",
+                "https://blog.cleancoder.com/anyImage.jpg",
+                "https://blog.cleancoder.com/anyBackImage.jpg",
+                100,
+                9.5f,
+                "2023-08-15",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.");
+    }
 
     @Test
     public void convert_fromMovieDetailBO_toMovieDetailDS() {
-        MovieDetailDS actualDS = MovieMapper.convert(expectedBO);
+        MovieBO expectedItem = businessObject;
+        MovieDetailDS actualItem = MovieMapper.convert(expectedItem);
 
-        assertEquals(expectedBO.getId(), actualDS.id);
-        assertEquals(expectedBO.getTitle(), actualDS.title);
-        assertEquals(expectedBO.getImage(), actualDS.image);
-        assertEquals(expectedBO.getBackgroundImage(), actualDS.backgroundImage);
-        assertEquals(expectedBO.getVoteCount(), actualDS.voteCount);
-        assertEquals(expectedBO.getVoteAverage(), actualDS.voteAverage, 0.01);
-        assertEquals(expectedBO.getReleaseDate(), actualDS.releaseDate);
-        assertEquals(expectedBO.getOverview(), actualDS.overview);
+        assertEquals(expectedItem.getId(), actualItem.id);
+        assertEquals(expectedItem.getTitle(), actualItem.title);
+        assertEquals(expectedItem.getImage(), actualItem.image);
+        assertEquals(expectedItem.getBackgroundImage(), actualItem.backgroundImage);
+        assertEquals(expectedItem.getVoteCount(), actualItem.voteCount);
+        assertEquals(expectedItem.getVoteAverage(), actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.getReleaseDate(), actualItem.releaseDate);
+        assertEquals(expectedItem.getOverview(), actualItem.overview);
     }
 
     @Test
     public void convert_fromMovieDetailDS_toMovieDetailBO() {
-        MovieBO actualBO = MovieMapper.convert(expectedDS);
+        MovieDetailDS expectedItem = dataStructure;
+        MovieBO actualItem = MovieMapper.convert(expectedItem);
 
-        assertEquals(expectedDS.id, actualBO.getId());
-        assertEquals(expectedDS.title, actualBO.getTitle());
-        assertEquals(expectedDS.image, actualBO.getImage());
-        assertEquals(expectedDS.backgroundImage, actualBO.getBackgroundImage());
-        assertEquals(expectedDS.voteCount, actualBO.getVoteCount());
-        assertEquals(expectedDS.voteAverage, actualBO.getVoteAverage(), 0.01);
-        assertEquals(expectedDS.releaseDate, actualBO.getReleaseDate());
-        assertEquals(expectedDS.overview, actualBO.getOverview());
+        assertEquals(expectedItem.id, actualItem.getId());
+        assertEquals(expectedItem.title, actualItem.getTitle());
+        assertEquals(expectedItem.image, actualItem.getImage());
+        assertEquals(expectedItem.backgroundImage, actualItem.getBackgroundImage());
+        assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
+        assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.getReleaseDate());
+        assertEquals(expectedItem.overview, actualItem.getOverview());
     }
 
     @Test
-    public void convert_fromListMovieDetailBO_toListMoviesDS() {
-        List<MovieBO> expectedBO = new ArrayList<>(Collections.singletonList(this.expectedBO));
-        MoviesDS actualDS = MovieMapper.convert(expectedBO);
+    public void convert_fromListMovieBO_toListMovieDS() {
+        List<MovieBO> expectedList = new ArrayList<>(Collections.singletonList(businessObject));
+        List<MovieDS> actualList = MovieMapper.convert(expectedList).list;
 
-        assertEquals(expectedBO.size(), actualDS.list.size());
-        assertEquals(expectedBO.get(0).getId(), actualDS.list.get(0).id);
-        assertEquals(expectedBO.get(0).getTitle(), actualDS.list.get(0).title);
-        assertEquals(expectedBO.get(0).getImage(), actualDS.list.get(0).image);
+        assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList.get(0).getId(), actualList.get(0).id);
+        assertEquals(expectedList.get(0).getTitle(), actualList.get(0).title);
+        assertEquals(expectedList.get(0).getImage(), actualList.get(0).image);
     }
+
 }

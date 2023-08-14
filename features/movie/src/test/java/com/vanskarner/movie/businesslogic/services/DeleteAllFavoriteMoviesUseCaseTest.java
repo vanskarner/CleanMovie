@@ -2,30 +2,33 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.MovieBOBuilder;
-import com.vanskarner.movie.businesslogic.RepositoryFactory;
+import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeRepository;
+import com.vanskarner.movie.businesslogic.repository.FakeMovieLocalRepository;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DeleteAllFavoriteMoviesUseCaseTest {
-    FakeRepository fakeRepository;
+    FakeMovieLocalRepository fakeRepository;
     DeleteAllFavoriteMoviesUseCase useCase;
 
     @Before
     public void setUp() {
-        fakeRepository = RepositoryFactory.createRepository();
-        MovieBO firstItem = MovieBOBuilder.getInstance()
+        fakeRepository = FakeRepositoryFactory.createMovieLocalRepository();
+        List<MovieBO> list = new ArrayList<>();
+        list.add(MovieBOBuilder.getInstance()
                 .withId(1)
-                .build();
-        MovieBO secondItem = MovieBOBuilder.getInstance()
+                .build());
+        list.add(MovieBOBuilder.getInstance()
                 .withId(2)
-                .build();
-        fakeRepository.saveMovie(firstItem).await();
-        fakeRepository.saveMovie(secondItem).await();
+                .build());
+        fakeRepository.setList(list);
 
         useCase = new DeleteAllFavoriteMoviesUseCase(fakeRepository);
     }
@@ -36,8 +39,8 @@ public class DeleteAllFavoriteMoviesUseCaseTest {
     }
 
     @Test
-    public void execute_totalItemsDeleted() {
-        int expectedNumberItems = fakeRepository.getNumberMovies().get();
+    public void execute_numberItemsDeleted() {
+        int expectedNumberItems = fakeRepository.getList().size();
         int actualNumberItems = useCase.execute().get();
 
         assertEquals(expectedNumberItems, actualNumberItems);

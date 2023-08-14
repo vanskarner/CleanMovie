@@ -6,7 +6,7 @@ import com.vanskarner.core.sync.Result;
 import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class FilterUpcomingMoviesUseCaseTest {
-    List<MovieDS> unmodifiableList;
-    FilterUpcomingMoviesUseCase useCase;
+    static List<MovieDS> unmodifiableList;
+    static FilterUpcomingMoviesUseCase useCase;
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         List<MovieDS> mutableList = new ArrayList<>();
         mutableList.add(new MovieDS(1, "Movie One", "any"));
         mutableList.add(new MovieDS(2, "Movie Two", "any"));

@@ -3,22 +3,22 @@ package com.vanskarner.movie.businesslogic.services;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.movie.businesslogic.MovieBOBuilder;
-import com.vanskarner.movie.businesslogic.RepositoryFactory;
+import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeRepository;
+import com.vanskarner.movie.businesslogic.repository.FakeMovieLocalRepository;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class CheckFavoriteMovieUseCaseTest {
-    FakeRepository fakeRepository;
+    FakeMovieLocalRepository fakeRepository;
     CheckFavoriteMovieUseCase useCase;
 
     @Before
     public void setUp() {
-        fakeRepository = RepositoryFactory.createRepository();
+        fakeRepository = FakeRepositoryFactory.createMovieLocalRepository();
 
         useCase = new CheckFavoriteMovieUseCase(fakeRepository);
     }
@@ -29,25 +29,25 @@ public class CheckFavoriteMovieUseCaseTest {
     }
 
     @Test
-    public void execute_withValidID_true() {
+    public void execute_withValidID_itemExists() {
         MovieBO item = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        fakeRepository.saveMovie(item).await();
-        boolean isItemPresent = useCase
+        fakeRepository.addItem(item);
+        boolean exists = useCase
                 .execute(item.getId())
                 .get();
 
-        assertTrue(isItemPresent);
+        assertTrue(exists);
     }
 
     @Test
-    public void execute_withInvalidID_false() {
-        boolean isItemPresent = useCase
-                .execute(0)
+    public void execute_withInvalidID_itemNotExists() {
+        boolean exists = useCase
+                .execute(1)
                 .get();
 
-        assertFalse(isItemPresent);
+        assertFalse(exists);
     }
 
 }

@@ -2,11 +2,11 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.MovieBOBuilder;
-import com.vanskarner.movie.businesslogic.RepositoryFactory;
+import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeRepository;
+import com.vanskarner.movie.businesslogic.repository.FakeMovieLocalRepository;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,11 +16,11 @@ import java.util.NoSuchElementException;
 
 public class FindFavoriteMovieUseCaseTest {
     FindFavoriteMovieUseCase useCase;
-    FakeRepository fakeRepository;
+    FakeMovieLocalRepository fakeRepository;
 
     @Before
     public void setUp() {
-        fakeRepository = RepositoryFactory.createRepository();
+        fakeRepository = FakeRepositoryFactory.createMovieLocalRepository();
 
         useCase = new FindFavoriteMovieUseCase(fakeRepository);
     }
@@ -35,7 +35,7 @@ public class FindFavoriteMovieUseCaseTest {
         MovieBO expected = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        fakeRepository.saveMovie(expected).await();
+        fakeRepository.addItem(expected);
         MovieDetailDS actual = useCase.execute(expected.getId()).get();
 
         assertEquals(expected.getId(), actual.id);
@@ -49,7 +49,7 @@ public class FindFavoriteMovieUseCaseTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void execute_withInvalidID_noSuchElementException() {
+    public void execute_withInvalidID_throwException() {
         useCase.execute(0).get();
     }
 

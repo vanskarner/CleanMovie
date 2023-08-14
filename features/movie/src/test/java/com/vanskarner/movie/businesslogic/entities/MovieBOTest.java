@@ -3,14 +3,12 @@ package com.vanskarner.movie.businesslogic.entities;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.movie.businesslogic.MovieBOBuilder;
-
 import org.junit.Test;
 
 public class MovieBOTest {
 
     @Test
-    public void isRecommended_voteCountAverageVoteAreSuperior_true() {
+    public void isRecommended_voteCountAverageVoteAreSuperior_recommended() {
         MovieBO movieBO = MovieBOBuilder.getInstance()
                 .withVoteCount(76)
                 .withVoteAverage(7.6f)
@@ -20,7 +18,7 @@ public class MovieBOTest {
     }
 
     @Test
-    public void isRecommended_voteCountAverageVoteAreExact_true() {
+    public void isRecommended_voteCountAverageVoteAreExact_recommended() {
         MovieBO movieBO = MovieBOBuilder.getInstance()
                 .withVoteCount(75)
                 .withVoteAverage(7.5f)
@@ -30,7 +28,7 @@ public class MovieBOTest {
     }
 
     @Test
-    public void isRecommended_voteCountIsInferior_false() {
+    public void isRecommended_voteCountIsInferior_notRecommended() {
         MovieBO movieBO = MovieBOBuilder.getInstance()
                 .withVoteCount(74)
                 .withVoteAverage(7.5f)
@@ -40,7 +38,7 @@ public class MovieBOTest {
     }
 
     @Test
-    public void isRecommended_voteCountAverageVoteAreInferior_false() {
+    public void isRecommended_voteCountAverageVoteAreInferior_notRecommended() {
         MovieBO movieBO = MovieBOBuilder.getInstance()
                 .withVoteCount(74)
                 .withVoteAverage(7.4f)
@@ -50,7 +48,7 @@ public class MovieBOTest {
     }
 
     @Test
-    public void isRecommended_voteAverageIsInferior_false() {
+    public void isRecommended_voteAverageIsInferior_notRecommended() {
         MovieBO movieBO = MovieBOBuilder.getInstance()
                 .withVoteCount(75)
                 .withVoteAverage(7.4f)

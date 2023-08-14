@@ -1,76 +1,81 @@
 package com.vanskarner.movie.businesslogic.services;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.movie.businesslogic.MovieBOBuilder;
-import com.vanskarner.movie.businesslogic.RepositoryFactory;
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
+import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.error.MovieError;
-import com.vanskarner.movie.businesslogic.repository.FakeRepository;
+import com.vanskarner.movie.businesslogic.repository.FakeMovieLocalRepository;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ActionFavoriteMovieUseCaseTest {
 
-    FakeRepository fakeRepository;
+    FakeMovieLocalRepository fakeMovieLocalRepository;
     ActionFavoriteMovieUseCase useCase;
-    MovieDetailDS registeredItem = new MovieDetailDS(1, "", "", "", 0, 0, "", "");
-    MovieDetailDS unregisteredItem = new MovieDetailDS(2, "", "", "", 0, 0, "", "");
 
     @Before
     public void setUp() {
-        fakeRepository = RepositoryFactory.createRepository();
-        fakeRepository.saveMovie(MovieMapper.convert(registeredItem)).await();
+        fakeMovieLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
         MovieErrorFilter domainErrorFilter = new MockMovieErrorFilter();
 
-        useCase = new ActionFavoriteMovieUseCase(fakeRepository, domainErrorFilter);
+        useCase = new ActionFavoriteMovieUseCase(fakeMovieLocalRepository, domainErrorFilter);
     }
 
     @After
     public void tearDown() {
-        fakeRepository.clear();
+        fakeMovieLocalRepository.clear();
     }
 
     @Test
-    public void executeWithLocalCapacityExceeded_registeredItem_returnFalse() {
-        MovieBO otherItem = MovieBOBuilder.getInstance()
-                .withId(3)
+    public void execute_withUnregisteredItem_savedItem() {
+        MovieBO unregisteredItem = MovieBOBuilder.getInstance()
+                .withId(1)
                 .build();
-        fakeRepository.saveMovie(otherItem).await();
-        boolean isSaved = useCase.execute(registeredItem).get();
+        boolean like = useCase.execute(MovieMapper.convert(unregisteredItem)).get();
+        int actualNumberItems = fakeMovieLocalRepository.getList().size();
+        int expectedNumberItems = 1;
 
-        assertFalse(isSaved);
+        assertTrue(like);
+        assertEquals(expectedNumberItems, actualNumberItems);
+    }
+
+    @Test
+    public void execute_withRegisteredItem_deletedItem() {
+        MovieBO registeredItem = MovieBOBuilder.getInstance()
+                .withId(1)
+                .build();
+        fakeMovieLocalRepository.addItem(registeredItem);
+        boolean like = useCase.execute(MovieMapper.convert(registeredItem)).get();
+        int actualNumberItems = fakeMovieLocalRepository.getList().size();
+        int expectedNumberItems = 0;
+
+        assertFalse(like);
+        assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test(expected = MovieError.FavoriteLimit.class)
-    public void executeWithLocalCapacityExceeded_itemNotRegistered_FavoriteMovieLimit() {
-        MovieBO otherItem = MovieBOBuilder.getInstance()
+    public void execute_withUnregisteredItemAndExceededCapacity_exception() {
+        List<MovieBO> list = new ArrayList<>();
+        list.add(MovieBOBuilder.getInstance()
+                .withId(1)
+                .build());
+        list.add(MovieBOBuilder.getInstance()
+                .withId(2)
+                .build());
+        fakeMovieLocalRepository.setList(list);
+        MovieBO unregisteredItem = MovieBOBuilder.getInstance()
                 .withId(3)
                 .build();
-        fakeRepository.saveMovie(otherItem).await();
-        useCase.execute(unregisteredItem).get();
-    }
-
-    @Test
-    public void executeWithLocalCapacityNotExceeded_registeredItem_returnFalse() {
-        boolean actualValue = useCase
-                .execute(registeredItem)
-                .get();
-
-        assertFalse(actualValue);
-    }
-
-    @Test
-    public void executeWithLocalCapacityNotExceeded_itemNotRegistered_returnTrue() {
-        boolean actualValue = useCase
-                .execute(unregisteredItem)
-                .get();
-
-        assertTrue(actualValue);
+        useCase.execute(MovieMapper.convert(unregisteredItem)).get();
     }
 
 }

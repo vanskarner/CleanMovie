@@ -14,12 +14,12 @@ import java.util.Optional;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DefaultFakeRepository implements FakeRepository {
+public class DefaultFakeMovieLocalRepository implements FakeMovieLocalRepository {
     private final CompositeDisposable compositeDisposable;
     private final FutureFactory futureFactory;
     private final List<MovieBO> data;
 
-    public DefaultFakeRepository() {
+    public DefaultFakeMovieLocalRepository() {
         this.compositeDisposable = new CompositeDisposable();
         this.futureFactory = new DefaultFutureFactory(
                 compositeDisposable,
@@ -34,20 +34,14 @@ public class DefaultFakeRepository implements FakeRepository {
     }
 
     @Override
-    public FutureResult<List<MovieBO>> getMovies(int page) {
-        return futureFactory.just(data);
-    }
-
-    @Override
     public FutureResult<MovieBO> getMovie(int movieId) {
-        MovieBO item = data
+        Optional<MovieBO> item = data
                 .stream()
                 .filter(i -> i.getId() == movieId)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
         return futureFactory.fromCallable(() -> {
-            if (item != null)
-                return item;
+            if (item.isPresent())
+                return item.get();
             throw new NoSuchElementException();
         });
     }
@@ -83,6 +77,22 @@ public class DefaultFakeRepository implements FakeRepository {
     public FutureSimpleResult saveMovie(MovieBO movieDetail) {
         data.add(movieDetail);
         return futureFactory.success();
+    }
+
+    @Override
+    public void addItem(MovieBO item) {
+        data.add(item);
+    }
+
+    @Override
+    public void setList(List<MovieBO> list) {
+        data.clear();
+        data.addAll(list);
+    }
+
+    @Override
+    public List<MovieBO> getList() {
+        return data;
     }
 
     @Override

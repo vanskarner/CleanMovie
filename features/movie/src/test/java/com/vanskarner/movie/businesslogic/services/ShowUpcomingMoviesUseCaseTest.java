@@ -2,45 +2,48 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.MovieBOBuilder;
-import com.vanskarner.movie.businesslogic.RepositoryFactory;
+import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeRepository;
+import com.vanskarner.movie.businesslogic.repository.FakeMovieRemoteRepository;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShowUpcomingMoviesUseCaseTest {
     ShowUpcomingMoviesUseCase useCase;
-    FakeRepository fakeRepository;
+    FakeMovieRemoteRepository fakeMovieRemoteRepository;
 
     @Before
     public void setUp() {
-        fakeRepository = RepositoryFactory.createRepository();
-        MovieBO firstItem = MovieBOBuilder.getInstance()
+        fakeMovieRemoteRepository = FakeRepositoryFactory.createMovieRemoteRepository();
+        List<MovieBO> list = new ArrayList<>();
+        list.add(MovieBOBuilder.getInstance()
                 .withId(1)
-                .build();
-        MovieBO secondItem = MovieBOBuilder.getInstance()
+                .build());
+        list.add(MovieBOBuilder.getInstance()
                 .withId(2)
-                .build();
-        fakeRepository.saveMovie(firstItem).await();
-        fakeRepository.saveMovie(secondItem).await();
+                .build());
+        fakeMovieRemoteRepository.setList(list);
 
-        useCase = new ShowUpcomingMoviesUseCase(fakeRepository);
+        useCase = new ShowUpcomingMoviesUseCase(fakeMovieRemoteRepository);
     }
 
     @After
     public void tearDown() {
-        fakeRepository.clear();
+        fakeMovieRemoteRepository.clear();
     }
 
     @Test
-    public void execute_returnItems() {
-        int expectedQuantity = fakeRepository.getMovies().get().size();
+    public void execute_returnList() {
         MoviesDS moviesDS = useCase.execute(1).get();
         int actualQuantity = moviesDS.list.size();
+        int expectedQuantity = fakeMovieRemoteRepository.getList().size();
 
         assertEquals(expectedQuantity, actualQuantity);
     }

@@ -1,6 +1,4 @@
-package com.vanskarner.movie.businesslogic;
-
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+package com.vanskarner.movie.businesslogic.entities;
 
 public class MovieBOBuilder {
     private int id = 0;
