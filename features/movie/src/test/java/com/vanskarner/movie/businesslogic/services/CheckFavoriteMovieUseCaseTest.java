@@ -12,14 +12,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CheckFavoriteMovieUseCaseTest {
-    MovieLocalRepository fakeRepository;
+    MovieLocalRepository fakeLocalRepository;
     CheckFavoriteMovieUseCase useCase;
 
     @Before
     public void setUp() {
-        fakeRepository = FakeRepositoryFactory.createMovieLocalRepository();
+        fakeLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
 
-        useCase = new CheckFavoriteMovieUseCase(fakeRepository);
+        useCase = new CheckFavoriteMovieUseCase(fakeLocalRepository);
     }
 
     @Test
@@ -27,7 +27,7 @@ public class CheckFavoriteMovieUseCaseTest {
         MovieBO item = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        fakeRepository.saveMovie(item).await();
+        fakeLocalRepository.saveMovie(item).await();
         boolean exists = useCase
                 .execute(item.getId())
                 .get();

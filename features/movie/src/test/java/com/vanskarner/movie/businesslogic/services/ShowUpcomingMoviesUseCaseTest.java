@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ShowUpcomingMoviesUseCaseTest {
     ShowUpcomingMoviesUseCase useCase;
-    MovieRemoteRepository fakeMovieRemoteRepository;
+    MovieRemoteRepository fakeRemoteRepository;
 
     @Before
     public void setUp() {
@@ -27,16 +27,16 @@ public class ShowUpcomingMoviesUseCaseTest {
         data.add(MovieBOBuilder.getInstance()
                 .withId(2)
                 .build());
-        fakeMovieRemoteRepository = FakeRepositoryFactory.createMovieRemoteRepository(data);
+        fakeRemoteRepository = FakeRepositoryFactory.createMovieRemoteRepository(data);
 
-        useCase = new ShowUpcomingMoviesUseCase(fakeMovieRemoteRepository);
+        useCase = new ShowUpcomingMoviesUseCase(fakeRemoteRepository);
     }
 
     @Test
     public void execute_returnList() throws Exception {
         MoviesDS moviesDS = useCase.execute(1).get();
         int actualQuantity = moviesDS.list.size();
-        int expectedQuantity = fakeMovieRemoteRepository.getMovies(1).get().size();
+        int expectedQuantity = fakeRemoteRepository.getMovies(1).get().size();
 
         assertEquals(expectedQuantity, actualQuantity);
     }

@@ -12,26 +12,26 @@ import org.junit.Test;
 
 public class ShowFavoriteMoviesUseCaseTest {
     ShowFavoriteMoviesUseCase useCase;
-    MovieLocalRepository fakeRepository;
+    MovieLocalRepository fakeLocalRepository;
 
     @Before
     public void setUp() {
-        fakeRepository = FakeRepositoryFactory.createMovieLocalRepository();
-        fakeRepository.saveMovie(MovieBOBuilder.getInstance()
+        fakeLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
+        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
                 .withId(1)
                 .build());
-        fakeRepository.saveMovie(MovieBOBuilder.getInstance()
+        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
                 .withId(2)
                 .build());
 
-        useCase = new ShowFavoriteMoviesUseCase(fakeRepository);
+        useCase = new ShowFavoriteMoviesUseCase(fakeLocalRepository);
     }
 
     @Test
     public void execute_returnList() throws Exception {
         MoviesDS moviesDS = useCase.execute().get();
         int actualQuantity = moviesDS.list.size();
-        int expectedQuantity = fakeRepository.getNumberMovies().get();
+        int expectedQuantity = fakeLocalRepository.getNumberMovies().get();
 
         assertEquals(expectedQuantity, actualQuantity);
     }

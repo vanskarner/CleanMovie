@@ -15,13 +15,13 @@ import java.util.NoSuchElementException;
 
 public class FindFavoriteMovieUseCaseTest {
     FindFavoriteMovieUseCase useCase;
-    MovieLocalRepository fakeRepository;
+    MovieLocalRepository fakeLocalRepository;
 
     @Before
     public void setUp() {
-        fakeRepository = FakeRepositoryFactory.createMovieLocalRepository();
+        fakeLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
 
-        useCase = new FindFavoriteMovieUseCase(fakeRepository);
+        useCase = new FindFavoriteMovieUseCase(fakeLocalRepository);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class FindFavoriteMovieUseCaseTest {
         MovieBO expected = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        fakeRepository.saveMovie(expected).await();
+        fakeLocalRepository.saveMovie(expected).await();
         MovieDetailDS actual = useCase.execute(expected.getId()).get();
 
         assertEquals(expected.getId(), actual.id);

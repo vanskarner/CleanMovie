@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -13,11 +13,11 @@ import java.util.List;
 
 public class FakeRemoteRepositoryTest {
 
-    MovieRemoteRepository remoteRepository;
-    MovieBO savedItem;
+    static MovieRemoteRepository remoteRepository;
+    static MovieBO savedItem;
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         savedItem = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
