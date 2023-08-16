@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable;
 class MovieDefaultServices implements MovieServices {
 
     private final CompositeDisposable compositeDisposable;
-    private final Provider<ActionFavoriteMovieUseCase> actionFavoriteMovieUseCaseProvider;
+    private final Provider<ToggleMovieFavoriteUseCase> actionFavoriteMovieUseCaseProvider;
     private final Provider<CheckFavoriteMovieUseCase> checkFavoriteMovieUseCaseProvider;
     private final Provider<DeleteAllFavoriteMoviesUseCase> deleteAllFavoriteMoviesUseCaseProvider;
     private final Provider<FilterUpcomingMoviesUseCase> filterUpcomingMoviesUseCaseProvider;
@@ -27,7 +27,7 @@ class MovieDefaultServices implements MovieServices {
     @Inject
     public MovieDefaultServices(
             @CoreQualifiers.AsyncCompound CompositeDisposable compositeDisposable,
-            Provider<ActionFavoriteMovieUseCase> actionFavoriteMovieUseCaseProvider,
+            Provider<ToggleMovieFavoriteUseCase> actionFavoriteMovieUseCaseProvider,
             Provider<CheckFavoriteMovieUseCase> checkFavoriteMovieUseCaseProvider,
             Provider<DeleteAllFavoriteMoviesUseCase> deleteAllFavoriteMoviesUseCaseProvider,
             Provider<FilterUpcomingMoviesUseCase> filterUpcomingMoviesUseCaseProvider,
@@ -47,7 +47,7 @@ class MovieDefaultServices implements MovieServices {
     }
 
     @Override
-    public FutureResult<Boolean> actionFavorite(MovieDetailDS detailDS) {
+    public FutureResult<Boolean> toggleFavorite(MovieDetailDS detailDS) {
         return actionFavoriteMovieUseCaseProvider.get().execute(detailDS);
     }
 

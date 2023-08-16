@@ -39,7 +39,7 @@ class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
 
     @Override
     public void actionFavoriteMovie(MovieDetailModel detailModel) {
-        movieServices.actionFavorite(MovieViewMapper.convert(detailModel))
+        movieServices.toggleFavorite(MovieViewMapper.convert(detailModel))
                 .onResult(view::setMarkedAsFavorite,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
     }

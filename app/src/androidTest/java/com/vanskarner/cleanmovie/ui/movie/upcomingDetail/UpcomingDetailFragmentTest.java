@@ -116,8 +116,8 @@ public class UpcomingDetailFragmentTest {
         MovieDetailDS itemTwo = new MovieDetailDS(2, "Clean Architecture",
                 "", "", 100, 8.5f,
                 "2023-03-01", "Apply SOLID");
-        movieServices.actionFavorite(itemOne).get();
-        movieServices.actionFavorite(itemTwo).get();
+        movieServices.toggleFavorite(itemOne).get();
+        movieServices.toggleFavorite(itemTwo).get();
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
 
         Bundle bundle = new Bundle();

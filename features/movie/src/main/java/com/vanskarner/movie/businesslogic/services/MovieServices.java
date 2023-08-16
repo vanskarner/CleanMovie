@@ -8,7 +8,7 @@ import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 
 public interface MovieServices {
 
-    FutureResult<Boolean> actionFavorite(MovieDetailDS detailDS);
+    FutureResult<Boolean> toggleFavorite(MovieDetailDS detailDS);
 
     FutureResult<Boolean> checkFavorite(int movieId);
 

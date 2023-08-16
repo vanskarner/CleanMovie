@@ -10,13 +10,13 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class ActionFavoriteMovieUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean> {
+class ToggleMovieFavoriteUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean> {
     private final static int MAXIMUM_MOVIES_SAVED = 2;
     private final MovieLocalRepository localRepository;
     private final MovieErrorFilter movieErrorFilter;
 
     @Inject
-    public ActionFavoriteMovieUseCase(
+    public ToggleMovieFavoriteUseCase(
             MovieLocalRepository localRepository,
             MovieErrorFilter movieErrorFilter) {
         this.localRepository = localRepository;
@@ -31,8 +31,8 @@ class ActionFavoriteMovieUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean
 
     private FutureResult<Boolean> saveMovie(MovieDetailDS movieDetailDS) {
         return localRepository.getNumberMovies()
-                .flatMap(integer -> {
-                    if (integer >= MAXIMUM_MOVIES_SAVED)
+                .flatMap(numberMovies -> {
+                    if (numberMovies >= MAXIMUM_MOVIES_SAVED)
                         throw movieErrorFilter.filter(MovieError.FavoriteLimit.class);
                     return localRepository.saveMovie(MovieMapper.convert(movieDetailDS))
                             .toFutureResult(true);

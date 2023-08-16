@@ -61,7 +61,7 @@ public class FavoritesFragmentTest {
         MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
                 base64TopicImage, base64TopicImage, 100, 8.5f,
                 "2023-03-01", "Separation of responsibilities");
-        movieServices.actionFavorite(detailDS).get();
+        movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
         dataBindingIdlingResource.monitorFragment(scenario);
@@ -80,7 +80,7 @@ public class FavoritesFragmentTest {
         MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
                 base64TopicImage, base64TopicImage, 100, 8.5f,
                 "2023-03-01", "Separation of responsibilities");
-        movieServices.actionFavorite(detailDS).get();
+        movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
         dataBindingIdlingResource.monitorFragment(scenario);

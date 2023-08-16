@@ -13,17 +13,17 @@ import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ActionFavoriteMovieUseCaseTest {
+public class ToggleMovieFavoriteUseCaseTest {
 
     MovieLocalRepository fakeLocalRepository;
-    ActionFavoriteMovieUseCase useCase;
+    ToggleMovieFavoriteUseCase useCase;
 
     @Before
     public void setUp() {
         fakeLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
         MovieErrorFilter domainErrorFilter = new MockMovieErrorFilter();
 
-        useCase = new ActionFavoriteMovieUseCase(fakeLocalRepository, domainErrorFilter);
+        useCase = new ToggleMovieFavoriteUseCase(fakeLocalRepository, domainErrorFilter);
     }
 
     @Test
@@ -31,11 +31,11 @@ public class ActionFavoriteMovieUseCaseTest {
         MovieBO unregisteredItem = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        boolean like = useCase.execute(MovieMapper.convert(unregisteredItem)).get();
+        boolean favorite = useCase.execute(MovieMapper.convert(unregisteredItem)).get();
         int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
         int expectedNumberItems = 1;
 
-        assertTrue(like);
+        assertTrue(favorite);
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
@@ -45,11 +45,11 @@ public class ActionFavoriteMovieUseCaseTest {
                 .withId(1)
                 .build();
         fakeLocalRepository.saveMovie(registeredItem).await();
-        boolean like = useCase.execute(MovieMapper.convert(registeredItem)).get();
+        boolean favorite = useCase.execute(MovieMapper.convert(registeredItem)).get();
         int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
         int expectedNumberItems = 0;
 
-        assertFalse(like);
+        assertFalse(favorite);
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
