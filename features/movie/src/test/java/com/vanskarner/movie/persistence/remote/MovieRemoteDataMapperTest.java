@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,41 +12,50 @@ import java.util.Collections;
 import java.util.List;
 
 public class MovieRemoteDataMapperTest {
-    MovieDTO expectedDTO = new MovieDTO(
-            1, "Any overview", "/image.jpg",
-            "/background_image.jpg", "2023-01-30", "Clean Movie DTO",
-            105, 7.2f
-    );
+    static MovieDTO dataStructure;
+
+    @BeforeClass
+    public static void setup() {
+        dataStructure = new MovieDTO(1,
+                "Any overview",
+                "/anyImage.jpg",
+                "/anyBackImage.jpg",
+                "2023-08-15",
+                "Clean Architecture",
+                100,
+                9.5f);
+
+    }
 
     @Test
     public void convert_fromMovieDetailDTO_toMovieDetailBO() {
-        MovieBO actualBO = MovieRemoteDataMapper.convert(expectedDTO);
+        MovieBO actualItem = MovieRemoteDataMapper.convert(dataStructure);
+        MovieDTO expectedItem = dataStructure;
 
-        assertEquals(expectedDTO.id, actualBO.getId());
-        assertEquals(expectedDTO.title, actualBO.getTitle());
-        assertEquals(expectedDTO.posterPath, actualBO.getImage());
-        assertEquals(expectedDTO.backdropPath, actualBO.getBackgroundImage());
-        assertEquals(expectedDTO.voteCount, actualBO.getVoteCount());
-        assertEquals(expectedDTO.voteAverage, actualBO.getVoteAverage(), 0.01);
-        assertEquals(expectedDTO.releaseDate, actualBO.getReleaseDate());
-        assertEquals(expectedDTO.overview, actualBO.getOverview());
+        assertEquals(expectedItem.id, actualItem.getId());
+        assertEquals(expectedItem.title, actualItem.getTitle());
+        assertEquals(expectedItem.posterPath, actualItem.getImage());
+        assertEquals(expectedItem.backdropPath, actualItem.getBackgroundImage());
+        assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
+        assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.getReleaseDate());
+        assertEquals(expectedItem.overview, actualItem.getOverview());
     }
 
     @Test
     public void convert_fromListMovieDetailDTO_toListMovieDetailBO() {
-        List<MovieDTO> expectedDTO = new ArrayList<>(
-                Collections.singletonList(this.expectedDTO));
-        List<MovieBO> actualBO = MovieRemoteDataMapper.convert(expectedDTO);
+        List<MovieDTO> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
+        List<MovieBO> actualList = MovieRemoteDataMapper.convert(expectedList);
 
-        assertEquals(expectedDTO.size(), actualBO.size());
-        assertEquals(expectedDTO.get(0).id, actualBO.get(0).getId());
-        assertEquals(expectedDTO.get(0).title, actualBO.get(0).getTitle());
-        assertEquals(expectedDTO.get(0).posterPath, actualBO.get(0).getImage());
-        assertEquals(expectedDTO.get(0).backdropPath, actualBO.get(0).getBackgroundImage());
-        assertEquals(expectedDTO.get(0).voteCount, actualBO.get(0).getVoteCount());
-        assertEquals(expectedDTO.get(0).voteAverage, actualBO.get(0).getVoteAverage(), 0.01);
-        assertEquals(expectedDTO.get(0).releaseDate, actualBO.get(0).getReleaseDate());
-        assertEquals(expectedDTO.get(0).overview, actualBO.get(0).getOverview());
+        assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList.get(0).id, actualList.get(0).getId());
+        assertEquals(expectedList.get(0).title, actualList.get(0).getTitle());
+        assertEquals(expectedList.get(0).posterPath, actualList.get(0).getImage());
+        assertEquals(expectedList.get(0).backdropPath, actualList.get(0).getBackgroundImage());
+        assertEquals(expectedList.get(0).voteCount, actualList.get(0).getVoteCount());
+        assertEquals(expectedList.get(0).voteAverage, actualList.get(0).getVoteAverage(), 0.01);
+        assertEquals(expectedList.get(0).releaseDate, actualList.get(0).getReleaseDate());
+        assertEquals(expectedList.get(0).overview, actualList.get(0).getOverview());
     }
 
 }
