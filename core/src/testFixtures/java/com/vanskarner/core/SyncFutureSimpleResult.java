@@ -1,6 +1,5 @@
-package com.vanskarner.movie.businesslogic.repository;
+package com.vanskarner.core;
 
-import com.vanskarner.core.Consumer;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 

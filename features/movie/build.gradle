@@ -44,6 +44,8 @@ dependencies {
 
     testImplementation common.test.junit
     testImplementation common.test.mockWebServer
+    testImplementation testFixtures(project(":core"))
+
     androidTestImplementation common.test.androidJunit
     androidTestImplementation common.test.androidRunner
     androidTestImplementation localData.test.roomTesting

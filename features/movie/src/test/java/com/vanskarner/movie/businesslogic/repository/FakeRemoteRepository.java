@@ -1,5 +1,6 @@
 package com.vanskarner.movie.businesslogic.repository;
 
+import com.vanskarner.core.SyncFutureResult;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 
