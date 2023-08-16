@@ -50,7 +50,7 @@ class SingleFutureResult<T> implements FutureResult<T> {
     }
 
     @Override
-    public T get() {
+    public T get() throws Exception {
         return tSingle.blockingGet();
     }
 

@@ -8,40 +8,31 @@ import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.error.MovieError;
-import com.vanskarner.movie.businesslogic.repository.FakeMovieLocalRepository;
+import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ActionFavoriteMovieUseCaseTest {
 
-    FakeMovieLocalRepository fakeMovieLocalRepository;
+    MovieLocalRepository fakeLocalRepository;
     ActionFavoriteMovieUseCase useCase;
 
     @Before
     public void setUp() {
-        fakeMovieLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
+        fakeLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
         MovieErrorFilter domainErrorFilter = new MockMovieErrorFilter();
 
-        useCase = new ActionFavoriteMovieUseCase(fakeMovieLocalRepository, domainErrorFilter);
-    }
-
-    @After
-    public void tearDown() {
-        fakeMovieLocalRepository.clear();
+        useCase = new ActionFavoriteMovieUseCase(fakeLocalRepository, domainErrorFilter);
     }
 
     @Test
-    public void execute_withUnregisteredItem_savedItem() {
+    public void execute_withUnregisteredItem_savedItem() throws Exception {
         MovieBO unregisteredItem = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
         boolean like = useCase.execute(MovieMapper.convert(unregisteredItem)).get();
-        int actualNumberItems = fakeMovieLocalRepository.getList().size();
+        int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
         int expectedNumberItems = 1;
 
         assertTrue(like);
@@ -49,13 +40,13 @@ public class ActionFavoriteMovieUseCaseTest {
     }
 
     @Test
-    public void execute_withRegisteredItem_deletedItem() {
+    public void execute_withRegisteredItem_deletedItem() throws Exception {
         MovieBO registeredItem = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        fakeMovieLocalRepository.addItem(registeredItem);
+        fakeLocalRepository.saveMovie(registeredItem).await();
         boolean like = useCase.execute(MovieMapper.convert(registeredItem)).get();
-        int actualNumberItems = fakeMovieLocalRepository.getList().size();
+        int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
         int expectedNumberItems = 0;
 
         assertFalse(like);
@@ -63,15 +54,13 @@ public class ActionFavoriteMovieUseCaseTest {
     }
 
     @Test(expected = MovieError.FavoriteLimit.class)
-    public void execute_withUnregisteredItemAndExceededCapacity_exception() {
-        List<MovieBO> list = new ArrayList<>();
-        list.add(MovieBOBuilder.getInstance()
+    public void execute_withUnregisteredItemAndExceededCapacity_exception() throws Exception {
+        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
                 .withId(1)
-                .build());
-        list.add(MovieBOBuilder.getInstance()
+                .build()).await();
+        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
                 .withId(2)
-                .build());
-        fakeMovieLocalRepository.setList(list);
+                .build()).await();
         MovieBO unregisteredItem = MovieBOBuilder.getInstance()
                 .withId(3)
                 .build();

@@ -6,14 +6,13 @@ import static org.junit.Assert.assertTrue;
 import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
 import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeMovieLocalRepository;
+import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class CheckFavoriteMovieUseCaseTest {
-    FakeMovieLocalRepository fakeRepository;
+    MovieLocalRepository fakeRepository;
     CheckFavoriteMovieUseCase useCase;
 
     @Before
@@ -23,17 +22,12 @@ public class CheckFavoriteMovieUseCaseTest {
         useCase = new CheckFavoriteMovieUseCase(fakeRepository);
     }
 
-    @After
-    public void tearDown() {
-        fakeRepository.clear();
-    }
-
     @Test
-    public void execute_withValidID_itemExists() {
+    public void execute_withValidID_itemExists() throws Exception {
         MovieBO item = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        fakeRepository.addItem(item);
+        fakeRepository.saveMovie(item).await();
         boolean exists = useCase
                 .execute(item.getId())
                 .get();
@@ -42,7 +36,7 @@ public class CheckFavoriteMovieUseCaseTest {
     }
 
     @Test
-    public void execute_withInvalidID_itemNotExists() {
+    public void execute_withInvalidID_itemNotExists() throws Exception {
         boolean exists = useCase
                 .execute(1)
                 .get();

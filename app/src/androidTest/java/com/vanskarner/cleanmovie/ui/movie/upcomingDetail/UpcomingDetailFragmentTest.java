@@ -67,7 +67,7 @@ public class UpcomingDetailFragmentTest {
     }
 
     @After
-    public void tearDown() throws IOException {
+    public void tearDown() throws Exception {
         server.shutdown();
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
@@ -109,7 +109,7 @@ public class UpcomingDetailFragmentTest {
     }
 
     @Test
-    public void saveFavorite_favoritesLimitError_showErrorDialog() throws IOException {
+    public void saveFavorite_favoritesLimitError_showErrorDialog() throws Exception {
         MovieDetailDS itemOne = new MovieDetailDS(1, "Clean Architecture",
                 "", "", 100, 8.5f,
                 "2023-03-01", "Separation of responsibilities");

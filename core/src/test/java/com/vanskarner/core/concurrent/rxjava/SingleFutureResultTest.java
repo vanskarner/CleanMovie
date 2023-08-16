@@ -3,8 +3,6 @@ package com.vanskarner.core.concurrent.rxjava;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
-import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,14 +32,14 @@ public class SingleFutureResultTest {
     }
 
     @Test
-    public void map_incomingString_sameUppercaseString() {
+    public void map_incomingString_sameUppercaseString() throws Exception {
         String actual = futureResult.map(String::toUpperCase).get();
 
         assertEquals(EXPECTED_VALUE.toUpperCase(), actual);
     }
 
     @Test
-    public void flatMap_incomingString_sameUppercaseString() {
+    public void flatMap_incomingString_sameUppercaseString() throws Exception {
         String actual = futureResult
                 .flatMap(s -> futureResult.map(s1 -> EXPECTED_VALUE.toUpperCase())).get();
 
@@ -49,12 +47,12 @@ public class SingleFutureResultTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void map_nullFunction_nullPointerException() {
+    public void map_nullFunction_nullPointerException() throws Exception {
         futureResult.map(null).get();
     }
 
     @Test(expected = NullPointerException.class)
-    public void flatMap_nullFunction_nullPointerException() {
+    public void flatMap_nullFunction_nullPointerException() throws Exception {
         futureResult.flatMap(null).get();
     }
 

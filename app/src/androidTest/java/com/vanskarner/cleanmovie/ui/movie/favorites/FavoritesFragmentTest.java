@@ -31,8 +31,6 @@ import com.vanskarner.cleanmovie.R;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 @RunWith(AndroidJUnit4.class)
@@ -52,13 +50,13 @@ public class FavoritesFragmentTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception {
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
     }
 
     @Test
-    public void deleteAllFavorites_showMessageNoFavorites() throws IOException {
+    public void deleteAllFavorites_showMessageNoFavorites() throws Exception {
         String base64TopicImage = FileUtils.readFile("base64_topic_image.txt");
         MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
                 base64TopicImage, base64TopicImage, 100, 8.5f,
@@ -77,7 +75,7 @@ public class FavoritesFragmentTest {
     }
 
     @Test
-    public void selectFavoriteItem_showDetailDialog() throws IOException {
+    public void selectFavoriteItem_showDetailDialog() throws Exception {
         String base64TopicImage = FileUtils.readFile("base64_topic_image.txt");
         MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
                 base64TopicImage, base64TopicImage, 100, 8.5f,

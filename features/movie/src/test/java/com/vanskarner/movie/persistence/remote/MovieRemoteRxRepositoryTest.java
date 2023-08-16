@@ -71,7 +71,7 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @Test
-    public void getMovies_httpOk_returnItems() throws IOException {
+    public void getMovies_httpOk_returnItems() throws Exception {
         String jsonPath = "src/test/resources/upcoming_list.json";
         MoviesResultDTO expected = testMockWebServer.fromJson(jsonPath, MoviesResultDTO.class);
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, jsonPath);
@@ -81,7 +81,7 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @Test
-    public void getMovie_httpOk_returnItem() throws IOException {
+    public void getMovie_httpOk_returnItem() throws Exception {
         String jsonPath = "src/test/resources/upcoming_item.json";
         MovieDTO expected = testMockWebServer.fromJson(jsonPath, MovieDTO.class);
         expected.posterPath = baseImageUrl.concat(expected.posterPath);
@@ -99,30 +99,30 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @Test(expected = MovieRemoteError.NoInternet.class)
-    public void getMovies_noResponse_noInternetException() {
+    public void getMovies_noResponse_noInternetException() throws Exception {
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.Unauthorised.class)
-    public void getMovies_httpUnauthorized_unauthorisedException() {
+    public void getMovies_httpUnauthorized_unauthorisedException() throws Exception {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAUTHORIZED);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.NotFound.class)
-    public void getMovies_httpNotFound_notFoundException() {
+    public void getMovies_httpNotFound_notFoundException() throws Exception {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.ServiceUnavailable.class)
-    public void getMovies_httpUnavailable_serviceUnavailableException() {
+    public void getMovies_httpUnavailable_serviceUnavailableException() throws Exception {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.Server.class)
-    public void getMovies_httpOthers_defaultServerException() {
+    public void getMovies_httpOthers_defaultServerException() throws Exception {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_VERSION);
         repository.getMovies(1).get();
     }

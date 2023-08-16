@@ -3,8 +3,6 @@ package com.vanskarner.core.concurrent.rxjava;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.concurrent.FutureSimpleResult;
-import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
-import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,14 +32,14 @@ public class CompletableFutureSimpleResultTest {
     }
 
     @Test
-    public void toFutureResult_withString_SameString() {
+    public void toFutureResult_withString_SameString() throws Exception {
         String actual = futureResult.toFutureResult(EXPECTED_VALUE).get();
 
         assertEquals(EXPECTED_VALUE, actual);
     }
 
     @Test(expected = NullPointerException.class)
-    public void toFutureResult_nullValue_nullPointerException() {
+    public void toFutureResult_nullValue_nullPointerException() throws Exception {
         futureResult.toFutureResult(null).get();
     }
 }

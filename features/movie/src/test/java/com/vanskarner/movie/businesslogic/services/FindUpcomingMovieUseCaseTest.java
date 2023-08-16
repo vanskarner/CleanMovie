@@ -6,51 +6,41 @@ import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
 import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeMovieRemoteRepository;
-
-import org.junit.After;
-import org.junit.Before;
+import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public class FindUpcomingMovieUseCaseTest {
-    FindUpcomingMovieUseCase useCase;
-    FakeMovieRemoteRepository fakeRepository;
-
-    @Before
-    public void setUp() {
-        fakeRepository = FakeRepositoryFactory.createMovieRemoteRepository();
-
-        useCase = new FindUpcomingMovieUseCase(fakeRepository);
-    }
-
-    @After
-    public void tearDown() {
-        fakeRepository.clear();
-    }
 
     @Test
-    public void execute_withValidID_returnItem() {
-        MovieBO expected = MovieBOBuilder.getInstance()
+    public void execute_withValidID_returnItem() throws Exception {
+        MovieBO expectedItem = MovieBOBuilder.getInstance()
                 .withId(1)
                 .build();
-        fakeRepository.addItem(expected);
-        MovieDetailDS actual = useCase.execute(expected.getId()).get();
+        MovieRemoteRepository fakeRepository = FakeRepositoryFactory
+                .createMovieRemoteRepository(Collections.singletonList(expectedItem));
+        FindUpcomingMovieUseCase useCase = new FindUpcomingMovieUseCase(fakeRepository);
+        MovieDetailDS actualItem = useCase.execute(expectedItem.getId()).get();
 
-        assertEquals(expected.getId(), actual.id);
-        assertEquals(expected.getTitle(), actual.title);
-        assertEquals(expected.getImage(), actual.image);
-        assertEquals(expected.getBackgroundImage(), actual.backgroundImage);
-        assertEquals(expected.getVoteCount(), actual.voteCount);
-        assertEquals(expected.getVoteAverage(), actual.voteAverage, 0.01);
-        assertEquals(expected.getReleaseDate(), actual.releaseDate);
-        assertEquals(expected.getOverview(), actual.overview);
-        assertEquals(expected.isRecommended(), actual.recommended);
+        assertEquals(expectedItem.getId(), actualItem.id);
+        assertEquals(expectedItem.getTitle(), actualItem.title);
+        assertEquals(expectedItem.getImage(), actualItem.image);
+        assertEquals(expectedItem.getBackgroundImage(), actualItem.backgroundImage);
+        assertEquals(expectedItem.getVoteCount(), actualItem.voteCount);
+        assertEquals(expectedItem.getVoteAverage(), actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.getReleaseDate(), actualItem.releaseDate);
+        assertEquals(expectedItem.getOverview(), actualItem.overview);
+        assertEquals(expectedItem.isRecommended(), actualItem.recommended);
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void execute_withInvalidID_throwException() {
+    public void execute_withInvalidID_throwException() throws Exception {
+        MovieRemoteRepository fakeRepository = FakeRepositoryFactory
+                .createMovieRemoteRepository(Collections.emptyList());
+        FindUpcomingMovieUseCase useCase = new FindUpcomingMovieUseCase(fakeRepository);
+
         useCase.execute(0).get();
     }
 

@@ -52,7 +52,7 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void saveItems_returnQuantityItems() {
+    public void saveItems_returnQuantityItems() throws Exception {
         int expected = 2;
         repository.saveMovie(getItem(33)).await();
         repository.saveMovie(getItem(34)).await();
@@ -62,7 +62,7 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void saveItem_returnItem() {
+    public void saveItem_returnItem() throws Exception {
         int movieId = 33;
         MovieBO expected = getItem(movieId);
         repository.saveMovie(expected).await();
@@ -79,7 +79,7 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void deleteMovie_complete() {
+    public void deleteMovie_complete() throws Exception {
         int movieId = 33;
         repository.saveMovie(getItem(movieId)).await();
         repository.deleteMovie(movieId).await();
@@ -89,7 +89,7 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void deleteAllMovies_returnNumberOfDeletedItems() {
+    public void deleteAllMovies_returnNumberOfDeletedItems() throws Exception {
         int expected = 2;
         repository.saveMovie(getItem(33)).await();
         repository.saveMovie(getItem(34)).await();
@@ -99,7 +99,7 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void getNumberMovies_returnNumberOfItems() {
+    public void getNumberMovies_returnNumberOfItems() throws Exception {
         int expected = 2;
         repository.saveMovie(getItem(33)).await();
         repository.saveMovie(getItem(34)).await();
@@ -109,7 +109,7 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void checkMovie_validID_returnTrue() {
+    public void checkMovie_validID_returnTrue() throws Exception {
         int validID = 33;
         repository.saveMovie(getItem(validID)).await();
         boolean value = repository.checkMovie(validID).get();
@@ -118,7 +118,7 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void checkMovie_invalidID_returnFalse() {
+    public void checkMovie_invalidID_returnFalse() throws Exception {
         boolean value = repository.checkMovie(33).get();
 
         assertFalse(value);

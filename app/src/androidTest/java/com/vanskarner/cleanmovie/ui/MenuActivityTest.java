@@ -67,7 +67,7 @@ public class MenuActivityTest {
     }
 
     @After
-    public void tearDown() throws IOException {
+    public void tearDown() throws Exception {
         server.shutdown();
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
@@ -123,7 +123,7 @@ public class MenuActivityTest {
     }
 
     @Test
-    public void saveFavorite_usingFilter_oneResult() throws IOException {
+    public void saveFavorite_usingFilter_oneResult() throws Exception {
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
         MovieDetailDS planeMovie = movieServices.findUpcoming(0).get();
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
@@ -143,7 +143,7 @@ public class MenuActivityTest {
     }
 
     @Test
-    public void deleteFavorite_usingFilter_zeroResults() throws IOException {
+    public void deleteFavorite_usingFilter_zeroResults() throws Exception {
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
         MovieDetailDS planeMovie = movieServices.findUpcoming(0).get();
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");

@@ -2,13 +2,12 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
+import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
 import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.FakeMovieRemoteRepository;
+import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,33 +16,27 @@ import java.util.List;
 
 public class ShowUpcomingMoviesUseCaseTest {
     ShowUpcomingMoviesUseCase useCase;
-    FakeMovieRemoteRepository fakeMovieRemoteRepository;
+    MovieRemoteRepository fakeMovieRemoteRepository;
 
     @Before
     public void setUp() {
-        fakeMovieRemoteRepository = FakeRepositoryFactory.createMovieRemoteRepository();
-        List<MovieBO> list = new ArrayList<>();
-        list.add(MovieBOBuilder.getInstance()
+        List<MovieBO> data = new ArrayList<>();
+        data.add(MovieBOBuilder.getInstance()
                 .withId(1)
                 .build());
-        list.add(MovieBOBuilder.getInstance()
+        data.add(MovieBOBuilder.getInstance()
                 .withId(2)
                 .build());
-        fakeMovieRemoteRepository.setList(list);
+        fakeMovieRemoteRepository = FakeRepositoryFactory.createMovieRemoteRepository(data);
 
         useCase = new ShowUpcomingMoviesUseCase(fakeMovieRemoteRepository);
     }
 
-    @After
-    public void tearDown() {
-        fakeMovieRemoteRepository.clear();
-    }
-
     @Test
-    public void execute_returnList() {
+    public void execute_returnList() throws Exception {
         MoviesDS moviesDS = useCase.execute(1).get();
         int actualQuantity = moviesDS.list.size();
-        int expectedQuantity = fakeMovieRemoteRepository.getList().size();
+        int expectedQuantity = fakeMovieRemoteRepository.getMovies(1).get().size();
 
         assertEquals(expectedQuantity, actualQuantity);
     }
