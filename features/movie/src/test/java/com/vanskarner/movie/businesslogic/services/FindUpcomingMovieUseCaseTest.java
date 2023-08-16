@@ -16,7 +16,7 @@ public class FindUpcomingMovieUseCaseTest {
 
     @Test
     public void execute_withValidID_returnItem() throws Exception {
-        MovieBO expectedItem = MovieBOBuilder.getInstance()
+        MovieBO expectedItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         MovieRemoteRepository fakeRemoteRepository = FakeRepositoryFactory

@@ -16,10 +16,10 @@ public class DeleteAllFavoriteMoviesUseCaseTest {
     @Before
     public void setUp() {
         fakeLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
-        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
+        fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(1)
                 .build());
-        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
+        fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(2)
                 .build());
 

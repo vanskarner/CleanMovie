@@ -51,7 +51,8 @@ public class MovieBOBuilder {
     }
 
     public MovieBO build() {
-        return new MovieBO(id,
+        return new MovieBO(
+                id,
                 title,
                 image,
                 backgroundImage,
@@ -59,10 +60,6 @@ public class MovieBOBuilder {
                 voteAverage,
                 releaseDate,
                 overview);
-    }
-
-    public static MovieBOBuilder getInstance(){
-        return new MovieBOBuilder();
     }
 
 }

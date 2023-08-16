@@ -18,7 +18,7 @@ public class FakeRemoteRepositoryTest {
 
     @BeforeClass
     public static void setUp() {
-        savedItem = MovieBOBuilder.getInstance()
+        savedItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
 

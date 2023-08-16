@@ -9,7 +9,7 @@ public class MovieBOTest {
 
     @Test
     public void isRecommended_voteCountAverageVoteAreSuperior_recommended() {
-        MovieBO movieBO = MovieBOBuilder.getInstance()
+        MovieBO movieBO = new MovieBOBuilder()
                 .withVoteCount(76)
                 .withVoteAverage(7.6f)
                 .build();
@@ -19,7 +19,7 @@ public class MovieBOTest {
 
     @Test
     public void isRecommended_voteCountAverageVoteAreExact_recommended() {
-        MovieBO movieBO = MovieBOBuilder.getInstance()
+        MovieBO movieBO = new MovieBOBuilder()
                 .withVoteCount(75)
                 .withVoteAverage(7.5f)
                 .build();
@@ -29,7 +29,7 @@ public class MovieBOTest {
 
     @Test
     public void isRecommended_voteCountIsInferior_notRecommended() {
-        MovieBO movieBO = MovieBOBuilder.getInstance()
+        MovieBO movieBO = new MovieBOBuilder()
                 .withVoteCount(74)
                 .withVoteAverage(7.5f)
                 .build();
@@ -39,7 +39,7 @@ public class MovieBOTest {
 
     @Test
     public void isRecommended_voteCountAverageVoteAreInferior_notRecommended() {
-        MovieBO movieBO = MovieBOBuilder.getInstance()
+        MovieBO movieBO = new MovieBOBuilder()
                 .withVoteCount(74)
                 .withVoteAverage(7.4f)
                 .build();
@@ -49,7 +49,7 @@ public class MovieBOTest {
 
     @Test
     public void isRecommended_voteAverageIsInferior_notRecommended() {
-        MovieBO movieBO = MovieBOBuilder.getInstance()
+        MovieBO movieBO = new MovieBOBuilder()
                 .withVoteCount(75)
                 .withVoteAverage(7.4f)
                 .build();

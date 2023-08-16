@@ -21,7 +21,7 @@ public class MovieMapperTest {
 
     @BeforeClass
     public static void setup() {
-        businessObject = MovieBOBuilder.getInstance()
+        businessObject = new MovieBOBuilder()
                 .withId(1)
                 .withTitle("Clean Architecture")
                 .withImage("https://blog.cleancoder.com/anyImage.jpg")

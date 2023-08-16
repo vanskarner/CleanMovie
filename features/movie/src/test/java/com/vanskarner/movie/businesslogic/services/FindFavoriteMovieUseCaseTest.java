@@ -26,7 +26,7 @@ public class FindFavoriteMovieUseCaseTest {
 
     @Test
     public void execute_withValidID_returnItem() throws Exception {
-        MovieBO expected = MovieBOBuilder.getInstance()
+        MovieBO expected = new MovieBOBuilder()
                 .withId(1)
                 .build();
         fakeLocalRepository.saveMovie(expected).await();

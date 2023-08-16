@@ -21,10 +21,10 @@ public class ShowUpcomingMoviesUseCaseTest {
     @Before
     public void setUp() {
         List<MovieBO> data = new ArrayList<>();
-        data.add(MovieBOBuilder.getInstance()
+        data.add(new MovieBOBuilder()
                 .withId(1)
                 .build());
-        data.add(MovieBOBuilder.getInstance()
+        data.add(new MovieBOBuilder()
                 .withId(2)
                 .build());
         fakeRemoteRepository = FakeRepositoryFactory.createMovieRemoteRepository(data);

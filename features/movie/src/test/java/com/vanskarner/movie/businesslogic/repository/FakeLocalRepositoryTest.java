@@ -24,7 +24,7 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void getMovies_aSavedItem_returnOne() throws Exception {
-        MovieBO item = MovieBOBuilder.getInstance()
+        MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();
@@ -37,7 +37,7 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void getMovie_returnItem() throws Exception {
-        MovieBO expectedItem = MovieBOBuilder.getInstance()
+        MovieBO expectedItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(expectedItem).await();
@@ -55,7 +55,7 @@ public class FakeLocalRepositoryTest {
 
     @Test(expected = NoSuchElementException.class)
     public void deleteMovie_getMovieRemoved_exception() throws Exception {
-        MovieBO item = MovieBOBuilder.getInstance()
+        MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();
@@ -65,7 +65,7 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void deleteAllMovies_withASavedItem_returnOne() throws Exception {
-        MovieBO firstItem = MovieBOBuilder.getInstance()
+        MovieBO firstItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(firstItem).await();
@@ -77,7 +77,7 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void getNumberMovies_withASavedItem_returnOne() throws Exception {
-        MovieBO item = MovieBOBuilder.getInstance()
+        MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();
@@ -89,7 +89,7 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void checkMovie_withValidId_itemExists() throws Exception {
-        MovieBO item = MovieBOBuilder.getInstance()
+        MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();
@@ -107,7 +107,7 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void saveMovie_savedItem() throws Exception {
-        MovieBO item = MovieBOBuilder.getInstance()
+        MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();

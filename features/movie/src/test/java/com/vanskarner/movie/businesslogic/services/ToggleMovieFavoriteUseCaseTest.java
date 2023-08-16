@@ -28,7 +28,7 @@ public class ToggleMovieFavoriteUseCaseTest {
 
     @Test
     public void execute_withUnregisteredItem_savedItem() throws Exception {
-        MovieBO unregisteredItem = MovieBOBuilder.getInstance()
+        MovieBO unregisteredItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         boolean favorite = useCase.execute(MovieMapper.convert(unregisteredItem)).get();
@@ -41,7 +41,7 @@ public class ToggleMovieFavoriteUseCaseTest {
 
     @Test
     public void execute_withRegisteredItem_deletedItem() throws Exception {
-        MovieBO registeredItem = MovieBOBuilder.getInstance()
+        MovieBO registeredItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         fakeLocalRepository.saveMovie(registeredItem).await();
@@ -55,13 +55,13 @@ public class ToggleMovieFavoriteUseCaseTest {
 
     @Test(expected = MovieError.FavoriteLimit.class)
     public void execute_withUnregisteredItemAndExceededCapacity_exception() throws Exception {
-        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
+        fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(1)
                 .build()).await();
-        fakeLocalRepository.saveMovie(MovieBOBuilder.getInstance()
+        fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(2)
                 .build()).await();
-        MovieBO unregisteredItem = MovieBOBuilder.getInstance()
+        MovieBO unregisteredItem = new MovieBOBuilder()
                 .withId(3)
                 .build();
         useCase.execute(MovieMapper.convert(unregisteredItem)).get();
