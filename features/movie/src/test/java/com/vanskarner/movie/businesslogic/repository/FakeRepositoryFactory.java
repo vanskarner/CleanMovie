@@ -9,11 +9,11 @@ public class FakeRepositoryFactory {
     private FakeRepositoryFactory() {
     }
 
-    public static MovieRemoteRepository createMovieRemoteRepository(List<MovieBO> data) {
+    public static MovieRemoteRepository createFakeRemoteRepository(List<MovieBO> data) {
         return new FakeRemoteRepository(data);
     }
 
-    public static MovieLocalRepository createMovieLocalRepository() {
+    public static MovieLocalRepository createFakeLocalRepository() {
         return new FakeLocalRepository();
     }
 

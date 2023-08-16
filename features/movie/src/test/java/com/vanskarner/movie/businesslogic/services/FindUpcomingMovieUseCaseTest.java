@@ -20,7 +20,7 @@ public class FindUpcomingMovieUseCaseTest {
                 .withId(1)
                 .build();
         MovieRemoteRepository fakeRemoteRepository = FakeRepositoryFactory
-                .createMovieRemoteRepository(Collections.singletonList(expectedItem));
+                .createFakeRemoteRepository(Collections.singletonList(expectedItem));
         FindUpcomingMovieUseCase useCase = new FindUpcomingMovieUseCase(fakeRemoteRepository);
         MovieDetailDS actualItem = useCase.execute(expectedItem.getId()).get();
 
@@ -38,7 +38,7 @@ public class FindUpcomingMovieUseCaseTest {
     @Test(expected = NoSuchElementException.class)
     public void execute_withInvalidID_throwException() throws Exception {
         MovieRemoteRepository fakeRemoteRepository = FakeRepositoryFactory
-                .createMovieRemoteRepository(Collections.emptyList());
+                .createFakeRemoteRepository(Collections.emptyList());
         FindUpcomingMovieUseCase useCase = new FindUpcomingMovieUseCase(fakeRemoteRepository);
 
         useCase.execute(1).get();

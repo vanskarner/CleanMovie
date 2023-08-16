@@ -13,7 +13,7 @@ import java.util.List;
 
 public class FakeRemoteRepositoryTest {
 
-    static MovieRemoteRepository remoteRepository;
+    static FakeRemoteRepository remoteRepository;
     static MovieBO savedItem;
 
     @BeforeClass
@@ -22,8 +22,7 @@ public class FakeRemoteRepositoryTest {
                 .withId(1)
                 .build();
 
-        remoteRepository = FakeRepositoryFactory
-                .createMovieRemoteRepository(Collections.singletonList(savedItem));
+        remoteRepository = new FakeRemoteRepository(Collections.singletonList(savedItem));
     }
 
     @Test

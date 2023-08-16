@@ -17,7 +17,7 @@ public class CheckFavoriteMovieUseCaseTest {
 
     @Before
     public void setUp() {
-        fakeLocalRepository = FakeRepositoryFactory.createMovieLocalRepository();
+        fakeLocalRepository = FakeRepositoryFactory.createFakeLocalRepository();
 
         useCase = new CheckFavoriteMovieUseCase(fakeLocalRepository);
     }

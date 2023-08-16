@@ -15,11 +15,11 @@ import java.util.NoSuchElementException;
 
 public class FakeLocalRepositoryTest {
 
-    MovieLocalRepository localRepository;
+    FakeLocalRepository localRepository;
 
     @Before
     public void setUp() {
-        localRepository = FakeRepositoryFactory.createMovieLocalRepository();
+        localRepository = new FakeLocalRepository();
     }
 
     @Test
