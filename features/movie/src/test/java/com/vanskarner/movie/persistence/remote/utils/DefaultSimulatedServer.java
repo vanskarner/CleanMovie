@@ -10,15 +10,26 @@ import java.nio.file.Paths;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-public class TestMockWebServer {
+public class DefaultSimulatedServer implements SimulatedServer {
     private final MockWebServer server;
     private final Gson gson;
 
-    public TestMockWebServer(MockWebServer server, Gson gson) {
-        this.server = server;
-        this.gson = gson;
+    public DefaultSimulatedServer() {
+        this.server = new MockWebServer();
+        this.gson = new Gson();
     }
 
+    @Override
+    public void start(int port) throws IOException {
+        server.start(port);
+    }
+
+    @Override
+    public void shutdown() throws IOException {
+        server.shutdown();
+    }
+
+    @Override
     public void enqueue(int httpCode, String jsonPath) throws IOException {
         MockResponse mockResponse = new MockResponse();
         mockResponse.setResponseCode(httpCode);
@@ -26,6 +37,7 @@ public class TestMockWebServer {
         server.enqueue(mockResponse);
     }
 
+    @Override
     public void enqueueEmpty(int httpCode) {
         MockResponse mockResponse = new MockResponse();
         mockResponse.setResponseCode(httpCode);
@@ -33,6 +45,7 @@ public class TestMockWebServer {
         server.enqueue(mockResponse);
     }
 
+    @Override
     public <T> T fromJson(String jsonPath, Class<T> classOfT) throws IOException {
         return gson.fromJson(readFile(jsonPath), classOfT);
     }

@@ -6,9 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.persistence.remote.utils.TestMockWebServer;
+import com.vanskarner.movie.persistence.remote.utils.DefaultSimulatedServer;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
+import com.vanskarner.movie.persistence.remote.utils.SimulatedServer;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,26 +24,24 @@ import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
-import okhttp3.mockwebserver.MockWebServer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRemoteRxRepositoryTest {
-    MockWebServer server = new MockWebServer();
     MovieRemoteRepository repository;
     String baseImageUrl = "https://image.tmdb.org/t/p/w500";
-    Gson gson = new Gson();
-    TestMockWebServer testMockWebServer = new TestMockWebServer(server, gson);
+    SimulatedServer simulatedServer = new DefaultSimulatedServer();
 
     @Before
     public void setUp() throws IOException {
-        server.start();
+        int port = 3016;
+        simulatedServer.start(port);
         CompositeDisposable compositeDisposable = new CompositeDisposable();
         Scheduler testScheduler = Schedulers.trampoline();
         RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable,
                 testScheduler, testScheduler);
-        String baseUrl = server.url("/").toString();
+        String baseUrl = "http://127.0.0.1:".concat(port + "/");
         MockRemoteDataErrorFilter mockRemoteDataErrorFilter = new MockRemoteDataErrorFilter();
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(1, TimeUnit.SECONDS)
@@ -67,14 +66,14 @@ public class MovieRemoteRxRepositoryTest {
 
     @After
     public void tearDown() throws Exception {
-        server.shutdown();
+        simulatedServer.shutdown();
     }
 
     @Test
     public void getMovies_httpOk_returnItems() throws Exception {
         String jsonPath = "src/test/resources/upcoming_list.json";
-        MoviesResultDTO expected = testMockWebServer.fromJson(jsonPath, MoviesResultDTO.class);
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, jsonPath);
+        MoviesResultDTO expected = simulatedServer.fromJson(jsonPath, MoviesResultDTO.class);
+        simulatedServer.enqueue(HttpURLConnection.HTTP_OK, jsonPath);
         List<MovieBO> actual = repository.getMovies(1).get();
 
         assertEquals(expected.results.size(), actual.size());
@@ -83,10 +82,10 @@ public class MovieRemoteRxRepositoryTest {
     @Test
     public void getMovie_httpOk_returnItem() throws Exception {
         String jsonPath = "src/test/resources/upcoming_item.json";
-        MovieDTO expected = testMockWebServer.fromJson(jsonPath, MovieDTO.class);
+        MovieDTO expected = simulatedServer.fromJson(jsonPath, MovieDTO.class);
         expected.posterPath = baseImageUrl.concat(expected.posterPath);
         expected.backdropPath = baseImageUrl.concat(expected.backdropPath);
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, jsonPath);
+        simulatedServer.enqueue(HttpURLConnection.HTTP_OK, jsonPath);
         MovieBO actual = repository.getMovie(1).get();
 
 
@@ -105,25 +104,25 @@ public class MovieRemoteRxRepositoryTest {
 
     @Test(expected = MovieRemoteError.Unauthorised.class)
     public void getMovies_httpUnauthorized_unauthorisedException() throws Exception {
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAUTHORIZED);
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAUTHORIZED);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.NotFound.class)
     public void getMovies_httpNotFound_notFoundException() throws Exception {
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.ServiceUnavailable.class)
     public void getMovies_httpUnavailable_serviceUnavailableException() throws Exception {
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.Server.class)
     public void getMovies_httpOthers_defaultServerException() throws Exception {
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_VERSION);
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_VERSION);
         repository.getMovies(1).get();
     }
 
