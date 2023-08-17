@@ -75,29 +75,29 @@ public class MovieRemoteRxRepositoryTest {
     @Test
     public void getMovies_whenHttpIsOK_returnList() throws Exception {
         String jsonPath = "src/test/resources/upcoming_list.json";
-        MoviesResultDTO expected = jsonService.fromPath(jsonPath, MoviesResultDTO.class);
         simulatedServer.enqueueFromJsonPath(jsonPath, HttpURLConnection.HTTP_OK);
-        List<MovieBO> actual = repository.getMovies(1).get();
+        List<MovieBO> actualList = repository.getMovies(1).get();
+        MoviesResultDTO expectedList = jsonService.fromPath(jsonPath, MoviesResultDTO.class);
 
-        assertEquals(expected.results.size(), actual.size());
+        assertEquals(expectedList.results.size(), actualList.size());
     }
 
     @Test
     public void getMovie_whenHttpIsOK_returnItem() throws Exception {
         String jsonPath = "src/test/resources/upcoming_item.json";
-        MovieDTO expected = jsonService.fromPath(jsonPath, MovieDTO.class);
-        expected.posterPath = baseImageUrl.concat(expected.posterPath);
-        expected.backdropPath = baseImageUrl.concat(expected.backdropPath);
         simulatedServer.enqueueFromJsonPath(jsonPath, HttpURLConnection.HTTP_OK);
-        MovieBO actual = repository.getMovie(1).get();
+        MovieBO actualItem = repository.getMovie(1).get();
+        MovieDTO expectedItem = jsonService.fromPath(jsonPath, MovieDTO.class);
+        expectedItem.posterPath = baseImageUrl.concat(expectedItem.posterPath);
+        expectedItem.backdropPath = baseImageUrl.concat(expectedItem.backdropPath);
 
 
-        assertEquals(expected.id, actual.getId());
-        assertEquals(expected.title, actual.getTitle());
-        assertEquals(expected.posterPath, actual.getImage());
-        assertEquals(expected.backdropPath, actual.getBackgroundImage());
-        assertEquals(expected.voteCount, actual.getVoteCount());
-        assertEquals(expected.voteAverage, actual.getVoteAverage(), 0.01);
+        assertEquals(expectedItem.id, actualItem.getId());
+        assertEquals(expectedItem.title, actualItem.getTitle());
+        assertEquals(expectedItem.posterPath, actualItem.getImage());
+        assertEquals(expectedItem.backdropPath, actualItem.getBackgroundImage());
+        assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
+        assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
     }
 
     @Test(expected = MovieRemoteError.NoInternet.class)
