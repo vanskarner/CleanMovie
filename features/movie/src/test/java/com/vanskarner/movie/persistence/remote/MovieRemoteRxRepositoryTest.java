@@ -6,9 +6,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
+import com.vanskarner.movie.persistence.remote.utils.DefaultJsonParserService;
 import com.vanskarner.movie.persistence.remote.utils.DefaultSimulatedServer;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
+import com.vanskarner.movie.persistence.remote.utils.JsonParserService;
 import com.vanskarner.movie.persistence.remote.utils.SimulatedServer;
 
 import org.junit.After;
@@ -32,6 +34,7 @@ public class MovieRemoteRxRepositoryTest {
     MovieRemoteRepository repository;
     String baseImageUrl = "https://image.tmdb.org/t/p/w500";
     SimulatedServer simulatedServer = new DefaultSimulatedServer();
+    JsonParserService jsonService = new DefaultJsonParserService();
 
     @Before
     public void setUp() throws IOException {
@@ -72,8 +75,8 @@ public class MovieRemoteRxRepositoryTest {
     @Test
     public void getMovies_httpOk_returnItems() throws Exception {
         String jsonPath = "src/test/resources/upcoming_list.json";
-        MoviesResultDTO expected = simulatedServer.fromJson(jsonPath, MoviesResultDTO.class);
-        simulatedServer.enqueue(HttpURLConnection.HTTP_OK, jsonPath);
+        MoviesResultDTO expected = jsonService.fromPath(jsonPath, MoviesResultDTO.class);
+        simulatedServer.enqueueFromJsonPath(jsonPath, HttpURLConnection.HTTP_OK);
         List<MovieBO> actual = repository.getMovies(1).get();
 
         assertEquals(expected.results.size(), actual.size());
@@ -82,10 +85,10 @@ public class MovieRemoteRxRepositoryTest {
     @Test
     public void getMovie_httpOk_returnItem() throws Exception {
         String jsonPath = "src/test/resources/upcoming_item.json";
-        MovieDTO expected = simulatedServer.fromJson(jsonPath, MovieDTO.class);
+        MovieDTO expected = jsonService.fromPath(jsonPath, MovieDTO.class);
         expected.posterPath = baseImageUrl.concat(expected.posterPath);
         expected.backdropPath = baseImageUrl.concat(expected.backdropPath);
-        simulatedServer.enqueue(HttpURLConnection.HTTP_OK, jsonPath);
+        simulatedServer.enqueueFromJsonPath(jsonPath, HttpURLConnection.HTTP_OK);
         MovieBO actual = repository.getMovie(1).get();
 
 
