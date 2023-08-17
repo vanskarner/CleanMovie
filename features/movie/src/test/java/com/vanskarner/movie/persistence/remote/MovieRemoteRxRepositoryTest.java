@@ -46,9 +46,9 @@ public class MovieRemoteRxRepositoryTest {
         String baseUrl = "http://127.0.0.1:".concat(port + "/");
         MockRemoteDataErrorFilter mockRemoteDataErrorFilter = new MockRemoteDataErrorFilter();
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(1, TimeUnit.SECONDS)
-                .readTimeout(1, TimeUnit.SECONDS)
-                .writeTimeout(1, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.MILLISECONDS)
+                .readTimeout(30, TimeUnit.MILLISECONDS)
+                .writeTimeout(30, TimeUnit.MILLISECONDS)
                 .addInterceptor(new MovieRemoteErrorInterceptor(mockRemoteDataErrorFilter))
                 .build();
         MovieDeserializer detailDeserializer = new MovieDeserializer(baseImageUrl, new Gson());
