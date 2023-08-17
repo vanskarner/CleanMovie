@@ -30,16 +30,16 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRemoteRxRepositoryTest {
-    MovieRemoteRxRepository repository;
-    String baseImageUrl = "https://image.tmdb.org/t/p/w500";
     SimulatedServer simulatedServer = new DefaultSimulatedServer();
     JsonParserService jsonService = new DefaultJsonParserService();
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    String baseImageUrl = "https://image.tmdb.org/t/p/w500";
+    MovieRemoteRxRepository repository;
 
     @Before
     public void setUp() throws IOException {
         int port = 3016;
         simulatedServer.start(port);
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
         Scheduler testScheduler = Schedulers.trampoline();
         RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable,
                 testScheduler, testScheduler);
@@ -68,6 +68,7 @@ public class MovieRemoteRxRepositoryTest {
 
     @After
     public void tearDown() throws Exception {
+        compositeDisposable.clear();
         simulatedServer.shutdown();
     }
 
