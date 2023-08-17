@@ -9,7 +9,6 @@ import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 import com.vanskarner.movie.persistence.remote.utils.DefaultJsonParserService;
 import com.vanskarner.movie.persistence.remote.utils.DefaultSimulatedServer;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
 import com.vanskarner.movie.persistence.remote.utils.JsonParserService;
 import com.vanskarner.movie.persistence.remote.utils.SimulatedServer;
 
@@ -31,7 +30,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRemoteRxRepositoryTest {
-    MovieRemoteRepository repository;
+    MovieRemoteRxRepository repository;
     String baseImageUrl = "https://image.tmdb.org/t/p/w500";
     SimulatedServer simulatedServer = new DefaultSimulatedServer();
     JsonParserService jsonService = new DefaultJsonParserService();
@@ -73,7 +72,7 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @Test
-    public void getMovies_httpOk_returnItems() throws Exception {
+    public void getMovies_whenHttpIsOK_returnList() throws Exception {
         String jsonPath = "src/test/resources/upcoming_list.json";
         MoviesResultDTO expected = jsonService.fromPath(jsonPath, MoviesResultDTO.class);
         simulatedServer.enqueueFromJsonPath(jsonPath, HttpURLConnection.HTTP_OK);
@@ -83,7 +82,7 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @Test
-    public void getMovie_httpOk_returnItem() throws Exception {
+    public void getMovie_whenHttpIsOK_returnItem() throws Exception {
         String jsonPath = "src/test/resources/upcoming_item.json";
         MovieDTO expected = jsonService.fromPath(jsonPath, MovieDTO.class);
         expected.posterPath = baseImageUrl.concat(expected.posterPath);
@@ -101,30 +100,30 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @Test(expected = MovieRemoteError.NoInternet.class)
-    public void getMovies_noResponse_noInternetException() throws Exception {
+    public void getMovies_WhenNoResponse_throwException() throws Exception {
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.Unauthorised.class)
-    public void getMovies_httpUnauthorized_unauthorisedException() throws Exception {
+    public void getMovies_whenHttpUnauthorized_throwException() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAUTHORIZED);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.NotFound.class)
-    public void getMovies_httpNotFound_notFoundException() throws Exception {
+    public void getMovies_whenHttpNotFound_throwException() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.ServiceUnavailable.class)
-    public void getMovies_httpUnavailable_serviceUnavailableException() throws Exception {
+    public void getMovies_whenHttpUnavailable_throwException() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         repository.getMovies(1).get();
     }
 
     @Test(expected = MovieRemoteError.Server.class)
-    public void getMovies_httpOthers_defaultServerException() throws Exception {
+    public void getMovies_whenHttpOtherErrors_throwException() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_VERSION);
         repository.getMovies(1).get();
     }
