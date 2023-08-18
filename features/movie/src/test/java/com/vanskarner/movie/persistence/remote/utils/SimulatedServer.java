@@ -8,6 +8,8 @@ public interface SimulatedServer {
 
     void shutdown() throws IOException;
 
+    String url();
+
     void enqueueFromJsonPath(String jsonPath, int httpCode) throws IOException;
 
     void enqueueEmpty(int httpCode);

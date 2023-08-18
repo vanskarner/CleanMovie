@@ -42,15 +42,14 @@ public class MovieRemoteRxRepositoryTest {
 
     @BeforeClass
     public static void setup() throws IOException {
-        int port = 3016;
         simulatedServer = new DefaultSimulatedServer();
         jsonService = new DefaultJsonParserService();
         compositeDisposable = new CompositeDisposable();
-        simulatedServer.start(port);
+        simulatedServer.start(1010);
 
         Scheduler testScheduler = Schedulers.trampoline();
         RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable, testScheduler, testScheduler);
-        String baseUrl = "http://127.0.0.1:".concat(port + "/");
+        String baseUrl = simulatedServer.url();
         JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl, new Gson());
         Converter.Factory gsonConverterFactory = GsonConverterFactory.create(new GsonBuilder()
                 .registerTypeAdapter(MovieDTO.class, deserializer)
@@ -64,7 +63,7 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @AfterClass
-    public static void afterClass() throws IOException {
+    public static void tearDownAfterClass() throws IOException {
         simulatedServer.shutdown();
     }
 
@@ -104,7 +103,8 @@ public class MovieRemoteRxRepositoryTest {
     @Test(expected = MovieRemoteError.NoInternet.class)
     public void getMovies_WhenNoResponse_throwException() throws Exception {
         Scheduler testScheduler = Schedulers.trampoline();
-        RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable, testScheduler, testScheduler);
+        RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable,
+                testScheduler, testScheduler);
         JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl, new Gson());
         Converter.Factory factory = GsonConverterFactory.create(new GsonBuilder()
                 .registerTypeAdapter(MovieDTO.class, deserializer)
@@ -112,8 +112,10 @@ public class MovieRemoteRxRepositoryTest {
         RemoteDataErrorFilter errorFilter = new MockRemoteDataErrorFilter();
         Interceptor interceptor = new MovieRemoteErrorInterceptor(errorFilter);
         OkHttpClient httpClient = createHttpClient(interceptor);
-        MovieApiClient movieApiClient = createApiClient("http://127.0.0.1:30516/", factory, httpClient);
-        MovieRemoteRxRepository repository = new MovieRemoteRxRepository(rxFutureFactory, movieApiClient, "");
+        MovieApiClient movieApiClient = createApiClient("http://127.0.0.1:666/", factory,
+                httpClient);
+        MovieRemoteRxRepository repository = new MovieRemoteRxRepository(rxFutureFactory,
+                movieApiClient, "");
 
         repository.getMovies(1).get();
     }
@@ -155,9 +157,9 @@ public class MovieRemoteRxRepositoryTest {
 
     private static OkHttpClient createHttpClient(Interceptor interceptor) {
         return new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.MILLISECONDS)
-                .readTimeout(30, TimeUnit.MILLISECONDS)
-                .writeTimeout(30, TimeUnit.MILLISECONDS)
+                .connectTimeout(80, TimeUnit.MILLISECONDS)
+                .readTimeout(80, TimeUnit.MILLISECONDS)
+                .writeTimeout(80, TimeUnit.MILLISECONDS)
                 .addInterceptor(interceptor)
                 .build();
     }

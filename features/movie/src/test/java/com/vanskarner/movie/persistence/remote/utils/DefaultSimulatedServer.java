@@ -26,6 +26,11 @@ public class DefaultSimulatedServer implements SimulatedServer {
     }
 
     @Override
+    public String url() {
+        return server.url("").toString();
+    }
+
+    @Override
     public void enqueueFromJsonPath(String jsonPath, int httpCode) throws IOException {
         Path path = Paths.get(jsonPath);
         byte[] bytes = Files.readAllBytes(path);
