@@ -2,7 +2,6 @@ package com.vanskarner.movie.persistence.remote;
 
 import static org.junit.Assert.assertEquals;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
@@ -50,7 +49,7 @@ public class MovieRemoteRxRepositoryTest {
         Scheduler testScheduler = Schedulers.trampoline();
         RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable, testScheduler, testScheduler);
         String baseUrl = simulatedServer.url();
-        JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl, new Gson());
+        JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl);
         Converter.Factory gsonConverterFactory = GsonConverterFactory.create(new GsonBuilder()
                 .registerTypeAdapter(MovieDTO.class, deserializer)
                 .create());
@@ -105,7 +104,7 @@ public class MovieRemoteRxRepositoryTest {
         Scheduler testScheduler = Schedulers.trampoline();
         RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable,
                 testScheduler, testScheduler);
-        JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl, new Gson());
+        JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl);
         Converter.Factory factory = GsonConverterFactory.create(new GsonBuilder()
                 .registerTypeAdapter(MovieDTO.class, deserializer)
                 .create());
