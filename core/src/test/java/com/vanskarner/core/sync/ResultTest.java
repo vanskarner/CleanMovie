@@ -8,28 +8,31 @@ import org.junit.Test;
 import java.io.IOException;
 
 public class ResultTest {
-    String INCOMING_VALUE = "result";
-    String EXPECTED_VALUE = INCOMING_VALUE.toUpperCase();
-    Result<String> resultSuccess = Result.success(INCOMING_VALUE);
+    String INITIAL_VALUE = "result";
+    Result<String> resultSuccess = Result.success(INITIAL_VALUE);
 
     @Test
-    public void map_incomingString_sameUppercaseString() throws Exception {
+    public void map_usingUpperCase_returnSameString() throws Exception {
         Result<String> result = resultSuccess
-                .map(s -> EXPECTED_VALUE);
+                .map(String::toUpperCase);
+        String actualString = result.get();
+        String expectedString = INITIAL_VALUE.toUpperCase();
 
-        assertEquals(EXPECTED_VALUE, result.get());
+        assertEquals(expectedString, actualString);
     }
 
     @Test
-    public void flatMap_incomingString_sameUppercaseString() throws Exception {
+    public void flatMap_usingUpperCase_returnSameString() throws Exception {
         Result<String> result = resultSuccess
-                .flatMap(s -> Result.success(EXPECTED_VALUE));
+                .flatMap(s -> Result.success(s.toUpperCase()));
+        String actualString = result.get();
+        String expectedString = INITIAL_VALUE.toUpperCase();
 
-        assertEquals(EXPECTED_VALUE, result.get());
+        assertEquals(expectedString, actualString);
     }
 
     @Test(expected = RuntimeException.class)
-    public void map_uncheckedException_sameException() throws Exception {
+    public void map_causeUncheckedException_throwSameException() throws Exception {
         resultSuccess
                 .map(s -> {
                     throw new RuntimeException();
@@ -38,14 +41,14 @@ public class ResultTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void flatMap_uncheckedException_sameException() throws Exception {
+    public void flatMap_causeUncheckedException_throwSameException() throws Exception {
         resultSuccess
                 .flatMap(o -> Result.failure(new RuntimeException()))
                 .get();
     }
 
     @Test(expected = IOException.class)
-    public void map_checkedException_sameException() throws Exception {
+    public void map_causeCheckedException_throwSameException() throws Exception {
         resultSuccess
                 .map(s -> {
                     throw new IOException();
@@ -54,14 +57,14 @@ public class ResultTest {
     }
 
     @Test(expected = IOException.class)
-    public void flatMap_checkedException_sameException() throws Exception {
+    public void flatMap_causeCheckedException_throwSameException() throws Exception {
         resultSuccess
                 .flatMap(o -> Result.failure(new IOException()))
                 .get();
     }
 
     @Test(expected = RuntimeException.class)
-    public void mapFlatMap_initialExceptionPropagation_initialException() throws Exception {
+    public void mapFlatMap_initialExceptionPropagation_throwInitialException() throws Exception {
         resultSuccess
                 .map(s -> {
                     throw new RuntimeException();
@@ -71,7 +74,7 @@ public class ResultTest {
     }
 
     @Test(expected = IOException.class)
-    public void flatMapMap_initialExceptionPropagation_initialException() throws Exception {
+    public void flatMapMap_initialExceptionPropagation_throwInitialException() throws Exception {
         resultSuccess
                 .flatMap(s -> Result.failure(new IOException()))
                 .map(o -> {
@@ -81,33 +84,33 @@ public class ResultTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void map_nullFunction_nullPointerException() throws Exception {
+    public void map_withNullFunction_throwNullPointerException() throws Exception {
         resultSuccess
                 .map(null)
                 .get();
     }
 
     @Test(expected = NullPointerException.class)
-    public void flatMap_nullFunction_nullPointerException() throws Exception {
+    public void flatMap_withNullFunction_throwNullPointerException() throws Exception {
         resultSuccess
                 .flatMap(null)
                 .get();
     }
 
     @Test(expected = NullPointerException.class)
-    public void success_nullValue_nullPointerException() throws Exception {
+    public void success_withNullValue_throwNullPointerException() throws Exception {
         Result.success(null)
                 .get();
     }
 
     @Test(expected = NullPointerException.class)
-    public void failure_nullValue_nullPointerException() throws Exception {
+    public void failure_withNullValue_throwNullPointerException() throws Exception {
         Result.failure(null)
                 .get();
     }
 
     @Test
-    public void map_functionReturnsNull_errorMessageMatch() {
+    public void map_whenFunctionReturnsNull_mustMatchErrorMessage() {
         NullPointerException exception = assertThrows(
                 NullPointerException.class,
                 () -> resultSuccess
@@ -119,7 +122,7 @@ public class ResultTest {
     }
 
     @Test
-    public void flatMap_functionReturnsNull_errorMessageMatch() {
+    public void flatMap_whenFunctionReturnsNull_mustMatchErrorMessage() {
         NullPointerException exception = assertThrows(
                 NullPointerException.class,
                 () -> resultSuccess
