@@ -39,7 +39,8 @@ public class MovieLocalRxRepositoryTest {
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, TestRoomDB.class).build();
         MovieDao dao = db.movieDetailDao();
-        RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable, testScheduler, testScheduler);
+        RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable,
+                testScheduler, testScheduler);
 
         repository = new MovieLocalRxRepository(rxFutureFactory, dao);
     }
