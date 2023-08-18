@@ -14,7 +14,6 @@ import androidx.test.filters.SmallTest;
 import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
 import com.vanskarner.movie.main.TestRoomDB;
 
 import org.junit.After;
@@ -29,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class MovieLocalRxRepositoryTest {
-    MovieLocalRepository repository;
+    MovieLocalRxRepository repository;
     CompositeDisposable compositeDisposable;
     TestRoomDB db;
 
@@ -52,82 +51,90 @@ public class MovieLocalRxRepositoryTest {
     }
 
     @Test
-    public void saveItems_returnQuantityItems() throws Exception {
-        int expected = 2;
-        repository.saveMovie(getItem(33)).await();
-        repository.saveMovie(getItem(34)).await();
-        int actual = repository.getMovies().get().size();
+    public void saveItem_savedItem() throws Exception {
+        MovieBO item = createMovieBO(33);
+        repository.saveMovie(item).await();
+        int actualNumberItems = repository.getNumberMovies().get();
+        int expectedNumberItems = 1;
 
-        assertEquals(expected, actual);
+        assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test
-    public void saveItem_returnItem() throws Exception {
-        int movieId = 33;
-        MovieBO expected = getItem(movieId);
-        repository.saveMovie(expected).await();
-        MovieBO actual = repository.getMovie(movieId).get();
+    public void getMovie_withValidId_returnItem() throws Exception {
+        MovieBO expectedItem = createMovieBO(33);
+        repository.saveMovie(expectedItem).await();
+        MovieBO actualItem = repository.getMovie(expectedItem.getId()).get();
 
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getTitle(), actual.getTitle());
-        assertEquals(expected.getImage(), actual.getImage());
-        assertEquals(expected.getBackgroundImage(), actual.getBackgroundImage());
-        assertEquals(expected.getVoteCount(), actual.getVoteCount());
-        assertEquals(expected.getVoteAverage(), actual.getVoteAverage(), 0.01);
-        assertEquals(expected.getReleaseDate(), actual.getReleaseDate());
-        assertEquals(expected.getOverview(), actual.getOverview());
+        assertEquals(expectedItem.getId(), actualItem.getId());
+        assertEquals(expectedItem.getTitle(), actualItem.getTitle());
+        assertEquals(expectedItem.getImage(), actualItem.getImage());
+        assertEquals(expectedItem.getBackgroundImage(), actualItem.getBackgroundImage());
+        assertEquals(expectedItem.getVoteCount(), actualItem.getVoteCount());
+        assertEquals(expectedItem.getVoteAverage(), actualItem.getVoteAverage(), 0.01);
+        assertEquals(expectedItem.getReleaseDate(), actualItem.getReleaseDate());
+        assertEquals(expectedItem.getOverview(), actualItem.getOverview());
     }
 
     @Test
-    public void deleteMovie_complete() throws Exception {
+    public void deleteMovie_withValidId_deletedItem() throws Exception {
         int movieId = 33;
-        repository.saveMovie(getItem(movieId)).await();
+        repository.saveMovie(createMovieBO(movieId)).await();
         repository.deleteMovie(movieId).await();
-        int actual = repository.getNumberMovies().get();
+        int actualNumberItems = repository.getNumberMovies().get();
+        int expectedNumberItems = 0;
 
-        assertEquals(0, actual);
+        assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test
-    public void deleteAllMovies_returnNumberOfDeletedItems() throws Exception {
-        int expected = 2;
-        repository.saveMovie(getItem(33)).await();
-        repository.saveMovie(getItem(34)).await();
-        int actual = repository.deleteAllMovies().get();
+    public void deleteAllMovies_withTwoItemsSaved_TwoItemsDeleted() throws Exception {
+        repository.saveMovie(createMovieBO(33)).await();
+        repository.saveMovie(createMovieBO(34)).await();
+        int actualNumberItems = repository.deleteAllMovies().get();
+        int expectedNumberItems = 2;
 
-        assertEquals(expected, actual);
+        assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test
-    public void getNumberMovies_returnNumberOfItems() throws Exception {
-        int expected = 2;
-        repository.saveMovie(getItem(33)).await();
-        repository.saveMovie(getItem(34)).await();
-        int actual = repository.getNumberMovies().get();
+    public void getNumberMovies_withTwoItemsSaved_returnTwoItems() throws Exception {
+        repository.saveMovie(createMovieBO(33)).await();
+        repository.saveMovie(createMovieBO(34)).await();
+        int actualNumberItems = repository.getNumberMovies().get();
+        int expectedNumberItems = 2;
 
-        assertEquals(expected, actual);
+        assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test
-    public void checkMovie_validID_returnTrue() throws Exception {
+    public void checkMovie_withValidID_itemExists() throws Exception {
         int validID = 33;
-        repository.saveMovie(getItem(validID)).await();
-        boolean value = repository.checkMovie(validID).get();
+        repository.saveMovie(createMovieBO(validID)).await();
+        boolean exists = repository.checkMovie(validID).get();
 
-        assertTrue(value);
+        assertTrue(exists);
     }
 
     @Test
-    public void checkMovie_invalidID_returnFalse() throws Exception {
-        boolean value = repository.checkMovie(33).get();
+    public void checkMovie_withInvalidID_itemNotExist() throws Exception {
+        boolean exists = repository.checkMovie(33).get();
 
-        assertFalse(value);
+        assertFalse(exists);
     }
 
-    private MovieBO getItem(int movieId) {
-        return new MovieBO(movieId, "Clean Movie", "Any Image",
-                "Any background image",
-                100, 9.8f, "2023-01-30", "Any overview");
+    private MovieBO createMovieBO(int movieId) {
+        return new MovieBO(movieId,
+                "Clean Architecture",
+                "https://blog.cleancoder.com/anyImage.jpg",
+                "https://blog.cleancoder.com/anyBackImage.jpg",
+                100,
+                9.5f,
+                "023-08-15",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.");
     }
 
 }
