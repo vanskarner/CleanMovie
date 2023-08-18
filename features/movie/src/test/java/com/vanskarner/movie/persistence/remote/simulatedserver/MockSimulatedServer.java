@@ -8,10 +8,10 @@ import java.nio.file.Paths;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-class DefaultSimulatedServer implements SimulatedServer {
+class MockSimulatedServer implements SimulatedServer {
     private final MockWebServer server;
 
-    public DefaultSimulatedServer() {
+    public MockSimulatedServer() {
         this.server = new MockWebServer();
     }
 

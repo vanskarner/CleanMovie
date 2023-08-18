@@ -6,10 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-class DefaultJsonParserService implements JsonParserService {
+class GsonParserService implements JsonParserService {
     private final Gson gson;
 
-    public DefaultJsonParserService() {
+    public GsonParserService() {
         this.gson = new Gson();
     }
 
