@@ -1,4 +1,4 @@
-package com.vanskarner.movie.persistence.remote.utils;
+package com.vanskarner.movie.persistence.remote.jsonparser;
 
 import com.google.gson.Gson;
 
@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class DefaultJsonParserService implements JsonParserService {
+class DefaultJsonParserService implements JsonParserService {
     private final Gson gson;
 
     public DefaultJsonParserService() {

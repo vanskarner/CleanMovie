@@ -17,7 +17,10 @@ public class MovieRemoteDataMapperTest {
     @BeforeClass
     public static void setup() {
         dataStructure = new MovieDTO(1,
-                "Any overview",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.",
                 "/anyImage.jpg",
                 "/anyBackImage.jpg",
                 "2023-08-15",

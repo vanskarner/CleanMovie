@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class FakeRemoteRepository implements MovieRemoteRepository {
+class FakeRemoteRepository implements MovieRemoteRepository {
     private final List<MovieBO> data;
 
     public FakeRemoteRepository(List<MovieBO> data) {

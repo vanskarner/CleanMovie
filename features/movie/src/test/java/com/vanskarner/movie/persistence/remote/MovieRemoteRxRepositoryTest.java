@@ -6,11 +6,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.persistence.remote.utils.DefaultJsonParserService;
-import com.vanskarner.movie.persistence.remote.utils.DefaultSimulatedServer;
+import com.vanskarner.movie.persistence.remote.jsonparser.JsonParserFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.persistence.remote.utils.JsonParserService;
-import com.vanskarner.movie.persistence.remote.utils.SimulatedServer;
+import com.vanskarner.movie.persistence.remote.jsonparser.JsonParserService;
+import com.vanskarner.movie.persistence.remote.simulatedserver.SimulatedServer;
+import com.vanskarner.movie.persistence.remote.simulatedserver.SimulatedServerFactory;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -41,8 +41,8 @@ public class MovieRemoteRxRepositoryTest {
 
     @BeforeClass
     public static void setupClass() throws IOException {
-        simulatedServer = new DefaultSimulatedServer();
-        jsonService = new DefaultJsonParserService();
+        simulatedServer = SimulatedServerFactory.create();
+        jsonService = JsonParserFactory.create();
         compositeDisposable = new CompositeDisposable();
         simulatedServer.start(1010);
 

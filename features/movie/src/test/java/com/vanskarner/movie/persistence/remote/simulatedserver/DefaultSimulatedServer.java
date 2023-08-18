@@ -1,4 +1,4 @@
-package com.vanskarner.movie.persistence.remote.utils;
+package com.vanskarner.movie.persistence.remote.simulatedserver;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-public class DefaultSimulatedServer implements SimulatedServer {
+class DefaultSimulatedServer implements SimulatedServer {
     private final MockWebServer server;
 
     public DefaultSimulatedServer() {

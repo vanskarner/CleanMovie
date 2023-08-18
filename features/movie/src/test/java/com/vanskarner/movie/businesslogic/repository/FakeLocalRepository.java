@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class FakeLocalRepository implements MovieLocalRepository {
+class FakeLocalRepository implements MovieLocalRepository {
 
     private final List<MovieBO> data;
 

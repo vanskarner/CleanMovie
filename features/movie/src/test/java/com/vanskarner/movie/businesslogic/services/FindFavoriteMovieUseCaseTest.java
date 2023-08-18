@@ -19,7 +19,7 @@ public class FindFavoriteMovieUseCaseTest {
 
     @Before
     public void setUp() {
-        fakeLocalRepository = FakeRepositoryFactory.createFakeLocalRepository();
+        fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
 
         useCase = new FindFavoriteMovieUseCase(fakeLocalRepository);
     }

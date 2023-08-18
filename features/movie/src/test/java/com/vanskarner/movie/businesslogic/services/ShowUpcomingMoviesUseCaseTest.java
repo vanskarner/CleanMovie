@@ -27,7 +27,7 @@ public class ShowUpcomingMoviesUseCaseTest {
         data.add(new MovieBOBuilder()
                 .withId(2)
                 .build());
-        fakeRemoteRepository = FakeRepositoryFactory.createFakeRemoteRepository(data);
+        fakeRemoteRepository = FakeRepositoryFactory.createRemoteRepository(data);
 
         useCase = new ShowUpcomingMoviesUseCase(fakeRemoteRepository);
     }

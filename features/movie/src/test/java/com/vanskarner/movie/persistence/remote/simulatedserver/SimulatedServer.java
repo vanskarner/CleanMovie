@@ -1,4 +1,4 @@
-package com.vanskarner.movie.persistence.remote.utils;
+package com.vanskarner.movie.persistence.remote.simulatedserver;
 
 import java.io.IOException;
 
