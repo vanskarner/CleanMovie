@@ -14,7 +14,8 @@ import com.vanskarner.movie.persistence.remote.utils.JsonParserService;
 import com.vanskarner.movie.persistence.remote.utils.SimulatedServer;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -33,15 +34,18 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRemoteRxRepositoryTest {
-    SimulatedServer simulatedServer = new DefaultSimulatedServer();
-    JsonParserService jsonService = new DefaultJsonParserService();
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    String baseImageUrl = "https://image.tmdb.org/t/p/w500";
-    MovieRemoteRxRepository repository;
+    static SimulatedServer simulatedServer;
+    static JsonParserService jsonService;
+    static CompositeDisposable compositeDisposable;
+    static String baseImageUrl = "https://image.tmdb.org/t/p/w500";
+    static MovieRemoteRxRepository repository;
 
-    @Before
-    public void setUp() throws IOException {
+    @BeforeClass
+    public static void setup() throws IOException {
         int port = 3016;
+        simulatedServer = new DefaultSimulatedServer();
+        jsonService = new DefaultJsonParserService();
+        compositeDisposable = new CompositeDisposable();
         simulatedServer.start(port);
 
         Scheduler testScheduler = Schedulers.trampoline();
@@ -59,10 +63,14 @@ public class MovieRemoteRxRepositoryTest {
         repository = new MovieRemoteRxRepository(rxFutureFactory, movieApiClient, "any");
     }
 
-    @After
-    public void tearDown() throws Exception {
-        compositeDisposable.clear();
+    @AfterClass
+    public static void afterClass() throws IOException {
         simulatedServer.shutdown();
+    }
+
+    @After
+    public void tearDown() {
+        compositeDisposable.clear();
     }
 
     @Test
@@ -93,10 +101,22 @@ public class MovieRemoteRxRepositoryTest {
         assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
     }
 
-/*    @Test(expected = MovieRemoteError.NoInternet.class)
+    @Test(expected = MovieRemoteError.NoInternet.class)
     public void getMovies_WhenNoResponse_throwException() throws Exception {
+        Scheduler testScheduler = Schedulers.trampoline();
+        RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable, testScheduler, testScheduler);
+        JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl, new Gson());
+        Converter.Factory factory = GsonConverterFactory.create(new GsonBuilder()
+                .registerTypeAdapter(MovieDTO.class, deserializer)
+                .create());
+        RemoteDataErrorFilter errorFilter = new MockRemoteDataErrorFilter();
+        Interceptor interceptor = new MovieRemoteErrorInterceptor(errorFilter);
+        OkHttpClient httpClient = createHttpClient(interceptor);
+        MovieApiClient movieApiClient = createApiClient("http://127.0.0.1:30516/", factory, httpClient);
+        MovieRemoteRxRepository repository = new MovieRemoteRxRepository(rxFutureFactory, movieApiClient, "");
+
         repository.getMovies(1).get();
-    }*/
+    }
 
     @Test(expected = MovieRemoteError.Unauthorised.class)
     public void getMovies_whenHttpUnauthorized_throwException() throws Exception {
@@ -122,9 +142,9 @@ public class MovieRemoteRxRepositoryTest {
         repository.getMovies(1).get();
     }
 
-    private MovieApiClient createApiClient(String baseUrl,
-                                           Converter.Factory factory,
-                                           OkHttpClient client) {
+    private static MovieApiClient createApiClient(String baseUrl,
+                                                  Converter.Factory factory,
+                                                  OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(factory)
@@ -133,7 +153,7 @@ public class MovieRemoteRxRepositoryTest {
                 .build().create(MovieApiClient.class);
     }
 
-    private OkHttpClient createHttpClient(Interceptor interceptor) {
+    private static OkHttpClient createHttpClient(Interceptor interceptor) {
         return new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.MILLISECONDS)
                 .readTimeout(30, TimeUnit.MILLISECONDS)
