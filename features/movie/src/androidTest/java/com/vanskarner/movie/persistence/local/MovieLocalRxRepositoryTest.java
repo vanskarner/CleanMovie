@@ -14,7 +14,6 @@ import androidx.test.filters.SmallTest;
 import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.main.TestRoomDB;
 
 import org.junit.After;
 import org.junit.Before;
