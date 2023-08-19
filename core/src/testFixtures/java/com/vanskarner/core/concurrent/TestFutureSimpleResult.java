@@ -1,18 +1,17 @@
-package com.vanskarner.core;
+package com.vanskarner.core.concurrent;
 
-import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.core.concurrent.FutureSimpleResult;
+import com.vanskarner.core.Consumer;
 
 /** @noinspection unused*/
-public class SyncFutureSimpleResult implements FutureSimpleResult {
+public class TestFutureSimpleResult implements FutureSimpleResult {
     private Exception error;
     private Runnable runnable;
 
-    public SyncFutureSimpleResult(Runnable runnable) {
+    public TestFutureSimpleResult(Runnable runnable) {
         this.runnable = runnable;
     }
 
-    public SyncFutureSimpleResult(Exception error) {
+    public TestFutureSimpleResult(Exception error) {
         this.error = error;
     }
 
@@ -35,7 +34,7 @@ public class SyncFutureSimpleResult implements FutureSimpleResult {
     @Override
     public <T> FutureResult<T> toFutureResult(T value) {
         runnable.run();
-        return new SyncFutureResult<>(value);
+        return new TestFutureResult<>(value);
     }
 
 }

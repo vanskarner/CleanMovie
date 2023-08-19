@@ -11,7 +11,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
-import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
+import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.main.TestRoomDB;
@@ -39,7 +39,7 @@ public class MovieLocalRxRepositoryTest {
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, TestRoomDB.class).build();
         MovieDao dao = db.movieDetailDao();
-        RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable,
+        RxFutureFactory rxFutureFactory = new TestRxFutureFactory(compositeDisposable,
                 testScheduler, testScheduler);
 
         repository = new MovieLocalRxRepository(rxFutureFactory, dao);

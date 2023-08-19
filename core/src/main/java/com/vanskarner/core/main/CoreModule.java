@@ -1,18 +1,9 @@
 package com.vanskarner.core.main;
 
-import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
-import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
+import com.vanskarner.core.concurrent.rxjava.ConcurrentRxModule;
 
-import javax.inject.Singleton;
-
-import dagger.Binds;
 import dagger.Module;
 
-@Module
+@Module(includes = ConcurrentRxModule.class)
 public abstract class CoreModule {
-
-    @Binds
-    @Singleton
-    abstract RxFutureFactory bindRxFutureFactory(DefaultRxFutureFactory rxFutureFactory);
-
 }

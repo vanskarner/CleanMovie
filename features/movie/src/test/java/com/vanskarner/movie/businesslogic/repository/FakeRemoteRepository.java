@@ -1,6 +1,6 @@
 package com.vanskarner.movie.businesslogic.repository;
 
-import com.vanskarner.core.SyncFutureResult;
+import com.vanskarner.core.concurrent.TestFutureResult;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 
@@ -17,7 +17,7 @@ class FakeRemoteRepository implements MovieRemoteRepository {
 
     @Override
     public FutureResult<List<MovieBO>> getMovies(int page) {
-        return new SyncFutureResult<>(data);
+        return new TestFutureResult<>(data);
     }
 
     @Override
@@ -27,8 +27,8 @@ class FakeRemoteRepository implements MovieRemoteRepository {
                 .filter(i -> i.getId() == movieId)
                 .findFirst();
         return item
-                .<FutureResult<MovieBO>>map(SyncFutureResult::new)
-                .orElseGet(() -> new SyncFutureResult<>(new NoSuchElementException()));
+                .<FutureResult<MovieBO>>map(TestFutureResult::new)
+                .orElseGet(() -> new TestFutureResult<>(new NoSuchElementException()));
     }
 
 }

@@ -1,7 +1,7 @@
 package com.vanskarner.movie.businesslogic.repository;
 
-import com.vanskarner.core.SyncFutureResult;
-import com.vanskarner.core.SyncFutureSimpleResult;
+import com.vanskarner.core.concurrent.TestFutureResult;
+import com.vanskarner.core.concurrent.TestFutureSimpleResult;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
@@ -21,7 +21,7 @@ class FakeLocalRepository implements MovieLocalRepository {
 
     @Override
     public FutureResult<List<MovieBO>> getMovies() {
-        return new SyncFutureResult<>(data);
+        return new TestFutureResult<>(data);
     }
 
     @Override
@@ -31,25 +31,25 @@ class FakeLocalRepository implements MovieLocalRepository {
                 .filter(i -> i.getId() == movieId)
                 .findFirst();
         return item
-                .<FutureResult<MovieBO>>map(SyncFutureResult::new)
-                .orElseGet(() -> new SyncFutureResult<>(new NoSuchElementException()));
+                .<FutureResult<MovieBO>>map(TestFutureResult::new)
+                .orElseGet(() -> new TestFutureResult<>(new NoSuchElementException()));
     }
 
     @Override
     public FutureSimpleResult deleteMovie(int movieId) {
-        return new SyncFutureSimpleResult(() -> data.removeIf(item -> item.getId() == movieId));
+        return new TestFutureSimpleResult(() -> data.removeIf(item -> item.getId() == movieId));
     }
 
     @Override
     public FutureResult<Integer> deleteAllMovies() {
         int total = data.size();
         data.clear();
-        return new SyncFutureResult<>(total);
+        return new TestFutureResult<>(total);
     }
 
     @Override
     public FutureResult<Integer> getNumberMovies() {
-        return new SyncFutureResult<>(data.size());
+        return new TestFutureResult<>(data.size());
     }
 
     @Override
@@ -58,12 +58,12 @@ class FakeLocalRepository implements MovieLocalRepository {
                 .stream()
                 .filter(i -> i.getId() == movieId)
                 .findFirst();
-        return new SyncFutureResult<>(item.isPresent());
+        return new TestFutureResult<>(item.isPresent());
     }
 
     @Override
     public FutureSimpleResult saveMovie(MovieBO movieDetail) {
-        return new SyncFutureSimpleResult(() -> data.add(movieDetail));
+        return new TestFutureSimpleResult(() -> data.add(movieDetail));
     }
 
 }

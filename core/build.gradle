@@ -13,4 +13,6 @@ dependencies {
     annotationProcessor common.main.daggerCompiler
 
     testImplementation common.test.junit
+
+    testFixturesImplementation common.main.rxJava2
 }

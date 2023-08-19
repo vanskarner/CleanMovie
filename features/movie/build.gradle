@@ -49,6 +49,7 @@ dependencies {
     androidTestImplementation common.test.androidJunit
     androidTestImplementation common.test.androidRunner
     androidTestImplementation localData.test.roomTesting
+    androidTestImplementation testFixtures(project(":core"))
     androidTestAnnotationProcessor localData.main.roomCompiler
 
     testFixturesImplementation common.main.dagger

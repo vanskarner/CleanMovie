@@ -11,7 +11,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class DefaultRxFutureFactory implements RxFutureFactory {
+class DefaultRxFutureFactory implements RxFutureFactory {
     private final CompositeDisposable compositeDisposable;
     private final Scheduler executorThread;
     private final Scheduler responseThread;

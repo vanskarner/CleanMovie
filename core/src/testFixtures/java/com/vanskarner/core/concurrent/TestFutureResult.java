@@ -1,39 +1,40 @@
-package com.vanskarner.core;
+package com.vanskarner.core.concurrent;
 
-import com.vanskarner.core.concurrent.FutureResult;
+import com.vanskarner.core.Consumer;
+import com.vanskarner.core.ExceptionFunction;
 
-public class SyncFutureResult<T> implements FutureResult<T> {
+public class TestFutureResult<T> implements FutureResult<T> {
     private T value;
     private Exception error;
 
-    public SyncFutureResult(T value) {
+    public TestFutureResult(T value) {
         this.value = value;
     }
 
-    public SyncFutureResult(Exception error) {
+    public TestFutureResult(Exception error) {
         this.error = error;
     }
 
     @Override
     public <U> FutureResult<U> map(ExceptionFunction<? super T, ? extends U> func) {
         if (error != null)
-            return new SyncFutureResult<>(error);
+            return new TestFutureResult<>(error);
         try {
             U result = func.apply(value);
-            return new SyncFutureResult<>(result);
+            return new TestFutureResult<>(result);
         } catch (Exception e) {
-            return new SyncFutureResult<>(e);
+            return new TestFutureResult<>(e);
         }
     }
 
     @Override
     public <U> FutureResult<U> flatMap(ExceptionFunction<? super T, ? extends FutureResult<U>> func) {
         if (error != null)
-            return new SyncFutureResult<>(error);
+            return new TestFutureResult<>(error);
         try {
             return func.apply(value);
         } catch (Exception e) {
-            return new SyncFutureResult<>(e);
+            return new TestFutureResult<>(e);
         }
     }
 
