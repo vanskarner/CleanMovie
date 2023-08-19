@@ -7,7 +7,7 @@ import com.vanskarner.movie.persistence.local.MovieDao;
 import com.vanskarner.movie.persistence.local.MovieEntity;
 
 @Database(entities = {MovieEntity.class}, version = 1, exportSchema = false)
-abstract class AppDB extends RoomDatabase {
+abstract class RoomDB extends RoomDatabase {
 
     public abstract MovieDao movieDetailDao();
 

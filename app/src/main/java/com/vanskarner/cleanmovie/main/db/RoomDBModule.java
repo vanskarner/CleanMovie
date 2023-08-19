@@ -12,20 +12,20 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public abstract class AppDBModule {
+public abstract class RoomDBModule {
     private static final String DATABASE_NAME = "CleanMovie";
 
     @Provides
     @Singleton
-    static MovieDao provideMovieDetailDao(AppDB db) {
+    static MovieDao provideMovieDetailDao(RoomDB db) {
         return db.movieDetailDao();
     }
 
     @Provides
     @Singleton
-    static AppDB provideDB(Context context) {
+    static RoomDB provideDB(Context context) {
         return Room
-                .databaseBuilder(context, AppDB.class, DATABASE_NAME)
+                .databaseBuilder(context, RoomDB.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .build();
     }

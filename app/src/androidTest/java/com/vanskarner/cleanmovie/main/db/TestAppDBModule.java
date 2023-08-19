@@ -16,15 +16,15 @@ public abstract class TestAppDBModule {
 
     @Provides
     @Singleton
-    static MovieDao provideMovieDetailDao(AppDB db) {
+    static MovieDao provideMovieDetailDao(RoomDB db) {
         return db.movieDetailDao();
     }
 
     @Provides
     @Singleton
-    static AppDB provideDB(Context context) {
+    static RoomDB provideDB(Context context) {
         return Room
-                .inMemoryDatabaseBuilder(context, AppDB.class)
+                .inMemoryDatabaseBuilder(context, RoomDB.class)
                 .fallbackToDestructiveMigration()
                 .build();
     }

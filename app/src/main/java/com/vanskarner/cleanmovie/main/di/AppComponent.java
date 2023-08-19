@@ -3,7 +3,7 @@ package com.vanskarner.cleanmovie.main.di;
 import android.content.Context;
 
 import com.vanskarner.cleanmovie.main.App;
-import com.vanskarner.cleanmovie.main.db.AppDBModule;
+import com.vanskarner.cleanmovie.main.db.RoomDBModule;
 import com.vanskarner.cleanmovie.main.di.modules.ProjectParametersModule;
 import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
 import com.vanskarner.core.main.CoreModule;
@@ -18,7 +18,7 @@ import dagger.android.AndroidInjector;
 @Singleton
 @Component(modules = {
         ProjectParametersModule.class,
-        AppDBModule.class,
+        RoomDBModule.class,
         CoreModule.class,
         MovieModule.class,
         ViewModule.class
