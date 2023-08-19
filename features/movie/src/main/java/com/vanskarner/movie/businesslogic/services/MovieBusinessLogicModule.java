@@ -6,7 +6,7 @@ import dagger.Binds;
 import dagger.Module;
 
 @Module(includes = MovieErrorModule.class)
-public abstract class MovieDomainModule {
+public abstract class MovieBusinessLogicModule {
 
     @Binds
     @Singleton

@@ -8,7 +8,7 @@ import dagger.Binds;
 import dagger.Module;
 
 @Module
-public abstract class MovieLocalModule {
+public abstract class MovieLocalRepositoryModule {
 
     @Binds
     @Singleton

@@ -1,15 +1,15 @@
 package com.vanskarner.movie.main;
 
 import com.vanskarner.movie.persistence.local.MovieLocalRepositoryModule;
-import com.vanskarner.movie.persistence.remote.MovieRemoteRepositoryModule;
+import com.vanskarner.movie.persistence.remote.TestMovieRemoteRepositoryModule;
 import com.vanskarner.movie.businesslogic.services.MovieBusinessLogicModule;
 
 import dagger.Module;
 
 @Module(includes = {
-        MovieBusinessLogicModule.class,
         MovieLocalRepositoryModule.class,
-        MovieRemoteRepositoryModule.class
+        TestMovieRemoteRepositoryModule.class,
+        MovieBusinessLogicModule.class
 })
-public class MovieModule {
+public class TestMovieModule {
 }

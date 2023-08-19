@@ -10,7 +10,7 @@ import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragmentTest;
 import com.vanskarner.core.main.CoreModule;
-import com.vanskarner.movie.MovieTestModule;
+import com.vanskarner.movie.main.TestMovieModule;
 
 import javax.inject.Singleton;
 
@@ -23,7 +23,7 @@ import dagger.android.AndroidInjector;
         TestParametersModule.class,
         TestAppDBModule.class,
         CoreModule.class,
-        MovieTestModule.class,
+        TestMovieModule.class,
         ViewModule.class
 })
 public interface TestAppComponent extends AndroidInjector<TestApp> {
