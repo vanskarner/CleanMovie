@@ -27,7 +27,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import com.vanskarner.cleanmovie.R;
+import com.vanskarner.cleanmovie.utils.TestDataUtils;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 
@@ -58,9 +60,7 @@ public class FavoritesFragmentTest {
     @Test
     public void deleteAllFavorites_showMessageNoFavorites() throws Exception {
         String base64TopicImage = FileUtils.readFile("base64_topic_image.txt");
-        MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
-                base64TopicImage, base64TopicImage, 100, 8.5f,
-                "2023-03-01", "Separation of responsibilities");
+        MovieDetailDS detailDS = TestDataUtils.createMovieDetailWith(1, base64TopicImage);
         movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
@@ -77,9 +77,7 @@ public class FavoritesFragmentTest {
     @Test
     public void selectFavoriteItem_showDetailDialog() throws Exception {
         String base64TopicImage = FileUtils.readFile("base64_topic_image.txt");
-        MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
-                base64TopicImage, base64TopicImage, 100, 8.5f,
-                "2023-03-01", "Separation of responsibilities");
+        MovieDetailDS detailDS = TestDataUtils.createMovieDetailWith(2, base64TopicImage);
         movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);

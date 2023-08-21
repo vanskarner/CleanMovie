@@ -23,6 +23,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
+import com.vanskarner.cleanmovie.utils.TestDataUtils;
 import com.vanskarner.cleanmovie.utils.TestFragmentScenario;
 import com.vanskarner.cleanmovie.utils.TestMockWebServer;
 import com.vanskarner.cleanmovie.R;
@@ -92,12 +93,8 @@ public class UpcomingDetailFragmentTest {
 
     @Test
     public void saveFavorite_favoritesLimitError_showErrorDialog() throws Exception {
-        MovieDetailDS itemOne = new MovieDetailDS(1, "Clean Architecture",
-                "", "", 100, 8.5f,
-                "2023-03-01", "Separation of responsibilities");
-        MovieDetailDS itemTwo = new MovieDetailDS(2, "Clean Architecture",
-                "", "", 100, 8.5f,
-                "2023-03-01", "Apply SOLID");
+        MovieDetailDS itemOne = TestDataUtils.createMovieDetailWith(1, "");
+        MovieDetailDS itemTwo = TestDataUtils.createMovieDetailWith(2, "");
         movieServices.toggleFavorite(itemOne).get();
         movieServices.toggleFavorite(itemTwo).get();
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
