@@ -111,7 +111,7 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void swipeAction_loadMoreItems() throws IOException {
+    public void swipeUp_loadMoreItems() throws IOException {
         int expectedCount = 40;
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
@@ -131,7 +131,7 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void swipeAction_usingFilter_notLoadMoreItems() throws IOException {
+    public void swipeUp_usingFilter_notLoadMoreItems() throws IOException {
         int expectedCount = 20;
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
         TestNavHostController controller = new TestNavHostController(context);
@@ -152,7 +152,7 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void severError_showErrorDialog() {
+    public void httpInternalServerError_showServerError() {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_INTERNAL_ERROR);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
@@ -169,7 +169,7 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void unavailableError_showErrorDialog() {
+    public void httpUnavailable_showServiceUnavailableError() {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
@@ -186,7 +186,7 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void unauthorisedError_showErrorDialog() {
+    public void httpUnauthorized_showUnauthorisedError() {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAUTHORIZED);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario

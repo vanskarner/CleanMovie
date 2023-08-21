@@ -11,7 +11,6 @@ import static com.vanskarner.cleanmovie.utils.CustomMatcher.withActionIconDrawab
 import static com.vanskarner.cleanmovie.utils.CustomMatcher.withImageDrawable;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.navigation.testing.TestNavHostController;
@@ -71,10 +70,8 @@ public class UpcomingDetailFragmentTest {
     }
 
     @Test
-    public void saveFavorite_showFavoriteIcon() throws IOException {
+    public void saveFavorite_showMarkedAsFavorite() throws IOException {
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        Bundle bundle = new Bundle();
-        bundle.putInt("movieId", 646389);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
                 .createWithEmptyBundle(
@@ -92,15 +89,12 @@ public class UpcomingDetailFragmentTest {
     }
 
     @Test
-    public void saveFavorite_favoritesLimitError_showErrorDialog() throws Exception {
+    public void saveFavorite_withExcessCapacity_showFavoritesLimitError() throws Exception {
         MovieDetailDS itemOne = TestDataUtils.createMovieDetailWith(1, "");
         MovieDetailDS itemTwo = TestDataUtils.createMovieDetailWith(2, "");
         movieServices.toggleFavorite(itemOne).get();
         movieServices.toggleFavorite(itemTwo).get();
         testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("movieId", 646389);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
                 .createWithEmptyBundle(
@@ -116,7 +110,7 @@ public class UpcomingDetailFragmentTest {
     }
 
     @Test
-    public void notFoundError_showErrorDialog() {
+    public void httpNotFound_showNotFoundError() {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario

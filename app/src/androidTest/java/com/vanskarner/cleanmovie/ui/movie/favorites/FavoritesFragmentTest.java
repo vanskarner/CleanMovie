@@ -75,7 +75,7 @@ public class FavoritesFragmentTest {
     }
 
     @Test
-    public void selectFavoriteItem_showDetailDialog() throws Exception {
+    public void selectFavoriteItem_showItemDetailDialog() throws Exception {
         String base64TopicImage = FileUtils.readFile("base64_topic_image.txt");
         MovieDetailDS detailDS = TestDataUtils.createMovieDetailWith(2, base64TopicImage);
         movieServices.toggleFavorite(detailDS).get();
