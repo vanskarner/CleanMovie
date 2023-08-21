@@ -11,12 +11,12 @@ import androidx.navigation.testing.TestNavHostController;
 
 import com.vanskarner.cleanmovie.R;
 
-public class TestFragmentUtils {
+public class TestFragmentScenario {
 
     public static <T extends Fragment> FragmentScenario<T>
-    createEmptyBundleFragmentScenario(Class<T> fragmentClass,
-                                      int graphResId,
-                                      TestNavHostController controller) {
+    createWithEmptyBundle(Class<T> fragmentClass,
+                          int graphResId,
+                          TestNavHostController controller) {
         return FragmentScenario.launchInContainer(
                 fragmentClass,
                 Bundle.EMPTY,
