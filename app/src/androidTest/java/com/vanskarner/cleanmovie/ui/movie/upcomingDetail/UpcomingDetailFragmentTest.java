@@ -7,8 +7,8 @@ import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withActionIconDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withActionIconDrawable;
+import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withImageDrawable;
 
 import android.content.Context;
 

@@ -6,7 +6,7 @@ import androidx.test.espresso.action.GeneralSwipeAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Swipe;
 
-public class CustomViewAction {
+public class TestCustomViewAction {
 
     public static ViewAction swipeUpSlow() {
         return new GeneralSwipeAction(

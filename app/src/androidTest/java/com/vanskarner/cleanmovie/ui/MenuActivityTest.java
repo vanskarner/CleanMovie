@@ -13,9 +13,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withActionIconDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withImageDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withActionIconDrawable;
+import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withRecyclerViewItemCount;
 
 import android.view.KeyEvent;
 

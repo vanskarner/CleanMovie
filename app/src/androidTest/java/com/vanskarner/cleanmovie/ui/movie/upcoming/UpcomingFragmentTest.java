@@ -12,9 +12,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withImageDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withRecyclerViewItemCount;
-import static com.vanskarner.cleanmovie.utils.CustomViewAction.swipeUpSlow;
+import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.utils.TestCustomViewAction.swipeUpSlow;
 
 import android.content.Context;
 import android.view.KeyEvent;

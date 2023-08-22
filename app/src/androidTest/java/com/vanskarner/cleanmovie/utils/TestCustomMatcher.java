@@ -19,7 +19,7 @@ import org.hamcrest.Matcher;
 
 import java.util.Objects;
 
-public class CustomMatcher {
+public final class TestCustomMatcher {
 
     public static Matcher<View> withRecyclerViewItemCount(final int expectedCount) {
         return new BoundedDiagnosingMatcher<View, RecyclerView>(RecyclerView.class) {
