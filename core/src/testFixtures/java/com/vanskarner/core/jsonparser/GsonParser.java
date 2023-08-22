@@ -8,11 +8,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-class GsonParserService implements JsonParserService {
+class GsonParser implements TestJsonParser {
     private final Gson gson;
     private final Class<?> testClass;
 
-    public GsonParserService(Class<?> testClass) {
+    public GsonParser(Class<?> testClass) {
         this.gson = new Gson();
         this.testClass = testClass;
     }
