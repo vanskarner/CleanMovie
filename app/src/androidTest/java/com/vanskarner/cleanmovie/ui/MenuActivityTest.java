@@ -13,9 +13,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withActionIconDrawable;
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withImageDrawable;
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withActionIconDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withRecyclerViewItemCount;
 
 import android.view.KeyEvent;
 
@@ -25,7 +25,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
 
 import org.junit.After;
@@ -42,7 +42,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import javax.inject.Inject;
-
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest

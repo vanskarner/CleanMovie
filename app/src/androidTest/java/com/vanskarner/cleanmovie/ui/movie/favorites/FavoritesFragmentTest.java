@@ -9,7 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withRecyclerViewItemCount;
 
 import android.os.Bundle;
 
@@ -19,7 +19,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
 
 import org.junit.After;
@@ -28,15 +28,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.cleanmovie.utils.TestDataUtils;
+import com.vanskarner.cleanmovie.common.MovieDetailDSMother;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -64,8 +58,7 @@ public class FavoritesFragmentTest {
 
     @Test
     public void deleteAllFavorites_showMessageNoFavorites() throws Exception {
-        String base64TopicImage = loadSampleImageBase64();
-        MovieDetailDS detailDS = TestDataUtils.createMovieDetailWith(1, base64TopicImage);
+        MovieDetailDS detailDS = MovieDetailDSMother.createDefault();
         movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
@@ -81,8 +74,7 @@ public class FavoritesFragmentTest {
 
     @Test
     public void selectFavoriteItem_showItemDetailDialog() throws Exception {
-        String base64TopicImage = loadSampleImageBase64();
-        MovieDetailDS detailDS = TestDataUtils.createMovieDetailWith(2, base64TopicImage);
+        MovieDetailDS detailDS = MovieDetailDSMother.createDefault();
         movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
@@ -99,20 +91,6 @@ public class FavoritesFragmentTest {
         onView(withId(R.id.tvVoteAverage))
                 .check(matches(withText(String.valueOf(detailDS.voteAverage))));
         scenario.close();
-    }
-
-    private String loadSampleImageBase64() throws IOException {
-        String fileName = "base64_topic_image.txt";
-        String receiveString;
-        ClassLoader classLoader = getClass().getClassLoader();
-        InputStream inputStream = Objects.requireNonNull(classLoader).getResourceAsStream(fileName);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        StringBuilder stringBuilder = new StringBuilder();
-        while ((receiveString = bufferedReader.readLine()) != null)
-            stringBuilder.append(receiveString);
-        inputStream.close();
-        return stringBuilder.toString();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.utils;
+package com.vanskarner.cleanmovie.common;
 
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.GeneralLocation;
@@ -19,4 +19,5 @@ public class TestCustomViewAction {
                 },
                 Press.FINGER);
     }
+
 }

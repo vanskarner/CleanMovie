@@ -7,8 +7,8 @@ import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withActionIconDrawable;
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withActionIconDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withImageDrawable;
 
 import android.content.Context;
 
@@ -20,10 +20,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
-import com.vanskarner.cleanmovie.utils.TestDataUtils;
-import com.vanskarner.cleanmovie.utils.TestFragmentScenario;
+import com.vanskarner.cleanmovie.common.MovieDetailDSMother;
+import com.vanskarner.cleanmovie.common.TestFragmentScenario;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
@@ -39,7 +39,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import javax.inject.Inject;
-
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
@@ -89,8 +88,8 @@ public class UpcomingDetailFragmentTest {
 
     @Test
     public void saveFavorite_withExcessCapacity_showFavoritesLimitError() throws Exception {
-        MovieDetailDS itemOne = TestDataUtils.createMovieDetailWith(1, "");
-        MovieDetailDS itemTwo = TestDataUtils.createMovieDetailWith(2, "");
+        MovieDetailDS itemOne = MovieDetailDSMother.createWith(1);
+        MovieDetailDS itemTwo = MovieDetailDSMother.createWith(2);
         movieServices.toggleFavorite(itemOne).get();
         movieServices.toggleFavorite(itemTwo).get();
         simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);

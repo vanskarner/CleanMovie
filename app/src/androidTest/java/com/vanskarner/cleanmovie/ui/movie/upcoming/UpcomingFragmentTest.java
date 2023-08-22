@@ -12,9 +12,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withImageDrawable;
-import static com.vanskarner.cleanmovie.utils.TestCustomMatcher.withRecyclerViewItemCount;
-import static com.vanskarner.cleanmovie.utils.TestCustomViewAction.swipeUpSlow;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.common.TestCustomViewAction.swipeUpSlow;
 
 import android.content.Context;
 import android.view.KeyEvent;
@@ -27,9 +27,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
-import com.vanskarner.cleanmovie.utils.TestFragmentScenario;
+import com.vanskarner.cleanmovie.common.TestFragmentScenario;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
@@ -41,7 +41,6 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest

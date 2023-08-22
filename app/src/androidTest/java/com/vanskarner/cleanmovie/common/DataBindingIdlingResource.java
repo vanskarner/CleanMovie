@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.utils;
+package com.vanskarner.cleanmovie.common;
 
 import android.view.View;
 
