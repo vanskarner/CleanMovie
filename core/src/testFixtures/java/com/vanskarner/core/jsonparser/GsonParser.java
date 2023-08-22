@@ -25,7 +25,8 @@ class GsonParser implements TestJsonParser {
 
     private String readFile(String fileName) throws IOException {
         String receiveString;
-        InputStream inputStream = testClass.getResourceAsStream(fileName);
+        ClassLoader classLoader = testClass.getClassLoader();
+        InputStream inputStream = Objects.requireNonNull(classLoader).getResourceAsStream(fileName);
         InputStreamReader inputStreamReader = new InputStreamReader(
                 Objects.requireNonNull(inputStream));
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
