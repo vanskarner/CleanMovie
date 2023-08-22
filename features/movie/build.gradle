@@ -43,7 +43,6 @@ dependencies {
     annotationProcessor common.main.daggerCompiler
 
     testImplementation common.test.junit
-    testImplementation common.test.mockWebServer
     testImplementation testFixtures(project(":core"))
 
     androidTestImplementation common.test.androidJunit

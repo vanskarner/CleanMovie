@@ -6,11 +6,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.persistence.remote.jsonparser.JsonParserFactory;
+import com.vanskarner.core.jsonparser.TestJsonParser;
+import com.vanskarner.core.jsonparser.TestJsonParserFactory;
+import com.vanskarner.core.remote.TestSimulatedServer;
+import com.vanskarner.core.remote.TestSimulatedServerFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.persistence.remote.jsonparser.JsonParserService;
-import com.vanskarner.movie.persistence.remote.simulatedserver.SimulatedServer;
-import com.vanskarner.movie.persistence.remote.simulatedserver.SimulatedServerFactory;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -33,16 +33,16 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRemoteRxRepositoryTest {
-    static SimulatedServer simulatedServer;
-    static JsonParserService jsonService;
+    static TestSimulatedServer simulatedServer;
+    static TestJsonParser jsonService;
     static CompositeDisposable compositeDisposable;
     static String baseImageUrl = "https://image.tmdb.org/t/p/w500";
     static MovieRemoteRxRepository repository;
 
     @BeforeClass
     public static void setupClass() throws IOException {
-        simulatedServer = SimulatedServerFactory.create();
-        jsonService = JsonParserFactory.create();
+        simulatedServer = TestSimulatedServerFactory.create(MovieRemoteRxRepositoryTest.class);
+        jsonService = TestJsonParserFactory.create(MovieRemoteRxRepositoryTest.class);
         compositeDisposable = new CompositeDisposable();
         simulatedServer.start(1010);
 
@@ -61,20 +61,20 @@ public class MovieRemoteRxRepositoryTest {
 
     @Test
     public void getMovies_whenHttpIsOK_returnList() throws Exception {
-        String jsonPath = "src/test/resources/upcoming_list.json";
-        simulatedServer.enqueueFromJsonPath(jsonPath, HttpURLConnection.HTTP_OK);
+        String fileName = "upcoming_list.json";
+        simulatedServer.enqueueFrom(fileName, HttpURLConnection.HTTP_OK);
         List<MovieBO> actualList = repository.getMovies(1).get();
-        MoviesResultDTO expectedList = jsonService.fromPath(jsonPath, MoviesResultDTO.class);
+        MoviesResultDTO expectedList = jsonService.from(fileName, MoviesResultDTO.class);
 
         assertEquals(expectedList.results.size(), actualList.size());
     }
 
     @Test
     public void getMovie_whenHttpIsOK_returnItem() throws Exception {
-        String jsonPath = "src/test/resources/upcoming_item.json";
-        simulatedServer.enqueueFromJsonPath(jsonPath, HttpURLConnection.HTTP_OK);
+        String fileName = "upcoming_item.json";
+        simulatedServer.enqueueFrom(fileName, HttpURLConnection.HTTP_OK);
         MovieBO actualItem = repository.getMovie(1).get();
-        MovieDTO expectedItem = jsonService.fromPath(jsonPath, MovieDTO.class);
+        MovieDTO expectedItem = jsonService.from(fileName, MovieDTO.class);
         expectedItem.posterPath = baseImageUrl.concat(expectedItem.posterPath);
         expectedItem.backdropPath = baseImageUrl.concat(expectedItem.backdropPath);
 
