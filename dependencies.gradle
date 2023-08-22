@@ -21,6 +21,7 @@ ext {
     rx2Idler = "0.11.0"
     fragmentTestingVersion = "1.6.0"
     androidRunnerVersion = "1.4.0"
+    gsonVersion = "2.8.9"
 
     androidParameters = [
             compileSdkVersion        : 33,
@@ -44,7 +45,8 @@ ext {
                     junit        : "junit:junit:${junitVersion}",
                     androidJunit : "androidx.test.ext:junit:${androidJunitVersion}",
                     androidRunner: "androidx.test:runner:${androidRunnerVersion}",
-                    mockWebServer: "com.squareup.okhttp3:mockwebserver:${mockwebserverVersion}"
+                    mockWebServer: "com.squareup.okhttp3:mockwebserver:${mockwebserverVersion}",
+                    gson         : "com.google.code.gson:gson:${gsonVersion}"
             ]
     ]
 
@@ -61,12 +63,12 @@ ext {
                     daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}"
             ],
             test: [
-                    espressoCore     : "androidx.test.espresso:espresso-core:${espressoVersion}",
-                    espressoContrib  : "androidx.test.espresso:espresso-contrib:${espressoVersion}",
-                    navigationTesting: "androidx.navigation:navigation-testing:${navigationVersion}",
-                    rx2Idler         : "com.squareup.rx.idler:rx2-idler:${rx2Idler}",
-                    fragmentTestingManifest  : "androidx.fragment:fragment-testing-manifest:${fragmentTestingVersion}",
-                    fragmentTesting: "androidx.fragment:fragment-testing:${fragmentTestingVersion}"
+                    espressoCore           : "androidx.test.espresso:espresso-core:${espressoVersion}",
+                    espressoContrib        : "androidx.test.espresso:espresso-contrib:${espressoVersion}",
+                    navigationTesting      : "androidx.navigation:navigation-testing:${navigationVersion}",
+                    rx2Idler               : "com.squareup.rx.idler:rx2-idler:${rx2Idler}",
+                    fragmentTestingManifest: "androidx.fragment:fragment-testing-manifest:${fragmentTestingVersion}",
+                    fragmentTesting        : "androidx.fragment:fragment-testing:${fragmentTestingVersion}"
             ]
     ]
 
@@ -84,12 +86,12 @@ ext {
 
     localData = [
             main: [
-                    roomRuntime   : "androidx.room:room-runtime:${roomVersion}",
-                    roomRxjava2   : "androidx.room:room-rxjava2:${roomVersion}",
-                    roomCompiler  : "androidx.room:room-compiler:${roomVersion}"
+                    roomRuntime : "androidx.room:room-runtime:${roomVersion}",
+                    roomRxjava2 : "androidx.room:room-rxjava2:${roomVersion}",
+                    roomCompiler: "androidx.room:room-compiler:${roomVersion}"
             ],
             test: [
-                    roomTesting  : "androidx.room:room-testing:${roomVersion}"
+                    roomTesting: "androidx.room:room-testing:${roomVersion}"
             ]
     ]
 
