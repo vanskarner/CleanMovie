@@ -24,8 +24,9 @@ import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
 import com.vanskarner.cleanmovie.utils.TestDataUtils;
 import com.vanskarner.cleanmovie.utils.TestFragmentScenario;
-import com.vanskarner.cleanmovie.utils.TestMockWebServer;
 import com.vanskarner.cleanmovie.R;
+import com.vanskarner.core.remote.TestSimulatedServer;
+import com.vanskarner.core.remote.TestSimulatedServerFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 
@@ -39,21 +40,19 @@ import java.net.HttpURLConnection;
 
 import javax.inject.Inject;
 
-import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class UpcomingDetailFragmentTest {
     Context context;
-    MockWebServer server = new MockWebServer();
-    TestMockWebServer testMockWebServer = new TestMockWebServer(server);
+    TestSimulatedServer simulatedServer = TestSimulatedServerFactory.create(this.getClass());
     DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
     @Inject
     MovieServices movieServices;
 
     @Before
     public void setUp() throws IOException {
-        server.start(8080);
+        simulatedServer.start(8080);
         context = ApplicationProvider.getApplicationContext();
         TestApp testApp = (TestApp) InstrumentationRegistry.getInstrumentation()
                 .getTargetContext()
@@ -64,14 +63,14 @@ public class UpcomingDetailFragmentTest {
 
     @After
     public void tearDown() throws Exception {
-        server.shutdown();
+        simulatedServer.shutdown();
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
     }
 
     @Test
     public void saveFavorite_showMarkedAsFavorite() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
                 .createWithEmptyBundle(
@@ -94,7 +93,7 @@ public class UpcomingDetailFragmentTest {
         MovieDetailDS itemTwo = TestDataUtils.createMovieDetailWith(2, "");
         movieServices.toggleFavorite(itemOne).get();
         movieServices.toggleFavorite(itemTwo).get();
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
                 .createWithEmptyBundle(
@@ -111,7 +110,7 @@ public class UpcomingDetailFragmentTest {
 
     @Test
     public void httpNotFound_showNotFoundError() {
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
         TestNavHostController controller = new TestNavHostController(context);
         FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
                 .createWithEmptyBundle(

@@ -67,7 +67,7 @@ dependencies {
     androidTestImplementation presentation.test.navigationTesting
     androidTestAnnotationProcessor common.main.daggerCompiler
     androidTestImplementation testFixtures(project(":features:movie"))
-    androidTestImplementation common.test.mockWebServer
+    androidTestImplementation testFixtures(project(":core"))
     androidTestImplementation presentation.test.rx2Idler
     debugImplementation presentation.test.fragmentTestingManifest
     androidTestImplementation presentation.test.fragmentTesting

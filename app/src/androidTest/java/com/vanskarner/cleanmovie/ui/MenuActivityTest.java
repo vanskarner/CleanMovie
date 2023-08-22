@@ -27,7 +27,6 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.vanskarner.cleanmovie.utils.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
-import com.vanskarner.cleanmovie.utils.TestMockWebServer;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,6 +34,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.vanskarner.cleanmovie.R;
+import com.vanskarner.core.remote.TestSimulatedServer;
+import com.vanskarner.core.remote.TestSimulatedServerFactory;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 
 import java.io.IOException;
@@ -42,20 +43,18 @@ import java.net.HttpURLConnection;
 
 import javax.inject.Inject;
 
-import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class MenuActivityTest {
-    MockWebServer server = new MockWebServer();
-    TestMockWebServer testMockWebServer = new TestMockWebServer(server);
+    TestSimulatedServer simulatedServer = TestSimulatedServerFactory.create(this.getClass());
     DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
     @Inject
     MovieServices movieServices;
 
     @Before
     public void setUp() throws IOException {
-        server.start(8080);
+        simulatedServer.start(8080);
         TestApp testApp = (TestApp) InstrumentationRegistry.getInstrumentation()
                 .getTargetContext()
                 .getApplicationContext();
@@ -65,16 +64,16 @@ public class MenuActivityTest {
 
     @After
     public void tearDown() throws Exception {
-        server.shutdown();
+        simulatedServer.shutdown();
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
     }
 
     @Test
     public void saveFavorite_showMarkedAsFavorite() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -92,11 +91,11 @@ public class MenuActivityTest {
 
     @Test
     public void deleteAllFavorites_showThemAsNotFavorites() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_2.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_2.json");
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_2.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_2.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -122,8 +121,8 @@ public class MenuActivityTest {
     @Test
     public void saveFavorite_usingFilter_oneResult() throws Exception {
         String query = "Plane";
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -141,9 +140,9 @@ public class MenuActivityTest {
     @Test
     public void deleteFavorite_usingFilter_zeroResults() throws Exception {
         String query = "Plane";
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -167,10 +166,10 @@ public class MenuActivityTest {
     @Test
     public void saveFavorite_withExcessCapacity_keepSaveLimit() throws IOException {
         int expectedNumberFavoriteMovies = 2;
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_2.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_3.json");
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_2.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_3.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -194,9 +193,9 @@ public class MenuActivityTest {
 
     @Test
     public void unavailableService_allowShowFavoriteMovies() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
