@@ -78,35 +78,35 @@ public class MovieViewMapperTest {
     private MovieDetailDS createMovieDetailDS() {
         return new MovieDetailDS(
                 1,
-                "Clean movie DS",
-                "any image",
-                "any background image",
+                "Any title",
+                "Any image",
+                "Any background image",
                 75,
                 7.4f,
                 "2023-01-12",
-                "My overview",
+                "Any overview",
                 true);
     }
 
     private MovieDetailModel createMovieDetailModel() {
         return new MovieDetailModel(
                 1,
-                "Clean movie DS",
-                "any image",
-                "any background image",
+                "Any title",
+                "Any image",
+                "Any background image",
                 75,
                 7.4f,
                 "2023-01-12",
-                "My overview",
+                "Any overview",
                 true);
     }
 
     private MovieDS createMovieDS() {
-        return new MovieDS(3, "Clean Movie", "Any Image");
+        return new MovieDS(1, "Any title", "Any Image");
     }
 
     private MovieModel createMovieModel() {
-        return new MovieModel(4, "Clean Movie", "Any Image");
+        return new MovieModel(1, "Any title", "Any Image");
     }
 
 }
