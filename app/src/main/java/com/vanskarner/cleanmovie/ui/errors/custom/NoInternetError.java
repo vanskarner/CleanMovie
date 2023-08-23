@@ -1,18 +1,18 @@
-package com.vanskarner.cleanmovie.ui.errors.types;
+package com.vanskarner.cleanmovie.ui.errors.custom;
 
-import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
-import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
+import com.vanskarner.cleanmovie.R;
+import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class NotFoundError implements ErrorView<CommonErrorDialogBinding> {
+class NoInternetError implements ErrorView<CommonErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject
-    public NotFoundError(ErrorDialog errorDialog) {
+    public NoInternetError(ErrorDialog errorDialog) {
         this.errorDialog = errorDialog;
     }
 
@@ -20,8 +20,8 @@ class NotFoundError implements ErrorView<CommonErrorDialogBinding> {
     public CommonErrorDialogBinding setupView(Runnable action) {
         CommonErrorDialogBinding binding = CommonErrorDialogBinding
                 .inflate(errorDialog.getLayoutInflater());
-        binding.ivError.setImageResource(R.drawable.ic_not_found);
-        binding.tvMsgError.setText(R.string.msg_not_found);
+        binding.ivError.setImageResource(R.drawable.ic_no_internet);
+        binding.tvMsgError.setText(R.string.msg_no_internet);
         binding.errorButton.setOnClickListener(v -> action.run());
         return binding;
     }

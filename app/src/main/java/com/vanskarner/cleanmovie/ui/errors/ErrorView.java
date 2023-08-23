@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.errors.types;
+package com.vanskarner.cleanmovie.ui.errors;
 
 public interface ErrorView<T> {
 

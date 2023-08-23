@@ -1,10 +1,10 @@
-package com.vanskarner.cleanmovie.ui.errors.types;
+package com.vanskarner.cleanmovie.ui.errors.custom;
 
 import androidx.core.content.ContextCompat;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.PremiumErrorDialogBinding;
-import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
+import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

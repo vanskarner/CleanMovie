@@ -1,6 +1,6 @@
 package com.vanskarner.cleanmovie.ui.movie.upcoming;
 
-import com.vanskarner.cleanmovie.ui.errors.types.ErrorView;
+import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.BasePresenter;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
 

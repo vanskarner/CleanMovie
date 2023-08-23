@@ -1,13 +1,6 @@
-package com.vanskarner.cleanmovie.ui.errors.types;
+package com.vanskarner.cleanmovie.ui.errors.custom;
 
-import com.vanskarner.cleanmovie.ui.errors.types.ErrorView;
-import com.vanskarner.cleanmovie.ui.errors.types.FavoritesLimitError;
-import com.vanskarner.cleanmovie.ui.errors.types.NoInternetError;
-import com.vanskarner.cleanmovie.ui.errors.types.NotFoundError;
-import com.vanskarner.cleanmovie.ui.errors.types.ServerError;
-import com.vanskarner.cleanmovie.ui.errors.types.ServiceUnavailableError;
-import com.vanskarner.cleanmovie.ui.errors.types.UnauthorisedError;
-import com.vanskarner.cleanmovie.ui.errors.types.UnknownError;
+import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.movie.persistence.remote.MovieRemoteError;
 import com.vanskarner.movie.businesslogic.error.MovieError;
 

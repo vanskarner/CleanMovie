@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.FavoritesFragmentBinding;
-import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
-import com.vanskarner.cleanmovie.ui.errors.types.ErrorView;
+import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
+import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
 import com.vanskarner.singleadapter.SingleAdapter;
