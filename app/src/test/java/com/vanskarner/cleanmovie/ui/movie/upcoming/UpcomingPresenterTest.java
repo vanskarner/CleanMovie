@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.core.concurrent.TestFutureResult;
+import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.sync.Result;
 import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
@@ -62,7 +62,7 @@ public class UpcomingPresenterTest {
         MovieDS item = new MovieDS(1, "", "");
         list.add(item);
         MoviesDS moviesDS = new MoviesDS(list);
-        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(moviesDS);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
 
@@ -77,7 +77,7 @@ public class UpcomingPresenterTest {
     public void initialLoad_whenItFails_doFailSequence() {
         int page = 1;
         Exception anyException = new Exception("Any Exception");
-        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(anyException);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.createFail(anyException);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
 
@@ -103,7 +103,7 @@ public class UpcomingPresenterTest {
         MovieDS item = new MovieDS(1, "", "");
         list.add(item);
         MoviesDS moviesDS = new MoviesDS(list);
-        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(moviesDS);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
 
@@ -116,7 +116,7 @@ public class UpcomingPresenterTest {
     public void loadMoreItems_whenItFails_doFailSequence() {
         int page = 2;
         Exception anyException = new Exception("Any Exception");
-        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(anyException);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.createFail(anyException);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
 

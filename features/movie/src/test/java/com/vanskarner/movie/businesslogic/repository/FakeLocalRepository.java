@@ -1,9 +1,8 @@
 package com.vanskarner.movie.businesslogic.repository;
 
-import com.vanskarner.core.concurrent.TestFutureResult;
-import com.vanskarner.core.concurrent.TestFutureSimpleResult;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
+import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ class FakeLocalRepository implements MovieLocalRepository {
 
     @Override
     public FutureResult<List<MovieBO>> getMovies() {
-        return new TestFutureResult<>(data);
+        return TestFutureFactory.createSuccess(data);
     }
 
     @Override
@@ -31,25 +30,26 @@ class FakeLocalRepository implements MovieLocalRepository {
                 .filter(i -> i.getId() == movieId)
                 .findFirst();
         return item
-                .<FutureResult<MovieBO>>map(TestFutureResult::new)
-                .orElseGet(() -> new TestFutureResult<>(new NoSuchElementException()));
+                .map(TestFutureFactory::createSuccess)
+                .orElseGet(() -> TestFutureFactory.createFail(new NoSuchElementException()));
     }
 
     @Override
     public FutureSimpleResult deleteMovie(int movieId) {
-        return new TestFutureSimpleResult(() -> data.removeIf(item -> item.getId() == movieId));
+        Runnable runnable = () -> data.removeIf(item -> item.getId() == movieId);
+        return TestFutureFactory.createSimpleSuccess(runnable);
     }
 
     @Override
     public FutureResult<Integer> deleteAllMovies() {
         int total = data.size();
         data.clear();
-        return new TestFutureResult<>(total);
+        return TestFutureFactory.createSuccess(total);
     }
 
     @Override
     public FutureResult<Integer> getNumberMovies() {
-        return new TestFutureResult<>(data.size());
+        return TestFutureFactory.createSuccess(data.size());
     }
 
     @Override
@@ -58,12 +58,13 @@ class FakeLocalRepository implements MovieLocalRepository {
                 .stream()
                 .filter(i -> i.getId() == movieId)
                 .findFirst();
-        return new TestFutureResult<>(item.isPresent());
+        return TestFutureFactory.createSuccess(item.isPresent());
     }
 
     @Override
     public FutureSimpleResult saveMovie(MovieBO movieDetail) {
-        return new TestFutureSimpleResult(() -> data.add(movieDetail));
+        Runnable runnable = () -> data.add(movieDetail);
+        return TestFutureFactory.createSimpleSuccess(runnable);
     }
 
 }

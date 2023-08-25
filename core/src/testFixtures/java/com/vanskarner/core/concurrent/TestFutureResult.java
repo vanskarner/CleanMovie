@@ -3,7 +3,7 @@ package com.vanskarner.core.concurrent;
 import com.vanskarner.core.Consumer;
 import com.vanskarner.core.ExceptionFunction;
 
-public class TestFutureResult<T> implements FutureResult<T> {
+class TestFutureResult<T> implements FutureResult<T> {
     private T value;
     private Exception error;
 

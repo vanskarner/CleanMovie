@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.core.concurrent.TestFutureResult;
+import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 
@@ -44,8 +44,8 @@ public class UpcomingDetailPresenterTest {
         boolean checkResult = true;
         MovieDetailDS item =
                 new MovieDetailDS(1, "", "", "", 0, 0, "", "");
-        FutureResult<Boolean> checkFuture = new TestFutureResult<>(checkResult);
-        FutureResult<MovieDetailDS> findFuture = new TestFutureResult<>(item);
+        FutureResult<Boolean> checkFuture = TestFutureFactory.createSuccess(checkResult);
+        FutureResult<MovieDetailDS> findFuture = TestFutureFactory.createSuccess(item);
         when(services.checkFavorite(movieId)).thenReturn(checkFuture);
         when(services.findUpcoming(movieId)).thenReturn(findFuture);
         presenter.initialAction(movieId);
@@ -60,8 +60,8 @@ public class UpcomingDetailPresenterTest {
     public void initialAction_whenItFails_doFailSequence() {
         int movieId = 1010;
         Exception anyException = new Exception("Any Exception");
-        FutureResult<Boolean> checkFuture = new TestFutureResult<>(anyException);
-        FutureResult<MovieDetailDS> findFuture = new TestFutureResult<>(anyException);
+        FutureResult<Boolean> checkFuture = TestFutureFactory.createFail(anyException);
+        FutureResult<MovieDetailDS> findFuture = TestFutureFactory.createFail(anyException);
         when(services.checkFavorite(movieId)).thenReturn(checkFuture);
         when(services.findUpcoming(movieId)).thenReturn(findFuture);
         presenter.initialAction(movieId);
@@ -76,7 +76,7 @@ public class UpcomingDetailPresenterTest {
         MovieDetailModel item = new MovieDetailModel(
                 1, "", "", "", 0, 0, "", "", true
         );
-        FutureResult<Boolean> futureResult = new TestFutureResult<>(result);
+        FutureResult<Boolean> futureResult = TestFutureFactory.createSuccess(result);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
         presenter.actionFavoriteMovie(item);
 
@@ -89,7 +89,7 @@ public class UpcomingDetailPresenterTest {
                 1, "", "", "", 0, 0, "", "", true
         );
         Exception anyException = new Exception("Any Exception");
-        FutureResult<Boolean> futureResult = new TestFutureResult<>(anyException);
+        FutureResult<Boolean> futureResult = TestFutureFactory.createFail(anyException);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
         presenter.actionFavoriteMovie(item);
 

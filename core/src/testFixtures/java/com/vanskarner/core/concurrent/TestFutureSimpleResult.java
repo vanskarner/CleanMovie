@@ -3,7 +3,7 @@ package com.vanskarner.core.concurrent;
 import com.vanskarner.core.Consumer;
 
 /** @noinspection unused*/
-public class TestFutureSimpleResult implements FutureSimpleResult {
+class TestFutureSimpleResult implements FutureSimpleResult {
     private Exception error;
     private Runnable runnable;
 
