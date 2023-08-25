@@ -56,15 +56,15 @@ public class UpcomingPresenterTest {
     public void initialLoad_whenOK_doSuccessFlow() {
         int page = 1;
         List<MovieDS> list = new ArrayList<>();
-        list.add(mock(MovieDS.class));
+        MovieDS item = new MovieDS(1, "", "");
+        list.add(item);
         MoviesDS moviesDS = new MoviesDS(list);
-        FutureResult<MoviesDS> result = new TestFutureResult<>(moviesDS);
-        when(services.showUpcoming(page))
-                .thenReturn(result);
+        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(moviesDS);
+        when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
 
         verify(view).enableScroll();
-        verify(view).setSearchView(false);
+        verify(view,times(2)).setSearchView(anyBoolean());
         verify(view, times(2)).setInitialProgress(anyBoolean());
         verify(view).showUpcoming(anyList());
         verify(view).paginate();
@@ -73,16 +73,16 @@ public class UpcomingPresenterTest {
     @Test
     public void initialLoad_whenFail_doErrorFlow() {
         int page = 1;
-        FutureResult<MoviesDS> result = new TestFutureResult<>(new Exception("Any Exception"));
-        when(services.showUpcoming(page))
-                .thenReturn(result);
+        Exception anyException = new Exception("Any Exception");
+        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(anyException);
+        when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
 
         verify(view).enableScroll();
         verify(view).setSearchView(false);
         verify(view, times(2)).setInitialProgress(anyBoolean());
         verify(view).showError(any());
-        verify(errorFilter).filter(any());
+        verify(errorFilter).filter(anyException);
     }
 
     @Test
@@ -97,14 +97,14 @@ public class UpcomingPresenterTest {
     public void loadMoreItems_whenOK_doSuccessFlow() {
         int page = 2;
         List<MovieDS> list = new ArrayList<>();
-        list.add(mock(MovieDS.class));
+        MovieDS item = new MovieDS(1, "", "");
+        list.add(item);
         MoviesDS moviesDS = new MoviesDS(list);
-        FutureResult<MoviesDS> result = new TestFutureResult<>(moviesDS);
-        when(services.showUpcoming(page))
-                .thenReturn(result);
+        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(moviesDS);
+        when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
 
-        verify(view).setPagingProgress(anyBoolean());
+        verify(view).setPagingProgress(true);
         verify(view).showUpcoming(anyList());
         verify(view).paginate();
     }
@@ -112,16 +112,16 @@ public class UpcomingPresenterTest {
     @Test
     public void loadMoreItems_whenFail_doFailFlow() {
         int page = 2;
-        FutureResult<MoviesDS> result = new TestFutureResult<>(new Exception("Any Exception"));
-        when(services.showUpcoming(page))
-                .thenReturn(result);
+        Exception anyException = new Exception("Any Exception");
+        FutureResult<MoviesDS> futureResult = new TestFutureResult<>(anyException);
+        when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
 
 
         verify(view, times(2)).setPagingProgress(anyBoolean());
         verify(view).enableScroll();
         verify(view).showError(any());
-        verify(errorFilter).filter(any());
+        verify(errorFilter).filter(anyException);
     }
 
     @Test
