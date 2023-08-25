@@ -12,4 +12,11 @@ public class MovieDS {
         this.image = image;
     }
 
+    public static MovieDS empty() {
+        return new MovieDS(
+                0,
+                "",
+                "");
+    }
+
 }

@@ -58,10 +58,8 @@ public class UpcomingPresenterTest {
     @Test
     public void initialLoad_whenItsOK_doOkSequence() {
         int page = 1;
-        List<MovieDS> list = new ArrayList<>();
-        MovieDS item = new MovieDS(1, "", "");
-        list.add(item);
-        MoviesDS moviesDS = new MoviesDS(list);
+        MoviesDS moviesDS = MoviesDS.empty();
+        moviesDS.list = Collections.singletonList(MovieDS.empty());
         FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
@@ -99,10 +97,8 @@ public class UpcomingPresenterTest {
     @Test
     public void loadMoreItems_whenItsOK_doOkSequence() {
         int page = 2;
-        List<MovieDS> list = new ArrayList<>();
-        MovieDS item = new MovieDS(1, "", "");
-        list.add(item);
-        MoviesDS moviesDS = new MoviesDS(list);
+        MoviesDS moviesDS = MoviesDS.empty();
+        moviesDS.list = Collections.singletonList(MovieDS.empty());
         FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
@@ -129,10 +125,7 @@ public class UpcomingPresenterTest {
 
     @Test
     public void filter_whenItsOK_doOkSequence() {
-        MoviesFilterDS filterDS = new MoviesFilterDS(
-                Collections.emptyList(),
-                "Any Query",
-                Collections.emptyList());
+        MoviesFilterDS filterDS = MoviesFilterDS.empty();
         Result<MoviesFilterDS> futureResult = Result.success(filterDS);
         when(services.filterUpcoming(any())).thenReturn(futureResult);
         presenter.filter(filterDS.query);

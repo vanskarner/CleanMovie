@@ -42,8 +42,7 @@ public class UpcomingDetailPresenterTest {
     public void initialAction_whenItsOk_doOkSequence() {
         int movieId = 1010;
         boolean checkResult = true;
-        MovieDetailDS item =
-                new MovieDetailDS(1, "", "", "", 0, 0, "", "");
+        MovieDetailDS item = MovieDetailDS.empty();
         FutureResult<Boolean> checkFuture = TestFutureFactory.createSuccess(checkResult);
         FutureResult<MovieDetailDS> findFuture = TestFutureFactory.createSuccess(item);
         when(services.checkFavorite(movieId)).thenReturn(checkFuture);

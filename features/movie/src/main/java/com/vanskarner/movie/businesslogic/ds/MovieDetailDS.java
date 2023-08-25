@@ -37,4 +37,17 @@ public class MovieDetailDS {
         this.overview = overview;
     }
 
+    public static MovieDetailDS empty() {
+        return new MovieDetailDS(
+                0,
+                "",
+                "",
+                "",
+                0,
+                0,
+                "",
+                "",
+                false);
+    }
+
 }

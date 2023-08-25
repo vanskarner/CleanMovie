@@ -19,8 +19,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.Collections;
-
 public class FavoritesPresenterTest {
     static FavoritesContract.view view;
     static MovieServices services;
@@ -53,7 +51,7 @@ public class FavoritesPresenterTest {
 
     @Test
     public void getFavorites_whenItsOK_doOkSequence() {
-        MoviesDS moviesDS = new MoviesDS(Collections.emptyList());
+        MoviesDS moviesDS = MoviesDS.empty();
         FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
         when(services.showFavorite()).thenReturn(futureResult);
         presenter.getFavorites();
