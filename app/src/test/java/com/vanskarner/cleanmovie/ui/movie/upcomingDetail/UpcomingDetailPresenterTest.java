@@ -41,12 +41,12 @@ public class UpcomingDetailPresenterTest {
     public void initialAction_whenOK_doSuccessFlow() {
         int movieId = 1010;
         boolean checkResult = true;
-        FutureResult<Boolean> check = new TestFutureResult<>(checkResult);
-        FutureResult<MovieDetailDS> find = new TestFutureResult<>(mock(MovieDetailDS.class));
-        when(services.checkFavorite(movieId))
-                .thenReturn(check);
-        when(services.findUpcoming(movieId))
-                .thenReturn(find);
+        MovieDetailDS item =
+                new MovieDetailDS(1, "", "", "", 0, 0, "", "");
+        FutureResult<Boolean> checkFuture = new TestFutureResult<>(checkResult);
+        FutureResult<MovieDetailDS> findFuture = new TestFutureResult<>(item);
+        when(services.checkFavorite(movieId)).thenReturn(checkFuture);
+        when(services.findUpcoming(movieId)).thenReturn(findFuture);
         presenter.initialAction(movieId);
 
         verify(view).setReadyViews(false);
@@ -58,16 +58,15 @@ public class UpcomingDetailPresenterTest {
     @Test
     public void initialAction_whenFail_doFailFlow() {
         int movieId = 1010;
-        FutureResult<Boolean> check = new TestFutureResult<>(new Exception("Any Exception"));
-        FutureResult<MovieDetailDS> find = new TestFutureResult<>(new Exception("Any Exception"));
-        when(services.checkFavorite(movieId))
-                .thenReturn(check);
-        when(services.findUpcoming(movieId))
-                .thenReturn(find);
+        Exception anyException = new Exception("Any Exception");
+        FutureResult<Boolean> checkFuture = new TestFutureResult<>(anyException);
+        FutureResult<MovieDetailDS> findFuture = new TestFutureResult<>(anyException);
+        when(services.checkFavorite(movieId)).thenReturn(checkFuture);
+        when(services.findUpcoming(movieId)).thenReturn(findFuture);
         presenter.initialAction(movieId);
 
         verify(view, times(2)).showError(any());
-        verify(errorFilter, times(2)).filter(any());
+        verify(errorFilter, times(2)).filter(anyException);
     }
 
     @Test
