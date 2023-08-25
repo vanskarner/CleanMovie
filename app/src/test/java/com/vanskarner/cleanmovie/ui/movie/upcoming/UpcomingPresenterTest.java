@@ -12,8 +12,10 @@ import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureResult;
+import com.vanskarner.core.sync.Result;
 import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
+import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 
 import org.junit.After;
@@ -22,6 +24,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UpcomingPresenterTest {
@@ -53,7 +56,7 @@ public class UpcomingPresenterTest {
     }
 
     @Test
-    public void initialLoad_whenOK_doSuccessFlow() {
+    public void initialLoad_whenItsOK_doOkSequence() {
         int page = 1;
         List<MovieDS> list = new ArrayList<>();
         MovieDS item = new MovieDS(1, "", "");
@@ -64,14 +67,14 @@ public class UpcomingPresenterTest {
         presenter.initialLoad(page);
 
         verify(view).enableScroll();
-        verify(view,times(2)).setSearchView(anyBoolean());
+        verify(view, times(2)).setSearchView(anyBoolean());
         verify(view, times(2)).setInitialProgress(anyBoolean());
         verify(view).showUpcoming(anyList());
         verify(view).paginate();
     }
 
     @Test
-    public void initialLoad_whenFail_doErrorFlow() {
+    public void initialLoad_whenItFails_doFailSequence() {
         int page = 1;
         Exception anyException = new Exception("Any Exception");
         FutureResult<MoviesDS> futureResult = new TestFutureResult<>(anyException);
@@ -94,7 +97,7 @@ public class UpcomingPresenterTest {
     }
 
     @Test
-    public void loadMoreItems_whenOK_doSuccessFlow() {
+    public void loadMoreItems_whenItsOK_doOkSequence() {
         int page = 2;
         List<MovieDS> list = new ArrayList<>();
         MovieDS item = new MovieDS(1, "", "");
@@ -110,7 +113,7 @@ public class UpcomingPresenterTest {
     }
 
     @Test
-    public void loadMoreItems_whenFail_doFailFlow() {
+    public void loadMoreItems_whenItFails_doFailSequence() {
         int page = 2;
         Exception anyException = new Exception("Any Exception");
         FutureResult<MoviesDS> futureResult = new TestFutureResult<>(anyException);
@@ -125,12 +128,35 @@ public class UpcomingPresenterTest {
     }
 
     @Test
+    public void filter_whenItsOK_doOkSequence() {
+        MoviesFilterDS filterDS = new MoviesFilterDS(
+                Collections.emptyList(),
+                "Any Query",
+                Collections.emptyList());
+        Result<MoviesFilterDS> futureResult = Result.success(filterDS);
+        when(services.filterUpcoming(any())).thenReturn(futureResult);
+        presenter.filter(filterDS.query);
+
+        verify(view).showUpcoming(anyList());
+    }
+
+    @Test
+    public void filter_whenItFails_doFailSequence() {
+        Exception anyException = new Exception("Any Exception");
+        Result<MoviesFilterDS> futureResult = Result.failure(anyException);
+        when(services.filterUpcoming(any())).thenReturn(futureResult);
+        presenter.filter("Any query");
+
+        verify(view).showError(any());
+        verify(errorFilter).filter(anyException);
+    }
+
+    @Test
     public void async_doFlow() {
         presenter.asyncCancel();
 
         verify(services).clear();
         verify(view).setPagingProgress(false);
     }
-
 
 }

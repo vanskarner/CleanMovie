@@ -3,6 +3,7 @@ package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 
 import javax.inject.Inject;
@@ -39,7 +40,8 @@ class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
 
     @Override
     public void actionFavoriteMovie(MovieDetailModel detailModel) {
-        movieServices.toggleFavorite(MovieViewMapper.convert(detailModel))
+        MovieDetailDS item = MovieViewMapper.convert(detailModel);
+        movieServices.toggleFavorite(item)
                 .onResult(view::setMarkedAsFavorite,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
     }

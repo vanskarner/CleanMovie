@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureResult;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
@@ -38,7 +39,7 @@ public class UpcomingDetailPresenterTest {
     }
 
     @Test
-    public void initialAction_whenOK_doSuccessFlow() {
+    public void initialAction_whenItsOk_doOkSequence() {
         int movieId = 1010;
         boolean checkResult = true;
         MovieDetailDS item =
@@ -56,7 +57,7 @@ public class UpcomingDetailPresenterTest {
     }
 
     @Test
-    public void initialAction_whenFail_doFailFlow() {
+    public void initialAction_whenItFails_doFailSequence() {
         int movieId = 1010;
         Exception anyException = new Exception("Any Exception");
         FutureResult<Boolean> checkFuture = new TestFutureResult<>(anyException);
@@ -70,7 +71,34 @@ public class UpcomingDetailPresenterTest {
     }
 
     @Test
-    public void asyncCancel_doFlow() {
+    public void actionFavoriteMovie_whenItsOk_doOkSequence() {
+        boolean result = true;
+        MovieDetailModel item = new MovieDetailModel(
+                1, "", "", "", 0, 0, "", "", true
+        );
+        FutureResult<Boolean> futureResult = new TestFutureResult<>(result);
+        when(services.toggleFavorite(any())).thenReturn(futureResult);
+        presenter.actionFavoriteMovie(item);
+
+        verify(view).setMarkedAsFavorite(result);
+    }
+
+    @Test
+    public void actionFavoriteMovie_whenItFails_doFailSequence() {
+        MovieDetailModel item = new MovieDetailModel(
+                1, "", "", "", 0, 0, "", "", true
+        );
+        Exception anyException = new Exception("Any Exception");
+        FutureResult<Boolean> futureResult = new TestFutureResult<>(anyException);
+        when(services.toggleFavorite(any())).thenReturn(futureResult);
+        presenter.actionFavoriteMovie(item);
+
+        verify(view).showError(any());
+        verify(errorFilter).filter(anyException);
+    }
+
+    @Test
+    public void asyncCancel_doSequence() {
         presenter.asyncCancel();
 
         verify(services).clear();

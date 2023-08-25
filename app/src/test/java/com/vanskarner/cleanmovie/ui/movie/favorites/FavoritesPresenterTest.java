@@ -41,7 +41,7 @@ public class FavoritesPresenterTest {
     }
 
     @Test
-    public void getFavorites_whenFail_doErrorFlow() {
+    public void getFavorites_whenItFails_doFailSequence() {
         Exception anyException = new Exception("Any Exception");
         FutureResult<MoviesDS> futureResult = new TestFutureResult<>(anyException);
         when(services.showFavorite()).thenReturn(futureResult);
@@ -52,7 +52,7 @@ public class FavoritesPresenterTest {
     }
 
     @Test
-    public void getFavorites_whenOk_doSuccessFlow() {
+    public void getFavorites_whenItsOK_doOkSequence() {
         MoviesDS moviesDS = new MoviesDS(Collections.emptyList());
         FutureResult<MoviesDS> futureResult = new TestFutureResult<>(moviesDS);
         when(services.showFavorite()).thenReturn(futureResult);
@@ -63,7 +63,7 @@ public class FavoritesPresenterTest {
     }
 
     @Test
-    public void getFavoriteDetail_whenFail_doErrorFlow() {
+    public void getFavoriteDetail_whenItFails_doFailSequence() {
         int movieId = 1;
         Exception anyException = new Exception("Any Exception");
         FutureResult<MovieDetailDS> futureResult = new TestFutureResult<>(anyException);
@@ -75,7 +75,7 @@ public class FavoritesPresenterTest {
     }
 
     @Test
-    public void getFavoriteDetail_whenOk_doSuccessFlow() {
+    public void getFavoriteDetail_whenItsOK_doOkSequence() {
         int movieId = 1;
         MovieDetailDS item = mock(MovieDetailDS.class);
         FutureResult<MovieDetailDS> futureResult = new TestFutureResult<>(item);
@@ -86,7 +86,7 @@ public class FavoritesPresenterTest {
     }
 
     @Test
-    public void deleteFavorites_whenFail_doErrorFlow() {
+    public void deleteFavorites_whenItFails_doFailSequence() {
         Exception anyException = new Exception("Any Exception");
         FutureResult<Integer> futureResult = new TestFutureResult<>(anyException);
         when(services.deleteAllFavorite()).thenReturn(futureResult);
@@ -97,7 +97,7 @@ public class FavoritesPresenterTest {
     }
 
     @Test
-    public void deleteFavorites_whenOk_doSuccessFlow() {
+    public void deleteFavorites_whenItsOK_doOkSequence() {
         int itemsRemoved = 1;
         FutureResult<Integer> futureResult = new TestFutureResult<>(itemsRemoved);
         when(services.deleteAllFavorite()).thenReturn(futureResult);
