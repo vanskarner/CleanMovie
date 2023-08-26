@@ -58,7 +58,7 @@ public class FavoritesFragmentTest {
 
     @Test
     public void deleteAllFavorites_showMessageNoFavorites() throws Exception {
-        MovieDetailDS detailDS = MovieDetailDSMother.createDefault();
+        MovieDetailDS detailDS = MovieDetailDSMother.createSample();
         movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
@@ -74,7 +74,7 @@ public class FavoritesFragmentTest {
 
     @Test
     public void selectFavoriteItem_showItemDetailDialog() throws Exception {
-        MovieDetailDS detailDS = MovieDetailDSMother.createDefault();
+        MovieDetailDS detailDS = MovieDetailDSMother.createSample();
         movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);

@@ -10,11 +10,11 @@ import java.util.Objects;
 
 public final class MovieDetailDSMother {
 
-    public static MovieDetailDS createDefault() throws IOException {
+    public static MovieDetailDS createSample() throws IOException {
         return create(1);
     }
 
-    public static MovieDetailDS createWith(int id) throws IOException {
+    public static MovieDetailDS createSampleWith(int id) throws IOException {
         return create(id);
     }
 

@@ -88,8 +88,8 @@ public class UpcomingDetailFragmentTest {
 
     @Test
     public void saveFavorite_withExcessCapacity_showFavoritesLimitError() throws Exception {
-        MovieDetailDS itemOne = MovieDetailDSMother.createWith(1);
-        MovieDetailDS itemTwo = MovieDetailDSMother.createWith(2);
+        MovieDetailDS itemOne = MovieDetailDSMother.createSampleWith(1);
+        MovieDetailDS itemTwo = MovieDetailDSMother.createSampleWith(2);
         movieServices.toggleFavorite(itemOne).get();
         movieServices.toggleFavorite(itemTwo).get();
         simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);

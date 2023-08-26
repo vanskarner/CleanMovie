@@ -72,9 +72,7 @@ public class UpcomingDetailPresenterTest {
     @Test
     public void actionFavoriteMovie_whenItsOk_doOkSequence() {
         boolean result = true;
-        MovieDetailModel item = new MovieDetailModel(
-                1, "", "", "", 0, 0, "", "", true
-        );
+        MovieDetailModel item = MovieDetailModel.empty();
         FutureResult<Boolean> futureResult = TestFutureFactory.createSuccess(result);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
         presenter.actionFavoriteMovie(item);
@@ -84,9 +82,7 @@ public class UpcomingDetailPresenterTest {
 
     @Test
     public void actionFavoriteMovie_whenItFails_doFailSequence() {
-        MovieDetailModel item = new MovieDetailModel(
-                1, "", "", "", 0, 0, "", "", true
-        );
+        MovieDetailModel item = MovieDetailModel.empty();
         Exception anyException = new Exception("Any Exception");
         FutureResult<Boolean> futureResult = TestFutureFactory.createFail(anyException);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
