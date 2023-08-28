@@ -2,12 +2,12 @@
 !include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.core{
+package core as "com.vanskarner.core"{
     interface Result<T><<interface>>
     interface FutureResult<T><<interface>>
 }
-package com.vanskarner.movie{
-    package domain{
+package movie as "com.vanskarner.movie"{
+    package businesslogic {
         class MovieDetailDS<<(D,orange)Data Structure>>
         class MovieDS<<(D,orange)Data Structure>>
         class MoviesDS<<(D,orange)Data Structure>>
@@ -15,7 +15,7 @@ package com.vanskarner.movie{
         interface MovieServices<<interface>>
         class MovieDefaultServices
         class FilterUpcomingMoviesUseCase
-        class ActionFavoriteMovieUseCase
+        class ToggleMovieFavoriteUseCase
         class CheckFavoriteMovieUseCase
         class DeleteAllFavoriteMoviesUseCase
         class FindFavoriteMovieUseCase
@@ -34,20 +34,20 @@ package com.vanskarner.movie{
         }
         entity MovieBO
     }
-    package data.local{
+    package persistence.local{
         interface MovieDao<<interface>>
         class MovieEntity<<(D,orange)Data Structure>>
         class MovieLocalRxRepository
         class MovieLocalDataMapper
     }
-    package data.remote{
+    package persistence.remote{
         class MovieRemoteRxRepository
         class MovieDeserializer
         class MovieDTO<<(D,orange)Data Structure>>
         class MovieRemoteDataMapper
         interface MovieApiClient<<interface>>
         class MoviesResultDTO<<(D,orange)Data Structure>>
-        class MovieRemoteDataErrorFilter
+        class RemoteDataErrorFilter
         abstract class MovieRemoteError<<abstract>>
         class Unauthorised
         class NotFound
@@ -72,12 +72,12 @@ MovieDefaultServices --> FindUpcomingMovieUseCase
 MovieDefaultServices --> ShowFavoriteMoviesUseCase
 MovieDefaultServices --> FindFavoriteMovieUseCase
 MovieDefaultServices --> CheckFavoriteMovieUseCase
-MovieDefaultServices --> ActionFavoriteMovieUseCase
+MovieDefaultServices --> ToggleMovieFavoriteUseCase
 MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
 MovieDefaultServices --> FilterUpcomingMoviesUseCase
 
 CheckFavoriteMovieUseCase --> MovieLocalRepository
-ActionFavoriteMovieUseCase --> MovieLocalRepository
+ToggleMovieFavoriteUseCase --> MovieLocalRepository
 DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository
 FindFavoriteMovieUseCase --> MovieLocalRepository
 ShowFavoriteMoviesUseCase --> MovieLocalRepository
@@ -89,7 +89,7 @@ FindUpcomingMovieUseCase ..> MovieMapper
 ShowFavoriteMoviesUseCase ..> MovieMapper
 FindFavoriteMovieUseCase ..> MovieMapper
 
-ActionFavoriteMovieUseCase --> MovieErrorFilter
+ToggleMovieFavoriteUseCase --> MovieErrorFilter
 MovieErrorFilter --> "1..*" MovieError
 MovieError <|- FavoriteLimit
 
@@ -112,14 +112,14 @@ MovieApiClient ..> MoviesResultDTO
 MovieRemoteDataMapper ..> MovieDTO
 MovieDeserializer ..> MovieDTO
 MoviesResultDTO -> "0..*" MovieDTO
-MovieRemoteDataErrorFilter --> "1..*" MovieRemoteError
-MovieRemoteDataErrorFilter --> "1" MovieRemoteError
+RemoteDataErrorFilter --> "1..*" MovieRemoteError
+RemoteDataErrorFilter ---> "1" MovieRemoteError
 MovieRemoteError <|-- NoInternet
 MovieRemoteError <|-- NotFound
 MovieRemoteError <|-- Server
 MovieRemoteError <|-- ServiceUnavailable
 MovieRemoteError <|-- Unauthorised
-MovieRemoteErrorInterceptor --> MovieRemoteDataErrorFilter
+MovieRemoteErrorInterceptor --> RemoteDataErrorFilter
 /'Relations - remote-data:end'/
 Result <.. MovieServices
 FutureResult <.. MovieServices
