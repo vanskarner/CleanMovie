@@ -41,7 +41,7 @@ public class FavoritesPresenterTest {
     @Test
     public void getFavorites_whenItFails_doFailSequence() {
         Exception anyException = new Exception("Any Exception");
-        FutureResult<MoviesDS> futureResult = TestFutureFactory.createFail(anyException);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.create(anyException);
         when(services.showFavorite()).thenReturn(futureResult);
         presenter.getFavorites();
 
@@ -52,7 +52,7 @@ public class FavoritesPresenterTest {
     @Test
     public void getFavorites_whenItsOK_doOkSequence() {
         MoviesDS moviesDS = MoviesDS.empty();
-        FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.create(moviesDS);
         when(services.showFavorite()).thenReturn(futureResult);
         presenter.getFavorites();
 
@@ -64,7 +64,7 @@ public class FavoritesPresenterTest {
     public void getFavoriteDetail_whenItFails_doFailSequence() {
         int movieId = 1;
         Exception anyException = new Exception("Any Exception");
-        FutureResult<MovieDetailDS> futureResult = TestFutureFactory.createFail(anyException);
+        FutureResult<MovieDetailDS> futureResult = TestFutureFactory.create(anyException);
         when(services.findFavorite(movieId)).thenReturn(futureResult);
         presenter.getFavoriteDetail(movieId);
 
@@ -76,7 +76,7 @@ public class FavoritesPresenterTest {
     public void getFavoriteDetail_whenItsOK_doOkSequence() {
         int movieId = 1;
         MovieDetailDS item = mock(MovieDetailDS.class);
-        FutureResult<MovieDetailDS> futureResult = TestFutureFactory.createSuccess(item);
+        FutureResult<MovieDetailDS> futureResult = TestFutureFactory.create(item);
         when(services.findFavorite(movieId)).thenReturn(futureResult);
         presenter.getFavoriteDetail(movieId);
 
@@ -86,7 +86,7 @@ public class FavoritesPresenterTest {
     @Test
     public void deleteFavorites_whenItFails_doFailSequence() {
         Exception anyException = new Exception("Any Exception");
-        FutureResult<Integer> futureResult = TestFutureFactory.createFail(anyException);
+        FutureResult<Integer> futureResult = TestFutureFactory.create(anyException);
         when(services.deleteAllFavorite()).thenReturn(futureResult);
         presenter.deleteFavorites();
 
@@ -97,7 +97,7 @@ public class FavoritesPresenterTest {
     @Test
     public void deleteFavorites_whenItsOK_doOkSequence() {
         int itemsRemoved = 1;
-        FutureResult<Integer> futureResult = TestFutureFactory.createSuccess(itemsRemoved);
+        FutureResult<Integer> futureResult = TestFutureFactory.create(itemsRemoved);
         when(services.deleteAllFavorite()).thenReturn(futureResult);
         presenter.deleteFavorites();
 

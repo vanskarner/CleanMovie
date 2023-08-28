@@ -17,7 +17,7 @@ class FakeRemoteRepository implements MovieRemoteRepository {
 
     @Override
     public FutureResult<List<MovieBO>> getMovies(int page) {
-        return TestFutureFactory.createSuccess(data);
+        return TestFutureFactory.create(data);
     }
 
     @Override
@@ -27,8 +27,8 @@ class FakeRemoteRepository implements MovieRemoteRepository {
                 .filter(i -> i.getId() == movieId)
                 .findFirst();
         return item
-                .map(TestFutureFactory::createSuccess)
-                .orElseGet(() -> TestFutureFactory.createFail(new NoSuchElementException()));
+                .map(TestFutureFactory::create)
+                .orElseGet(() -> TestFutureFactory.create(new NoSuchElementException()));
     }
 
 }

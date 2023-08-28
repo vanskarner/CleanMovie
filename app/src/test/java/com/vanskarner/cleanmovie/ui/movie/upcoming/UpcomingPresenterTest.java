@@ -60,7 +60,7 @@ public class UpcomingPresenterTest {
         int page = 1;
         MoviesDS moviesDS = MoviesDS.empty();
         moviesDS.list = Collections.singletonList(MovieDS.empty());
-        FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.create(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
 
@@ -75,7 +75,7 @@ public class UpcomingPresenterTest {
     public void initialLoad_whenItFails_doFailSequence() {
         int page = 1;
         Exception anyException = new Exception("Any Exception");
-        FutureResult<MoviesDS> futureResult = TestFutureFactory.createFail(anyException);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.create(anyException);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
 
@@ -99,7 +99,7 @@ public class UpcomingPresenterTest {
         int page = 2;
         MoviesDS moviesDS = MoviesDS.empty();
         moviesDS.list = Collections.singletonList(MovieDS.empty());
-        FutureResult<MoviesDS> futureResult = TestFutureFactory.createSuccess(moviesDS);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.create(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
 
@@ -112,7 +112,7 @@ public class UpcomingPresenterTest {
     public void loadMoreItems_whenItFails_doFailSequence() {
         int page = 2;
         Exception anyException = new Exception("Any Exception");
-        FutureResult<MoviesDS> futureResult = TestFutureFactory.createFail(anyException);
+        FutureResult<MoviesDS> futureResult = TestFutureFactory.create(anyException);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
 

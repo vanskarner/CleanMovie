@@ -43,8 +43,8 @@ public class UpcomingDetailPresenterTest {
         int movieId = 1010;
         boolean checkResult = true;
         MovieDetailDS item = MovieDetailDS.empty();
-        FutureResult<Boolean> checkFuture = TestFutureFactory.createSuccess(checkResult);
-        FutureResult<MovieDetailDS> findFuture = TestFutureFactory.createSuccess(item);
+        FutureResult<Boolean> checkFuture = TestFutureFactory.create(checkResult);
+        FutureResult<MovieDetailDS> findFuture = TestFutureFactory.create(item);
         when(services.checkFavorite(movieId)).thenReturn(checkFuture);
         when(services.findUpcoming(movieId)).thenReturn(findFuture);
         presenter.initialAction(movieId);
@@ -59,8 +59,8 @@ public class UpcomingDetailPresenterTest {
     public void initialAction_whenItFails_doFailSequence() {
         int movieId = 1010;
         Exception anyException = new Exception("Any Exception");
-        FutureResult<Boolean> checkFuture = TestFutureFactory.createFail(anyException);
-        FutureResult<MovieDetailDS> findFuture = TestFutureFactory.createFail(anyException);
+        FutureResult<Boolean> checkFuture = TestFutureFactory.create(anyException);
+        FutureResult<MovieDetailDS> findFuture = TestFutureFactory.create(anyException);
         when(services.checkFavorite(movieId)).thenReturn(checkFuture);
         when(services.findUpcoming(movieId)).thenReturn(findFuture);
         presenter.initialAction(movieId);
@@ -73,7 +73,7 @@ public class UpcomingDetailPresenterTest {
     public void actionFavoriteMovie_whenItsOk_doOkSequence() {
         boolean result = true;
         MovieDetailModel item = MovieDetailModel.empty();
-        FutureResult<Boolean> futureResult = TestFutureFactory.createSuccess(result);
+        FutureResult<Boolean> futureResult = TestFutureFactory.create(result);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
         presenter.actionFavoriteMovie(item);
 
@@ -84,7 +84,7 @@ public class UpcomingDetailPresenterTest {
     public void actionFavoriteMovie_whenItFails_doFailSequence() {
         MovieDetailModel item = MovieDetailModel.empty();
         Exception anyException = new Exception("Any Exception");
-        FutureResult<Boolean> futureResult = TestFutureFactory.createFail(anyException);
+        FutureResult<Boolean> futureResult = TestFutureFactory.create(anyException);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
         presenter.actionFavoriteMovie(item);
 
