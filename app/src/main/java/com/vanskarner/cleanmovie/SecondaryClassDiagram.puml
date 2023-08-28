@@ -1,7 +1,7 @@
 @startuml
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
-package com.vanskarner.cleanmovie{
+package cleanmovie as "com.vanskarner.cleanmovie"{
     together {
         interface ErrorView<T><<interface>>
         class FavoritesLimitError
@@ -42,7 +42,7 @@ package com.vanskarner.cleanmovie{
     }
     class MovieViewMapper
 }
-package com.vanskarner.usecases{
+package movie as "com.vanskarner.movie"{
     interface MovieServices<<interface>>
 }
 

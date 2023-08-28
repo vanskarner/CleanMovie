@@ -1,7 +1,7 @@
 @startuml
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
-package com.vanskarner.cleanmovie{
+package cleanmovie as "com.vanskarner.cleanmovie"{
     together {
         interface ErrorView<T><<interface>>{
             + setupView(Runnable): T
@@ -182,7 +182,7 @@ package com.vanskarner.cleanmovie{
     }
 }
 
-ErrorView <|.left. FavoritesLimitError
+ErrorView <|.. FavoritesLimitError
 ErrorView <|.. NoInternetError
 ErrorView <|.. NotFoundError
 ErrorView <|.. ServerError
