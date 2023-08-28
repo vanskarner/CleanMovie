@@ -12,9 +12,9 @@
 rectangle "DEPENDENCY INVERSION PRINCIPLE" {
     package "High level politics"{
         class UseCase
-        class RetrofitRemoteRepository
+        class CustomRemoteRepository
 
-        UseCase --> RetrofitRemoteRepository
+        UseCase --> CustomRemoteRepository
     }
 }
 caption INCORRECT

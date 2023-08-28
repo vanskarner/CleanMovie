@@ -9,12 +9,6 @@
 </style>
 
 rectangle "INTERFACE SEGREGATION PRINCIPLE"{
-    note top of RemoteRepository
-        method getLocalItems is not supported here
-    end note
-    note top of LocalRepository
-        method getRemoteItems is not supported here
-    end note
     interface Repository<<interface>>{
         + getLocalItems(): List<Item>
         + getRemoteItems(): List<Item>
@@ -29,6 +23,8 @@ rectangle "INTERFACE SEGREGATION PRINCIPLE"{
         + getLocalItems(): List<Item>
         + getRemoteItems(): List<Item>
     }
+    note top of RemoteRepository: method getLocalItems is not supported here.
+    note top of LocalRepository: method getRemoteItems is not supported here
 }
 
 RemoteRepository ..|> Repository

@@ -17,12 +17,12 @@ rectangle "DEPENDENCY INVERSION PRINCIPLE" {
         UseCase --> RemoteRepository
     }
     package "Low level details"{
-        class RetrofitRemoteRepository
+        class CustomRemoteRepository
     }
 }
 caption CORRECT
 
-RemoteRepository <|.. RetrofitRemoteRepository
+RemoteRepository <|.. CustomRemoteRepository
 
 hide members
 @enduml
