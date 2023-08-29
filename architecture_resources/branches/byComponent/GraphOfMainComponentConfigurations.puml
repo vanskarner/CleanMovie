@@ -1,6 +1,6 @@
 @startmindmap
 
-title COMPONENT MAIN
+title Main Component Configuration
 * :app
 ** AppComponent
 *** ProjectParametersModule

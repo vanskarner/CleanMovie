@@ -21,13 +21,10 @@ component core
 
 core <.. app
 core <.. useCases
-core <.. localData
-core <.. remoteData
+core <.. data
 
 useCases ..> entities
-useCases <.. localData
-useCases <.. remoteData
-entities <.. localData
-entities <.. remoteData
+useCases <.. data
+entities <.. data
 app ..> services
 @enduml

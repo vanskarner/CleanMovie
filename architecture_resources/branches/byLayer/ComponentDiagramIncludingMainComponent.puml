@@ -18,12 +18,9 @@ component main
 
 main ..> app
 main ..> useCases
-main ..> remoteData
-main ..> localData
+main ..> data
 useCases .> entities
-useCases <.. localData
-useCases <.. remoteData
-entities <.. localData
-entities <.. remoteData
+useCases <.. data
+entities <.. data
 app ..> useCases
 @enduml
