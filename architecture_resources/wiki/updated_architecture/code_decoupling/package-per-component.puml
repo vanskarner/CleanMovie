@@ -1,5 +1,5 @@
 @startuml
-!include ../../VanskarnerStyle.puml
+!include ../../../VanskarnerStyle.puml
 
 rectangle "PACKAGE PER COMPONENT"{
     package app{

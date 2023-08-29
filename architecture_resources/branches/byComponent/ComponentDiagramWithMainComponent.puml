@@ -1,5 +1,5 @@
 @startuml
-!include ../VanskarnerStyle.puml
+!include ../../VanskarnerStyle.puml
 
 title COMPONENT DIAGRAM WITH MAIN
 component core
@@ -11,9 +11,7 @@ component movie #white{
     businesslogic <.. remotepersistence
     businesslogic <.. localpersistence
 }
-rectangle presentation{
-    component app
-}
+component app
 component main
 
 main ..> core

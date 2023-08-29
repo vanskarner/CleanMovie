@@ -1,26 +1,27 @@
 @startuml
 !include ../../VanskarnerStyle.puml
 
-title EXPECTATION
-package cleanmovie as "com.vanskarner.cleanmovie"{
+title EXPECTATION AND REALITY
+package app{
     class FavoritesPresenter
 }
-package movie as "com.vanskarner.movie"{
+package domain{
     interface MovieServices<<interface>>
     class MovieDefaultServices classNotVisible
-    interface MovieLocalRepository<<interface>> classNotVisible
+    interface MovieLocalRepository<<interface>>
     class FindFavoriteMovieUseCase classNotVisible
-    class MovieLocalRxRepository classNotVisible
 
     MovieServices <|.. MovieDefaultServices
     MovieDefaultServices --> FindFavoriteMovieUseCase
     FindFavoriteMovieUseCase --> MovieLocalRepository
-    MovieLocalRepository <|.. MovieLocalRxRepository
+}
+package localData{
+    class MovieLocalRxRepository classNotVisible
 }
 
 FavoritesPresenter ..> MovieServices: <<use>>
+MovieLocalRepository <|.. MovieLocalRxRepository
 
-skinparam titleFontColor #green
-
+skinparam titleFontColor green
 hide members
 @enduml

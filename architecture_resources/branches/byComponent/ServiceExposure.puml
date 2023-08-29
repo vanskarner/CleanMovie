@@ -1,7 +1,7 @@
 @startuml
-!include ../VanskarnerStyle.puml
+!include ../../VanskarnerStyle.puml
 
-title SERVICE EXPOSURE
+title MOVIE COMPONENT SERVICE EXPOSURE
 
 interface MovieServices<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>

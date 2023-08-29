@@ -1,5 +1,5 @@
 @startuml
-!include ../../VanskarnerStyle.puml
+!include ../../../VanskarnerStyle.puml
 allowmixing
 title VIOLATION OF THE PRINCIPLE OF STABLE DEPENDENCIES
 rectangle "Component Diagram" {
