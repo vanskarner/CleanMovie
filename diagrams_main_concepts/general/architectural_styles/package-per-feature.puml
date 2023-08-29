@@ -4,10 +4,10 @@
 rectangle "PACKAGE PER FEATURE" {
     package app{
         class MoviePresenter
-        interface MovieServices<<interface>>
-        class MovieDefaultServices
-        interface MovieRepository<<interface>>
-        class MovieDefaultRepository
+        interface MovieServices<<interface>> classNotVisible
+        class MovieDefaultServices classNotVisible
+        interface MovieRepository<<interface>> classNotVisible
+        class MovieDefaultRepository classNotVisible
 
         MovieServices <|.. MovieDefaultServices
         MovieRepository <|.. MovieDefaultRepository
@@ -17,9 +17,5 @@ rectangle "PACKAGE PER FEATURE" {
 MoviePresenter --> MovieServices
 MovieDefaultServices --> MovieRepository
 
-interface MovieServices classNotVisible
-class MovieDefaultServices classNotVisible
-interface MovieRepository classNotVisible
-class MovieDefaultRepository classNotVisible
 hide members
 @enduml

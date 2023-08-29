@@ -1,28 +1,26 @@
 @startuml
 !include ../../VanskarnerStyle.puml
 
-rectangle "PACKAGE PER LAYER - STRICT" {
+rectangle "PACKAGE BY LAYER - STRICT" {
     package app{
-        class MoviePresenter
+        class MovieController
     }
-    package domain{
+    package service{
         interface MovieServices<<interface>>
-        class MovieDefaultServices
+        class MovieDefaultServices classNotVisible
 
         MovieServices <|.. MovieDefaultServices
     }
     package data{
         interface MovieRepository<<interface>>
-        class MovieDefaultRepository
+        class MovieDefaultRepository classNotVisible
 
         MovieRepository <|.. MovieDefaultRepository
     }
 }
 
-MoviePresenter ..> MovieServices
-MovieDefaultServices ..> MovieRepository
+MovieController ..> MovieServices: <<use>>
+MovieDefaultServices ..> MovieRepository: <<use>>
 
-class MovieDefaultServices classNotVisible
-class MovieDefaultRepository classNotVisible
 hide members
 @enduml

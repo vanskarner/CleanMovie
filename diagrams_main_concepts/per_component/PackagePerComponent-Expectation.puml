@@ -2,15 +2,15 @@
 !include ../VanskarnerStyle.puml
 
 title EXPECTATION
-package com.vanskarner.cleanmovie{
+package cleanmovie as "com.vanskarner.cleanmovie"{
     class FavoritesPresenter
 }
-package com.vanskarner.movie{
+package movie as "com.vanskarner.movie"{
     interface MovieServices<<interface>>
-    class MovieDefaultServices
-    interface MovieLocalRepository<<interface>>
-    class FindFavoriteMovieUseCase
-    class MovieLocalRxRepository
+    class MovieDefaultServices classNotVisible
+    interface MovieLocalRepository<<interface>> classNotVisible
+    class FindFavoriteMovieUseCase classNotVisible
+    class MovieLocalRxRepository classNotVisible
 
     MovieServices <|.. MovieDefaultServices
     MovieDefaultServices --> FindFavoriteMovieUseCase
@@ -18,12 +18,9 @@ package com.vanskarner.movie{
     MovieLocalRepository <|.. MovieLocalRxRepository
 }
 
-FavoritesPresenter ..> MovieServices
+FavoritesPresenter ..> MovieServices: <<use>>
 
 skinparam titleFontColor #green
-class MovieDefaultServices classNotVisible
-class FindFavoriteMovieUseCase classNotVisible
-interface MovieLocalRepository classNotVisible
-class MovieLocalRxRepository classNotVisible
+
 hide members
 @enduml

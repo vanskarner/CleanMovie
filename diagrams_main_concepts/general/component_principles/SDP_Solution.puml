@@ -1,0 +1,40 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+allowmixing
+title STABLE DEPENDENCIES PRINCIPLE\nAPPLYING DEPENDENCY INVERSION
+
+rectangle "Component Diagram" {
+    component Presentation
+    note right: Unstable component\nI = 1
+    component Persistence
+    note left: Unstable component\nI = 1
+    component User
+    note right: Stable component\n I = 0.33
+    component Authentication
+    note bottom: Now it is easy to change (Unstable component)\n I = 1
+    component GeneralServices #palegreen
+    note right: Stable component\n I = 0
+
+    Presentation ..> User
+    Persistence ..> User
+    User ..> GeneralServices
+    GeneralServices <.left Authentication
+}
+rectangle "Relationship between User, GeneralServices and Authentication" {
+    component User as UserOther{
+        class UseCase
+    }
+    component Authentication as AuthOther{
+        class CustomAuthServices
+    }
+    component GeneralServicesOther as "GeneralServices"{
+        interface AuthServices<<interface>>
+    }
+    UseCase ..> AuthServices
+    CustomAuthServices .|> AuthServices
+}
+
+skinparam titleFontColor #green
+skinparam packageBackgroundColor white
+hide members
+@enduml

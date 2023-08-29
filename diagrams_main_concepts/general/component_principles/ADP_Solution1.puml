@@ -1,0 +1,33 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+allowmixing
+title "PRINCIPLE OF ACYCLIC DEPENDENCIES\n CREATING A NEW COMPONENT"
+
+rectangle {
+    component Main
+    component Presentation
+    component Persistence
+    component User
+    component Authorization
+    component Permissions #palegreen
+    component "Project"
+}
+
+Main ..> Presentation
+Main ..> Persistence
+Main ..> User
+Main ..> Authorization
+Main ..> Permissions
+Main ..> "Project"
+Presentation ..> User
+Persistence ..> User
+
+User <. Authorization
+Authorization ..> Permissions
+Permissions <.. "Project"
+"Project" <.. User
+
+skinparam Linetype ortho
+skinparam titleFontColor #GREEN
+hide members
+@enduml

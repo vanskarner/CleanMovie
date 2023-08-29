@@ -1,0 +1,33 @@
+@startuml
+!include ../../VanskarnerStyle.puml
+allowmixing
+title VIOLATION OF THE PRINCIPLE OF STABLE DEPENDENCIES
+rectangle "Component Diagram" {
+    component Presentation
+    note right: Unstable component\nI = 1
+    component Persistence
+    note left: Unstable component\nI = 1
+    component User
+    note right: Stable component\nI = 0.33
+    component Authentication
+    note bottom: Component designed to be easy to change (unstable, donde I = 1)\n but incoming dependencies do not allow it.
+}
+
+rectangle "Relationship between User and Authentication" {
+    component User as UserOther{
+        class UseCase
+    }
+    component Authentication as AuthOther{
+        class CustomAuthServices
+    }
+    UseCase ..> CustomAuthServices
+}
+
+Presentation ..> User
+Persistence ..> User
+User ..> Authentication
+
+skinparam titleFontColor #RED
+skinparam packageBackgroundColor white
+hide members
+@enduml

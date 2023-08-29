@@ -4,12 +4,12 @@
 title COMPONENT DIAGRAM WITH MAIN
 component core
 component movie #white{
-    component localData
-    component remoteData
-    component domain
+    component localpersistence as "local persistence"
+    component remotepersistence as "remote persistence"
+    component businesslogic as "business logic"
 
-    domain <.. remoteData
-    domain <.. localData
+    businesslogic <.. remotepersistence
+    businesslogic <.. localpersistence
 }
 rectangle presentation{
     component app

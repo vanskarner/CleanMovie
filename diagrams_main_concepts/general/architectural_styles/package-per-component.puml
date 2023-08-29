@@ -7,20 +7,17 @@ rectangle "PACKAGE PER COMPONENT"{
     }
     package movie{
         interface MovieServices<<interface>>
-        class MovieDefaultServices
-        interface MovieRepository<<interface>>
-        class MovieDefaultRepository
+        class MovieDefaultServices classNotVisible
+        interface MovieRepository<<interface>> classNotVisible
+        class MovieDefaultRepository classNotVisible
 
         MovieServices <|.. MovieDefaultServices
         MovieRepository <|.. MovieDefaultRepository
     }
 }
 
-MoviePresenter ..> MovieServices
+MoviePresenter ..> MovieServices: <<use>>
 MovieDefaultServices --> MovieRepository
 
-class MovieDefaultServices classNotVisible
-class MovieDefaultRepository classNotVisible
-interface MovieRepository classNotVisible
 hide members
 @enduml
