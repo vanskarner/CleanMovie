@@ -3,102 +3,27 @@
 
 /'Specification'/
 package usecases as "com.vanskarner.usecases"{
-    class MovieDetailDS<<(D,orange)Data Structure>>{
-        + id: int
-        + title: String
-        + image: String
-        + backgroundImage: String
-        + voteCount: int
-        + voteAverage: float
-        + releaseDate: String
-        + overview: String
-        + recommended: boolean
-    }
-    class MovieDS<<(D,orange)Data Structure>>{
-        + id: int
-        + title: String
-        + image: String
-    }
+    class MovieDetailDS<<(D,orange)Data Structure>>
+    class MovieDS<<(D,orange)Data Structure>>
     class MoviesDS<<(D,orange)Data Structure>>
-    class MoviesFilterDS<<(D,orange)Data Structure>>{
-        + fullList: List<MovieDS>
-        + query: CharSequence
-        + filterList: List<MovieDS>
-    }
-    interface MovieServices<<interface>>{
-        + actionFavorite(MovieDetailDS): FutureResult<Boolean>
-        + checkFavorite(int): FutureResult<Boolean>
-        + deleteAllFavorite(): FutureResult<Integer>
-        + filterUpcoming(MoviesFilterDS): Result<MoviesFilterDS>
-        + findFavorite(int): FutureResult<MovieDetailDS>
-        + findUpcoming(int): FutureResult<MovieDetailDS>
-        + showFavorite(): FutureResult<MoviesDS>
-        + showUpcoming(int): FutureResult<MoviesDS>
-        + clear(): void
-    }
-    class MovieDefaultServices{
-        - compositeDisposable: CompositeDisposable
-        + MovieDefaultServices(...)
-    }
-    class FilterUpcomingMoviesUseCase{
-        + FilterUpcomingMoviesUseCase()
-        # buildUseCase(MoviesFilterDS): MoviesFilterDS
-    }
-    class ToggleMovieFavoriteUseCase{
-        - {static} MAXIMUM_MOVIES_SAVED: int = 2
-        + ToggleMovieFavoriteUseCase(MovieLocalRepository,DomainErrorFilter)
-        + execute(MovieDetailDS): FutureResult<Boolean>
-    }
-    class CheckFavoriteMovieUseCase{
-        + CheckFavoriteMovieUseCase(MovieLocalRepository)
-        + execute(Integer): FutureResult<Boolean>
-    }
-    class DeleteAllFavoriteMoviesUseCase{
-        + DeleteAllFavoriteMoviesUseCase(MovieLocalRepository)
-        + execute(): FutureResult<Integer>
-    }
-    class FindFavoriteMovieUseCase{
-        + FindFavoriteMovieUseCase(MovieLocalRepository)
-        + execute(Integer): FutureResult<MovieDetailDS>
-    }
-    class ShowFavoriteMoviesUseCase{
-        + ShowFavoriteMoviesUseCase(MovieLocalRepository)
-        + execute(): FutureResult<MoviesDS>
-    }
-    class ShowUpcomingMoviesUseCase{
-        + ShowUpcomingMoviesUseCase(MovieRemoteRepository)
-        + execute(Integer): FutureResult<MoviesDS>
-    }
-    class FindUpcomingMovieUseCase{
-        + FindUpcomingMovieUseCase(MovieRemoteRepository)
-        + execute(Integer): FutureResult<MovieDetailDS>
-    }
+    class MoviesFilterDS<<(D,orange)Data Structure>>
+    interface MovieServices<<interface>>
+    class MovieDefaultServices
+    class FilterUpcomingMoviesUseCase
+    class ToggleMovieFavoriteUseCase
+    class CheckFavoriteMovieUseCase
+    class DeleteAllFavoriteMoviesUseCase
+    class FindFavoriteMovieUseCase
+    class ShowFavoriteMoviesUseCase
+    class ShowUpcomingMoviesUseCase
+    class FindUpcomingMovieUseCase
     together {
-        interface MovieLocalRepository<<interface>>{
-            + getMovies(): FutureResult<List<MovieBO>>
-            + getMovie(int): FutureResult<MovieBO>
-            + deleteMovie(int): FutureSimpleResult
-            + deleteAllMovies(): FutureResult<Integer>
-            + getNumberMovies(): FutureResult<Integer>
-            + checkMovie(int): FutureResult<Boolean>
-            + saveMovie(MovieBO): FutureSimpleResult
-        }
-        interface MovieRemoteRepository<<interface>>{
-            + getMovies(int): FutureResult<List<MovieBO>>
-            + getMovie(int): FutureResult<MovieBO>
-        }
+        interface MovieLocalRepository<<interface>>
+        interface MovieRemoteRepository<<interface>>
     }
-    class MovieMapper{
-        - MovieMapper()
-        +{static} convert(MovieBO): MovieDetailDS
-        +{static} convert(MovieDetailDS): MovieBO
-        +{static} convert(List<MovieBO>): MoviesDS
-    }
+    class MovieMapper
     together {
-        class DomainErrorFilter{
-            + DomainErrorFilter(Map<Class<?>, Provider<DomainError>>)
-            + filter(Class<? extends DomainError>): DomainError
-        }
+        class DomainErrorFilter
         abstract DomainError<<abstract>>
         class MovieFavoriteLimit
     }
@@ -108,7 +33,7 @@ package usecases as "com.vanskarner.usecases"{
 MovieServices ..> MoviesDS
 MovieServices ..> MovieDetailDS
 MovieServices ..> MoviesFilterDS
-MoviesDS --> "0..*" MovieDS: +list
+MoviesDS --> "0..*" MovieDS
 
 MovieDefaultServices .left.|> MovieServices
 MovieDefaultServices --> ShowUpcomingMoviesUseCase
@@ -120,13 +45,13 @@ MovieDefaultServices --> ToggleMovieFavoriteUseCase
 MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
 MovieDefaultServices --> FilterUpcomingMoviesUseCase
 
-CheckFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
-ToggleMovieFavoriteUseCase --> MovieLocalRepository: - localRepository
-DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
-FindFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
-ShowFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
-ShowUpcomingMoviesUseCase --> MovieRemoteRepository: - remoteRepository
-FindUpcomingMovieUseCase --> MovieRemoteRepository: - remoteRepository
+CheckFavoriteMovieUseCase --> MovieLocalRepository
+ToggleMovieFavoriteUseCase --> MovieLocalRepository
+DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository
+FindFavoriteMovieUseCase --> MovieLocalRepository
+ShowFavoriteMoviesUseCase --> MovieLocalRepository
+ShowUpcomingMoviesUseCase --> MovieRemoteRepository
+FindUpcomingMovieUseCase --> MovieRemoteRepository
 
 ShowUpcomingMoviesUseCase ..> MovieMapper
 FindUpcomingMovieUseCase ..> MovieMapper
@@ -136,21 +61,11 @@ FindFavoriteMovieUseCase ..> MovieMapper
 MovieMapper ..> MovieDetailDS
 MovieMapper ..> MoviesDS
 
-ToggleMovieFavoriteUseCase --> DomainErrorFilter: -domainErrorFilter
-DomainErrorFilter -left-> "1..*" DomainError: -mapError
-DomainError <|-- MovieFavoriteLimit
+ToggleMovieFavoriteUseCase --> DomainErrorFilter
+DomainErrorFilter --> "1..*" DomainError
+DomainError <|- MovieFavoriteLimit
 
 /'Visualization'/
-hide CheckFavoriteMovieUseCase attributes
-hide DeleteAllFavoriteMoviesUseCase attributes
-hide FindFavoriteMovieUseCase attributes
-hide FilterUpcomingMoviesUseCase attributes
-hide ShowFavoriteMoviesUseCase attributes
-hide ShowUpcomingMoviesUseCase attributes
-hide FindUpcomingMovieUseCase attributes
-hide MovieMapper attributes
-hide DomainError members
-hide MovieFavoriteLimit members
-hide <<Data Structure>> methods
-hide MoviesDS members
+hide members
+skinparam LineType ortho
 @enduml
