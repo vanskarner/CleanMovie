@@ -46,7 +46,7 @@ public class FindUpcomingMovieUseCaseTest {
         assertEquals(expected.getVoteAverage(), actual.voteAverage, 0.01);
         assertEquals(expected.getReleaseDate(), actual.releaseDate);
         assertEquals(expected.getOverview(), actual.overview);
-        assertEquals(expected.calculateRecommendation(), actual.recommended);
+        assertEquals(expected.isRecommended(), actual.recommended);
     }
 
     @Test(expected = NoSuchElementException.class)

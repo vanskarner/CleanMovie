@@ -23,7 +23,7 @@ class FindUpcomingMovieUseCase extends BaseAsyncUseCase<Integer, MovieDetailDS> 
         return remoteRepository.getMovie(inputValues)
                 .map(movieDetailBO -> {
                     MovieDetailDS detailDS = MovieMapper.convert(movieDetailBO);
-                    detailDS.recommended = movieDetailBO.calculateRecommendation();
+                    detailDS.recommended = movieDetailBO.isRecommended();
                     return detailDS;
                 });
     }

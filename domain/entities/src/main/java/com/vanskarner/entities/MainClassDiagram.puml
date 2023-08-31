@@ -1,7 +1,7 @@
 @startuml
 !include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
-package com.vanskarner.entities{
+package entities as "com.vanskarner.entities"{
     entity MovieBO{
         - id: int
         - title: String
@@ -13,7 +13,7 @@ package com.vanskarner.entities{
         - overview: String
 
         + MovieBO(int, String, String, String, int , float , String , String)
-        + calculateRecommendation(): boolean
+        + isRecommended(): boolean
     }
 }
 @enduml

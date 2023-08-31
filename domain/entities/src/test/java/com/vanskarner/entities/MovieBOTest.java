@@ -8,33 +8,41 @@ import org.junit.Test;
 public class MovieBOTest {
 
     @Test
-    public void calculateRecommendation_superiorVoteCountInferiorVoteAverage_false() {
-        int voteCount = 100;
-        float voteAverage = 7.4f;
-        MovieBO movieBO = getMovieDetailBO(voteCount, voteAverage);
+    public void isRecommended_voteCountAverageVoteAreSuperior_recommended() {
+        MovieBO movieBO = createMovieBO(76, 7.6f);
 
-        assertFalse(movieBO.calculateRecommendation());
+        assertTrue(movieBO.isRecommended());
     }
 
     @Test
-    public void calculateRecommendation_inferiorVoteCountSuperiorVoteAverage_false() {
-        int voteCount = 74;
-        float voteAverage = 10;
-        MovieBO movieBO = getMovieDetailBO(voteCount, voteAverage);
+    public void isRecommended_voteCountAverageVoteAreExact_recommended() {
+        MovieBO movieBO = createMovieBO(75, 7.5f);
 
-        assertFalse(movieBO.calculateRecommendation());
+        assertTrue(movieBO.isRecommended());
     }
 
     @Test
-    public void calculateRecommendation_superiorVoteCountSuperiorVoteAverage_true() {
-        int voteCount = 76;
-        float voteAverage = 7.5f;
-        MovieBO movieBO = getMovieDetailBO(voteCount, voteAverage);
+    public void isRecommended_voteCountIsInferior_notRecommended() {
+        MovieBO movieBO = createMovieBO(74, 7.5f);
 
-        assertTrue(movieBO.calculateRecommendation());
+        assertFalse(movieBO.isRecommended());
     }
 
-    private MovieBO getMovieDetailBO(int voteCount, float voteAverage) {
+    @Test
+    public void isRecommended_voteCountAverageVoteAreInferior_notRecommended() {
+        MovieBO movieBO = createMovieBO(74, 7.4f);
+
+        assertFalse(movieBO.isRecommended());
+    }
+
+    @Test
+    public void isRecommended_voteAverageIsInferior_notRecommended() {
+        MovieBO movieBO = createMovieBO(75, 7.4f);
+
+        assertFalse(movieBO.isRecommended());
+    }
+
+    private MovieBO createMovieBO(int voteCount, float voteAverage) {
         return new MovieBO(0, "", "", "", voteCount, voteAverage,
                 "", "");
     }
