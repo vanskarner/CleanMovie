@@ -5,7 +5,7 @@ import android.content.Context;
 import com.vanskarner.cleanmovie.App;
 import com.vanskarner.cleanmovie.di.modules.ProjectParametersModule;
 import com.vanskarner.cleanmovie.di.modules.ViewModule;
-import com.vanskarner.core.CoreModule;
+import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.LocalDataModule;
 import com.vanskarner.remotedata.RemoteDataModule;
 import com.vanskarner.usecases.DomainModule;

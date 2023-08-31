@@ -6,7 +6,7 @@ public interface FutureSimpleResult {
 
     void onResult(Runnable onSuccess, Consumer<? super Throwable> onFailure);
 
-    void await();
+    void await() throws Exception;
 
     <T> FutureResult<T> toFutureResult(T value);
 

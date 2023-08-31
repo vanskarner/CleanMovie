@@ -3,8 +3,6 @@ package com.vanskarner.core.concurrent.rxjava;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.concurrent.FutureSimpleResult;
-import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
-import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,8 +14,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class CompletableFutureSimpleResultTest {
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    String EXPECTED_VALUE = "CompletableFutureSimpleResult";
+    static CompositeDisposable compositeDisposable = new CompositeDisposable();
     FutureSimpleResult futureResult;
 
     @Before
@@ -34,14 +31,16 @@ public class CompletableFutureSimpleResultTest {
     }
 
     @Test
-    public void toFutureResult_withString_SameString() {
-        String actual = futureResult.toFutureResult(EXPECTED_VALUE).get();
+    public void toFutureResult_withString_returnSameString() throws Exception {
+        String expectedString = "AnyString";
+        String actualString = futureResult.toFutureResult(expectedString).get();
 
-        assertEquals(EXPECTED_VALUE, actual);
+        assertEquals(expectedString, actualString);
     }
 
     @Test(expected = NullPointerException.class)
-    public void toFutureResult_nullValue_nullPointerException() {
+    public void toFutureResult_withNullValue_throwNullPointerException() throws Exception {
         futureResult.toFutureResult(null).get();
     }
+
 }

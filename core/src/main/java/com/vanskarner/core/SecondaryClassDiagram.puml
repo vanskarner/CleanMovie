@@ -2,7 +2,7 @@
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.core{
+package core as "com.vanskarner.core"{
     interface Result<T><<interface>>
     class Success<T>
     class Failure<T>

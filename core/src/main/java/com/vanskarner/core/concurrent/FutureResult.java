@@ -11,6 +11,6 @@ public interface FutureResult<T> {
 
     void onResult(Consumer<? super T> onSuccess, Consumer<? super Throwable> onFailure);
 
-    T get();
+    T get() throws Exception;
 
 }

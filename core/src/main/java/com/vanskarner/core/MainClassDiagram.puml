@@ -1,7 +1,7 @@
 @startuml
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
-package com.vanskarner.core{
+package core as "com.vanskarner.core"{
     interface Result<T><<interface>>{
         + map(ExceptionFunction<? super T, ? extends U>): Result<U>
         + flatMap(ExceptionFunction<? super T, ? extends Result< U >>): Result<U>

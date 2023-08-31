@@ -1,6 +1,6 @@
 package com.vanskarner.usecases.movie;
 
-import com.vanskarner.core.CoreQualifiers;
+import com.vanskarner.core.main.CoreQualifiers;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;
 import com.vanskarner.usecases.movie.ds.MovieDetailDS;

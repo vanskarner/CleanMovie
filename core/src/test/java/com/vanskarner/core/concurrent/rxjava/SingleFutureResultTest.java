@@ -3,8 +3,6 @@ package com.vanskarner.core.concurrent.rxjava;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.core.concurrent.rxjava.DefaultRxFutureFactory;
-import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,8 +14,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SingleFutureResultTest {
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    String EXPECTED_VALUE = "SingleFutureResult";
+    static CompositeDisposable compositeDisposable = new CompositeDisposable();
+    static String INITIAL_VALUE = "AnyString";
     FutureResult<String> futureResult;
 
     @Before
@@ -25,7 +23,7 @@ public class SingleFutureResultTest {
         Scheduler testScheduler = Schedulers.trampoline();
         RxFutureFactory rxFutureFactory = new DefaultRxFutureFactory(compositeDisposable,
                 testScheduler, testScheduler);
-        futureResult = rxFutureFactory.fromSingle(Single.just(EXPECTED_VALUE));
+        futureResult = rxFutureFactory.fromSingle(Single.just(INITIAL_VALUE));
     }
 
     @After
@@ -34,27 +32,29 @@ public class SingleFutureResultTest {
     }
 
     @Test
-    public void map_incomingString_sameUppercaseString() {
-        String actual = futureResult.map(String::toUpperCase).get();
+    public void map_usingUpperCase_returnSameString() throws Exception {
+        String actualString = futureResult.map(String::toUpperCase).get();
+        String expectedString = INITIAL_VALUE.toUpperCase();
 
-        assertEquals(EXPECTED_VALUE.toUpperCase(), actual);
+        assertEquals(expectedString, actualString);
     }
 
     @Test
-    public void flatMap_incomingString_sameUppercaseString() {
-        String actual = futureResult
-                .flatMap(s -> futureResult.map(s1 -> EXPECTED_VALUE.toUpperCase())).get();
+    public void flatMap_usingMapForUpperCase_returnSameString() throws Exception {
+        String actualString = futureResult
+                .flatMap(s -> futureResult.map(s1 -> INITIAL_VALUE.toUpperCase())).get();
+        String expectedString = INITIAL_VALUE.toUpperCase();
 
-        assertEquals(EXPECTED_VALUE.toUpperCase(), actual);
+        assertEquals(expectedString, actualString);
     }
 
     @Test(expected = NullPointerException.class)
-    public void map_nullFunction_nullPointerException() {
+    public void map_withNullFunction_throwNullPointerException() throws Exception {
         futureResult.map(null).get();
     }
 
     @Test(expected = NullPointerException.class)
-    public void flatMap_nullFunction_nullPointerException() {
+    public void flatMap_withNullFunction_throwNullPointerException() throws Exception {
         futureResult.flatMap(null).get();
     }
 

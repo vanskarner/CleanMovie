@@ -8,7 +8,7 @@ import com.vanskarner.cleanmovie.features.MenuActivityTest;
 import com.vanskarner.cleanmovie.features.movie.favorites.FavoritesFragmentTest;
 import com.vanskarner.cleanmovie.features.movie.upcoming.UpcomingFragmentTest;
 import com.vanskarner.cleanmovie.features.movie.upcomingDetail.UpcomingDetailFragmentTest;
-import com.vanskarner.core.CoreModule;
+import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.TestLocalDataModule;
 import com.vanskarner.remotedata.TestRemoteDataModule;
 import com.vanskarner.usecases.DomainModule;

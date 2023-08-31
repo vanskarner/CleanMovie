@@ -1,5 +1,6 @@
 plugins {
     id 'java-library'
+    id 'java-test-fixtures'
 }
 
 java {
@@ -12,4 +13,8 @@ dependencies {
     annotationProcessor common.main.daggerCompiler
 
     testImplementation common.test.junit
+
+    testFixturesImplementation common.main.rxJava2
+    testFixturesImplementation common.test.gson
+    testFixturesImplementation common.test.mockWebServer
 }
