@@ -3,15 +3,19 @@
 
 /'Specification'/
 package core as "com.vanskarner.core"{
-    interface Result<T><<interface>>
-    class Success<T>
-    class Failure<T>
-    interface FutureResult<T><<interface>>
-    interface FutureSimpleResult<<interface>>
-    interface RxFutureFactory<<interface>>
-    class DefaultRxFutureFactory
-    class SingleFutureResult<T>
-    class CompletableFutureSimpleResult
+    package sync {
+        interface Result<T><<interface>>
+        class Success<T>
+        class Failure<T>
+    }
+    package concurrent {
+        interface FutureResult<T><<interface>>
+        interface FutureSimpleResult<<interface>>
+        interface RxFutureFactory<<interface>>
+        class DefaultRxFutureFactory
+        class SingleFutureResult<T>
+        class CompletableFutureSimpleResult
+    }
 }
 
 /'Relations'/
