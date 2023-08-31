@@ -2,7 +2,7 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
@@ -17,12 +17,12 @@ public class ShowFavoriteMoviesUseCaseTest {
     @Before
     public void setUp() {
         fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
-        fakeLocalRepository.saveMovie(new MovieBOBuilder()
-                .withId(1)
-                .build());
-        fakeLocalRepository.saveMovie(new MovieBOBuilder()
-                .withId(2)
-                .build());
+        MovieDetailDS item1 = MovieDetailDS.empty();
+        item1.id = 1;
+        MovieDetailDS item2 = MovieDetailDS.empty();
+        item2.id = 1;
+        fakeLocalRepository.saveMovie(item1);
+        fakeLocalRepository.saveMovie(item2);
 
         useCase = new ShowFavoriteMoviesUseCase(fakeLocalRepository);
     }

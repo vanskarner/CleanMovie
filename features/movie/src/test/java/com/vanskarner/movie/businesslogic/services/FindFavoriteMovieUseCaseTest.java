@@ -2,10 +2,8 @@ package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
 import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
 
 import org.junit.Before;
@@ -26,20 +24,19 @@ public class FindFavoriteMovieUseCaseTest {
 
     @Test
     public void execute_withValidID_returnItem() throws Exception {
-        MovieBO expected = new MovieBOBuilder()
-                .withId(1)
-                .build();
+        MovieDetailDS expected = MovieDetailDS.empty();
+        expected.id = 1;
         fakeLocalRepository.saveMovie(expected).await();
-        MovieDetailDS actual = useCase.execute(expected.getId()).get();
+        MovieDetailDS actual = useCase.execute(expected.id).get();
 
-        assertEquals(expected.getId(), actual.id);
-        assertEquals(expected.getTitle(), actual.title);
-        assertEquals(expected.getImage(), actual.image);
-        assertEquals(expected.getBackgroundImage(), actual.backgroundImage);
-        assertEquals(expected.getVoteCount(), actual.voteCount);
-        assertEquals(expected.getVoteAverage(), actual.voteAverage, 0.01);
-        assertEquals(expected.getReleaseDate(), actual.releaseDate);
-        assertEquals(expected.getOverview(), actual.overview);
+        assertEquals(expected.id, actual.id);
+        assertEquals(expected.title, actual.title);
+        assertEquals(expected.image, actual.image);
+        assertEquals(expected.backgroundImage, actual.backgroundImage);
+        assertEquals(expected.voteCount, actual.voteCount);
+        assertEquals(expected.voteAverage, actual.voteAverage, 0.01);
+        assertEquals(expected.releaseDate, actual.releaseDate);
+        assertEquals(expected.overview, actual.overview);
     }
 
     @Test(expected = NoSuchElementException.class)

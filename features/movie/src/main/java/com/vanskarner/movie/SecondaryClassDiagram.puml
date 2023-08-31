@@ -1,5 +1,5 @@
 @startuml
-!include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+!include ../../../../../../../../architecture_resources/VanskarnerStyle.puml
 
 /'Specification'/
 package core as "com.vanskarner.core"{
@@ -26,7 +26,6 @@ package movie as "com.vanskarner.movie"{
             interface MovieLocalRepository<<interface>>
             interface MovieRemoteRepository<<interface>>
         }
-        class MovieMapper
         together {
             class MovieErrorFilter
             abstract MovieError<<abstract>>
@@ -83,23 +82,24 @@ FindFavoriteMovieUseCase --> MovieLocalRepository
 ShowFavoriteMoviesUseCase --> MovieLocalRepository
 ShowUpcomingMoviesUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase --> MovieRemoteRepository
+FindUpcomingMovieUseCase ..> MovieBO
 
-ShowUpcomingMoviesUseCase ..> MovieMapper
-FindUpcomingMovieUseCase ..> MovieMapper
-ShowFavoriteMoviesUseCase ..> MovieMapper
-FindFavoriteMovieUseCase ..> MovieMapper
+MovieRemoteRepository ..> MoviesDS
+MovieRemoteRepository ..> MovieDetailDS
+MovieLocalRepository ..> MoviesDS
+MovieLocalRepository ..> MovieDetailDS
 
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
 MovieErrorFilter --> "1..*" MovieError
 MovieError <|- FavoriteLimit
 
-MovieLocalRepository ..> MovieBO
-MovieRemoteRepository ..> MovieBO
 /'Relations - local-data:start'/
 MovieLocalRxRepository --> MovieDao
 MovieDao ..> MovieEntity
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieLocalDataMapper ..> MovieEntity
+MovieLocalDataMapper ..> MovieDetailDS
+MovieLocalDataMapper ..> MoviesDS
 MovieLocalRxRepository ..|> MovieLocalRepository
 /'Relations - local-data:end'/
 
@@ -110,10 +110,12 @@ MovieRemoteRxRepository ..> MovieRemoteDataMapper
 MovieApiClient ..> MovieDTO
 MovieApiClient ..> MoviesResultDTO
 MovieRemoteDataMapper ..> MovieDTO
+MovieRemoteDataMapper ..> MovieDetailDS
+MovieRemoteDataMapper ..> MoviesDS
 MovieDeserializer ..> MovieDTO
 MoviesResultDTO -> "0..*" MovieDTO
 RemoteDataErrorFilter --> "1..*" MovieRemoteError
-RemoteDataErrorFilter ---> "1" MovieRemoteError
+RemoteDataErrorFilter --> "1" MovieRemoteError
 MovieRemoteError <|-- NoInternet
 MovieRemoteError <|-- NotFound
 MovieRemoteError <|-- Server

@@ -3,11 +3,9 @@ package com.vanskarner.movie.persistence.local;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
-
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
@@ -26,14 +24,14 @@ class MovieLocalRxRepository implements MovieLocalRepository {
     }
 
     @Override
-    public FutureResult<List<MovieBO>> getMovies() {
-        Single<List<MovieBO>> single = dao.toList().map(MovieLocalDataMapper::convert);
+    public FutureResult<MoviesDS> getMovies() {
+        Single<MoviesDS> single = dao.toList().map(MovieLocalDataMapper::convert);
         return rxFutureFactory.fromSingle(single);
     }
 
     @Override
-    public FutureResult<MovieBO> getMovie(int movieId) {
-        Single<MovieBO> single = dao.find(movieId).map(MovieLocalDataMapper::convert);
+    public FutureResult<MovieDetailDS> getMovie(int movieId) {
+        Single<MovieDetailDS> single = dao.find(movieId).map(MovieLocalDataMapper::convert);
         return rxFutureFactory.fromSingle(single);
     }
 
@@ -62,8 +60,8 @@ class MovieLocalRxRepository implements MovieLocalRepository {
     }
 
     @Override
-    public FutureSimpleResult saveMovie(MovieBO detailBO) {
-        Completable completable = dao.insert(MovieLocalDataMapper.convert(detailBO));
+    public FutureSimpleResult saveMovie(MovieDetailDS movieDetail) {
+        Completable completable = dao.insert(MovieLocalDataMapper.convert(movieDetail));
         return rxFutureFactory.fromCompletable(completable);
     }
 

@@ -2,7 +2,8 @@ package com.vanskarner.movie.persistence.remote;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,34 +32,29 @@ public class MovieRemoteDataMapperTest {
     }
 
     @Test
-    public void convert_fromMovieDetailDTO_toMovieDetailBO() {
-        MovieBO actualItem = MovieRemoteDataMapper.convert(dataStructure);
+    public void convert_fromMovieDTO_toMovieDetailDS() {
+        MovieDetailDS actualItem = MovieRemoteDataMapper.convert(dataStructure);
         MovieDTO expectedItem = dataStructure;
 
-        assertEquals(expectedItem.id, actualItem.getId());
-        assertEquals(expectedItem.title, actualItem.getTitle());
-        assertEquals(expectedItem.posterPath, actualItem.getImage());
-        assertEquals(expectedItem.backdropPath, actualItem.getBackgroundImage());
-        assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
-        assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
-        assertEquals(expectedItem.releaseDate, actualItem.getReleaseDate());
-        assertEquals(expectedItem.overview, actualItem.getOverview());
+        assertEquals(expectedItem.id, actualItem.id);
+        assertEquals(expectedItem.title, actualItem.title);
+        assertEquals(expectedItem.posterPath, actualItem.image);
+        assertEquals(expectedItem.backdropPath, actualItem.backgroundImage);
+        assertEquals(expectedItem.voteCount, actualItem.voteCount);
+        assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.releaseDate);
+        assertEquals(expectedItem.overview, actualItem.overview);
     }
 
     @Test
-    public void convert_fromListMovieDetailDTO_toListMovieDetailBO() {
+    public void convert_fromListMovieDTO_toListMovieDS() {
         List<MovieDTO> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
-        List<MovieBO> actualList = MovieRemoteDataMapper.convert(expectedList);
+        List<MovieDS> actualList = MovieRemoteDataMapper.convert(expectedList).list;
 
         assertEquals(expectedList.size(), actualList.size());
-        assertEquals(expectedList.get(0).id, actualList.get(0).getId());
-        assertEquals(expectedList.get(0).title, actualList.get(0).getTitle());
-        assertEquals(expectedList.get(0).posterPath, actualList.get(0).getImage());
-        assertEquals(expectedList.get(0).backdropPath, actualList.get(0).getBackgroundImage());
-        assertEquals(expectedList.get(0).voteCount, actualList.get(0).getVoteCount());
-        assertEquals(expectedList.get(0).voteAverage, actualList.get(0).getVoteAverage(), 0.01);
-        assertEquals(expectedList.get(0).releaseDate, actualList.get(0).getReleaseDate());
-        assertEquals(expectedList.get(0).overview, actualList.get(0).getOverview());
+        assertEquals(expectedList.get(0).id, actualList.get(0).id);
+        assertEquals(expectedList.get(0).title, actualList.get(0).title);
+        assertEquals(expectedList.get(0).posterPath, actualList.get(0).image);
     }
 
 }

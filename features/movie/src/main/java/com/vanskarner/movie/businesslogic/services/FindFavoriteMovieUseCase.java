@@ -20,7 +20,7 @@ class FindFavoriteMovieUseCase extends BaseAsyncUseCase<Integer, MovieDetailDS> 
 
     @Override
     public FutureResult<MovieDetailDS> execute(Integer inputValues) {
-        return localRepository.getMovie(inputValues).map(MovieMapper::convert);
+        return localRepository.getMovie(inputValues);
     }
 
 }

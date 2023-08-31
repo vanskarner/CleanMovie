@@ -1,14 +1,13 @@
 package com.vanskarner.movie.businesslogic.repository;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
-
-import java.util.List;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 
 public interface MovieRemoteRepository {
 
-    FutureResult<List<MovieBO>> getMovies(int page);
+    FutureResult<MoviesDS> getMovies(int page);
 
-    FutureResult<MovieBO> getMovie(int movieId);
+    FutureResult<MovieDetailDS> getMovie(int movieId);
 
 }

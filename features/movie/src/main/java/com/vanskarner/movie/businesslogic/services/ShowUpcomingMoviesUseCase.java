@@ -20,7 +20,7 @@ class ShowUpcomingMoviesUseCase extends BaseAsyncUseCase<Integer, MoviesDS> {
 
     @Override
     public FutureResult<MoviesDS> execute(Integer page) {
-        return remoteRepository.getMovies(page).map(MovieMapper::convert);
+        return remoteRepository.getMovies(page);
     }
 
 }

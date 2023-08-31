@@ -4,7 +4,9 @@ import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.concurrent.TestFutureSimpleFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,22 +15,26 @@ import java.util.Optional;
 
 class FakeLocalRepository implements MovieLocalRepository {
 
-    private final List<MovieBO> data;
+    private final List<MovieDetailDS> data;
 
     public FakeLocalRepository() {
         this.data = new ArrayList<>();
     }
 
     @Override
-    public FutureResult<List<MovieBO>> getMovies() {
-        return TestFutureFactory.create(data);
+    public FutureResult<MoviesDS> getMovies() {
+        List<MovieDS> list = new ArrayList<>();
+        for (MovieDetailDS detail : data)
+            list.add(new MovieDS(detail.id, detail.title, detail.image));
+        MoviesDS moviesDS = new MoviesDS(list);
+        return TestFutureFactory.create(moviesDS);
     }
 
     @Override
-    public FutureResult<MovieBO> getMovie(int movieId) {
-        Optional<MovieBO> item = data
+    public FutureResult<MovieDetailDS> getMovie(int movieId) {
+        Optional<MovieDetailDS> item = data
                 .stream()
-                .filter(i -> i.getId() == movieId)
+                .filter(i -> i.id == movieId)
                 .findFirst();
         return item
                 .map(TestFutureFactory::create)
@@ -37,7 +43,7 @@ class FakeLocalRepository implements MovieLocalRepository {
 
     @Override
     public FutureSimpleResult deleteMovie(int movieId) {
-        Runnable runnable = () -> data.removeIf(item -> item.getId() == movieId);
+        Runnable runnable = () -> data.removeIf(item -> item.id == movieId);
         return TestFutureSimpleFactory.create(runnable);
     }
 
@@ -55,15 +61,15 @@ class FakeLocalRepository implements MovieLocalRepository {
 
     @Override
     public FutureResult<Boolean> checkMovie(int movieId) {
-        Optional<MovieBO> item = data
+        Optional<MovieDetailDS> item = data
                 .stream()
-                .filter(i -> i.getId() == movieId)
+                .filter(i -> i.id == movieId)
                 .findFirst();
         return TestFutureFactory.create(item.isPresent());
     }
 
     @Override
-    public FutureSimpleResult saveMovie(MovieBO movieDetail) {
+    public FutureSimpleResult saveMovie(MovieDetailDS movieDetail) {
         Runnable runnable = () -> data.add(movieDetail);
         return TestFutureSimpleFactory.create(runnable);
     }

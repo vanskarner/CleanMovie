@@ -10,7 +10,8 @@ import com.vanskarner.core.jsonparser.TestJsonParser;
 import com.vanskarner.core.jsonparser.TestJsonParserFactory;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -63,7 +64,7 @@ public class MovieRemoteRxRepositoryTest {
     public void getMovies_whenHttpIsOK_returnList() throws Exception {
         String fileName = "upcoming_list.json";
         simulatedServer.enqueueFrom(fileName, HttpURLConnection.HTTP_OK);
-        List<MovieBO> actualList = repository.getMovies(1).get();
+        List<MovieDS> actualList = repository.getMovies(1).get().list;
         MoviesResultDTO expectedList = jsonService.from(fileName, MoviesResultDTO.class);
 
         assertEquals(expectedList.results.size(), actualList.size());
@@ -73,18 +74,18 @@ public class MovieRemoteRxRepositoryTest {
     public void getMovie_whenHttpIsOK_returnItem() throws Exception {
         String fileName = "upcoming_item.json";
         simulatedServer.enqueueFrom(fileName, HttpURLConnection.HTTP_OK);
-        MovieBO actualItem = repository.getMovie(1).get();
+        MovieDetailDS actualItem = repository.getMovie(1).get();
         MovieDTO expectedItem = jsonService.from(fileName, MovieDTO.class);
         expectedItem.posterPath = baseImageUrl.concat(expectedItem.posterPath);
         expectedItem.backdropPath = baseImageUrl.concat(expectedItem.backdropPath);
 
 
-        assertEquals(expectedItem.id, actualItem.getId());
-        assertEquals(expectedItem.title, actualItem.getTitle());
-        assertEquals(expectedItem.posterPath, actualItem.getImage());
-        assertEquals(expectedItem.backdropPath, actualItem.getBackgroundImage());
-        assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
-        assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
+        assertEquals(expectedItem.id, actualItem.id);
+        assertEquals(expectedItem.title, actualItem.title);
+        assertEquals(expectedItem.posterPath, actualItem.image);
+        assertEquals(expectedItem.backdropPath, actualItem.backgroundImage);
+        assertEquals(expectedItem.voteCount, actualItem.voteCount);
+        assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
     }
 
     @Test(expected = MovieRemoteError.NoInternet.class)

@@ -13,7 +13,7 @@ import androidx.test.filters.SmallTest;
 
 import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.After;
 import org.junit.Before;
@@ -52,7 +52,7 @@ public class MovieLocalRxRepositoryTest {
 
     @Test
     public void saveItem_savedItem() throws Exception {
-        MovieBO item = createMovieBO(33);
+        MovieDetailDS item = createMovieBO(33);
         repository.saveMovie(item).await();
         int actualNumberItems = repository.getNumberMovies().get();
         int expectedNumberItems = 1;
@@ -62,18 +62,18 @@ public class MovieLocalRxRepositoryTest {
 
     @Test
     public void getMovie_withValidId_returnItem() throws Exception {
-        MovieBO expectedItem = createMovieBO(33);
+        MovieDetailDS expectedItem = createMovieBO(33);
         repository.saveMovie(expectedItem).await();
-        MovieBO actualItem = repository.getMovie(expectedItem.getId()).get();
+        MovieDetailDS actualItem = repository.getMovie(expectedItem.id).get();
 
-        assertEquals(expectedItem.getId(), actualItem.getId());
-        assertEquals(expectedItem.getTitle(), actualItem.getTitle());
-        assertEquals(expectedItem.getImage(), actualItem.getImage());
-        assertEquals(expectedItem.getBackgroundImage(), actualItem.getBackgroundImage());
-        assertEquals(expectedItem.getVoteCount(), actualItem.getVoteCount());
-        assertEquals(expectedItem.getVoteAverage(), actualItem.getVoteAverage(), 0.01);
-        assertEquals(expectedItem.getReleaseDate(), actualItem.getReleaseDate());
-        assertEquals(expectedItem.getOverview(), actualItem.getOverview());
+        assertEquals(expectedItem.id, actualItem.id);
+        assertEquals(expectedItem.title, actualItem.title);
+        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
+        assertEquals(expectedItem.voteCount, actualItem.voteCount);
+        assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.releaseDate);
+        assertEquals(expectedItem.overview, actualItem.overview);
     }
 
     @Test
@@ -123,8 +123,8 @@ public class MovieLocalRxRepositoryTest {
         assertFalse(exists);
     }
 
-    private MovieBO createMovieBO(int movieId) {
-        return new MovieBO(movieId,
+    private MovieDetailDS createMovieBO(int movieId) {
+        return new MovieDetailDS(movieId,
                 "Clean Architecture",
                 "https://blog.cleancoder.com/anyImage.jpg",
                 "https://blog.cleancoder.com/anyBackImage.jpg",

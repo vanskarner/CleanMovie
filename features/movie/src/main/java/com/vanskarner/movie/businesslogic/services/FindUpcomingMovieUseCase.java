@@ -3,6 +3,7 @@ package com.vanskarner.movie.businesslogic.services;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.movie.businesslogic.bases.BaseAsyncUseCase;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
 
 import javax.inject.Inject;
@@ -21,10 +22,10 @@ class FindUpcomingMovieUseCase extends BaseAsyncUseCase<Integer, MovieDetailDS> 
     @Override
     public FutureResult<MovieDetailDS> execute(Integer inputValues) {
         return remoteRepository.getMovie(inputValues)
-                .map(movieDetailBO -> {
-                    MovieDetailDS detailDS = MovieMapper.convert(movieDetailBO);
-                    detailDS.recommended = movieDetailBO.isRecommended();
-                    return detailDS;
+                .map(item -> {
+                    MovieBO movieBO = new MovieBO(item.voteCount, item.voteAverage);
+                    item.recommended = movieBO.isRecommended();
+                    return item;
                 });
     }
 

@@ -2,10 +2,9 @@ package com.vanskarner.movie.persistence.remote;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,8 +27,8 @@ class MovieRemoteRxRepository implements MovieRemoteRepository {
     }
 
     @Override
-    public FutureResult<List<MovieBO>> getMovies(int page) {
-        Single<List<MovieBO>> single = service
+    public FutureResult<MoviesDS> getMovies(int page) {
+        Single<MoviesDS> single = service
                 .getUpcomingMovies(page, apiKey)
                 .map(moviesResultDTO -> moviesResultDTO.results)
                 .map(MovieRemoteDataMapper::convert);
@@ -37,8 +36,8 @@ class MovieRemoteRxRepository implements MovieRemoteRepository {
     }
 
     @Override
-    public FutureResult<MovieBO> getMovie(int movieId) {
-        Single<MovieBO> single = service
+    public FutureResult<MovieDetailDS> getMovie(int movieId) {
+        Single<MovieDetailDS> single = service
                 .getMovieDetail(movieId, apiKey)
                 .map(MovieRemoteDataMapper::convert);
         return rxFutureFactory.fromSingle(single);

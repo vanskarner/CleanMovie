@@ -3,9 +3,8 @@ package com.vanskarner.movie.businesslogic.services;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.repository.FakeRepositoryFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
 
 import org.junit.Before;
@@ -24,12 +23,11 @@ public class CheckFavoriteMovieUseCaseTest {
 
     @Test
     public void execute_withValidID_itemExists() throws Exception {
-        MovieBO item = new MovieBOBuilder()
-                .withId(1)
-                .build();
+        MovieDetailDS item = MovieDetailDS.empty();
+        item.id = 1;
         fakeLocalRepository.saveMovie(item).await();
         boolean exists = useCase
-                .execute(item.getId())
+                .execute(item.id)
                 .get();
 
         assertTrue(exists);

@@ -2,15 +2,14 @@ package com.vanskarner.movie.businesslogic.repository;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
-
-import java.util.List;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 
 public interface MovieLocalRepository {
 
-    FutureResult<List<MovieBO>> getMovies();
+    FutureResult<MoviesDS> getMovies();
 
-    FutureResult<MovieBO> getMovie(int movieId);
+    FutureResult<MovieDetailDS> getMovie(int movieId);
 
     FutureSimpleResult deleteMovie(int movieId);
 
@@ -20,6 +19,6 @@ public interface MovieLocalRepository {
 
     FutureResult<Boolean> checkMovie(int movieId);
 
-    FutureSimpleResult saveMovie(MovieBO movieDetail);
+    FutureSimpleResult saveMovie(MovieDetailDS movieDetail);
 
 }

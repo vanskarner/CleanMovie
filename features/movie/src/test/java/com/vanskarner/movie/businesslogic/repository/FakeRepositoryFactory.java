@@ -1,6 +1,6 @@
 package com.vanskarner.movie.businesslogic.repository;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public final class FakeRepositoryFactory {
     private FakeRepositoryFactory() {
     }
 
-    public static MovieRemoteRepository createRemoteRepository(List<MovieBO> data) {
+    public static MovieRemoteRepository createRemoteRepository(List<MovieDetailDS> data) {
         return new FakeRemoteRepository(data);
     }
 

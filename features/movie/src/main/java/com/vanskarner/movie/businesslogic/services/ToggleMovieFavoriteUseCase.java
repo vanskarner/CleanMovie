@@ -34,7 +34,7 @@ class ToggleMovieFavoriteUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean
                 .flatMap(numberMovies -> {
                     if (numberMovies >= MAXIMUM_MOVIES_SAVED)
                         throw movieErrorFilter.filter(MovieError.FavoriteLimit.class);
-                    return localRepository.saveMovie(MovieMapper.convert(movieDetailDS))
+                    return localRepository.saveMovie(movieDetailDS)
                             .toFutureResult(true);
                 });
     }

@@ -1,6 +1,8 @@
 package com.vanskarner.movie.persistence.local;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,8 @@ class MovieLocalDataMapper {
     private MovieLocalDataMapper() {
     }
 
-    static MovieBO convert(MovieEntity movieEntity) {
-        return new MovieBO(
+    static MovieDetailDS convert(MovieEntity movieEntity) {
+        return new MovieDetailDS(
                 movieEntity.id,
                 movieEntity.title,
                 movieEntity.encodedImage,
@@ -23,25 +25,24 @@ class MovieLocalDataMapper {
         );
     }
 
-    static MovieEntity convert(MovieBO movieBO) {
+    static MovieEntity convert(MovieDetailDS detailDS) {
         return new MovieEntity(
-                movieBO.getId(),
-                movieBO.getTitle(),
-                movieBO.getImage(),
-                movieBO.getBackgroundImage(),
-                movieBO.getVoteCount(),
-                movieBO.getVoteAverage(),
-                movieBO.getReleaseDate(),
-                movieBO.getOverview()
+                detailDS.id,
+                detailDS.title,
+                detailDS.image,
+                detailDS.backgroundImage,
+                detailDS.voteCount,
+                detailDS.voteAverage,
+                detailDS.releaseDate,
+                detailDS.overview
         );
     }
 
-    static List<MovieBO> convert(List<MovieEntity> movieBillboardEntities) {
-        List<MovieBO> movieBOS = new ArrayList<>();
-        for (MovieEntity item : movieBillboardEntities) {
-            movieBOS.add(convert(item));
-        }
-        return movieBOS;
+    static MoviesDS convert(List<MovieEntity> movieEntities) {
+        List<MovieDS> list = new ArrayList<>();
+        for (MovieEntity entity : movieEntities)
+            list.add(new MovieDS(entity.id, entity.title, entity.encodedImage));
+        return new MoviesDS(list);
     }
 
 }

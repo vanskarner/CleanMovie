@@ -20,7 +20,7 @@ class ShowFavoriteMoviesUseCase extends BaseAsyncOutPutUseCase<MoviesDS> {
 
     @Override
     public FutureResult<MoviesDS> execute() {
-        return localRepository.getMovies().map(MovieMapper::convert);
+        return localRepository.getMovies();
     }
 
 }

@@ -2,8 +2,8 @@ package com.vanskarner.movie.persistence.local;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class MovieLocalDataMapperTest {
-    static MovieEntity dataStructure;
-    static MovieBO businessObject;
+    static MovieEntity persistenceLayerDataStructure;
+    static MovieDetailDS businessLogicDataStructure;
 
     @BeforeClass
     public static void setup() {
-        dataStructure = new MovieEntity(1,
+        persistenceLayerDataStructure = new MovieEntity(1,
                 "Clean Architecture",
                 "Encoded_Image",
                 "Encoded_Background_Image",
@@ -29,65 +29,61 @@ public class MovieLocalDataMapperTest {
                         "craftsmanship in software design, promoting modular and maintainable " +
                         "systems through a component and decoupled structure, with the goal of " +
                         "achieving sustainable code over time.");
-        businessObject = new MovieBOBuilder()
-                .withId(1)
-                .withTitle("Clean Architecture")
-                .withImage("https://blog.cleancoder.com/anyImage.jpg")
-                .withBackgroundImage("https://blog.cleancoder.com/anyBackImage.jpg")
-                .withVoteCount(100)
-                .withVoteAverage(9.5f)
-                .withReleaseDate("2023-08-15")
-                .withOverview("Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+        businessLogicDataStructure = new MovieDetailDS(
+                2,
+                "Clean Architecture",
+                "Encoded_Image",
+                "Encoded_Background_Image",
+                100,
+                9.5f,
+                "2023-08-15",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
                         "craftsmanship in software design, promoting modular and maintainable " +
                         "systems through a component and decoupled structure, with the goal of " +
-                        "achieving sustainable code over time.")
-                .build();
+                        "achieving sustainable code over time."
+        );
     }
 
     @Test
-    public void convert_fromMovieDetailEntity_toMovieDetailBO() {
-        MovieBO actualItem = MovieLocalDataMapper.convert(dataStructure);
-        MovieEntity expectedItem = dataStructure;
+    public void convert_fromMovieEntity_toMovieDetailDS() {
+        MovieDetailDS actualItem = MovieLocalDataMapper.convert(persistenceLayerDataStructure);
+        MovieEntity expectedItem = persistenceLayerDataStructure;
 
-        assertEquals(expectedItem.id, actualItem.getId());
-        assertEquals(expectedItem.title, actualItem.getTitle());
-        assertEquals(expectedItem.encodedImage, actualItem.getImage());
-        assertEquals(expectedItem.encodedBackgroundImage, actualItem.getBackgroundImage());
-        assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
-        assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
-        assertEquals(expectedItem.releaseDate, actualItem.getReleaseDate());
-        assertEquals(expectedItem.overview, actualItem.getOverview());
+        assertEquals(expectedItem.id, actualItem.id);
+        assertEquals(expectedItem.title, actualItem.title);
+        assertEquals(expectedItem.encodedImage, actualItem.image);
+        assertEquals(expectedItem.encodedBackgroundImage, actualItem.backgroundImage);
+        assertEquals(expectedItem.voteCount, actualItem.voteCount);
+        assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.releaseDate);
+        assertEquals(expectedItem.overview, actualItem.overview);
     }
 
     @Test
-    public void convert_fromMovieDetailBO_toMovieDetailEntity() {
-        MovieEntity actualItem = MovieLocalDataMapper.convert(businessObject);
-        MovieBO expectedItem = businessObject;
+    public void convert_fromMovieDetailDS_toMovieEntity() {
+        MovieEntity actualItem = MovieLocalDataMapper.convert(businessLogicDataStructure);
+        MovieDetailDS expectedItem = businessLogicDataStructure;
 
-        assertEquals(expectedItem.getId(), actualItem.id);
-        assertEquals(expectedItem.getTitle(), actualItem.title);
-        assertEquals(expectedItem.getImage(), actualItem.encodedImage);
-        assertEquals(expectedItem.getBackgroundImage(), actualItem.encodedBackgroundImage);
-        assertEquals(expectedItem.getVoteCount(), actualItem.voteCount);
-        assertEquals(expectedItem.getVoteAverage(), actualItem.voteAverage, 0.01);
-        assertEquals(expectedItem.getReleaseDate(), actualItem.releaseDate);
-        assertEquals(expectedItem.getOverview(), actualItem.overview);
+        assertEquals(expectedItem.id, actualItem.id);
+        assertEquals(expectedItem.title, actualItem.title);
+        assertEquals(expectedItem.image, actualItem.encodedImage);
+        assertEquals(expectedItem.backgroundImage, actualItem.encodedBackgroundImage);
+        assertEquals(expectedItem.voteCount, actualItem.voteCount);
+        assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.releaseDate);
+        assertEquals(expectedItem.overview, actualItem.overview);
     }
 
     @Test
-    public void convert_fromListMovieDetailEntity_toListMovieDetailBO() {
-        List<MovieEntity> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
-        List<MovieBO> actualList = MovieLocalDataMapper.convert(expectedList);
+    public void convert_fromListMovieEntity_toListMovieDS() {
+        List<MovieEntity> expectedList =
+                new ArrayList<>(Collections.singletonList(persistenceLayerDataStructure));
+        List<MovieDS> actualList = MovieLocalDataMapper.convert(expectedList).list;
 
         assertEquals(expectedList.size(), actualList.size());
-        assertEquals(expectedList.get(0).id, actualList.get(0).getId());
-        assertEquals(expectedList.get(0).title, actualList.get(0).getTitle());
-        assertEquals(expectedList.get(0).encodedImage, actualList.get(0).getImage());
-        assertEquals(expectedList.get(0).encodedBackgroundImage, actualList.get(0).getBackgroundImage());
-        assertEquals(expectedList.get(0).voteCount, actualList.get(0).getVoteCount());
-        assertEquals(expectedList.get(0).voteAverage, actualList.get(0).getVoteAverage(), 0.01);
-        assertEquals(expectedList.get(0).releaseDate, actualList.get(0).getReleaseDate());
-        assertEquals(expectedList.get(0).overview, actualList.get(0).getOverview());
+        assertEquals(expectedList.get(0).id, actualList.get(0).id);
+        assertEquals(expectedList.get(0).title, actualList.get(0).title);
+        assertEquals(expectedList.get(0).encodedImage, actualList.get(0).image);
     }
 
 }
