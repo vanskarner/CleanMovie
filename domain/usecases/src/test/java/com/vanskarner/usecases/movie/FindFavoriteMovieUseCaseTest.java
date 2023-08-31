@@ -1,41 +1,34 @@
 package com.vanskarner.usecases.movie;
 
 import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.TestFuturesUtils;
 import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.repository.FakeLocalRepository;
-import com.vanskarner.usecases.movie.repository.MovieData;
+import com.vanskarner.usecases.movie.repository.FakeRepositoryFactory;
 import com.vanskarner.usecases.movie.repository.MovieLocalRepository;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.NoSuchElementException;
 
 public class FindFavoriteMovieUseCaseTest {
-    TestFuturesUtils testFuturesUtils;
     FindFavoriteMovieUseCase useCase;
+    MovieLocalRepository fakeLocalRepository;
 
     @Before
     public void setUp() {
-        testFuturesUtils = new TestFuturesUtils();
-        MovieLocalRepository localRepository = new FakeLocalRepository(testFuturesUtils,
-                MovieData.getData());
+        fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
 
-        useCase = new FindFavoriteMovieUseCase(localRepository);
-    }
-
-    @After
-    public void tearDown() {
-        testFuturesUtils.clear();
+        useCase = new FindFavoriteMovieUseCase(fakeLocalRepository);
     }
 
     @Test
-    public void execute_validID_returnItem() {
-        MovieBO expected = MovieData.getAnyItem();
+    public void execute_withValidID_returnItem() throws Exception {
+        MovieBO expected = new MovieBOBuilder()
+                .withId(1)
+                .build();
+        fakeLocalRepository.saveMovie(expected).await();
         MovieDetailDS actual = useCase.execute(expected.getId()).get();
 
         assertEquals(expected.getId(), actual.id);
@@ -49,8 +42,8 @@ public class FindFavoriteMovieUseCaseTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void execute_invalidID_noSuchElementException() {
-        useCase.execute(MovieData.getInvalidID()).get();
+    public void execute_withInvalidID_throwException() throws Exception {
+        useCase.execute(0).get();
     }
 
 }

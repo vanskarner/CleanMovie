@@ -3,49 +3,44 @@ package com.vanskarner.usecases.movie;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.usecases.TestFuturesUtils;
-import com.vanskarner.usecases.movie.repository.FakeLocalRepository;
-import com.vanskarner.usecases.movie.repository.MovieData;
+import com.vanskarner.entities.MovieBO;
+import com.vanskarner.usecases.movie.repository.FakeRepositoryFactory;
 import com.vanskarner.usecases.movie.repository.MovieLocalRepository;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class CheckFavoriteMovieUseCaseTest {
-    TestFuturesUtils testFuturesUtils;
+    MovieLocalRepository fakeLocalRepository;
     CheckFavoriteMovieUseCase useCase;
 
     @Before
     public void setUp() {
-        testFuturesUtils = new TestFuturesUtils();
-        MovieLocalRepository localRepository = new FakeLocalRepository(testFuturesUtils,
-                MovieData.getData());
+        fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
 
-        useCase = new CheckFavoriteMovieUseCase(localRepository);
-    }
-
-    @After
-    public void tearDown() {
-        testFuturesUtils.clear();
+        useCase = new CheckFavoriteMovieUseCase(fakeLocalRepository);
     }
 
     @Test
-    public void execute_validID_returnTrue() {
-        boolean actualValue = useCase
-                .execute(MovieData.getAnyItem().getId())
+    public void execute_withValidID_itemExists() throws Exception {
+        MovieBO item = new MovieBOBuilder()
+                .withId(1)
+                .build();
+        fakeLocalRepository.saveMovie(item).await();
+        boolean exists = useCase
+                .execute(item.getId())
                 .get();
 
-        assertTrue(actualValue);
+        assertTrue(exists);
     }
 
     @Test
-    public void execute_invalidID_returnFalse() {
-        boolean actualValue = useCase
-                .execute(MovieData.getInvalidID())
+    public void execute_withInvalidID_itemNotExists() throws Exception {
+        boolean exists = useCase
+                .execute(1)
                 .get();
 
-        assertFalse(actualValue);
+        assertFalse(exists);
     }
 
 }

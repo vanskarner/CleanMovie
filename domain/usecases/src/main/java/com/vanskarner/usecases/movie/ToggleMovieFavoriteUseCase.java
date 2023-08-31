@@ -11,13 +11,13 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class ActionFavoriteMovieUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean> {
+class ToggleMovieFavoriteUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean> {
     private final static int MAXIMUM_MOVIES_SAVED = 2;
     private final MovieLocalRepository localRepository;
     private final DomainErrorFilter domainErrorFilter;
 
     @Inject
-    public ActionFavoriteMovieUseCase(
+    public ToggleMovieFavoriteUseCase(
             MovieLocalRepository localRepository,
             DomainErrorFilter domainErrorFilter) {
         this.localRepository = localRepository;

@@ -2,7 +2,7 @@
 !include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.usecases{
+package usecases as "com.vanskarner.usecases"{
     class MovieDetailDS<<(D,orange)Data Structure>>
     class MovieDS<<(D,orange)Data Structure>>
     class MoviesDS<<(D,orange)Data Structure>>
@@ -10,7 +10,7 @@ package com.vanskarner.usecases{
     interface MovieServices<<interface>>
     class MovieDefaultServices
     class FilterUpcomingMoviesUseCase
-    class ActionFavoriteMovieUseCase
+    class ToggleMovieFavoriteUseCase
     class CheckFavoriteMovieUseCase
     class DeleteAllFavoriteMoviesUseCase
     class FindFavoriteMovieUseCase
@@ -32,11 +32,11 @@ package com.vanskarner.usecases{
     abstract class BaseUseCase<InPut, OutPut><<abstract>>
 }
 
-package com.vanskarner.entities{
+package entities as "com.vanskarner.entities"{
     entity MovieBO
 }
 
-package com.vanskarner.core{
+package core as "com.vanskarner.core"{
     interface FutureResult<T><<interface>>
     interface Result<T><<interface>>
 }
@@ -54,12 +54,12 @@ MovieDefaultServices --> FindUpcomingMovieUseCase
 MovieDefaultServices --> ShowFavoriteMoviesUseCase
 MovieDefaultServices --> FindFavoriteMovieUseCase
 MovieDefaultServices --> CheckFavoriteMovieUseCase
-MovieDefaultServices --> ActionFavoriteMovieUseCase
+MovieDefaultServices --> ToggleMovieFavoriteUseCase
 MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
 MovieDefaultServices --> FilterUpcomingMoviesUseCase
 
 CheckFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
-ActionFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
+ToggleMovieFavoriteUseCase --> MovieLocalRepository: - localRepository
 DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
 FindFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
 ShowFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
@@ -71,7 +71,11 @@ FindUpcomingMovieUseCase ..> MovieMapper
 ShowFavoriteMoviesUseCase ..> MovieMapper
 FindFavoriteMovieUseCase ..> MovieMapper
 
-ActionFavoriteMovieUseCase --> DomainErrorFilter: -domainErrorFilter
+MovieMapper ..> MovieDetailDS
+MovieMapper ..> MovieBO
+MovieMapper ..> MoviesDS
+
+ToggleMovieFavoriteUseCase --> DomainErrorFilter: -domainErrorFilter
 DomainErrorFilter --> "1..*" DomainError: -mapError
 DomainError <|- MovieFavoriteLimit
 
@@ -79,7 +83,7 @@ DeleteAllFavoriteMoviesUseCase --|> BaseAsyncOutPutUseCase
 ShowFavoriteMoviesUseCase --|> BaseAsyncOutPutUseCase
 
 CheckFavoriteMovieUseCase --|> BaseAsyncUseCase
-ActionFavoriteMovieUseCase --|> BaseAsyncUseCase
+ToggleMovieFavoriteUseCase --|> BaseAsyncUseCase
 FindFavoriteMovieUseCase --|> BaseAsyncUseCase
 ShowUpcomingMoviesUseCase --|> BaseAsyncUseCase
 FindUpcomingMovieUseCase --|> BaseAsyncUseCase

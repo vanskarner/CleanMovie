@@ -1,35 +1,34 @@
 package com.vanskarner.usecases.movie.repository;
 
 import com.vanskarner.core.concurrent.FutureResult;
+import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.TestFuturesUtils;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class FakeRemoteRepository implements MovieRemoteRepository {
-    private final TestFuturesUtils testFuturesUtils;
     private final List<MovieBO> data;
 
-    public FakeRemoteRepository(TestFuturesUtils testFuturesUtils, List<MovieBO> data) {
-        this.testFuturesUtils = testFuturesUtils;
+    public FakeRemoteRepository(List<MovieBO> data) {
         this.data = data;
     }
 
     @Override
     public FutureResult<List<MovieBO>> getMovies(int page) {
-        return testFuturesUtils.fromData(data);
+        return TestFutureFactory.create(data);
     }
 
     @Override
     public FutureResult<MovieBO> getMovie(int movieId) {
-        Optional<MovieBO> optional = data
+        Optional<MovieBO> item = data
                 .stream()
-                .filter(item -> item.getId() == movieId)
+                .filter(i -> i.getId() == movieId)
                 .findFirst();
-        return testFuturesUtils.fromDataOrElse(optional.orElse(null),
-                new NoSuchElementException());
+        return item
+                .map(TestFutureFactory::create)
+                .orElseGet(() -> TestFutureFactory.create(new NoSuchElementException()));
     }
 
 }

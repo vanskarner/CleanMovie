@@ -2,64 +2,69 @@ package com.vanskarner.usecases.movie.repository;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
+import com.vanskarner.core.concurrent.TestFutureFactory;
+import com.vanskarner.core.concurrent.TestFutureSimpleFactory;
 import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.TestFuturesUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class FakeLocalRepository implements MovieLocalRepository {
-    private final TestFuturesUtils testFuturesUtils;
     private final List<MovieBO> data;
 
-    public FakeLocalRepository(TestFuturesUtils testFuturesUtils, List<MovieBO> data) {
-        this.testFuturesUtils = testFuturesUtils;
-        this.data = data;
+    public FakeLocalRepository() {
+        this.data = new ArrayList<>();
     }
 
     @Override
     public FutureResult<List<MovieBO>> getMovies() {
-        return testFuturesUtils.fromData(data);
+        return TestFutureFactory.create(data);
     }
 
     @Override
     public FutureResult<MovieBO> getMovie(int movieId) {
-        Optional<MovieBO> optional = data
+        Optional<MovieBO> item = data
                 .stream()
-                .filter(item -> item.getId() == movieId)
+                .filter(i -> i.getId() == movieId)
                 .findFirst();
-        return testFuturesUtils.fromDataOrElse(optional.orElse(null),
-                new NoSuchElementException());
+        return item
+                .map(TestFutureFactory::create)
+                .orElseGet(() -> TestFutureFactory.create(new NoSuchElementException()));
     }
 
     @Override
     public FutureSimpleResult deleteMovie(int movieId) {
-        return testFuturesUtils.completeSuccess();
+        Runnable runnable = () -> data.removeIf(item -> item.getId() == movieId);
+        return TestFutureSimpleFactory.create(runnable);
     }
 
     @Override
     public FutureResult<Integer> deleteAllMovies() {
-        return testFuturesUtils.fromData(data.size());
+        int total = data.size();
+        data.clear();
+        return TestFutureFactory.create(total);
     }
 
     @Override
     public FutureResult<Integer> getNumberMovies() {
-        return testFuturesUtils.fromData(data.size());
+        return TestFutureFactory.create(data.size());
     }
 
     @Override
     public FutureResult<Boolean> checkMovie(int movieId) {
-        Optional<MovieBO> optional = data
+        Optional<MovieBO> item = data
                 .stream()
-                .filter(item -> item.getId() == movieId)
+                .filter(i -> i.getId() == movieId)
                 .findFirst();
-        return testFuturesUtils.fromData(optional.isPresent());
+        return TestFutureFactory.create(item.isPresent());
     }
 
     @Override
     public FutureSimpleResult saveMovie(MovieBO movieDetail) {
-        return testFuturesUtils.completeSuccess();
+        Runnable runnable = () -> data.add(movieDetail);
+        return TestFutureSimpleFactory.create(runnable);
     }
 
 }

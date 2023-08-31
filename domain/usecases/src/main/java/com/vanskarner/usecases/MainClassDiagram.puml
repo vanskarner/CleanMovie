@@ -2,7 +2,7 @@
 !include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.usecases{
+package usecases as "com.vanskarner.usecases"{
     class MovieDetailDS<<(D,orange)Data Structure>>{
         + id: int
         + title: String
@@ -44,9 +44,9 @@ package com.vanskarner.usecases{
         + FilterUpcomingMoviesUseCase()
         # buildUseCase(MoviesFilterDS): MoviesFilterDS
     }
-    class ActionFavoriteMovieUseCase{
+    class ToggleMovieFavoriteUseCase{
         - {static} MAXIMUM_MOVIES_SAVED: int = 2
-        + ActionFavoriteMovieUseCase(MovieLocalRepository,DomainErrorFilter)
+        + ToggleMovieFavoriteUseCase(MovieLocalRepository,DomainErrorFilter)
         + execute(MovieDetailDS): FutureResult<Boolean>
     }
     class CheckFavoriteMovieUseCase{
@@ -116,12 +116,12 @@ MovieDefaultServices --> FindUpcomingMovieUseCase
 MovieDefaultServices --> ShowFavoriteMoviesUseCase
 MovieDefaultServices --> FindFavoriteMovieUseCase
 MovieDefaultServices --> CheckFavoriteMovieUseCase
-MovieDefaultServices --> ActionFavoriteMovieUseCase
+MovieDefaultServices --> ToggleMovieFavoriteUseCase
 MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
 MovieDefaultServices --> FilterUpcomingMoviesUseCase
 
 CheckFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
-ActionFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
+ToggleMovieFavoriteUseCase --> MovieLocalRepository: - localRepository
 DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
 FindFavoriteMovieUseCase --> MovieLocalRepository: - localRepository
 ShowFavoriteMoviesUseCase --> MovieLocalRepository: - localRepository
@@ -133,7 +133,10 @@ FindUpcomingMovieUseCase ..> MovieMapper
 ShowFavoriteMoviesUseCase ..> MovieMapper
 FindFavoriteMovieUseCase ..> MovieMapper
 
-ActionFavoriteMovieUseCase --> DomainErrorFilter: -domainErrorFilter
+MovieMapper ..> MovieDetailDS
+MovieMapper ..> MoviesDS
+
+ToggleMovieFavoriteUseCase --> DomainErrorFilter: -domainErrorFilter
 DomainErrorFilter -left-> "1..*" DomainError: -mapError
 DomainError <|-- MovieFavoriteLimit
 

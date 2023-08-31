@@ -15,4 +15,6 @@ dependencies {
     annotationProcessor common.main.daggerCompiler
 
     testImplementation common.test.junit
+
+    testImplementation testFixtures(project(":core"))
 }

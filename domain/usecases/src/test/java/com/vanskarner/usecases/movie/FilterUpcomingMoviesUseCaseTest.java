@@ -1,61 +1,61 @@
 package com.vanskarner.usecases.movie;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
+import com.vanskarner.core.sync.Result;
 import com.vanskarner.usecases.movie.ds.MovieDS;
 import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
-import com.vanskarner.usecases.movie.repository.MovieData;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FilterUpcomingMoviesUseCaseTest {
-    FilterUpcomingMoviesUseCase useCase;
+    static List<MovieDS> unmodifiableList;
+    static FilterUpcomingMoviesUseCase useCase;
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
+        List<MovieDS> mutableList = new ArrayList<>();
+        mutableList.add(new MovieDS(1, "Movie One", "any"));
+        mutableList.add(new MovieDS(2, "Movie Two", "any"));
+        mutableList.add(new MovieDS(3, "Movie Three", "any"));
+        unmodifiableList = Collections.unmodifiableList(new ArrayList<>(mutableList));
+
         useCase = new FilterUpcomingMoviesUseCase();
     }
 
-    @After
-    public void tearDown() {
-        useCase = null;
+    @Test
+    public void execute_exactSearch_oneMatch() throws Exception {
+        MoviesFilterDS filterDS = new MoviesFilterDS(unmodifiableList, "Movie One");
+        Result<MoviesFilterDS> result = useCase.execute(filterDS);
+        int actualValue = result.get().filterList.size();
+        int expectedMatches = 1;
+
+        assertEquals(expectedMatches, actualValue);
     }
 
     @Test
-    public void execute_exactSearch_oneMatch() {
-        List<MovieDS> fullList = MovieMapper.convert(MovieData.getData()).list;
-        String query = "Puss in Boots";
-        MoviesFilterDS filterDS = new MoviesFilterDS(fullList, query);
-        useCase.execute(filterDS);
-        int actualValue = filterDS.filterList.size();
+    public void execute_impreciseSearch_multipleMatches() throws Exception {
+        MoviesFilterDS filterDS = new MoviesFilterDS(unmodifiableList, "Movie");
+        Result<MoviesFilterDS> result = useCase.execute(filterDS);
+        int actualMatches = result.get().filterList.size();
+        int expectedMatches = unmodifiableList.size();
 
-        assertEquals(1, actualValue);
+        assertEquals(expectedMatches, actualMatches);
     }
 
     @Test
-    public void execute_impreciseSearch_multipleMatches() {
-        List<MovieDS> fullList = MovieMapper.convert(MovieData.getData()).list;
-        String query = "the";
-        MoviesFilterDS filterDS = new MoviesFilterDS(fullList, query);
-        useCase.execute(filterDS);
-        int actualValue = filterDS.filterList.size();
+    public void execute_wrongSearch_noMatch() throws Exception {
+        MoviesFilterDS filterDS = new MoviesFilterDS(unmodifiableList, "Nothing");
+        Result<MoviesFilterDS> result = useCase.execute(filterDS);
+        int actualMatches = result.get().filterList.size();
+        int expectedMatches = 0;
 
-        assertTrue(actualValue > 1);
-    }
-
-    @Test
-    public void execute_wrongSearch_noMatch() {
-        List<MovieDS> fullList = MovieMapper.convert(MovieData.getData()).list;
-        String query = "Nothing";
-        MoviesFilterDS filterDS = new MoviesFilterDS(fullList, query);
-        useCase.execute(filterDS);
-
-        assertTrue(filterDS.filterList.isEmpty());
+        assertEquals(expectedMatches, actualMatches);
     }
 
 }
