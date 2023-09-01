@@ -2,6 +2,11 @@
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 package cleanmovie as "com.vanskarner.cleanmovie"{
+    class MovieDetailModel<<(D,orange)Data Structure>>
+    class MovieModel<<(D,orange)Data Structure>>
+    class ViewErrorFilter
+    class ErrorDialog
+    class MovieViewMapper
     together {
         interface ErrorView<T><<interface>>
         class FavoritesLimitError
@@ -11,8 +16,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class ServiceUnavailableError
         class UnauthorisedError
         class UnknownError
-        class ViewErrorFilter
-        class ErrorDialog
     }
     together {
         interface FavoritesContractView<<interface>>
@@ -22,17 +25,16 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class DeleteFavoritesDialog
         class FavoritesBindAdapter
         class FavoritesDetailDialog
-        class MovieDetailModel<<(D,orange)Data Structure>>
+
     }
     together {
-        class Pagination
-        class RxSearchView
-        class UpcomingBindAdapter
         interface UpcomingContractView<<interface>>
         interface UpcomingContractPresenter<<interface>>
         class UpcomingFragment
         class UpcomingPresenter
-        class MovieModel<<(D,orange)Data Structure>>
+        class Pagination
+        class RxSearchView
+        class UpcomingBindAdapter
     }
     together {
         interface UpcomingDetailContractView<<interface>>
@@ -40,7 +42,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class UpcomingDetailFragment
         class UpcomingDetailPresenter
     }
-    class MovieViewMapper
 }
 package usecases as "com.vanskarner.usecases"{
     interface MovieServices<<interface>>
@@ -61,7 +62,7 @@ ErrorDialog --> "1" ErrorView
 FavoritesContractPresenter <|.. FavoritesPresenter
 FavoritesContractView <-- FavoritesPresenter
 FavoritesPresenter --> ViewErrorFilter
-MovieViewMapper <.. FavoritesPresenter
+FavoritesPresenter ..> MovieViewMapper
 FavoritesContractView <|.. FavoritesFragment
 FavoritesContractPresenter <-- FavoritesFragment
 FavoritesFragment --> FavoritesBindAdapter
@@ -76,7 +77,7 @@ UpcomingContractPresenter <-- UpcomingFragment
 UpcomingPresenter --> "0..*" MovieModel
 UpcomingPresenter --> "0..*" MovieModel
 UpcomingPresenter --> ViewErrorFilter
-MovieViewMapper <.. UpcomingPresenter
+UpcomingPresenter ..> MovieViewMapper
 UpcomingContractView <|.. UpcomingFragment
 UpcomingContractView <-- UpcomingPresenter
 UpcomingFragment --> Pagination
@@ -87,17 +88,17 @@ UpcomingFragment --> RxSearchView
 /'UpcomingDetail Feature'/
 UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
 UpcomingDetailContractPresenter <-- UpcomingDetailFragment
-MovieViewMapper <.. UpcomingDetailPresenter
+UpcomingDetailPresenter ..> MovieViewMapper
 UpcomingDetailPresenter --> ViewErrorFilter
 UpcomingDetailContractView <|.. UpcomingDetailFragment
 UpcomingDetailContractView <-- UpcomingDetailPresenter
 UpcomingDetailFragment --> ErrorDialog
 
-MovieViewMapper ..> MovieDetailModel
-MovieViewMapper ..> MovieModel
+MovieDetailModel <.. MovieViewMapper
+MovieModel <.. MovieViewMapper
 
 FavoritesPresenter .up.> "<<use>>" MovieServices
-UpcomingPresenter .up.> MovieServices
+UpcomingPresenter .up.> "<<use>>" MovieServices
 UpcomingDetailPresenter .up.> "<<use>>" MovieServices
 
 hide members
