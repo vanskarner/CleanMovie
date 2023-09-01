@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/upcomingScreen"
-        android:name="com.vanskarner.cleanmovie.features.movie.upcoming.UpcomingFragment"
+        android:name="com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragment"
         android:label="@string/app_name"
         tools:layout="@layout/upcoming_fragment">
         <action
@@ -17,9 +17,10 @@
 
     <fragment
         android:id="@+id/upcomingDetailScreen"
-        android:name="com.vanskarner.cleanmovie.features.movie.upcomingDetail.UpcomingDetailFragment"
+        android:name="com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragment"
         android:label="@string/app_name"
         tools:layout="@layout/upcoming_detail_fragment">
+        <!--suppress NavigationFile -->
         <argument
             android:name="movieId"
             android:defaultValue="0"

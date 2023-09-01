@@ -1,7 +1,5 @@
 package com.vanskarner.cleanmovie.main;
 
-import com.vanskarner.cleanmovie.App;
-
 import com.vanskarner.cleanmovie.main.di.DaggerTestAppComponent;
 import com.vanskarner.cleanmovie.main.di.TestAppComponent;
 

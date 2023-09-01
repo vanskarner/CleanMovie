@@ -3,11 +3,11 @@ package com.vanskarner.cleanmovie.main.di;
 import android.content.Context;
 
 import com.vanskarner.cleanmovie.main.TestApp;
-import com.vanskarner.cleanmovie.di.modules.ViewModule;
-import com.vanskarner.cleanmovie.features.MenuActivityTest;
-import com.vanskarner.cleanmovie.features.movie.favorites.FavoritesFragmentTest;
-import com.vanskarner.cleanmovie.features.movie.upcoming.UpcomingFragmentTest;
-import com.vanskarner.cleanmovie.features.movie.upcomingDetail.UpcomingDetailFragmentTest;
+import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
+import com.vanskarner.cleanmovie.ui.MenuActivityTest;
+import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragmentTest;
+import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;
+import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragmentTest;
 import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.TestLocalDataModule;
 import com.vanskarner.remotedata.TestRemoteDataModule;

@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.main.di;
+package com.vanskarner.cleanmovie.main.di.modules;
 
 import com.vanskarner.cleanmovie.BuildConfig;
 import com.vanskarner.cleanmovie.main.di.qualiers.ViewQualifiers;
@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 @Module
-public class TestParametersModule {
+public abstract class ProjectParametersModule {
 
     @Provides
     @Singleton
@@ -35,7 +35,7 @@ public class TestParametersModule {
     @Singleton
     @ViewQualifiers.ComputingThread
     static Scheduler provideSchedulerComputation() {
-        return Schedulers.trampoline();
+        return Schedulers.computation();
     }
 
     @Provides
@@ -49,7 +49,7 @@ public class TestParametersModule {
     @Singleton
     @MovieRemoteDataQualifiers.BaseUrl
     static String provideBaseurl() {
-        return "http://localhost:8080/";
+        return BuildConfig.themoviedbURL;
     }
 
     @Provides
@@ -63,7 +63,7 @@ public class TestParametersModule {
     @Singleton
     @MovieRemoteDataQualifiers.Apikey
     static String provideApiKey() {
-        return "any";
+        return BuildConfig.themoviedbApiKey;
     }
 
 }
