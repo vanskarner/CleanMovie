@@ -25,7 +25,7 @@ MovieLocalRxRepository --> MovieDao: -dao
 MovieDao ..> MovieEntity
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieLocalDataMapper ..> MovieEntity
-MovieLocalDataMapper ..> MovieBO
+MovieLocalDataMapper ..> MovieBO: <<use>>
 MovieBO <. MovieLocalRepository: <<use>>
 MovieLocalRepository <|.. MovieLocalRxRepository
 RxFutureFactory <.. MovieLocalRxRepository: <<use>>

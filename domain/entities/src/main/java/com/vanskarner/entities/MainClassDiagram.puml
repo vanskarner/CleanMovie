@@ -14,6 +14,7 @@ package entities as "com.vanskarner.entities"{
 
         + MovieBO(int, String, String, String, int , float , String , String)
         + isRecommended(): boolean
+        ..Getter..
     }
 }
 @enduml

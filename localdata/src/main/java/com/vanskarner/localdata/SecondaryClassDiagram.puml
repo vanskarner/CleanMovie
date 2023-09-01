@@ -20,7 +20,7 @@ MovieLocalRxRepository --> MovieDao: -dao
 MovieDao ..> MovieEntity
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieLocalDataMapper ..> MovieEntity
-MovieLocalDataMapper ..> MovieBO
+MovieLocalDataMapper ..> MovieBO: <<use>>
 MovieLocalRepository .> MovieBO: <<use>>
 MovieLocalRepository <|.. MovieLocalRxRepository
 
