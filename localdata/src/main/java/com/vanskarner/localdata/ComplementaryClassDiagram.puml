@@ -2,19 +2,19 @@
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.localdata{
+package localdata as "com.vanskarner.localdata" {
     interface MovieDao<<interface>>
     class MovieEntity<<(D,orange)Data Structure>>
     class MovieLocalRxRepository
     class MovieLocalDataMapper
 }
-package com.vanskarner.entities {
+package entities as "com.vanskarner.entities" {
     entity MovieBO
 }
-package com.vanskarner.usecases {
+package usecases as "com.vanskarner.usecases" {
     interface MovieLocalRepository<<interface>>
 }
-package com.vanskarner.core{
+package core as "com.vanskarner.core"{
     interface Result<T><<interface>>
     interface FutureResult<T><<interface>>
     interface RxFutureFactory<<interface>>
@@ -25,6 +25,7 @@ MovieLocalRxRepository --> MovieDao: -dao
 MovieDao ..> MovieEntity
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieLocalDataMapper ..> MovieEntity
+MovieLocalDataMapper ..> MovieBO
 MovieBO <. MovieLocalRepository: <<use>>
 MovieLocalRepository <|.. MovieLocalRxRepository
 RxFutureFactory <.. MovieLocalRxRepository: <<use>>

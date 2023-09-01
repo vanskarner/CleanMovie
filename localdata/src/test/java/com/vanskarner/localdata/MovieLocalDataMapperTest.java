@@ -1,5 +1,6 @@
 package com.vanskarner.localdata;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,58 +12,79 @@ import java.util.Collections;
 import java.util.List;
 
 public class MovieLocalDataMapperTest {
-    MovieEntity expectedEntity = new MovieEntity(
-            1, "Clean Movie Entity", "Encoded Image",
-            "Encoded Background Image", 100, 5.5f,
-            "2023-01-29", "Any overview");
-    MovieBO expectedBO = new MovieBO(
-            2, "Clean Movie BO", "Encoded Image",
-            "Encoded Background Image", 50, 7.5f,
-            "2023-01-25", "Any overview");
+    static MovieEntity dataStructure;
+    static MovieBO businessObject;
+
+    @BeforeClass
+    public static void setupClass() {
+        dataStructure = new MovieEntity(1,
+                "Clean Architecture",
+                "Encoded_Image",
+                "Encoded_Background_Image",
+                100,
+                9.5f,
+                "2023-08-15",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.");
+        businessObject = new MovieBO(1,
+                "Clean Architecture",
+                "Encoded_Image",
+                "Encoded_Background_Image",
+                100,
+                9.5f,
+                "2023-08-15",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.");
+    }
 
     @Test
     public void convert_fromMovieDetailEntity_toMovieDetailBO() {
-        MovieBO actualBO = MovieLocalDataMapper.convert(expectedEntity);
+        MovieBO actualItem = MovieLocalDataMapper.convert(dataStructure);
+        MovieEntity expectedItem = dataStructure;
 
-        assertEquals(expectedEntity.id, actualBO.getId());
-        assertEquals(expectedEntity.title, actualBO.getTitle());
-        assertEquals(expectedEntity.encodedImage, actualBO.getImage());
-        assertEquals(expectedEntity.encodedBackgroundImage, actualBO.getBackgroundImage());
-        assertEquals(expectedEntity.voteCount, actualBO.getVoteCount());
-        assertEquals(expectedEntity.voteAverage, actualBO.getVoteAverage(), 0.01);
-        assertEquals(expectedEntity.releaseDate, actualBO.getReleaseDate());
-        assertEquals(expectedEntity.overview, actualBO.getOverview());
+        assertEquals(expectedItem.id, actualItem.getId());
+        assertEquals(expectedItem.title, actualItem.getTitle());
+        assertEquals(expectedItem.encodedImage, actualItem.getImage());
+        assertEquals(expectedItem.encodedBackgroundImage, actualItem.getBackgroundImage());
+        assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
+        assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.getReleaseDate());
+        assertEquals(expectedItem.overview, actualItem.getOverview());
     }
 
     @Test
     public void convert_fromMovieDetailBO_toMovieDetailEntity() {
-        MovieEntity actualEntity = MovieLocalDataMapper.convert(expectedBO);
+        MovieEntity actualItem = MovieLocalDataMapper.convert(businessObject);
+        MovieBO expectedItem = businessObject;
 
-        assertEquals(expectedBO.getId(), actualEntity.id);
-        assertEquals(expectedBO.getTitle(), actualEntity.title);
-        assertEquals(expectedBO.getImage(), actualEntity.encodedImage);
-        assertEquals(expectedBO.getBackgroundImage(), actualEntity.encodedBackgroundImage);
-        assertEquals(expectedBO.getVoteCount(), actualEntity.voteCount);
-        assertEquals(expectedBO.getVoteAverage(), actualEntity.voteAverage, 0.01);
-        assertEquals(expectedBO.getReleaseDate(), actualEntity.releaseDate);
-        assertEquals(expectedBO.getOverview(), actualEntity.overview);
+        assertEquals(expectedItem.getId(), actualItem.id);
+        assertEquals(expectedItem.getTitle(), actualItem.title);
+        assertEquals(expectedItem.getImage(), actualItem.encodedImage);
+        assertEquals(expectedItem.getBackgroundImage(), actualItem.encodedBackgroundImage);
+        assertEquals(expectedItem.getVoteCount(), actualItem.voteCount);
+        assertEquals(expectedItem.getVoteAverage(), actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.getReleaseDate(), actualItem.releaseDate);
+        assertEquals(expectedItem.getOverview(), actualItem.overview);
     }
 
     @Test
     public void convert_fromListMovieDetailEntity_toListMovieDetailBO() {
-        List<MovieEntity> expectedEntity = new ArrayList<>(
-                Collections.singletonList(this.expectedEntity));
-        List<MovieBO> actualBO = MovieLocalDataMapper.convert(expectedEntity);
+        List<MovieEntity> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
+        List<MovieBO> actualList = MovieLocalDataMapper.convert(expectedList);
 
-        assertEquals(expectedEntity.size(), actualBO.size());
-        assertEquals(expectedEntity.get(0).id, actualBO.get(0).getId());
-        assertEquals(expectedEntity.get(0).title, actualBO.get(0).getTitle());
-        assertEquals(expectedEntity.get(0).encodedImage, actualBO.get(0).getImage());
-        assertEquals(expectedEntity.get(0).encodedBackgroundImage, actualBO.get(0).getBackgroundImage());
-        assertEquals(expectedEntity.get(0).voteCount, actualBO.get(0).getVoteCount());
-        assertEquals(expectedEntity.get(0).voteAverage, actualBO.get(0).getVoteAverage(), 0.01);
-        assertEquals(expectedEntity.get(0).releaseDate, actualBO.get(0).getReleaseDate());
-        assertEquals(expectedEntity.get(0).overview, actualBO.get(0).getOverview());
+        assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList.get(0).id, actualList.get(0).getId());
+        assertEquals(expectedList.get(0).title, actualList.get(0).getTitle());
+        assertEquals(expectedList.get(0).encodedImage, actualList.get(0).getImage());
+        assertEquals(expectedList.get(0).encodedBackgroundImage, actualList.get(0).getBackgroundImage());
+        assertEquals(expectedList.get(0).voteCount, actualList.get(0).getVoteCount());
+        assertEquals(expectedList.get(0).voteAverage, actualList.get(0).getVoteAverage(), 0.01);
+        assertEquals(expectedList.get(0).releaseDate, actualList.get(0).getReleaseDate());
+        assertEquals(expectedList.get(0).overview, actualList.get(0).getOverview());
     }
 
 }

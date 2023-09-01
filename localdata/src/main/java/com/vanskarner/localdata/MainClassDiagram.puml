@@ -2,7 +2,7 @@
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.localdata{
+package localdata as "com.vanskarner.localdata" {
     interface MovieDao<<interface>>{
         + insert(MovieEntity): Completable
         + find(int): Single<MovieEntity>
