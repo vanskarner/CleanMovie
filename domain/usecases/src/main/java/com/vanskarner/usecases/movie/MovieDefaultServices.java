@@ -47,7 +47,7 @@ class MovieDefaultServices implements MovieServices {
     }
 
     @Override
-    public FutureResult<Boolean> actionFavorite(MovieDetailDS detailDS) {
+    public FutureResult<Boolean> toggleFavorite(MovieDetailDS detailDS) {
         return actionFavoriteMovieUseCaseProvider.get().execute(detailDS);
     }
 

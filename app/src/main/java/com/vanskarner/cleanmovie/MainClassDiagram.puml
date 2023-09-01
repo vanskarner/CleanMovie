@@ -1,7 +1,7 @@
 @startuml
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
-package com.vanskarner.cleanmovie{
+package cleanmovie as "com.vanskarner.cleanmovie"{
     together {
         interface ErrorView<T><<interface>>{
             + setupView(Runnable): T
@@ -182,13 +182,13 @@ package com.vanskarner.cleanmovie{
     }
 }
 
-ErrorView <|.left. FavoritesLimitError
+ErrorView <|.. FavoritesLimitError
 ErrorView <|.. NoInternetError
 ErrorView <|.. NotFoundError
 ErrorView <|.. ServerError
 ErrorView <|.. ServiceUnavailableError
 ErrorView <|.. UnauthorisedError
-ErrorView <|.right. UnknownError
+ErrorView <|.. UnknownError
 ViewErrorFilter --> "1..*" ErrorView: -mapError
 ViewErrorFilter --> ErrorView: -defaultError
 ErrorDialog --> "1" ErrorView: -errorView
@@ -231,6 +231,9 @@ UpcomingDetailContractView <|.. UpcomingDetailFragment
 UpcomingDetailContractView <-- UpcomingDetailPresenter: -view
 UpcomingDetailFragment --> ErrorDialog: ~errorDialog
 BasePresenter <|-- UpcomingDetailContractPresenter
+
+MovieViewMapper ..> MovieDetailModel
+MovieViewMapper ..> MovieModel
 
 hide MovieViewMapper attributes
 hide ViewErrorFilter attributes

@@ -1,5 +1,6 @@
 package com.vanskarner.usecases.movie.ds;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MoviesDS {
@@ -8,6 +9,10 @@ public class MoviesDS {
 
     public MoviesDS(List<MovieDS> list) {
         this.list = list;
+    }
+
+    public static MoviesDS empty() {
+        return new MoviesDS(Collections.emptyList());
     }
 
 }

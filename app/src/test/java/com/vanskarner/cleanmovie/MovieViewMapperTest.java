@@ -10,6 +10,7 @@ import com.vanskarner.usecases.movie.ds.MovieDS;
 import com.vanskarner.usecases.movie.ds.MovieDetailDS;
 import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,68 +18,102 @@ import java.util.Collections;
 import java.util.List;
 
 public class MovieViewMapperTest {
+    static MovieDetailDS movieDetailDS;
+    static MovieDetailModel movieDetailModel;
+    static MovieDS movieDS;
+    static MovieModel movieModel;
+
+    @BeforeClass
+    public static void setupClass() {
+        movieDetailDS = new MovieDetailDS(1,
+                "Clean Architecture",
+                "Any image in base64 or http",
+                "Any image in base64 or http",
+                100,
+                9.5f,
+                "2023-08-15",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.",
+                true);
+        movieDetailModel = new MovieDetailModel(1,
+                "Clean Architecture",
+                "Any image in base64 or http",
+                "Any image in base64 or http",
+                100,
+                9.5f,
+                "2023-08-15",
+                "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
+                        "craftsmanship in software design, promoting modular and maintainable " +
+                        "systems through a component and decoupled structure, with the goal of " +
+                        "achieving sustainable code over time.",
+                true);
+        movieDS = new MovieDS(1,
+                "Clean Architecture",
+                "https://blog.cleancoder.com/anyImage.jpg");
+        movieModel = new MovieModel(1,
+                "Clean Architecture",
+                "https://blog.cleancoder.com/anyImage.jpg");
+    }
 
     @Test
     public void convert_fromMovieDetailDS_toMovieDetailModel() {
-        MovieDetailDS expectedDS = new MovieDetailDS(1, "Clean movie DS", "any image",
-                "any background image", 75, 7.4f,
-                "2023-01-12", "My overview", true);
-        MovieDetailModel actualModel = MovieViewMapper.convert(expectedDS);
+        MovieDetailDS expectedItem = movieDetailDS;
+        MovieDetailModel actualItem = MovieViewMapper.convert(expectedItem);
 
-        assertEquals(expectedDS.id, actualModel.id);
-        assertEquals(expectedDS.title, actualModel.title);
-        assertEquals(expectedDS.image, actualModel.image);
-        assertEquals(expectedDS.backgroundImage, actualModel.backgroundImage);
-        assertEquals(expectedDS.voteCount, actualModel.voteCount);
-        assertEquals(expectedDS.voteAverage, actualModel.voteAverage, 0.01);
-        assertEquals(expectedDS.releaseDate, actualModel.releaseDate);
-        assertEquals(expectedDS.overview, actualModel.overview);
-        assertEquals(expectedDS.recommended, actualModel.recommended);
+        assertEquals(expectedItem.id, actualItem.id);
+        assertEquals(expectedItem.title, actualItem.title);
+        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
+        assertEquals(expectedItem.voteCount, actualItem.voteCount);
+        assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.releaseDate);
+        assertEquals(expectedItem.overview, actualItem.overview);
+        assertEquals(expectedItem.recommended, actualItem.recommended);
     }
 
     @Test
     public void convert_fromMovieDetailModel_toMovieDetailDS() {
-        MovieDetailModel expectedModel = new MovieDetailModel(2, "Clean movie Model",
-                "any image", "any background image", 75,
-                8.4f, "2023-01-15", "My overview", true);
-        MovieDetailDS actualDS = MovieViewMapper.convert(expectedModel);
+        MovieDetailModel expectedItem = movieDetailModel;
+        MovieDetailDS actualItem = MovieViewMapper.convert(expectedItem);
 
-        assertEquals(expectedModel.id, actualDS.id);
-        assertEquals(expectedModel.title, actualDS.title);
-        assertEquals(expectedModel.image, actualDS.image);
-        assertEquals(expectedModel.backgroundImage, actualDS.backgroundImage);
-        assertEquals(expectedModel.voteCount, actualDS.voteCount);
-        assertEquals(expectedModel.voteAverage, actualDS.voteAverage, 0.01);
-        assertEquals(expectedModel.releaseDate, actualDS.releaseDate);
-        assertEquals(expectedModel.overview, actualDS.overview);
-        assertEquals(expectedModel.recommended, actualDS.recommended);
+        assertEquals(expectedItem.id, actualItem.id);
+        assertEquals(expectedItem.title, actualItem.title);
+        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
+        assertEquals(expectedItem.voteCount, actualItem.voteCount);
+        assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
+        assertEquals(expectedItem.releaseDate, actualItem.releaseDate);
+        assertEquals(expectedItem.overview, actualItem.overview);
+        assertEquals(expectedItem.recommended, actualItem.recommended);
     }
 
     @Test
     public void convert_fromListMovieDS_toListMovieModel() {
-        MovieDS movieDS = new MovieDS(3, "Clean Movie", "Any Image");
-        List<MovieDS> expectedListDS = new ArrayList<>(Collections.singletonList(movieDS));
-        List<MovieModel> actualListModel = MovieViewMapper.convert(expectedListDS);
+        List<MovieDS> expectedList = new ArrayList<>(Collections.singletonList(movieDS));
+        List<MovieModel> actualList = MovieViewMapper.convert(expectedList);
 
-        assertEquals(expectedListDS.size(), actualListModel.size());
-        assertEquals(expectedListDS.get(0).id, actualListModel.get(0).id);
-        assertEquals(expectedListDS.get(0).title, actualListModel.get(0).title);
-        assertEquals(expectedListDS.get(0).image, actualListModel.get(0).image);
+        assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList.get(0).id, actualList.get(0).id);
+        assertEquals(expectedList.get(0).title, actualList.get(0).title);
+        assertEquals(expectedList.get(0).image, actualList.get(0).image);
     }
 
     @Test
     public void convert_fromListMovieModel_toMoviesFilterDS() {
+        List<MovieModel> expectedList = new ArrayList<>(Collections.singletonList(movieModel));
         String expectedQuery = "My Search";
-        MovieModel movieModel = new MovieModel(4, "Clean Movie", "Any Image");
-        List<MovieModel> expectedListModel = new ArrayList<>(Collections.singletonList(movieModel));
-        MoviesFilterDS actualModelDS = MovieViewMapper.convert(expectedListModel, expectedQuery);
+        MoviesFilterDS moviesFilterDS = MovieViewMapper.convert(expectedList, expectedQuery);
+        List<MovieDS> actualList = moviesFilterDS.fullList;
+        String actualQuery = moviesFilterDS.query.toString();
 
-        assertEquals(expectedListModel.size(), actualModelDS.fullList.size());
-        assertEquals(expectedListModel.get(0).id, actualModelDS.fullList.get(0).id);
-        assertEquals(expectedListModel.get(0).title, actualModelDS.fullList.get(0).title);
-        assertEquals(expectedListModel.get(0).image, actualModelDS.fullList.get(0).image);
-        assertEquals(expectedQuery, actualModelDS.query);
-        assertTrue(actualModelDS.filterList.isEmpty());
+        assertEquals(expectedList.size(), actualList.size());
+        assertEquals(expectedList.get(0).id, actualList.get(0).id);
+        assertEquals(expectedList.get(0).title, actualList.get(0).title);
+        assertEquals(expectedList.get(0).image, actualList.get(0).image);
+        assertEquals(expectedQuery, actualQuery);
+        assertTrue(moviesFilterDS.filterList.isEmpty());
     }
 
 }

@@ -60,6 +60,10 @@ dependencies {
     annotationProcessor common.main.daggerCompiler
 
     testImplementation common.test.junit
+    testImplementation common.test.mockito
+    testImplementation testFixtures(project(":core"))
+
+    androidTestImplementation testFixtures(project(":core"))
     androidTestImplementation common.test.androidJunit
     androidTestImplementation presentation.test.espressoCore
     androidTestImplementation presentation.test.espressoContrib

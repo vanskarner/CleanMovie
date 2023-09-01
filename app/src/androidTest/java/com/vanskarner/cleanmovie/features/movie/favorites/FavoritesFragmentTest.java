@@ -9,7 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withRecyclerViewItemCount;
 
 import android.os.Bundle;
 
@@ -19,9 +19,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.DataBindingIdlingResource;
-import com.vanskarner.cleanmovie.TestApp;
-import com.vanskarner.cleanmovie.utils.FileUtils;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.main.TestApp;
+import com.vanskarner.cleanmovie.common.MovieDetailDSMother;
 import com.vanskarner.usecases.movie.MovieServices;
 import com.vanskarner.usecases.movie.ds.MovieDetailDS;
 
@@ -30,7 +30,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.vanskarner.cleanmovie.R;
-import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -51,18 +50,15 @@ public class FavoritesFragmentTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws Exception {
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
     }
 
     @Test
-    public void deleteAllFavorites_showMessageNoFavorites() throws IOException {
-        String base64TopicImage = FileUtils.readFile("base64_topic_image.txt");
-        MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
-                base64TopicImage, base64TopicImage, 100, 8.5f,
-                "2023-03-01", "Separation of responsibilities");
-        movieServices.actionFavorite(detailDS).get();
+    public void deleteAllFavorites_showMessageNoFavorites() throws Exception {
+        MovieDetailDS detailDS = MovieDetailDSMother.createSample();
+        movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
         dataBindingIdlingResource.monitorFragment(scenario);
@@ -76,12 +72,9 @@ public class FavoritesFragmentTest {
     }
 
     @Test
-    public void selectFavoriteItem_showDetailDialog() throws IOException {
-        String base64TopicImage = FileUtils.readFile("base64_topic_image.txt");
-        MovieDetailDS detailDS = new MovieDetailDS(1, "Clean Architecture",
-                base64TopicImage, base64TopicImage, 100, 8.5f,
-                "2023-03-01", "Separation of responsibilities");
-        movieServices.actionFavorite(detailDS).get();
+    public void selectFavoriteItem_showItemDetailDialog() throws Exception {
+        MovieDetailDS detailDS = MovieDetailDSMother.createSample();
+        movieServices.toggleFavorite(detailDS).get();
         FragmentScenario<FavoritesFragment> scenario = FragmentScenario.launchInContainer(
                 FavoritesFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie);
         dataBindingIdlingResource.monitorFragment(scenario);

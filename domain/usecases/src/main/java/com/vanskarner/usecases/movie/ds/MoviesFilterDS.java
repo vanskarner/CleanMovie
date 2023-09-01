@@ -20,4 +20,11 @@ public class MoviesFilterDS {
         this.query = query;
     }
 
+    public static MoviesFilterDS empty() {
+        return new MoviesFilterDS(
+                Collections.emptyList(),
+                "",
+                Collections.emptyList());
+    }
+
 }

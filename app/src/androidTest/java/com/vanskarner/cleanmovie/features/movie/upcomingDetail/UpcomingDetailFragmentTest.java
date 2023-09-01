@@ -7,18 +7,12 @@ import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withActionIconDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withActionIconDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withImageDrawable;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.testing.FragmentScenario;
-import androidx.navigation.Navigation;
 import androidx.navigation.testing.TestNavHostController;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.IdlingRegistry;
@@ -26,9 +20,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.DataBindingIdlingResource;
-import com.vanskarner.cleanmovie.TestApp;
-import com.vanskarner.cleanmovie.utils.TestMockWebServer;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.main.TestApp;
+import com.vanskarner.cleanmovie.common.MovieDetailDSMother;
+import com.vanskarner.cleanmovie.common.TestFragmentScenario;
+import com.vanskarner.core.remote.TestSimulatedServer;
+import com.vanskarner.core.remote.TestSimulatedServerFactory;
 import com.vanskarner.usecases.movie.MovieServices;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.usecases.movie.ds.MovieDetailDS;
@@ -43,21 +40,18 @@ import java.net.HttpURLConnection;
 
 import javax.inject.Inject;
 
-import okhttp3.mockwebserver.MockWebServer;
-
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class UpcomingDetailFragmentTest {
     Context context;
-    MockWebServer server = new MockWebServer();
-    TestMockWebServer testMockWebServer = new TestMockWebServer(server);
+    TestSimulatedServer simulatedServer = TestSimulatedServerFactory.create(this.getClass());
     DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
     @Inject
     MovieServices movieServices;
 
     @Before
     public void setUp() throws IOException {
-        server.start(8080);
+        simulatedServer.start(8080);
         context = ApplicationProvider.getApplicationContext();
         TestApp testApp = (TestApp) InstrumentationRegistry.getInstrumentation()
                 .getTargetContext()
@@ -67,37 +61,21 @@ public class UpcomingDetailFragmentTest {
     }
 
     @After
-    public void tearDown() throws IOException {
-        server.shutdown();
+    public void tearDown() throws Exception {
+        simulatedServer.shutdown();
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
     }
 
     @Test
-    public void saveFavorite_showFavoriteIcon() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        Bundle bundle = new Bundle();
-        bundle.putInt("movieId", 646389);
+    public void saveFavorite_showMarkedAsFavorite() throws IOException {
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingDetailFragment> scenario = FragmentScenario
-                .launchInContainer(UpcomingDetailFragment.class, bundle,
-                        R.style.Theme_CleanMovie, new FragmentFactory() {
-                            @NonNull
-                            @Override
-                            public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                        @NonNull String className) {
-                                UpcomingDetailFragment fragment = new UpcomingDetailFragment();
-                                fragment.getViewLifecycleOwnerLiveData()
-                                        .observeForever(viewLifecycleOwner -> {
-                                            if (viewLifecycleOwner != null) {
-                                                controller.setGraph(R.navigation.upcoming_nav);
-                                                View view = fragment.requireView();
-                                                Navigation.setViewNavController(view, controller);
-                                            }
-                                        });
-                                return fragment;
-                            }
-                        });
+        FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingDetailFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(R.id.favoriteMenuItem))
@@ -109,39 +87,18 @@ public class UpcomingDetailFragmentTest {
     }
 
     @Test
-    public void saveFavorite_favoritesLimitError_showErrorDialog() throws IOException {
-        MovieDetailDS itemOne = new MovieDetailDS(1, "Clean Architecture",
-                "", "", 100, 8.5f,
-                "2023-03-01", "Separation of responsibilities");
-        MovieDetailDS itemTwo = new MovieDetailDS(2, "Clean Architecture",
-                "", "", 100, 8.5f,
-                "2023-03-01", "Apply SOLID");
-        movieServices.actionFavorite(itemOne).get();
-        movieServices.actionFavorite(itemTwo).get();
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("movieId", 646389);
+    public void saveFavorite_withExcessCapacity_showFavoritesLimitError() throws Exception {
+        MovieDetailDS itemOne = MovieDetailDSMother.createSampleWith(1);
+        MovieDetailDS itemTwo = MovieDetailDSMother.createSampleWith(2);
+        movieServices.toggleFavorite(itemOne).get();
+        movieServices.toggleFavorite(itemTwo).get();
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingDetailFragment> scenario = FragmentScenario
-                .launchInContainer(UpcomingDetailFragment.class, bundle,
-                        R.style.Theme_CleanMovie, new FragmentFactory() {
-                            @NonNull
-                            @Override
-                            public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                        @NonNull String className) {
-                                UpcomingDetailFragment fragment = new UpcomingDetailFragment();
-                                fragment.getViewLifecycleOwnerLiveData()
-                                        .observeForever(viewLifecycleOwner -> {
-                                            if (viewLifecycleOwner != null) {
-                                                controller.setGraph(R.navigation.upcoming_nav);
-                                                View view = fragment.requireView();
-                                                Navigation.setViewNavController(view, controller);
-                                            }
-                                        });
-                                return fragment;
-                            }
-                        });
+        FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingDetailFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(R.id.favoriteMenuItem)).perform(click());
@@ -151,28 +108,14 @@ public class UpcomingDetailFragmentTest {
     }
 
     @Test
-    public void notFoundError_showErrorDialog() {
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
+    public void httpNotFound_showNotFoundError() {
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingDetailFragment> scenario = FragmentScenario
-                .launchInContainer(UpcomingDetailFragment.class, Bundle.EMPTY,
-                        R.style.Theme_CleanMovie, new FragmentFactory() {
-                            @NonNull
-                            @Override
-                            public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                        @NonNull String className) {
-                                UpcomingDetailFragment fragment = new UpcomingDetailFragment();
-                                fragment.getViewLifecycleOwnerLiveData()
-                                        .observeForever(viewLifecycleOwner -> {
-                                            if (viewLifecycleOwner != null) {
-                                                controller.setGraph(R.navigation.upcoming_nav);
-                                                View view = fragment.requireView();
-                                                Navigation.setViewNavController(view, controller);
-                                            }
-                                        });
-                                return fragment;
-                            }
-                        });
+        FragmentScenario<UpcomingDetailFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingDetailFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(R.id.ivError)).inRoot(isDialog()).check(matches(isDisplayed()));

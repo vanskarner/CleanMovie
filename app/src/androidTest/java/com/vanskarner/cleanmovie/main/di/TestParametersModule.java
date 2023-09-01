@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.di;
+package com.vanskarner.cleanmovie.main.di;
 
 import com.vanskarner.cleanmovie.BuildConfig;
 import com.vanskarner.cleanmovie.di.qualiers.ViewQualifiers;

@@ -12,20 +12,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withImageDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withRecyclerViewItemCount;
-import static com.vanskarner.cleanmovie.utils.CustomViewAction.swipeUpSlow;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.common.TestCustomViewAction.swipeUpSlow;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.testing.FragmentScenario;
-import androidx.navigation.Navigation;
 import androidx.navigation.testing.TestNavHostController;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.IdlingRegistry;
@@ -33,10 +27,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.DataBindingIdlingResource;
-import com.vanskarner.cleanmovie.TestApp;
-import com.vanskarner.cleanmovie.utils.TestMockWebServer;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.main.TestApp;
+import com.vanskarner.cleanmovie.common.TestFragmentScenario;
 import com.vanskarner.cleanmovie.R;
+import com.vanskarner.core.remote.TestSimulatedServer;
+import com.vanskarner.core.remote.TestSimulatedServerFactory;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,19 +42,16 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-import okhttp3.mockwebserver.MockWebServer;
-
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class UpcomingFragmentTest {
     Context context;
-    MockWebServer server = new MockWebServer();
-    TestMockWebServer testMockWebServer = new TestMockWebServer(server);
+    TestSimulatedServer testMockWebServer = TestSimulatedServerFactory.create(this.getClass());
     DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
 
     @Before
     public void setUp() throws IOException {
-        server.start(8080);
+        testMockWebServer.start(8080);
         context = ApplicationProvider.getApplicationContext();
         TestApp testApp = (TestApp) InstrumentationRegistry.getInstrumentation()
                 .getTargetContext()
@@ -69,7 +62,7 @@ public class UpcomingFragmentTest {
 
     @After
     public void tearDown() throws IOException {
-        server.shutdown();
+        testMockWebServer.shutdown();
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
     }
 
@@ -77,27 +70,13 @@ public class UpcomingFragmentTest {
     public void preciseSearch_showOneMatch() throws IOException {
         String query = "Plane";
         int expectedCount = 1;
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
+        testMockWebServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingFragment> scenario = FragmentScenario.launchInContainer(
-                UpcomingFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie,
-                new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                @NonNull String className) {
-                        UpcomingFragment fragment = new UpcomingFragment();
-                        fragment.getViewLifecycleOwnerLiveData()
-                                .observeForever(viewLifecycleOwner -> {
-                                    if (viewLifecycleOwner != null) {
-                                        controller.setGraph(R.navigation.upcoming_nav);
-                                        View view = fragment.requireView();
-                                        Navigation.setViewNavController(view, controller);
-                                    }
-                                });
-                        return fragment;
-                    }
-                });
+        FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(androidx.appcompat.R.id.search_button)).perform(click());
@@ -112,27 +91,13 @@ public class UpcomingFragmentTest {
     public void impreciseSearch_showSixMatches() throws IOException {
         String query = "The";
         int expectedCount = 6;
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
+        testMockWebServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingFragment> scenario = FragmentScenario.launchInContainer(
-                UpcomingFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie,
-                new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                @NonNull String className) {
-                        UpcomingFragment fragment = new UpcomingFragment();
-                        fragment.getViewLifecycleOwnerLiveData()
-                                .observeForever(viewLifecycleOwner -> {
-                                    if (viewLifecycleOwner != null) {
-                                        controller.setGraph(R.navigation.upcoming_nav);
-                                        View view = fragment.requireView();
-                                        Navigation.setViewNavController(view, controller);
-                                    }
-                                });
-                        return fragment;
-                    }
-                });
+        FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(androidx.appcompat.R.id.search_button)).perform(click());
@@ -144,30 +109,16 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void swipeAction_loadMoreItems() throws IOException {
+    public void swipeUp_loadMoreItems() throws IOException {
         int expectedCount = 40;
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
+        testMockWebServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        testMockWebServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingFragment> scenario = FragmentScenario.launchInContainer(
-                UpcomingFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie,
-                new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                @NonNull String className) {
-                        UpcomingFragment fragment = new UpcomingFragment();
-                        fragment.getViewLifecycleOwnerLiveData()
-                                .observeForever(viewLifecycleOwner -> {
-                                    if (viewLifecycleOwner != null) {
-                                        controller.setGraph(R.navigation.upcoming_nav);
-                                        View view = fragment.requireView();
-                                        Navigation.setViewNavController(view, controller);
-                                    }
-                                });
-                        return fragment;
-                    }
-                });
+        FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(R.id.upcomingRecycler))
@@ -178,29 +129,15 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void swipeAction_usingFilter_notLoadMoreItems() throws IOException {
+    public void swipeUp_usingFilter_notLoadMoreItems() throws IOException {
         int expectedCount = 20;
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
+        testMockWebServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingFragment> scenario = FragmentScenario.launchInContainer(
-                UpcomingFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie,
-                new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                @NonNull String className) {
-                        UpcomingFragment fragment = new UpcomingFragment();
-                        fragment.getViewLifecycleOwnerLiveData()
-                                .observeForever(viewLifecycleOwner -> {
-                                    if (viewLifecycleOwner != null) {
-                                        controller.setGraph(R.navigation.upcoming_nav);
-                                        View view = fragment.requireView();
-                                        Navigation.setViewNavController(view, controller);
-                                    }
-                                });
-                        return fragment;
-                    }
-                });
+        FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(androidx.appcompat.R.id.search_button)).perform(click());
@@ -213,28 +150,14 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void severError_showErrorDialog() {
+    public void httpInternalServerError_showServerError() {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_INTERNAL_ERROR);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingFragment> scenario = FragmentScenario.launchInContainer(
-                UpcomingFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie,
-                new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                @NonNull String className) {
-                        UpcomingFragment fragment = new UpcomingFragment();
-                        fragment.getViewLifecycleOwnerLiveData()
-                                .observeForever(viewLifecycleOwner -> {
-                                    if (viewLifecycleOwner != null) {
-                                        controller.setGraph(R.navigation.upcoming_nav);
-                                        View view = fragment.requireView();
-                                        Navigation.setViewNavController(view, controller);
-                                    }
-                                });
-                        return fragment;
-                    }
-                });
+        FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(R.id.tvMsgError)).inRoot(isDialog()).check(matches(isDisplayed()));
@@ -244,28 +167,14 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void unavailableError_showErrorDialog() {
+    public void httpUnavailable_showServiceUnavailableError() {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingFragment> scenario = FragmentScenario.launchInContainer(
-                UpcomingFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie,
-                new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                @NonNull String className) {
-                        UpcomingFragment fragment = new UpcomingFragment();
-                        fragment.getViewLifecycleOwnerLiveData()
-                                .observeForever(viewLifecycleOwner -> {
-                                    if (viewLifecycleOwner != null) {
-                                        controller.setGraph(R.navigation.upcoming_nav);
-                                        View view = fragment.requireView();
-                                        Navigation.setViewNavController(view, controller);
-                                    }
-                                });
-                        return fragment;
-                    }
-                });
+        FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(R.id.tvMsgError)).inRoot(isDialog()).check(matches(isDisplayed()));
@@ -275,28 +184,14 @@ public class UpcomingFragmentTest {
     }
 
     @Test
-    public void unauthorisedError_showErrorDialog() {
+    public void httpUnauthorized_showUnauthorisedError() {
         testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAUTHORIZED);
         TestNavHostController controller = new TestNavHostController(context);
-        FragmentScenario<UpcomingFragment> scenario = FragmentScenario.launchInContainer(
-                UpcomingFragment.class, Bundle.EMPTY, R.style.Theme_CleanMovie,
-                new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment instantiate(@NonNull ClassLoader classLoader,
-                                                @NonNull String className) {
-                        UpcomingFragment fragment = new UpcomingFragment();
-                        fragment.getViewLifecycleOwnerLiveData()
-                                .observeForever(viewLifecycleOwner -> {
-                                    if (viewLifecycleOwner != null) {
-                                        controller.setGraph(R.navigation.upcoming_nav);
-                                        View view = fragment.requireView();
-                                        Navigation.setViewNavController(view, controller);
-                                    }
-                                });
-                        return fragment;
-                    }
-                });
+        FragmentScenario<UpcomingFragment> scenario = TestFragmentScenario
+                .createWithEmptyBundle(
+                        UpcomingFragment.class,
+                        R.navigation.upcoming_nav,
+                        controller);
         dataBindingIdlingResource.monitorFragment(scenario);
 
         onView(withId(R.id.tvMsgError)).inRoot(isDialog()).check(matches(isDisplayed()));

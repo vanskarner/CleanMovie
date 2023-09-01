@@ -21,4 +21,17 @@ public class MovieDetailModel extends MovieModel {
         this.recommended = recommended;
     }
 
+    public static MovieDetailModel empty() {
+        return new MovieDetailModel(
+                0,
+                "",
+                "",
+                "",
+                0,
+                0,
+                "",
+                "",
+                false);
+    }
+
 }

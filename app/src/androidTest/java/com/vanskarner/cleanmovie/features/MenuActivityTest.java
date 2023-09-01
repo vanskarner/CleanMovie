@@ -13,9 +13,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withActionIconDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withImageDrawable;
-import static com.vanskarner.cleanmovie.utils.CustomMatcher.withRecyclerViewItemCount;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withActionIconDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withImageDrawable;
+import static com.vanskarner.cleanmovie.common.TestCustomMatcher.withRecyclerViewItemCount;
 
 import android.view.KeyEvent;
 
@@ -25,40 +25,35 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.vanskarner.cleanmovie.DataBindingIdlingResource;
-import com.vanskarner.cleanmovie.TestApp;
-import com.vanskarner.cleanmovie.utils.TestMockWebServer;
+import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
+import com.vanskarner.cleanmovie.main.TestApp;
+import com.vanskarner.core.remote.TestSimulatedServer;
+import com.vanskarner.core.remote.TestSimulatedServerFactory;
 import com.vanskarner.usecases.movie.MovieServices;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.usecases.movie.ds.MovieDS;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.List;
 
 import javax.inject.Inject;
-
-import okhttp3.mockwebserver.MockWebServer;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class MenuActivityTest {
-    MockWebServer server = new MockWebServer();
-    TestMockWebServer testMockWebServer = new TestMockWebServer(server);
+    TestSimulatedServer simulatedServer = TestSimulatedServerFactory.create(this.getClass());
     DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
     @Inject
     MovieServices movieServices;
 
     @Before
     public void setUp() throws IOException {
-        server.start(8080);
+        simulatedServer.start(8080);
         TestApp testApp = (TestApp) InstrumentationRegistry.getInstrumentation()
                 .getTargetContext()
                 .getApplicationContext();
@@ -67,17 +62,17 @@ public class MenuActivityTest {
     }
 
     @After
-    public void tearDown() throws IOException {
-        server.shutdown();
+    public void tearDown() throws Exception {
+        simulatedServer.shutdown();
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource);
         movieServices.deleteAllFavorite().get();
     }
 
     @Test
-    public void saveFavorite_showFavoriteIcon() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+    public void saveFavorite_showMarkedAsFavorite() throws IOException {
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -94,12 +89,12 @@ public class MenuActivityTest {
     }
 
     @Test
-    public void deleteFavorites_showNoFavoriteIcon() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_2.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_2.json");
+    public void deleteAllFavorites_showThemAsNotFavorites() throws IOException {
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_2.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_2.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -123,17 +118,16 @@ public class MenuActivityTest {
     }
 
     @Test
-    public void saveFavorite_usingFilter_oneResult() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        MovieDetailDS planeMovie = movieServices.findUpcoming(0).get();
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+    public void saveFavorite_usingFilter_oneResult() throws Exception {
+        String query = "Plane";
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
         onView(withId(androidx.appcompat.R.id.search_button)).perform(click());
         onView(withId(androidx.appcompat.R.id.search_src_text))
-                .perform(typeText(planeMovie.title), pressKey(KeyEvent.KEYCODE_ENTER));
+                .perform(typeText(query), pressKey(KeyEvent.KEYCODE_ENTER));
         onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(0, click()));
         onView(withId(R.id.favoriteMenuItem)).perform(click());
         onView(withId(R.id.favoritesNav)).perform(click());
@@ -143,12 +137,11 @@ public class MenuActivityTest {
     }
 
     @Test
-    public void deleteFavorite_usingFilter_zeroResults() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        MovieDetailDS planeMovie = movieServices.findUpcoming(0).get();
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
+    public void deleteFavorite_usingFilter_zeroResults() throws Exception {
+        String query = "Plane";
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -160,7 +153,7 @@ public class MenuActivityTest {
         onView(isRoot()).perform(pressBack());
         onView(withId(androidx.appcompat.R.id.search_button)).perform(click());
         onView(withId(androidx.appcompat.R.id.search_src_text))
-                .perform(typeText(planeMovie.title), pressKey(KeyEvent.KEYCODE_ENTER));
+                .perform(typeText(query), pressKey(KeyEvent.KEYCODE_ENTER));
         onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(0, click()));
         onView(withId(R.id.favoriteMenuItem)).perform(click());
         onView(withId(R.id.favoritesNav)).perform(click());
@@ -170,33 +163,12 @@ public class MenuActivityTest {
     }
 
     @Test
-    public void useFilterWithSixResults_switchTab_keepSixResults() throws Exception {
-        String query = "The";
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        List<MovieDS> list = movieServices.showUpcoming(1).get().list;
-        MoviesFilterDS filterDS = new MoviesFilterDS(list, query);
-        MoviesFilterDS resultFilter = movieServices.filterUpcoming(filterDS).get();
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
-        dataBindingIdlingResource.monitorActivity(scenario);
-
-        onView(withId(androidx.appcompat.R.id.search_button)).perform(click());
-        onView(withId(androidx.appcompat.R.id.search_src_text))
-                .perform(typeText(query), pressKey(KeyEvent.KEYCODE_ENTER));
-        onView(withId(R.id.favoritesNav)).perform(click());
-        onView(isRoot()).perform(pressBack());
-        onView(withId(R.id.upcomingRecycler))
-                .check(matches(withRecyclerViewItemCount(resultFilter.filterList.size())));
-        scenario.close();
-    }
-
-    @Test
-    public void tryToExceedSaveLimit_keepSaveLimit() throws IOException {
-        int maximumNumberMoviesStored = 2;
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_2.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_3.json");
+    public void saveFavorite_withExcessCapacity_keepSaveLimit() throws IOException {
+        int expectedNumberFavoriteMovies = 2;
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_2.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_3.json", HttpURLConnection.HTTP_OK);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
@@ -214,15 +186,15 @@ public class MenuActivityTest {
         onView(withText(R.string.ok)).perform(click());
         onView(withId(R.id.favoritesNav)).perform(click());
         onView(withId(R.id.favoritesRecycler))
-                .check(matches(withRecyclerViewItemCount(maximumNumberMoviesStored)));
+                .check(matches(withRecyclerViewItemCount(expectedNumberFavoriteMovies)));
         scenario.close();
     }
 
     @Test
-    public void serviceNotAvailable_allowShowFavorites() throws IOException {
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_list.json");
-        testMockWebServer.enqueue(HttpURLConnection.HTTP_OK, "upcoming_item_1.json");
-        testMockWebServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
+    public void unavailableService_allowShowFavoriteMovies() throws IOException {
+        simulatedServer.enqueueFrom("upcoming_list.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueFrom("upcoming_item_1.json", HttpURLConnection.HTTP_OK);
+        simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
