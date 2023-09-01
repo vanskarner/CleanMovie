@@ -54,7 +54,7 @@ abstract class MovieRemoteModule {
     static MovieDeserializer provideMovieDetailDeserializer(
             @MovieRemoteDataQualifiers.BaseImageUrl String baseImageUrl
     ) {
-        return new MovieDeserializer(baseImageUrl, new Gson());
+        return new MovieDeserializer(baseImageUrl);
     }
 
 }

@@ -2,7 +2,7 @@
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.remotedata{
+package remotedata as "com.vanskarner.remotedata"{
     class MovieRemoteRxRepository{
         - rxFutureFactory: RxFutureFactory
         - apiKey: String
@@ -12,10 +12,9 @@ package com.vanskarner.remotedata{
     }
     class MovieDeserializer{
         - baseImageUrl: String
-        - gson: Gson
-        + MovieDeserializer(String,Gson)
+        + MovieDeserializer(String)
         + deserialize(JsonElement,Type,JsonDeserializationContext): MovieDTO
-        - getImagePath(String): String
+        - getStringValue(JsonObject,String): String
     }
     class MovieDTO<<(D,orange)Data Structure>>{
         + id: int

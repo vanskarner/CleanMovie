@@ -1,35 +1,38 @@
 package com.vanskarner.remotedata;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
 class MovieDeserializer implements JsonDeserializer<MovieDTO> {
-
     private final String baseImageUrl;
-    private final Gson gson;
 
-    public MovieDeserializer(String baseImageUrl, Gson gson) {
+    public MovieDeserializer(String baseImageUrl) {
         this.baseImageUrl = baseImageUrl;
-        this.gson = gson;
     }
 
     @Override
-    public MovieDTO deserialize(JsonElement json, Type typeOfT,
-                                JsonDeserializationContext context)
-            throws JsonParseException {
-        MovieDTO detailDTO = gson.fromJson(json.getAsJsonObject(), MovieDTO.class);
-        detailDTO.posterPath = baseImageUrl.concat(getImagePath(detailDTO.posterPath));
-        detailDTO.backdropPath = baseImageUrl.concat(getImagePath(detailDTO.backdropPath));
-        return detailDTO;
+    public MovieDTO deserialize(JsonElement json,
+                                Type typeOfT,
+                                JsonDeserializationContext context) throws JsonParseException {
+        JsonObject jsonObject = json.getAsJsonObject();
+        return new MovieDTO(
+                jsonObject.get("id").getAsInt(),
+                getStringValue(jsonObject, "overview"),
+                baseImageUrl.concat(getStringValue(jsonObject, "poster_path")),
+                baseImageUrl.concat(getStringValue(jsonObject, "backdrop_path")),
+                getStringValue(jsonObject, "release_date"),
+                getStringValue(jsonObject, "title"),
+                jsonObject.get("vote_count").getAsInt(),
+                jsonObject.get("vote_average").getAsFloat());
     }
 
-    private String getImagePath(String imagePath) {
-        return imagePath == null ? "" : imagePath;
+    private String getStringValue(JsonObject jsonObject, String key) {
+        return jsonObject.isJsonNull() ? "" : jsonObject.get(key).getAsString();
     }
 
 }

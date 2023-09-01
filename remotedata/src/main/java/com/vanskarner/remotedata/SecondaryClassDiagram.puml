@@ -2,7 +2,7 @@
 !include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
 
 /'Specification'/
-package com.vanskarner.remotedata{
+package remotedata as "com.vanskarner.remotedata"{
     class MovieRemoteRxRepository
     class MovieDeserializer
     class MovieDTO<<(D,orange)Data Structure>>
@@ -18,10 +18,10 @@ package com.vanskarner.remotedata{
     class NoInternet
     class RemoteErrorInterceptor
 }
-package com.vanskarner.entities{
+package entities as "com.vanskarner.entities"{
     entity MovieBO
 }
-package com.vanskarner.usecases{
+package usecases as "com.vanskarner.usecases"{
     interface MovieRemoteRepository<<interface>>
 }
 
@@ -31,6 +31,7 @@ MovieRemoteRxRepository ..> MovieRemoteDataMapper
 MovieApiClient ..> MovieDTO
 MovieApiClient ..> MoviesResultDTO
 MovieRemoteDataMapper ..> MovieDTO
+MovieRemoteDataMapper ..> MovieBO: <<use>>
 MovieDeserializer ..> MovieDTO
 MoviesResultDTO -> "0..*" MovieDTO: ~results
 

@@ -22,6 +22,7 @@ dependencies {
 
     testImplementation common.test.junit
     testImplementation common.test.mockWebServer
+    testImplementation testFixtures(project(":core"))
 
     testFixturesImplementation project(':domain:usecases')
     testFixturesImplementation remoteData.main.retrofit
