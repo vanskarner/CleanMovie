@@ -11,10 +11,10 @@ java {
 dependencies {
     implementation project(':core')
     implementation project(':domain:entities')
-    implementation rxJava2.main
-    implementation dagger.main
-    annotationProcessor dagger.compiler
+    implementation async.rxjava2
+    implementation dependencyInjection.dagger
+    annotationProcessor dependencyInjection.daggerCompiler
 
-    testImplementation common.test.junit
+    testImplementation unitTest.junit
     testImplementation testFixtures(project(":core"))
 }

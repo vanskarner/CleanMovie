@@ -9,13 +9,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
-    implementation rxJava2.main
-    implementation dagger.main
-    annotationProcessor dagger.compiler
+    implementation async.rxjava2
+    implementation dependencyInjection.dagger
+    annotationProcessor dependencyInjection.daggerCompiler
 
-    testImplementation common.test.junit
+    testImplementation unitTest.junit
 
-    testFixturesImplementation rxJava2.main
-    testFixturesImplementation common.test.gson
-    testFixturesImplementation okhttp3.mockWebServer
+    testFixturesImplementation async.rxjava2
+    testFixturesImplementation google.gson
+    testFixturesImplementation clientHttp.okhttp3MockWebServer
 }

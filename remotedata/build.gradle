@@ -13,23 +13,23 @@ dependencies {
     implementation project(':core')
     implementation project(':domain:usecases')
     implementation project(':domain:entities')
-    implementation rxJava2.main
-    implementation retrofit2.main
-    implementation retrofit2.converterGson
-    implementation retrofit2.adapterRxJava2
-    implementation okhttp3.main
-    implementation dagger.main
-    annotationProcessor dagger.compiler
+    implementation async.rxjava2
+    implementation clientHttp.retrofit2
+    implementation clientHttp.retrofit2ConverterGson
+    implementation clientHttp.retrofit2AdapterRxJava2
+    implementation clientHttp.okhttp3
+    implementation dependencyInjection.dagger
+    annotationProcessor dependencyInjection.daggerCompiler
 
-    testImplementation common.test.junit
-    testImplementation okhttp3.mockWebServer
+    testImplementation unitTest.junit
+    testImplementation clientHttp.okhttp3MockWebServer
     testImplementation testFixtures(project(":core"))
 
     testFixturesImplementation project(':domain:usecases')
-    testFixturesImplementation retrofit2.main
-    testFixturesImplementation retrofit2.converterGson
-    testFixturesImplementation retrofit2.adapterRxJava2
-    testFixturesImplementation dagger.main
-    testFixturesImplementation okhttp3.logging
-    testFixturesAnnotationProcessor dagger.compiler
+    testFixturesImplementation clientHttp.retrofit2
+    testFixturesImplementation clientHttp.retrofit2ConverterGson
+    testFixturesImplementation clientHttp.retrofit2AdapterRxJava2
+    testFixturesImplementation dependencyInjection.dagger
+    testFixturesImplementation clientHttp.okhttp3Logging
+    testFixturesAnnotationProcessor dependencyInjection.daggerCompiler
 }

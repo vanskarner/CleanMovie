@@ -50,32 +50,32 @@ dependencies {
     implementation project(':domain:usecases')
     implementation files('./libs/singleAdapter2.0.0-release.aar')
     implementation androidx.appcompat
-    implementation material.main
+    implementation google.materialDesign
     implementation androidx.constraintLayout
     implementation androidx.navigationFragment
     implementation androidx.navigationUI
-    implementation rxJava2.rxAndroid
-    implementation glide.main
-    implementation dagger.androidSupport
-    annotationProcessor dagger.androidProcessor
-    annotationProcessor dagger.compiler
+    implementation async.rxjava2Android
+    implementation imageLoading.glide
+    implementation dependencyInjection.daggerAndroidSupport
+    annotationProcessor dependencyInjection.daggerAndroidProcessor
+    annotationProcessor dependencyInjection.daggerCompiler
 
-    testImplementation common.test.junit
-    testImplementation common.test.mockito
+    testImplementation unitTest.junit
+    testImplementation unitTest.mockito
     testImplementation testFixtures(project(":core"))
 
     androidTestImplementation testFixtures(project(":core"))
-    androidTestImplementation common.test.androidJunit
-    androidTestImplementation presentation.test.espressoCore
-    androidTestImplementation presentation.test.espressoContrib
-    androidTestImplementation presentation.test.navigationTesting
+    androidTestImplementation androidxTest.junit
+    androidTestImplementation androidxTest.espressoCore
+    androidTestImplementation androidxTest.espressoContrib
+    androidTestImplementation androidxTest.navigation
     androidTestImplementation testFixtures(project(":localdata"))
     androidTestImplementation testFixtures(project(":remotedata"))
-    androidTestImplementation okhttp3.mockWebServer
-    androidTestImplementation presentation.test.rx2Idler
-    androidTestImplementation presentation.test.fragmentTesting
-    debugImplementation presentation.test.fragmentTestingManifest
-    androidTestAnnotationProcessor dagger.compiler
+    androidTestImplementation clientHttp.okhttp3MockWebServer
+    androidTestImplementation async.rx2Idler
+    androidTestImplementation androidxTest.fragment
+    debugImplementation androidxTest.fragmentManifest
+    androidTestAnnotationProcessor dependencyInjection.daggerCompiler
 
     //issue: https://youtrack.jetbrains.com/issue/KT-54136/Duplicated-classes-cause-build-failure-if-a-dependency-to-kotlin-stdlib-specified-in-an-android-project
     constraints {

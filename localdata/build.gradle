@@ -34,20 +34,20 @@ dependencies {
     implementation project(':core')
     implementation project(':domain:usecases')
     implementation project(':domain:entities')
-    implementation room.main
-    implementation room.rxjava2
-    implementation dagger.main
-    annotationProcessor room.compiler
-    annotationProcessor dagger.compiler
+    implementation androidx.room
+    implementation androidx.roomRxjava2
+    implementation dependencyInjection.dagger
+    annotationProcessor androidx.roomCompiler
+    annotationProcessor dependencyInjection.daggerCompiler
 
-    testImplementation common.test.junit
+    testImplementation unitTest.junit
 
-    androidTestImplementation common.test.androidJunit
-    androidTestImplementation common.test.androidRunner
-    androidTestImplementation room.test
+    androidTestImplementation androidxTest.junit
+    androidTestImplementation androidxTest.runner
+    androidTestImplementation androidxTest.room
     androidTestImplementation testFixtures(project(":core"))
 
-    testFixturesImplementation room.main
-    testFixturesImplementation dagger.main
-    testFixturesAnnotationProcessor dagger.compiler
+    testFixturesImplementation androidx.room
+    testFixturesImplementation dependencyInjection.dagger
+    testFixturesAnnotationProcessor dependencyInjection.daggerCompiler
 }

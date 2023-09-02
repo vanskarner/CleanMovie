@@ -9,5 +9,5 @@ java {
 }
 
 dependencies {
-    testImplementation common.test.junit
+    testImplementation unitTest.junit
 }
