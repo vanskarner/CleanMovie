@@ -1,3 +1,4 @@
+//file:noinspection DependencyNotationArgument
 plugins {
     id 'com.android.library'
 }
@@ -33,19 +34,20 @@ dependencies {
     implementation project(':core')
     implementation project(':domain:usecases')
     implementation project(':domain:entities')
-    implementation localData.main.roomRuntime
-    implementation localData.main.roomRxjava2
-    annotationProcessor localData.main.roomCompiler
-    implementation common.main.dagger
-    annotationProcessor common.main.daggerCompiler
+    implementation room.main
+    implementation room.rxjava2
+    implementation dagger.main
+    annotationProcessor room.compiler
+    annotationProcessor dagger.compiler
 
     testImplementation common.test.junit
+
     androidTestImplementation common.test.androidJunit
     androidTestImplementation common.test.androidRunner
-    androidTestImplementation localData.test.roomTesting
+    androidTestImplementation room.test
     androidTestImplementation testFixtures(project(":core"))
 
-    testFixturesImplementation localData.main.roomRuntime
-    testFixturesImplementation common.main.dagger
-    testFixturesAnnotationProcessor common.main.daggerCompiler
+    testFixturesImplementation room.main
+    testFixturesImplementation dagger.main
+    testFixturesAnnotationProcessor dagger.compiler
 }

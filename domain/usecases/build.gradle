@@ -1,3 +1,4 @@
+//file:noinspection DependencyNotationArgument
 plugins {
     id 'java-library'
 }
@@ -10,11 +11,10 @@ java {
 dependencies {
     implementation project(':core')
     implementation project(':domain:entities')
-    implementation common.main.rxJava2
-    implementation common.main.dagger
-    annotationProcessor common.main.daggerCompiler
+    implementation rxJava2.main
+    implementation dagger.main
+    annotationProcessor dagger.compiler
 
     testImplementation common.test.junit
-
     testImplementation testFixtures(project(":core"))
 }

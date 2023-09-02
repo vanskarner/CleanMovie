@@ -1,3 +1,4 @@
+//file:noinspection DependencyNotationArgument
 plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
@@ -48,16 +49,16 @@ dependencies {
     implementation project(':remotedata')
     implementation project(':domain:usecases')
     implementation files('./libs/singleAdapter2.0.0-release.aar')
-    implementation presentation.main.appcompat
-    implementation presentation.main.material
-    implementation presentation.main.constraintLayout
-    implementation presentation.main.navigationFragment
-    implementation presentation.main.navigationUI
-    implementation presentation.main.rxAndroid
-    implementation presentation.main.glide
-    implementation presentation.main.daggerAndroidSupport
-    annotationProcessor presentation.main.daggerAndroidProcessor
-    annotationProcessor common.main.daggerCompiler
+    implementation androidx.appcompat
+    implementation material.main
+    implementation androidx.constraintLayout
+    implementation androidx.navigationFragment
+    implementation androidx.navigationUI
+    implementation rxJava2.rxAndroid
+    implementation glide.main
+    implementation dagger.androidSupport
+    annotationProcessor dagger.androidProcessor
+    annotationProcessor dagger.compiler
 
     testImplementation common.test.junit
     testImplementation common.test.mockito
@@ -68,21 +69,24 @@ dependencies {
     androidTestImplementation presentation.test.espressoCore
     androidTestImplementation presentation.test.espressoContrib
     androidTestImplementation presentation.test.navigationTesting
-    androidTestAnnotationProcessor common.main.daggerCompiler
     androidTestImplementation testFixtures(project(":localdata"))
     androidTestImplementation testFixtures(project(":remotedata"))
-    androidTestImplementation common.test.mockWebServer
+    androidTestImplementation okhttp3.mockWebServer
     androidTestImplementation presentation.test.rx2Idler
-    debugImplementation presentation.test.fragmentTestingManifest
     androidTestImplementation presentation.test.fragmentTesting
+    debugImplementation presentation.test.fragmentTestingManifest
+    androidTestAnnotationProcessor dagger.compiler
 
     //issue: https://youtrack.jetbrains.com/issue/KT-54136/Duplicated-classes-cause-build-failure-if-a-dependency-to-kotlin-stdlib-specified-in-an-android-project
     constraints {
+        //noinspection ForeignDelegate
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
         }
+        //noinspection ForeignDelegate
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }
+
 }
