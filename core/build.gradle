@@ -16,6 +16,6 @@ dependencies {
     testImplementation unitTest.junit
 
     testFixturesImplementation async.rxjava2
-    testFixturesImplementation google.gson
-    testFixturesImplementation clientHttp.okhttp3MockWebServer
+    testFixturesImplementation jsonParser.gson
+    testFixturesImplementation mockServer.mockWebServer
 }

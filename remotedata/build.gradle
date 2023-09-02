@@ -22,7 +22,6 @@ dependencies {
     annotationProcessor dependencyInjection.daggerCompiler
 
     testImplementation unitTest.junit
-    testImplementation clientHttp.okhttp3MockWebServer
     testImplementation testFixtures(project(":core"))
 
     testFixturesImplementation project(':domain:usecases')

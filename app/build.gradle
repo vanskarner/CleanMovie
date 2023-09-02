@@ -50,7 +50,7 @@ dependencies {
     implementation project(':domain:usecases')
     implementation files('./libs/singleAdapter2.0.0-release.aar')
     implementation androidx.appcompat
-    implementation google.materialDesign
+    implementation androidx.materialDesign
     implementation androidx.constraintLayout
     implementation androidx.navigationFragment
     implementation androidx.navigationUI
@@ -71,7 +71,6 @@ dependencies {
     androidTestImplementation androidxTest.navigation
     androidTestImplementation testFixtures(project(":localdata"))
     androidTestImplementation testFixtures(project(":remotedata"))
-    androidTestImplementation clientHttp.okhttp3MockWebServer
     androidTestImplementation async.rx2Idler
     androidTestImplementation androidxTest.fragment
     debugImplementation androidxTest.fragmentManifest

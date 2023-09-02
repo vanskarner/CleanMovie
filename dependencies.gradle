@@ -47,8 +47,7 @@ ext {
             retrofit2ConverterGson : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             retrofit2AdapterRxJava2: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             okhttp3                : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
-            okhttp3Logging         : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
-            okhttp3MockWebServer   : "com.squareup.okhttp3:mockwebserver:${mockwebserverVersion}"
+            okhttp3Logging         : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     ]
     async = [
             rxjava2       : "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
@@ -58,11 +57,14 @@ ext {
     imageLoading = [
             glide: "com.github.bumptech.glide:glide:${glideVersion}"
     ]
-    google = [
-            materialDesign: "com.google.android.material:material:${materialVersion}",
-            gson          : "com.google.code.gson:gson:${gsonVersion}"
+    mockServer = [
+            mockWebServer: "com.squareup.okhttp3:mockwebserver:${mockwebserverVersion}"
+    ]
+    jsonParser = [
+            gson: "com.google.code.gson:gson:${gsonVersion}"
     ]
     androidx = [
+            materialDesign    : "com.google.android.material:material:${materialVersion}",
             appcompat         : "androidx.appcompat:appcompat:${appCompatVersion}",
             constraintLayout  : "androidx.constraintlayout:constraintlayout:${constraintLayoutVersion}",
             navigationFragment: "androidx.navigation:navigation-fragment:${navigationVersion}",
