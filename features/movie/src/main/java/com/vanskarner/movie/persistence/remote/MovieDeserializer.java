@@ -32,7 +32,8 @@ class MovieDeserializer implements JsonDeserializer<MovieDTO> {
     }
 
     private String getStringValue(JsonObject jsonObject, String key) {
-        return jsonObject.isJsonNull() ? "" : jsonObject.get(key).getAsString();
+        JsonElement element = jsonObject.get(key);
+        return element.isJsonNull() ? "" : element.getAsString();
     }
 
 }
