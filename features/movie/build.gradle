@@ -1,3 +1,4 @@
+//file:noinspection DependencyNotationArgument
 plugins {
     id 'com.android.library'
 }
@@ -32,29 +33,29 @@ android {
 dependencies {
 
     implementation project(':core')
-    implementation localData.main.roomRuntime
-    implementation localData.main.roomRxjava2
-    annotationProcessor localData.main.roomCompiler
-    implementation remoteData.main.retrofit
-    implementation remoteData.main.retrofitConverterGson
-    implementation remoteData.main.retrofitAdapterRxJava2
-    implementation remoteData.main.okhttp
-    implementation common.main.dagger
-    annotationProcessor common.main.daggerCompiler
+    implementation androidx.room
+    implementation androidx.roomRxjava2
+    annotationProcessor androidx.roomCompiler
+    implementation clientHttp.retrofit2
+    implementation clientHttp.retrofit2ConverterGson
+    implementation clientHttp.retrofit2AdapterRxJava2
+    implementation clientHttp.okhttp3
+    implementation dependencyInjection.dagger
+    annotationProcessor dependencyInjection.daggerCompiler
 
-    testImplementation common.test.junit
+    testImplementation unitTest.junit
     testImplementation testFixtures(project(":core"))
 
-    androidTestImplementation common.test.androidJunit
-    androidTestImplementation common.test.androidRunner
-    androidTestImplementation localData.test.roomTesting
+    androidTestImplementation androidxTest.junit
+    androidTestImplementation androidxTest.runner
+    androidTestImplementation androidxTest.room
     androidTestImplementation testFixtures(project(":core"))
-    androidTestAnnotationProcessor localData.main.roomCompiler
+    androidTestAnnotationProcessor androidx.roomCompiler
 
-    testFixturesImplementation common.main.dagger
-    testFixturesAnnotationProcessor common.main.daggerCompiler
-    testFixturesImplementation remoteData.main.retrofit
-    testFixturesImplementation remoteData.main.retrofitConverterGson
-    testFixturesImplementation remoteData.main.retrofitAdapterRxJava2
-    testFixturesImplementation remoteData.test.okhttpLogging
+    testFixturesImplementation dependencyInjection.dagger
+    testFixturesAnnotationProcessor dependencyInjection.daggerCompiler
+    testFixturesImplementation clientHttp.retrofit2
+    testFixturesImplementation clientHttp.retrofit2ConverterGson
+    testFixturesImplementation clientHttp.retrofit2AdapterRxJava2
+    testFixturesImplementation clientHttp.okhttp3Logging
 }
