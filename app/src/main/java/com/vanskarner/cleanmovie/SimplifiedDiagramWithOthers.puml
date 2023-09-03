@@ -1,0 +1,106 @@
+@startuml
+!include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+
+package cleanmovie as "com.vanskarner.cleanmovie"{
+    class MovieDetailModel<<(D,orange)Data Structure>>
+    class MovieModel<<(D,orange)Data Structure>>
+    class ViewErrorFilter
+    class ErrorDialog
+    class MovieViewMapper
+    together {
+        interface ErrorView<T><<interface>>
+        class FavoritesLimitError
+        class NoInternetError
+        class NotFoundError
+        class ServerError
+        class ServiceUnavailableError
+        class UnauthorisedError
+        class UnknownError
+    }
+    together {
+        interface FavoritesContractView<<interface>>
+        interface FavoritesContractPresenter<<interface>>
+        class FavoritesFragment
+        class FavoritesPresenter
+        class DeleteFavoritesDialog
+        class FavoritesBindAdapter
+        class FavoritesDetailDialog
+
+    }
+    together {
+        interface UpcomingContractView<<interface>>
+        interface UpcomingContractPresenter<<interface>>
+        class UpcomingFragment
+        class UpcomingPresenter
+        class Pagination
+        class RxSearchView
+        class UpcomingBindAdapter
+    }
+    together {
+        interface UpcomingDetailContractView<<interface>>
+        interface UpcomingDetailContractPresenter<<interface>>
+        class UpcomingDetailFragment
+        class UpcomingDetailPresenter
+    }
+}
+package usecases as "com.vanskarner.usecases"{
+    interface MovieServices<<interface>>
+}
+
+ErrorView <|.. FavoritesLimitError
+ErrorView <|.. NoInternetError
+ErrorView <|.. NotFoundError
+ErrorView <|.. ServerError
+ErrorView <|.. ServiceUnavailableError
+ErrorView <|.. UnauthorisedError
+ErrorView <|.. UnknownError
+ViewErrorFilter --> "1..*" ErrorView
+ViewErrorFilter --> ErrorView
+ErrorDialog --> "1" ErrorView
+
+/'Favorites Feature'/
+FavoritesContractPresenter <|.. FavoritesPresenter
+FavoritesContractView <-- FavoritesPresenter
+FavoritesPresenter --> ViewErrorFilter
+FavoritesPresenter ..> MovieViewMapper
+FavoritesContractView <|.. FavoritesFragment
+FavoritesContractPresenter <-- FavoritesFragment
+FavoritesFragment --> FavoritesBindAdapter
+FavoritesFragment --> DeleteFavoritesDialog
+FavoritesFragment --> FavoritesDetailDialog
+FavoritesFragment --> ErrorDialog
+FavoritesDetailDialog --> MovieDetailModel
+
+/'Upcoming Feature'/
+UpcomingContractPresenter <|.. UpcomingPresenter
+UpcomingContractPresenter <-- UpcomingFragment
+UpcomingPresenter --> "0..*" MovieModel
+UpcomingPresenter --> "0..*" MovieModel
+UpcomingPresenter --> ViewErrorFilter
+UpcomingPresenter ..> MovieViewMapper
+UpcomingContractView <|.. UpcomingFragment
+UpcomingContractView <-- UpcomingPresenter
+UpcomingFragment --> Pagination
+UpcomingFragment --> UpcomingBindAdapter
+UpcomingFragment --> ErrorDialog
+UpcomingFragment --> RxSearchView
+
+/'UpcomingDetail Feature'/
+UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
+UpcomingDetailContractPresenter <-- UpcomingDetailFragment
+UpcomingDetailPresenter ..> MovieViewMapper
+UpcomingDetailPresenter --> ViewErrorFilter
+UpcomingDetailContractView <|.. UpcomingDetailFragment
+UpcomingDetailContractView <-- UpcomingDetailPresenter
+UpcomingDetailFragment --> ErrorDialog
+
+MovieDetailModel <.. MovieViewMapper
+MovieModel <.. MovieViewMapper
+
+FavoritesPresenter .up.> "<<use>>" MovieServices
+UpcomingPresenter .up.> "<<use>>" MovieServices
+UpcomingDetailPresenter .up.> "<<use>>" MovieServices
+
+hide members
+skinparam Linetype ortho
+@enduml
