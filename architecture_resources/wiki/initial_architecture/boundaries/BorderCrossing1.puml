@@ -1,5 +1,5 @@
 @startuml
-!include ../../../VanskarnerStyle.puml
+!include ../../../StylesForDiagrams.puml
 
 left to right direction
 rectangle "FLOW OF CONTROL CROSSES THE BOUNDARY" {

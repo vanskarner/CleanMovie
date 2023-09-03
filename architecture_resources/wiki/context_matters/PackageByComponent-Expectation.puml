@@ -1,5 +1,5 @@
 @startuml
-!include ../../VanskarnerStyle.puml
+!include ../../StylesForDiagrams.puml
 
 title EXPECTATION
 package cleanmovie as "com.vanskarner.cleanmovie"{

@@ -1,5 +1,5 @@
 @startuml
-!include ../../VanskarnerStyle.puml
+!include ../../StylesForDiagrams.puml
 
 title REALITY DUE TO CONTEXT
 package cleanmovie as "com.vanskarner.cleanmovie" {

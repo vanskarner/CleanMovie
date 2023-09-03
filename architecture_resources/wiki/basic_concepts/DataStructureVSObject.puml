@@ -1,5 +1,5 @@
 @startuml
-!include ../../VanskarnerStyle.puml
+!include ../../StylesForDiagrams.puml
 rectangle "OBJECT"{
     interface Shape<<interface>>{
         + area(): float

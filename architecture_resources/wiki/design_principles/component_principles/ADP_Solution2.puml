@@ -1,5 +1,5 @@
 @startuml
-!include ../../../VanskarnerStyle.puml
+!include ../../../StylesForDiagrams.puml
 allowmixing
 title "PRINCIPLE OF ACYCLIC DEPENDENCIES\n APPLYING DEPENDENCY INVERSION"
 

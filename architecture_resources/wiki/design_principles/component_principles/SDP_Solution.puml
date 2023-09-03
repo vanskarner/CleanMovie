@@ -1,5 +1,5 @@
 @startuml
-!include ../../../VanskarnerStyle.puml
+!include ../../../StylesForDiagrams.puml
 allowmixing
 title STABLE DEPENDENCIES PRINCIPLE\nAPPLYING DEPENDENCY INVERSION
 

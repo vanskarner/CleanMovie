@@ -1,5 +1,5 @@
 @startuml
-!include ../../VanskarnerStyle.puml
+!include ../../StylesForDiagrams.puml
 
 rectangle "EXAMPLE OF DATA STRUCTURES" {
     class Data1<<(D,orange)Data Structure>>{
