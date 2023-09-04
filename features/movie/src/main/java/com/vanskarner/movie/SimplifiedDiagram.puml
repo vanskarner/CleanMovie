@@ -1,5 +1,5 @@
 @startuml
-!include ../../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
+!include ../../../../../../../../StylesForDiagrams.puml
 
 /'Specification'/
 package movie as "com.vanskarner.movie"{
@@ -85,6 +85,10 @@ FindUpcomingMovieUseCase ..> MovieMapper
 ShowFavoriteMoviesUseCase ..> MovieMapper
 FindFavoriteMovieUseCase ..> MovieMapper
 
+MovieMapper ..> MovieDetailDS
+MovieMapper ..> MovieBO
+MovieMapper ..> MoviesDS
+
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
 MovieErrorFilter --> "1..*" MovieError
 MovieError <|- FavoriteLimit
@@ -96,6 +100,7 @@ MovieLocalRxRepository --> MovieDao
 MovieDao ..> MovieEntity
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieLocalDataMapper ..> MovieEntity
+MovieLocalDataMapper ..> MovieBO
 MovieLocalRxRepository ..|> MovieLocalRepository
 /'Relations - local-data:end'/
 
@@ -106,6 +111,7 @@ MovieRemoteRxRepository ..> MovieRemoteDataMapper
 MovieApiClient ..> MovieDTO
 MovieApiClient ..> MoviesResultDTO
 MovieRemoteDataMapper ..> MovieDTO
+MovieRemoteDataMapper ..> MovieBO
 MovieDeserializer ..> MovieDTO
 MoviesResultDTO -> "0..*" MovieDTO
 RemoteDataErrorFilter --> "1..*" MovieRemoteError

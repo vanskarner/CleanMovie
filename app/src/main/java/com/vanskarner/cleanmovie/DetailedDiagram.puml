@@ -1,7 +1,32 @@
 @startuml
-!include ../../../../../../../diagrams_main_concepts/VanskarnerStyle.puml
-
+!include ../../../../../../../StylesForDiagrams.puml
 package cleanmovie as "com.vanskarner.cleanmovie"{
+    class MovieViewMapper{
+        - MovieViewMapper()
+        + {static} convert(MovieDetailDS): MovieDetailModel
+        + {static} convert(MovieDetailModel): MovieDetailDS
+        + {static} convert(List<MovieDS>): List<MovieModel>
+        + {static} convert(List<MovieModel>,CharSequence):  MoviesFilterDS
+        - {static} convert(MovieDS): MovieModel
+        - {static} convert(MovieModel): MovieDS
+    }
+    interface BasePresenter<<interface>>{
+        + asyncCancel(): void
+    }
+    class MovieDetailModel<<(D,orange)Data Structure>>
+    class MovieModel<<(D,orange)Data Structure>>
+    class ViewErrorFilter{
+        + ViewErrorFilter(Map<Class<?>, Provider<ErrorView<?>>>,ErrorView<?>)
+        + filter(Throwable): ErrorView<?>
+    }
+    class ErrorDialog{
+        - {static} TAG: String = "ErrorDialog"
+        - action: Runnable
+        - binding: ViewDataBinding
+        + ErrorDialog()
+        + setError(ErrorView<?>,Runnable): void
+        + show(FragmentManager): void
+    }
     together {
         interface ErrorView<T><<interface>>{
             + setupView(Runnable): T
@@ -13,18 +38,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class ServiceUnavailableError
         class UnauthorisedError
         class UnknownError
-        class ViewErrorFilter{
-            + ViewErrorFilter(Map<Class<?>, Provider<ErrorView<?>>>,ErrorView<?>)
-            + filter(Throwable): ErrorView<?>
-        }
-        class ErrorDialog{
-            - {static} TAG: String = "ErrorDialog"
-            - action: Runnable
-            - binding: ViewDataBinding
-            + ErrorDialog()
-            + setError(ErrorView<?>,Runnable): void
-            + show(FragmentManager): void
-        }
     }
     together {
         interface FavoritesContractView<<interface>> {
@@ -78,7 +91,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             + setModel(MovieDetailModel): void
             + show(FragmentManager): void
         }
-        class MovieDetailModel<<(D,orange)Data Structure>>
     }
     together {
         class Pagination
@@ -135,7 +147,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             + asyncCancel(): void
             - addItems(List<MovieModel>): void
         }
-        class MovieModel<<(D,orange)Data Structure>>
     }
     together {
         interface UpcomingDetailContractView<<interface>>{
@@ -168,18 +179,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             + asyncCancel(): void
         }
     }
-    class MovieViewMapper{
-        - MovieViewMapper()
-        + {static} convert(MovieDetailDS): MovieDetailModel
-        + {static} convert(MovieDetailModel): MovieDetailDS
-        + {static} convert(List<MovieDS>): List<MovieModel>
-        + {static} convert(List<MovieModel>,CharSequence):  MoviesFilterDS
-        - {static} convert(MovieDS): MovieModel
-        - {static} convert(MovieModel): MovieDS
-    }
-    interface BasePresenter<<interface>>{
-        + asyncCancel(): void
-    }
 }
 
 ErrorView <|.. FavoritesLimitError
@@ -188,7 +187,7 @@ ErrorView <|.. NotFoundError
 ErrorView <|.. ServerError
 ErrorView <|.. ServiceUnavailableError
 ErrorView <|.. UnauthorisedError
-ErrorView <|.right. UnknownError
+ErrorView <|.. UnknownError
 ViewErrorFilter --> "1..*" ErrorView: -mapError
 ViewErrorFilter --> ErrorView: -defaultError
 ErrorDialog --> "1" ErrorView: -errorView
@@ -197,7 +196,7 @@ ErrorDialog --> "1" ErrorView: -errorView
 FavoritesContractPresenter <|.. FavoritesPresenter
 FavoritesContractView <-- FavoritesPresenter: -view
 FavoritesPresenter --> ViewErrorFilter: - viewErrorFilter
-MovieViewMapper <.. FavoritesPresenter
+FavoritesPresenter ..> MovieViewMapper
 FavoritesContractView <|.. FavoritesFragment
 FavoritesContractPresenter <-- FavoritesFragment: ~presenter
 FavoritesFragment --> FavoritesBindAdapter: ~ favoritesBindAdapter
@@ -213,7 +212,7 @@ UpcomingContractPresenter <-- UpcomingFragment: ~presenter
 UpcomingPresenter --> "0..*" MovieModel: -upcomingList
 UpcomingPresenter --> "0..*" MovieModel: -fullUpcomingList
 UpcomingPresenter --> ViewErrorFilter: -viewErrorFilter
-MovieViewMapper <.. UpcomingPresenter
+UpcomingPresenter ..> MovieViewMapper
 UpcomingContractView <|.. UpcomingFragment
 UpcomingContractView <-- UpcomingPresenter: -view
 UpcomingFragment --> Pagination:  ~pagination
@@ -225,12 +224,15 @@ BasePresenter <|-- UpcomingContractPresenter
 /'UpcomingDetail Feature'/
 UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
 UpcomingDetailContractPresenter <-- UpcomingDetailFragment: ~presenter
-MovieViewMapper <.. UpcomingDetailPresenter
+UpcomingDetailPresenter ..> MovieViewMapper
 UpcomingDetailPresenter --> ViewErrorFilter: - viewErrorFilter
 UpcomingDetailContractView <|.. UpcomingDetailFragment
 UpcomingDetailContractView <-- UpcomingDetailPresenter: -view
 UpcomingDetailFragment --> ErrorDialog: ~errorDialog
 BasePresenter <|-- UpcomingDetailContractPresenter
+
+MovieDetailModel <.. MovieViewMapper
+MovieModel <.. MovieViewMapper
 
 hide MovieViewMapper attributes
 hide ViewErrorFilter attributes
