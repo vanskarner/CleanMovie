@@ -36,65 +36,55 @@ ext {
             multiDexEnabled          : true
     ]
 
-    common = [
-            main: [
-                    rxJava2       : "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
-                    dagger        : "com.google.dagger:dagger:${daggerVersion}",
-                    daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}"
-            ],
-            test: [
-                    junit        : "junit:junit:${junitVersion}",
-                    mockito      : "org.mockito:mockito-core:${mockitoVersion}",
-                    androidJunit : "androidx.test.ext:junit:${androidJunitVersion}",
-                    androidRunner: "androidx.test:runner:${androidRunnerVersion}",
-                    mockWebServer: "com.squareup.okhttp3:mockwebserver:${mockwebserverVersion}",
-                    gson         : "com.google.code.gson:gson:${gsonVersion}"
-            ]
+    dependencyInjection = [
+            dagger                : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}"
     ]
-
-    presentation = [
-            main: [
-                    appcompat             : "androidx.appcompat:appcompat:${appCompatVersion}",
-                    material              : "com.google.android.material:material:${materialVersion}",
-                    constraintLayout      : "androidx.constraintlayout:constraintlayout:${constraintLayoutVersion}",
-                    navigationFragment    : "androidx.navigation:navigation-fragment:${navigationVersion}",
-                    navigationUI          : "androidx.navigation:navigation-ui:${navigationVersion}",
-                    rxAndroid             : "io.reactivex.rxjava2:rxandroid:${rxJava2AndroidVersion}",
-                    glide                 : "com.github.bumptech.glide:glide:${glideVersion}",
-                    daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${daggerVersion}",
-                    daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}"
-            ],
-            test: [
-                    espressoCore           : "androidx.test.espresso:espresso-core:${espressoVersion}",
-                    espressoContrib        : "androidx.test.espresso:espresso-contrib:${espressoVersion}",
-                    navigationTesting      : "androidx.navigation:navigation-testing:${navigationVersion}",
-                    rx2Idler               : "com.squareup.rx.idler:rx2-idler:${rx2Idler}",
-                    fragmentTestingManifest: "androidx.fragment:fragment-testing-manifest:${fragmentTestingVersion}",
-                    fragmentTesting        : "androidx.fragment:fragment-testing:${fragmentTestingVersion}"
-            ]
+    clientHttp = [
+            retrofit2              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofit2ConverterGson : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofit2AdapterRxJava2: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            okhttp3                : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            okhttp3Logging         : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     ]
-
-    remoteData = [
-            main: [
-                    retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-                    retrofitConverterGson : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-                    retrofitAdapterRxJava2: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
-                    okhttp                : "com.squareup.okhttp3:okhttp:${okhttpVersion}"
-            ],
-            test: [
-                    okhttpLogging: "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
-            ]
+    async = [
+            rxjava2       : "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
+            rxjava2Android: "io.reactivex.rxjava2:rxandroid:${rxJava2AndroidVersion}",
+            rx2Idler      : "com.squareup.rx.idler:rx2-idler:${rx2Idler}"
     ]
-
-    localData = [
-            main: [
-                    roomRuntime : "androidx.room:room-runtime:${roomVersion}",
-                    roomRxjava2 : "androidx.room:room-rxjava2:${roomVersion}",
-                    roomCompiler: "androidx.room:room-compiler:${roomVersion}"
-            ],
-            test: [
-                    roomTesting: "androidx.room:room-testing:${roomVersion}"
-            ]
+    imageLoading = [
+            glide: "com.github.bumptech.glide:glide:${glideVersion}"
     ]
-
+    mockServer = [
+            mockWebServer: "com.squareup.okhttp3:mockwebserver:${mockwebserverVersion}"
+    ]
+    jsonParser = [
+            gson: "com.google.code.gson:gson:${gsonVersion}"
+    ]
+    androidx = [
+            materialDesign    : "com.google.android.material:material:${materialVersion}",
+            appcompat         : "androidx.appcompat:appcompat:${appCompatVersion}",
+            constraintLayout  : "androidx.constraintlayout:constraintlayout:${constraintLayoutVersion}",
+            navigationFragment: "androidx.navigation:navigation-fragment:${navigationVersion}",
+            navigationUI      : "androidx.navigation:navigation-ui:${navigationVersion}",
+            room              : "androidx.room:room-runtime:${roomVersion}",
+            roomRxjava2       : "androidx.room:room-rxjava2:${roomVersion}",
+            roomCompiler      : "androidx.room:room-compiler:${roomVersion}"
+    ]
+    androidxTest = [
+            junit           : "androidx.test.ext:junit:${androidJunitVersion}",
+            runner          : "androidx.test:runner:${androidRunnerVersion}",
+            espressoCore    : "androidx.test.espresso:espresso-core:${espressoVersion}",
+            espressoContrib : "androidx.test.espresso:espresso-contrib:${espressoVersion}",
+            navigation      : "androidx.navigation:navigation-testing:${navigationVersion}",
+            fragmentManifest: "androidx.fragment:fragment-testing-manifest:${fragmentTestingVersion}",
+            fragment        : "androidx.fragment:fragment-testing:${fragmentTestingVersion}",
+            room            : "androidx.room:room-testing:${roomVersion}"
+    ]
+    unitTest = [
+            junit  : "junit:junit:${junitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}"
+    ]
 }

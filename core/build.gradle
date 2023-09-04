@@ -1,3 +1,4 @@
+//file:noinspection DependencyNotationArgument
 plugins {
     id 'java-library'
     id 'java-test-fixtures'
@@ -8,13 +9,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies {
-    implementation common.main.rxJava2
-    implementation common.main.dagger
-    annotationProcessor common.main.daggerCompiler
+    implementation async.rxjava2
+    implementation dependencyInjection.dagger
+    annotationProcessor dependencyInjection.daggerCompiler
 
-    testImplementation common.test.junit
+    testImplementation unitTest.junit
 
-    testFixturesImplementation common.main.rxJava2
-    testFixturesImplementation common.test.gson
-    testFixturesImplementation common.test.mockWebServer
+    testFixturesImplementation async.rxjava2
+    testFixturesImplementation jsonParser.gson
+    testFixturesImplementation mockServer.mockWebServer
 }
