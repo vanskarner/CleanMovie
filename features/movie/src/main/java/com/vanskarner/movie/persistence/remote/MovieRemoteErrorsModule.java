@@ -5,6 +5,7 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 import dagger.multibindings.StringKey;
 
+/** @noinspection unused*/
 @Module
 abstract class MovieRemoteErrorsModule {
 

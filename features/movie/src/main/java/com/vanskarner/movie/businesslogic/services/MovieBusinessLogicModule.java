@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Binds;
 import dagger.Module;
 
+/** @noinspection unused*/
 @Module(includes = MovieErrorModule.class)
 public abstract class MovieBusinessLogicModule {
 

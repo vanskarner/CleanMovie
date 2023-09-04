@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import dagger.Binds;
 import dagger.Module;
 
+/** @noinspection unused*/
 @Module
 public abstract class MovieLocalRepositoryModule {
 
