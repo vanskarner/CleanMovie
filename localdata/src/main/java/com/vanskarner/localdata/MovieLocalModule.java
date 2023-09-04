@@ -8,6 +8,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
+/** @noinspection unused*/
 @Module
 abstract class MovieLocalModule {
 

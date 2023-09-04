@@ -12,6 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
 
+/** @noinspection unused*/
 @Module
 public abstract class UpcomingModule {
 

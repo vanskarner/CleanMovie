@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/** @noinspection unused*/
 @Module(includes = {
         MovieLocalModule.class
 })

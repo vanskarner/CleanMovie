@@ -11,6 +11,7 @@ import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
+/** @noinspection unused*/
 @Module
 abstract class FragmentBuildersModule {
 
