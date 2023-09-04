@@ -5,6 +5,7 @@ import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 import dagger.Binds;
 import dagger.Module;
 
+/** @noinspection unused*/
 @Module
 public abstract class UpcomingDetailModule {
 
