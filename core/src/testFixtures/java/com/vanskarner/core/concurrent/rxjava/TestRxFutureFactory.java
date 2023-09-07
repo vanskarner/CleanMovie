@@ -3,12 +3,12 @@ package com.vanskarner.core.concurrent.rxjava;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class TestRxFutureFactory extends DefaultRxFutureFactory {
+public class TestRxFutureFactory {
 
-    public TestRxFutureFactory(CompositeDisposable compositeDisposable,
-                               Scheduler executorThread,
-                               Scheduler responseThread) {
-        super(compositeDisposable, executorThread, responseThread);
+    public static RxFutureFactory create(CompositeDisposable compositeDisposable,
+                                         Scheduler executorThread,
+                                         Scheduler responseThread) {
+        return new DefaultRxFutureFactory(compositeDisposable, executorThread, responseThread);
     }
 
 }

@@ -119,7 +119,8 @@ public class MovieRemoteRxRepositoryTest {
 
     private static MovieRemoteRxRepository createRepository(CompositeDisposable disposable, String baseUrl) {
         Scheduler testScheduler = Schedulers.trampoline();
-        RxFutureFactory rxFutureFactory = new TestRxFutureFactory(disposable, testScheduler, testScheduler);
+        RxFutureFactory rxFutureFactory = TestRxFutureFactory
+                .create(disposable, testScheduler, testScheduler);
         JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl);
         Converter.Factory gsonConverterFactory = GsonConverterFactory.create(new GsonBuilder()
                 .registerTypeAdapter(MovieDTO.class, deserializer)
