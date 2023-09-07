@@ -115,7 +115,6 @@ public class UpcomingPresenterTest {
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);
 
-
         verify(view, times(2)).setPagingProgress(anyBoolean());
         verify(view).enableScroll();
         verify(view).showError(any());
