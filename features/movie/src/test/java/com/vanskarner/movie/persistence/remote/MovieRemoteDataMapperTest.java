@@ -31,9 +31,9 @@ public class MovieRemoteDataMapperTest {
     }
 
     @Test
-    public void convert_fromMovieDetailDTO_toMovieDetailBO() {
-        MovieBO actualItem = MovieRemoteDataMapper.convert(dataStructure);
+    public void convert_fromMovieDTO_toMovieBO() {
         MovieDTO expectedItem = dataStructure;
+        MovieBO actualItem = MovieRemoteDataMapper.convert(dataStructure);
 
         assertEquals(expectedItem.id, actualItem.getId());
         assertEquals(expectedItem.title, actualItem.getTitle());
@@ -46,7 +46,7 @@ public class MovieRemoteDataMapperTest {
     }
 
     @Test
-    public void convert_fromListMovieDetailDTO_toListMovieDetailBO() {
+    public void convert_fromMovieDTOList_toMovieBOList() {
         List<MovieDTO> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
         List<MovieBO> actualList = MovieRemoteDataMapper.convert(expectedList);
 

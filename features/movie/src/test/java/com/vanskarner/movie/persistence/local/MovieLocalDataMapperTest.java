@@ -45,9 +45,9 @@ public class MovieLocalDataMapperTest {
     }
 
     @Test
-    public void convert_fromMovieDetailEntity_toMovieDetailBO() {
-        MovieBO actualItem = MovieLocalDataMapper.convert(dataStructure);
+    public void convert_fromMovieEntity_toMovieBO() {
         MovieEntity expectedItem = dataStructure;
+        MovieBO actualItem = MovieLocalDataMapper.convert(dataStructure);
 
         assertEquals(expectedItem.id, actualItem.getId());
         assertEquals(expectedItem.title, actualItem.getTitle());
@@ -60,9 +60,9 @@ public class MovieLocalDataMapperTest {
     }
 
     @Test
-    public void convert_fromMovieDetailBO_toMovieDetailEntity() {
-        MovieEntity actualItem = MovieLocalDataMapper.convert(businessObject);
+    public void convert_fromMovieBO_toMovieEntity() {
         MovieBO expectedItem = businessObject;
+        MovieEntity actualItem = MovieLocalDataMapper.convert(businessObject);
 
         assertEquals(expectedItem.getId(), actualItem.id);
         assertEquals(expectedItem.getTitle(), actualItem.title);
@@ -75,7 +75,7 @@ public class MovieLocalDataMapperTest {
     }
 
     @Test
-    public void convert_fromListMovieDetailEntity_toListMovieDetailBO() {
+    public void convert_fromMovieEntityList_toMovieBOList() {
         List<MovieEntity> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
         List<MovieBO> actualList = MovieLocalDataMapper.convert(expectedList);
 

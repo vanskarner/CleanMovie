@@ -28,12 +28,12 @@ public class ToggleMovieFavoriteUseCaseTest {
 
     @Test
     public void execute_withUnregisteredItem_savedItem() throws Exception {
+        int expectedNumberItems = 1;
         MovieBO unregisteredItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         boolean favorite = useCase.execute(MovieMapper.convert(unregisteredItem)).get();
         int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
-        int expectedNumberItems = 1;
 
         assertTrue(favorite);
         assertEquals(expectedNumberItems, actualNumberItems);
@@ -41,20 +41,20 @@ public class ToggleMovieFavoriteUseCaseTest {
 
     @Test
     public void execute_withRegisteredItem_deletedItem() throws Exception {
+        int expectedNumberItems = 0;
         MovieBO registeredItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         fakeLocalRepository.saveMovie(registeredItem).await();
         boolean favorite = useCase.execute(MovieMapper.convert(registeredItem)).get();
         int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
-        int expectedNumberItems = 0;
 
         assertFalse(favorite);
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test(expected = MovieError.FavoriteLimit.class)
-    public void execute_withUnregisteredItemAndExceededCapacity_exception() throws Exception {
+    public void execute_withUnregisteredItemAndExceededCapacity_throwException() throws Exception {
         fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(1)
                 .build()).await();

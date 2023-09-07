@@ -30,30 +30,30 @@ public class FilterUpcomingMoviesUseCaseTest {
 
     @Test
     public void execute_exactSearch_oneMatch() throws Exception {
+        int expectedMatches = 1;
         MoviesFilterDS filterDS = new MoviesFilterDS(unmodifiableList, "Movie One");
         Result<MoviesFilterDS> result = useCase.execute(filterDS);
         int actualValue = result.get().filterList.size();
-        int expectedMatches = 1;
 
         assertEquals(expectedMatches, actualValue);
     }
 
     @Test
     public void execute_impreciseSearch_multipleMatches() throws Exception {
+        int expectedMatches = unmodifiableList.size();
         MoviesFilterDS filterDS = new MoviesFilterDS(unmodifiableList, "Movie");
         Result<MoviesFilterDS> result = useCase.execute(filterDS);
         int actualMatches = result.get().filterList.size();
-        int expectedMatches = unmodifiableList.size();
 
         assertEquals(expectedMatches, actualMatches);
     }
 
     @Test
     public void execute_wrongSearch_noMatch() throws Exception {
+        int expectedMatches = 0;
         MoviesFilterDS filterDS = new MoviesFilterDS(unmodifiableList, "Nothing");
         Result<MoviesFilterDS> result = useCase.execute(filterDS);
         int actualMatches = result.get().filterList.size();
-        int expectedMatches = 0;
 
         assertEquals(expectedMatches, actualMatches);
     }

@@ -34,9 +34,9 @@ public class ShowUpcomingMoviesUseCaseTest {
 
     @Test
     public void execute_returnList() throws Exception {
+        int expectedQuantity = fakeRemoteRepository.getMovies(1).get().size();
         MoviesDS moviesDS = useCase.execute(1).get();
         int actualQuantity = moviesDS.list.size();
-        int expectedQuantity = fakeRemoteRepository.getMovies(1).get().size();
 
         assertEquals(expectedQuantity, actualQuantity);
     }

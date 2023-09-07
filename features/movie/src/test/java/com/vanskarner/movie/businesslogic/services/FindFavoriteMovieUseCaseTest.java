@@ -43,7 +43,7 @@ public class FindFavoriteMovieUseCaseTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void execute_withInvalidID_throwException() throws Exception {
+    public void execute_withInvalidID_throwNoSuchElementException() throws Exception {
         useCase.execute(0).get();
     }
 
