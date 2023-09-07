@@ -29,9 +29,9 @@ public class ShowFavoriteMoviesUseCaseTest {
 
     @Test
     public void execute_returnList() throws Exception {
+        int expectedQuantity = fakeLocalRepository.getNumberMovies().get();
         MoviesDS moviesDS = useCase.execute().get();
         int actualQuantity = moviesDS.list.size();
-        int expectedQuantity = fakeLocalRepository.getNumberMovies().get();
 
         assertEquals(expectedQuantity, actualQuantity);
     }

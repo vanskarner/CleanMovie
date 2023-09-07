@@ -24,12 +24,12 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void getMovies_aSavedItem_returnOne() throws Exception {
+        int expectedNumberItems = 1;
         MovieDetailDS item = MovieDetailDS.empty();
         item.id = 1;
         localRepository.saveMovie(item).await();
         List<MovieDS> list = localRepository.getMovies().get().list;
         int actualNumberItems = list.size();
-        int expectedNumberItems = 1;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }
@@ -52,7 +52,7 @@ public class FakeLocalRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void deleteMovie_getMovieRemoved_exception() throws Exception {
+    public void deleteMovie_getMovieRemoved_throwNoSuchElementException() throws Exception {
         MovieDetailDS item = MovieDetailDS.empty();
         item.id = 1;
         localRepository.saveMovie(item).await();
@@ -62,22 +62,22 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void deleteAllMovies_withASavedItem_returnOne() throws Exception {
+        int expectedNumberItemsDeleted = 1;
         MovieDetailDS firstItem = MovieDetailDS.empty();
         firstItem.id = 1;
         localRepository.saveMovie(firstItem).await();
         int actualNumberItemsDeleted = localRepository.deleteAllMovies().get();
-        int expectedNumberItemsDeleted = 1;
 
         assertEquals(expectedNumberItemsDeleted, actualNumberItemsDeleted);
     }
 
     @Test
     public void getNumberMovies_withASavedItem_returnOne() throws Exception {
+        int expectedNumberItemsDeleted = 1;
         MovieDetailDS item = MovieDetailDS.empty();
         item.id = 1;
         localRepository.saveMovie(item).await();
         int actualNumberItemsDeleted = localRepository.getNumberMovies().get();
-        int expectedNumberItemsDeleted = 1;
 
         assertEquals(expectedNumberItemsDeleted, actualNumberItemsDeleted);
     }
@@ -101,11 +101,11 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void saveMovie_savedItem() throws Exception {
+        int expectedNumberItems = 1;
         MovieDetailDS item = MovieDetailDS.empty();
         item.id = 1;
         localRepository.saveMovie(item).await();
         int actualNumberItems = localRepository.getNumberMovies().get();
-        int expectedNumberItems = 1;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }

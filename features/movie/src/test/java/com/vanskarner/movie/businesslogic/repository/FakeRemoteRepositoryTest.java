@@ -26,17 +26,17 @@ public class FakeRemoteRepositoryTest {
 
     @Test
     public void getMovies_aSavedItem_returnOne() throws Exception {
+        int expectedNumberItems = 1;
         List<MovieDS> list = remoteRepository.getMovies(1).get().list;
         int actualNumberItems = list.size();
-        int expectedNumberItems = 1;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test
     public void getMovie_returnItem() throws Exception {
-        MovieDetailDS actualItem = remoteRepository.getMovie(savedItem.id).get();
         MovieDetailDS expectedItem = savedItem;
+        MovieDetailDS actualItem = remoteRepository.getMovie(savedItem.id).get();
 
         assertEquals(expectedItem.id, actualItem.id);
         assertEquals(expectedItem.title, actualItem.title);

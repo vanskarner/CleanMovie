@@ -46,8 +46,8 @@ public class MovieLocalDataMapperTest {
 
     @Test
     public void convert_fromMovieEntity_toMovieDetailDS() {
-        MovieDetailDS actualItem = MovieLocalDataMapper.convert(persistenceLayerDataStructure);
         MovieEntity expectedItem = persistenceLayerDataStructure;
+        MovieDetailDS actualItem = MovieLocalDataMapper.convert(persistenceLayerDataStructure);
 
         assertEquals(expectedItem.id, actualItem.id);
         assertEquals(expectedItem.title, actualItem.title);
@@ -61,8 +61,8 @@ public class MovieLocalDataMapperTest {
 
     @Test
     public void convert_fromMovieDetailDS_toMovieEntity() {
-        MovieEntity actualItem = MovieLocalDataMapper.convert(businessLogicDataStructure);
         MovieDetailDS expectedItem = businessLogicDataStructure;
+        MovieEntity actualItem = MovieLocalDataMapper.convert(businessLogicDataStructure);
 
         assertEquals(expectedItem.id, actualItem.id);
         assertEquals(expectedItem.title, actualItem.title);
@@ -75,7 +75,7 @@ public class MovieLocalDataMapperTest {
     }
 
     @Test
-    public void convert_fromListMovieEntity_toListMovieDS() {
+    public void convert_fromMovieEntityList_toMoviesDS() {
         List<MovieEntity> expectedList =
                 new ArrayList<>(Collections.singletonList(persistenceLayerDataStructure));
         List<MovieDS> actualList = MovieLocalDataMapper.convert(expectedList).list;

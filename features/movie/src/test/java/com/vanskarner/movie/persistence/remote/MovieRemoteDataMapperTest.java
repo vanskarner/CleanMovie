@@ -28,13 +28,12 @@ public class MovieRemoteDataMapperTest {
                 "Clean Architecture",
                 100,
                 9.5f);
-
     }
 
     @Test
     public void convert_fromMovieDTO_toMovieDetailDS() {
-        MovieDetailDS actualItem = MovieRemoteDataMapper.convert(dataStructure);
         MovieDTO expectedItem = dataStructure;
+        MovieDetailDS actualItem = MovieRemoteDataMapper.convert(dataStructure);
 
         assertEquals(expectedItem.id, actualItem.id);
         assertEquals(expectedItem.title, actualItem.title);
@@ -47,7 +46,7 @@ public class MovieRemoteDataMapperTest {
     }
 
     @Test
-    public void convert_fromListMovieDTO_toListMovieDS() {
+    public void convert_fromMovieDTOList_toMoviesDS() {
         List<MovieDTO> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
         List<MovieDS> actualList = MovieRemoteDataMapper.convert(expectedList).list;
 
