@@ -23,13 +23,13 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void getMovies_aSavedItem_returnOne() throws Exception {
+        int expectedNumberItems = 1;
         MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();
         List<MovieBO> list = localRepository.getMovies().get();
         int actualNumberItems = list.size();
-        int expectedNumberItems = 1;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }
@@ -53,7 +53,7 @@ public class FakeLocalRepositoryTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void deleteMovie_getMovieRemoved_exception() throws Exception {
+    public void deleteMovie_getMovieRemoved_throwNoSuchElementException() throws Exception {
         MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
@@ -64,24 +64,24 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void deleteAllMovies_withASavedItem_returnOne() throws Exception {
+        int expectedNumberItemsDeleted = 1;
         MovieBO firstItem = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(firstItem).await();
         int actualNumberItemsDeleted = localRepository.deleteAllMovies().get();
-        int expectedNumberItemsDeleted = 1;
 
         assertEquals(expectedNumberItemsDeleted, actualNumberItemsDeleted);
     }
 
     @Test
     public void getNumberMovies_withASavedItem_returnOne() throws Exception {
+        int expectedNumberItemsDeleted = 1;
         MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();
         int actualNumberItemsDeleted = localRepository.getNumberMovies().get();
-        int expectedNumberItemsDeleted = 1;
 
         assertEquals(expectedNumberItemsDeleted, actualNumberItemsDeleted);
     }
@@ -106,12 +106,12 @@ public class FakeLocalRepositoryTest {
 
     @Test
     public void saveMovie_savedItem() throws Exception {
+        int expectedNumberItems = 1;
         MovieBO item = new MovieBOBuilder()
                 .withId(1)
                 .build();
         localRepository.saveMovie(item).await();
         int actualNumberItems = localRepository.getNumberMovies().get();
-        int expectedNumberItems = 1;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }

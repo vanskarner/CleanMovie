@@ -34,11 +34,10 @@ public class FindUpcomingMovieUseCaseTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void execute_withInvalidID_throwException() throws Exception {
+    public void execute_withInvalidID_throwNoSuchElementException() throws Exception {
         MovieRemoteRepository fakeRemoteRepository = FakeRepositoryFactory
                 .createRemoteRepository(Collections.emptyList());
         FindUpcomingMovieUseCase useCase = new FindUpcomingMovieUseCase(fakeRemoteRepository);
-
         useCase.execute(1).get();
     }
 

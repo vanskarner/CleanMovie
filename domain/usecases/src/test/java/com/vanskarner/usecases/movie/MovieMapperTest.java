@@ -46,7 +46,7 @@ public class MovieMapperTest {
     }
 
     @Test
-    public void convert_fromMovieDetailBO_toMovieDetailDS() {
+    public void convert_fromMovieBO_toMovieDetailDS() {
         MovieBO expectedItem = businessObject;
         MovieDetailDS actualItem = MovieMapper.convert(expectedItem);
 
@@ -61,7 +61,7 @@ public class MovieMapperTest {
     }
 
     @Test
-    public void convert_fromMovieDetailDS_toMovieDetailBO() {
+    public void convert_fromMovieDetailDS_toMovieBO() {
         MovieDetailDS expectedItem = dataStructure;
         MovieBO actualItem = MovieMapper.convert(expectedItem);
 
@@ -76,7 +76,7 @@ public class MovieMapperTest {
     }
 
     @Test
-    public void convert_fromListMovieBO_toListMovieDS() {
+    public void convert_fromMovieBOList_toMovieDSList() {
         List<MovieBO> expectedList = new ArrayList<>(Collections.singletonList(businessObject));
         List<MovieDS> actualList = MovieMapper.convert(expectedList).list;
 
