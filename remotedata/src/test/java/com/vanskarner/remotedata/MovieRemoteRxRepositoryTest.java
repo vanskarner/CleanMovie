@@ -46,7 +46,7 @@ public class MovieRemoteRxRepositoryTest {
         compositeDisposable = new CompositeDisposable();
         simulatedServer.start(1010);
 
-        repository = createRepository(simulatedServer.url());
+        repository = createRepository(compositeDisposable, simulatedServer.url());
     }
 
     @AfterClass
@@ -63,8 +63,8 @@ public class MovieRemoteRxRepositoryTest {
     public void getMovies_whenHttpIsOK_returnList() throws Exception {
         String fileName = "upcoming_list.json";
         simulatedServer.enqueueFrom(fileName, HttpURLConnection.HTTP_OK);
-        List<MovieBO> actualList = repository.getMovies(1).get();
         MoviesResultDTO expectedList = jsonService.from(fileName, MoviesResultDTO.class);
+        List<MovieBO> actualList = repository.getMovies(1).get();
 
         assertEquals(expectedList.results.size(), actualList.size());
     }
@@ -73,11 +73,10 @@ public class MovieRemoteRxRepositoryTest {
     public void getMovie_whenHttpIsOK_returnItem() throws Exception {
         String fileName = "upcoming_item.json";
         simulatedServer.enqueueFrom(fileName, HttpURLConnection.HTTP_OK);
-        MovieBO actualItem = repository.getMovie(1).get();
         MovieDTO expectedItem = jsonService.from(fileName, MovieDTO.class);
         expectedItem.posterPath = baseImageUrl.concat(expectedItem.posterPath);
         expectedItem.backdropPath = baseImageUrl.concat(expectedItem.backdropPath);
-
+        MovieBO actualItem = repository.getMovie(1).get();
 
         assertEquals(expectedItem.id, actualItem.getId());
         assertEquals(expectedItem.title, actualItem.getTitle());
@@ -88,40 +87,41 @@ public class MovieRemoteRxRepositoryTest {
     }
 
     @Test(expected = RemoteError.NoInternet.class)
-    public void getMovies_WhenNoResponse_throwException() throws Exception {
+    public void getMovies_WhenNoResponse_throwNoInternet() throws Exception {
         MovieRemoteRxRepository serverlessRepository =
-                createRepository("https://127.0.0.1:666/");
+                createRepository(compositeDisposable, "https://127.0.0.1:666/");
         serverlessRepository.getMovies(1).get();
     }
 
     @Test(expected = RemoteError.Unauthorised.class)
-    public void getMovies_whenHttpUnauthorized_throwException() throws Exception {
+    public void getMovies_whenHttpUnauthorized_throwUnauthorised() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAUTHORIZED);
         repository.getMovies(1).get();
     }
 
     @Test(expected = RemoteError.NotFound.class)
-    public void getMovies_whenHttpNotFound_throwException() throws Exception {
+    public void getMovies_whenHttpNotFound_throwNotFound() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_NOT_FOUND);
         repository.getMovies(1).get();
     }
 
     @Test(expected = RemoteError.ServiceUnavailable.class)
-    public void getMovies_whenHttpUnavailable_throwException() throws Exception {
+    public void getMovies_whenHttpUnavailable_throwServiceUnavailable() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_UNAVAILABLE);
         repository.getMovies(1).get();
     }
 
     @Test(expected = RemoteError.Server.class)
-    public void getMovies_whenHttpOtherErrors_throwException() throws Exception {
+    public void getMovies_whenHttpOtherErrors_throwServer() throws Exception {
         simulatedServer.enqueueEmpty(HttpURLConnection.HTTP_VERSION);
         repository.getMovies(1).get();
     }
 
-    private static MovieRemoteRxRepository createRepository(String baseUrl) {
+    private static MovieRemoteRxRepository createRepository(CompositeDisposable disposable,
+                                                            String baseUrl) {
         Scheduler testScheduler = Schedulers.trampoline();
         RxFutureFactory rxFutureFactory = TestRxFutureFactory
-                .create(compositeDisposable, testScheduler, testScheduler);
+                .create(disposable, testScheduler, testScheduler);
         JsonDeserializer<MovieDTO> deserializer = new MovieDeserializer(baseImageUrl);
         Converter.Factory gsonConverterFactory = GsonConverterFactory.create(new GsonBuilder()
                 .registerTypeAdapter(MovieDTO.class, deserializer)
