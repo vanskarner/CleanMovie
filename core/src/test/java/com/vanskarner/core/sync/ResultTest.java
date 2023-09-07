@@ -13,20 +13,20 @@ public class ResultTest {
 
     @Test
     public void map_usingUpperCase_returnSameString() throws Exception {
+        String expectedString = INITIAL_VALUE.toUpperCase();
         Result<String> result = resultSuccess
                 .map(String::toUpperCase);
         String actualString = result.get();
-        String expectedString = INITIAL_VALUE.toUpperCase();
 
         assertEquals(expectedString, actualString);
     }
 
     @Test
     public void flatMap_usingUpperCase_returnSameString() throws Exception {
+        String expectedString = INITIAL_VALUE.toUpperCase();
         Result<String> result = resultSuccess
                 .flatMap(s -> Result.success(s.toUpperCase()));
         String actualString = result.get();
-        String expectedString = INITIAL_VALUE.toUpperCase();
 
         assertEquals(expectedString, actualString);
     }
