@@ -33,17 +33,17 @@ public class SingleFutureResultTest {
 
     @Test
     public void map_usingUpperCase_returnSameString() throws Exception {
-        String actualString = futureResult.map(String::toUpperCase).get();
         String expectedString = INITIAL_VALUE.toUpperCase();
+        String actualString = futureResult.map(String::toUpperCase).get();
 
         assertEquals(expectedString, actualString);
     }
 
     @Test
     public void flatMap_usingMapForUpperCase_returnSameString() throws Exception {
+        String expectedString = INITIAL_VALUE.toUpperCase();
         String actualString = futureResult
                 .flatMap(s -> futureResult.map(s1 -> INITIAL_VALUE.toUpperCase())).get();
-        String expectedString = INITIAL_VALUE.toUpperCase();
 
         assertEquals(expectedString, actualString);
     }

@@ -87,7 +87,7 @@ public class MovieViewMapperTest {
     }
 
     @Test
-    public void convert_fromListMovieDS_toListMovieModel() {
+    public void convert_fromMovieDSList_toMovieModelList() {
         List<MovieDS> expectedList = new ArrayList<>(Collections.singletonList(movieDS));
         List<MovieModel> actualList = MovieViewMapper.convert(expectedList);
 
@@ -98,7 +98,7 @@ public class MovieViewMapperTest {
     }
 
     @Test
-    public void convert_fromListMovieModel_toMoviesFilterDS() {
+    public void convert_fromMovieModelListAndQuery_toMoviesFilterDS() {
         List<MovieModel> expectedList = new ArrayList<>(Collections.singletonList(movieModel));
         String expectedQuery = "My Search";
         MoviesFilterDS moviesFilterDS = MovieViewMapper.convert(expectedList, expectedQuery);
