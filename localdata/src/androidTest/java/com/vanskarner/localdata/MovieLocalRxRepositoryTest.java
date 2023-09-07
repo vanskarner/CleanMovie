@@ -25,9 +25,9 @@ import io.reactivex.schedulers.Schedulers;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class MovieLocalRxRepositoryTest {
-    MovieLocalRxRepository repository;
     CompositeDisposable compositeDisposable;
     RoomDB db;
+    MovieLocalRxRepository repository;
 
     @Before
     public void setUp() {
@@ -50,10 +50,10 @@ public class MovieLocalRxRepositoryTest {
 
     @Test
     public void saveItem_savedItem() throws Exception {
+        int expectedNumberItems = 1;
         MovieBO item = createMovieBO(33);
         repository.saveMovie(item).await();
         int actualNumberItems = repository.getNumberMovies().get();
-        int expectedNumberItems = 1;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }
@@ -76,31 +76,31 @@ public class MovieLocalRxRepositoryTest {
 
     @Test
     public void deleteMovie_withValidId_deletedItem() throws Exception {
+        int expectedNumberItems = 0;
         int movieId = 33;
         repository.saveMovie(createMovieBO(movieId)).await();
         repository.deleteMovie(movieId).await();
         int actualNumberItems = repository.getNumberMovies().get();
-        int expectedNumberItems = 0;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test
     public void deleteAllMovies_withTwoItemsSaved_TwoItemsDeleted() throws Exception {
+        int expectedNumberItems = 2;
         repository.saveMovie(createMovieBO(33)).await();
         repository.saveMovie(createMovieBO(34)).await();
         int actualNumberItems = repository.deleteAllMovies().get();
-        int expectedNumberItems = 2;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
     @Test
     public void getNumberMovies_withTwoItemsSaved_returnTwoItems() throws Exception {
+        int expectedNumberItems = 2;
         repository.saveMovie(createMovieBO(33)).await();
         repository.saveMovie(createMovieBO(34)).await();
         int actualNumberItems = repository.getNumberMovies().get();
-        int expectedNumberItems = 2;
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }
