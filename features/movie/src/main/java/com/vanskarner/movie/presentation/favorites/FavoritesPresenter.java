@@ -26,17 +26,15 @@ class FavoritesPresenter implements FavoritesContract.presenter {
     @Override
     public void getFavorites() {
         movieServices.showFavorite()
-                .map(moviesDS -> MovieViewMapper.convert(moviesDS.list))
-                .onResult(movieModels -> {
-                    view.showFavorites(movieModels);
-                    view.setNotFavorites(movieModels.isEmpty());
+                .onResult(moviesDS -> {
+                    view.showFavorites(moviesDS.list);
+                    view.setNotFavorites(moviesDS.list.isEmpty());
                 }, throwable -> view.showError(viewErrorFilter.filter(throwable)));
     }
 
     @Override
     public void getFavoriteDetail(int id) {
         movieServices.findFavorite(id)
-                .map(MovieViewMapper::convert)
                 .onResult(view::showFavoriteDetail,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
     }

@@ -1,8 +1,8 @@
 package com.vanskarner.movie.presentation.upcoming;
 
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.presentation.BasePresenter;
 import com.vanskarner.movie.presentation.ErrorView;
-import com.vanskarner.movie.presentation.MovieModel;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ interface UpcomingContract {
 
         void paginate();
 
-        void showUpcoming(List<MovieModel> list);
+        void showUpcoming(List<MovieDS> list);
 
         void showError(ErrorView<?> errorView);
 

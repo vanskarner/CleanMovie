@@ -1,5 +1,9 @@
 package com.vanskarner.movie.presentation.upcomingDetail;
 
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.presentation.BasePresenter;
+import com.vanskarner.movie.presentation.ErrorView;
+
 interface UpcomingDetailContract {
 
     interface view {
@@ -8,7 +12,7 @@ interface UpcomingDetailContract {
 
         void setMarkedAsFavorite(boolean markedAsFavorite);
 
-        void showUpcomingDetail(MovieDetailModel detailModel);
+        void showUpcomingDetail(MovieDetailDS detailModel);
 
         void showError(ErrorView<?> errorView);
 
@@ -18,7 +22,7 @@ interface UpcomingDetailContract {
 
         void initialAction(int id);
 
-        void actionFavoriteMovie(MovieDetailModel detailModel);
+        void actionFavoriteMovie(MovieDetailDS detailModel);
 
     }
 

@@ -1,9 +1,9 @@
 package com.vanskarner.movie.presentation.favorites;
 
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.presentation.BasePresenter;
 import com.vanskarner.movie.presentation.ErrorView;
-import com.vanskarner.movie.presentation.MovieDetailModel;
-import com.vanskarner.movie.presentation.MovieModel;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ interface FavoritesContract {
 
     interface view {
 
-        void showFavorites(List<MovieModel> list);
+        void showFavorites(List<MovieDS> list);
 
-        void showFavoriteDetail(MovieDetailModel model);
+        void showFavoriteDetail(MovieDetailDS model);
 
         void setNotFavorites(boolean visible);
 

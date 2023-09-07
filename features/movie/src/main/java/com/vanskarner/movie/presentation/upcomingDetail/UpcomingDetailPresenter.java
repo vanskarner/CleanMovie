@@ -29,7 +29,6 @@ class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
                 .onResult(view::setMarkedAsFavorite,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
         movieServices.findUpcoming(id)
-                .map(MovieViewMapper::convert)
                 .onResult(movieDetailModel -> {
                     view.setReadyViews(true);
                     view.showUpcomingDetail(movieDetailModel);
@@ -37,9 +36,8 @@ class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
     }
 
     @Override
-    public void actionFavoriteMovie(MovieDetailModel detailModel) {
-        MovieDetailDS item = MovieViewMapper.convert(detailModel);
-        movieServices.toggleFavorite(item)
+    public void actionFavoriteMovie(MovieDetailDS detailModel) {
+        movieServices.toggleFavorite(detailModel)
                 .onResult(view::setMarkedAsFavorite,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
     }
