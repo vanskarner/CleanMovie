@@ -27,13 +27,12 @@ public class MovieRemoteDataMapperTest {
                 "Clean Architecture",
                 100,
                 9.5f);
-
     }
 
     @Test
     public void convert_fromMovieDetailDTO_toMovieDetailBO() {
-        MovieBO actualItem = MovieRemoteDataMapper.convert(dataStructure);
         MovieDTO expectedItem = dataStructure;
+        MovieBO actualItem = MovieRemoteDataMapper.convert(dataStructure);
 
         assertEquals(expectedItem.id, actualItem.getId());
         assertEquals(expectedItem.title, actualItem.getTitle());
