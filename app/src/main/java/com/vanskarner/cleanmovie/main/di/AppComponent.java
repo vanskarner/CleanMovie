@@ -20,8 +20,8 @@ import dagger.android.AndroidInjector;
         ProjectParametersModule.class,
         RoomDBModule.class,
         CoreModule.class,
-        MovieModule.class,
-        ViewModule.class
+        ViewModule.class,
+        MovieModule.class
 })
 public interface AppComponent extends AndroidInjector<App> {
 

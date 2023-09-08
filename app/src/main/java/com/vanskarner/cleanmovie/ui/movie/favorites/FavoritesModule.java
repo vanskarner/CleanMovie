@@ -1,6 +1,7 @@
 package com.vanskarner.cleanmovie.ui.movie.favorites;
 
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
+import com.vanskarner.movie.presentation.favorites.FavoritePresenterModule;
 import com.vanskarner.movie.presentation.favorites.FavoritesContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 
@@ -9,16 +10,16 @@ import dagger.Module;
 import dagger.Provides;
 
 /** @noinspection unused*/
-@Module
+@Module(includes = FavoritePresenterModule.class)
 public abstract class FavoritesModule {
 
     @Binds
     @PerFragment
     abstract FavoritesContract.view bindView(FavoritesFragment fragment);
 
-    @Binds
+/*    @Binds
     @PerFragment
-    abstract FavoritesContract.presenter bindPresenter(FavoritesPresenter presenter);
+    abstract FavoritesContract.presenter bindPresenter(FavoritesPresenter presenter);*/
 
     @Provides
     @PerFragment
