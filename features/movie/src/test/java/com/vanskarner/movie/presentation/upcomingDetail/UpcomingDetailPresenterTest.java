@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
+package com.vanskarner.movie.presentation.upcomingDetail;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -6,12 +6,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -72,7 +71,7 @@ public class UpcomingDetailPresenterTest {
     @Test
     public void actionFavoriteMovie_whenItsOk_doOkSequence() {
         boolean result = true;
-        MovieDetailModel item = MovieDetailModel.empty();
+        MovieDetailDS item = MovieDetailDS.empty();
         FutureResult<Boolean> futureResult = TestFutureFactory.create(result);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
         presenter.actionFavoriteMovie(item);
@@ -82,7 +81,7 @@ public class UpcomingDetailPresenterTest {
 
     @Test
     public void actionFavoriteMovie_whenItFails_doFailSequence() {
-        MovieDetailModel item = MovieDetailModel.empty();
+        MovieDetailDS item = MovieDetailDS.empty();
         Exception anyException = new Exception("Any Exception");
         FutureResult<Boolean> futureResult = TestFutureFactory.create(anyException);
         when(services.toggleFavorite(any())).thenReturn(futureResult);

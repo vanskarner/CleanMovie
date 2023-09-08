@@ -61,7 +61,6 @@ dependencies {
     annotationProcessor dependencyInjection.daggerCompiler
 
     testImplementation unitTest.junit
-    testImplementation unitTest.mockito
     testImplementation testFixtures(project(":core"))
 
     androidTestImplementation androidxTest.junit

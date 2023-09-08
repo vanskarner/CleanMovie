@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vanskarner.movie.presentation.ErrorView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -19,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.presentation.upcoming.UpcomingContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.List;
@@ -105,8 +109,9 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
     }
 
     @Override
-    public void showUpcoming(List<MovieModel> list) {
-        singleAdapter.set(list);
+    public void showUpcoming(List<MovieDS> list) {
+        List<MovieModel> modelList = MovieViewMapper.convert(list);
+        singleAdapter.set(modelList);
     }
 
     @Override

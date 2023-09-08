@@ -22,8 +22,11 @@ import androidx.navigation.ui.NavigationUI;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingDetailFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.presentation.upcomingDetail.UpcomingDetailContract;
 
 import java.io.ByteArrayOutputStream;
 
@@ -82,8 +85,9 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
     }
 
     @Override
-    public void showUpcomingDetail(MovieDetailModel detailModel) {
-        binding.setMovieDetail(detailModel);
+    public void showUpcomingDetail(MovieDetailDS movieDetailDS) {
+        MovieDetailModel movieDetailModel = MovieViewMapper.convert(movieDetailDS);
+        binding.setMovieDetail(movieDetailModel);
     }
 
     @Override
@@ -107,10 +111,11 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
 
     private boolean onClickHeartMenuItem(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.favoriteMenuItem) {
-            MovieDetailModel movieDetail = binding.getMovieDetail();
-            movieDetail.image = toBase64(binding.coverPageImage);
-            movieDetail.backgroundImage = toBase64(binding.backgroundImage);
-            presenter.actionFavoriteMovie(movieDetail);
+            MovieDetailModel movieDetailModel = binding.getMovieDetail();
+            movieDetailModel.image = toBase64(binding.coverPageImage);
+            movieDetailModel.backgroundImage = toBase64(binding.backgroundImage);
+            MovieDetailDS movieDetailDS = MovieViewMapper.convert(movieDetailModel);
+            presenter.actionFavoriteMovie(movieDetailDS);
         }
         return false;
     }

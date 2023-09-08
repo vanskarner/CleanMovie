@@ -4,7 +4,7 @@ import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.presentation.BasePresenter;
 import com.vanskarner.movie.presentation.ErrorView;
 
-interface UpcomingDetailContract {
+public interface UpcomingDetailContract {
 
     interface view {
 

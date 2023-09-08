@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
+import com.vanskarner.movie.presentation.ErrorView;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -2,6 +2,7 @@ package com.vanskarner.cleanmovie.ui.movie.upcoming;
 
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.movie.presentation.upcoming.UpcomingContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.ArrayList;

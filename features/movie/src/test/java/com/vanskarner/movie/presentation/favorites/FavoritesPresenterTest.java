@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.movie.favorites;
+package com.vanskarner.movie.presentation.favorites;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -7,12 +7,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import org.junit.After;
 import org.junit.BeforeClass;

@@ -1,5 +1,7 @@
 package com.vanskarner.cleanmovie.ui.errors;
 
+import com.vanskarner.movie.presentation.ErrorView;
+
 import java.util.Map;
 
 import javax.inject.Inject;

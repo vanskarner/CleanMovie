@@ -7,13 +7,13 @@ import com.vanskarner.movie.presentation.ErrorView;
 
 import java.util.List;
 
-interface FavoritesContract {
+public interface FavoritesContract {
 
     interface view {
 
         void showFavorites(List<MovieDS> list);
 
-        void showFavoriteDetail(MovieDetailDS model);
+        void showFavoriteDetail(MovieDetailDS movieDetailDS);
 
         void setNotFavorites(boolean visible);
 

@@ -1,8 +1,8 @@
 package com.vanskarner.cleanmovie.ui.errors.custom;
 
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.movie.persistence.remote.MovieRemoteError;
 import com.vanskarner.movie.businesslogic.error.MovieError;
+import com.vanskarner.movie.presentation.ErrorView;
 
 import dagger.Binds;
 import dagger.Module;

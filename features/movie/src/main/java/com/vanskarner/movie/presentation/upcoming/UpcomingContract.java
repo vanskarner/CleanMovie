@@ -6,7 +6,7 @@ import com.vanskarner.movie.presentation.ErrorView;
 
 import java.util.List;
 
-interface UpcomingContract {
+public interface UpcomingContract {
 
     interface view {
 

@@ -44,6 +44,7 @@ dependencies {
 
     testImplementation unitTest.junit
     testImplementation testFixtures(project(":core"))
+    testImplementation unitTest.mockito
 
     androidTestImplementation androidxTest.junit
     androidTestImplementation androidxTest.runner

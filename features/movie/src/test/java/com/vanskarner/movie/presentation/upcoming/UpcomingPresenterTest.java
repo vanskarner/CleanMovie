@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.movie.upcoming;
+package com.vanskarner.movie.presentation.upcoming;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -8,8 +8,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.sync.Result;
@@ -17,6 +15,7 @@ import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -39,8 +38,8 @@ public class UpcomingPresenterTest {
         view = mock(UpcomingContract.view.class);
         services = mock(MovieServices.class);
         errorFilter = mock(ViewErrorFilter.class);
-        List<MovieModel> upcomingList = new ArrayList<>();
-        List<MovieModel> fullUpcomingList = new ArrayList<>();
+        List<MovieDS> upcomingList = new ArrayList<>();
+        List<MovieDS> fullUpcomingList = new ArrayList<>();
 
         presenter = new UpcomingPresenter(
                 view,

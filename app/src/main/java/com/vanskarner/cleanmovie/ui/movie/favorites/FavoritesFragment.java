@@ -14,9 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.FavoritesFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
+import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.presentation.favorites.FavoritesContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.List;
@@ -71,13 +75,15 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
     }
 
     @Override
-    public void showFavorites(List<MovieModel> list) {
-        singleAdapter.set(list);
+    public void showFavorites(List<MovieDS> list) {
+        List<MovieModel> modelList = MovieViewMapper.convert(list);
+        singleAdapter.set(modelList);
     }
 
     @Override
-    public void showFavoriteDetail(MovieDetailModel model) {
-        detailDialog.setModel(model);
+    public void showFavoriteDetail(MovieDetailDS movieDetailDS) {
+        MovieDetailModel movieDetailModel = MovieViewMapper.convert(movieDetailDS);
+        detailDialog.setModel(movieDetailModel);
         detailDialog.show(getChildFragmentManager());
     }
 
