@@ -7,6 +7,6 @@ import dagger.Module;
 @Module
 public abstract class UpcomingDetailPresenterModule {
     @Binds
-    abstract UpcomingDetailContract.presenter
-    bindPresenter(UpcomingDetailPresenter favoritesPresenter);
+    abstract UpcomingDetailPresenterFactory
+    bindPresenterFactory(DefaultUpcomingDetailPresenterFactory factory);
 }

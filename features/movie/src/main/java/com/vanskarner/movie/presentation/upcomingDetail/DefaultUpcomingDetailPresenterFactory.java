@@ -5,7 +5,7 @@ import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import javax.inject.Inject;
 
-public class DefaultUpcomingDetailPresenterFactory implements UpcomingDetailPresenterFactory {
+class DefaultUpcomingDetailPresenterFactory implements UpcomingDetailPresenterFactory {
     private final UpcomingDetailContract.view view;
     private final MovieServices movieServices;
     private final ViewErrorFilter viewErrorFilter;
@@ -24,4 +24,5 @@ public class DefaultUpcomingDetailPresenterFactory implements UpcomingDetailPres
     public UpcomingDetailContract.presenter create() {
         return new UpcomingDetailPresenter(view, movieServices, viewErrorFilter);
     }
+
 }

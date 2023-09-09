@@ -8,22 +8,17 @@ import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 class UpcomingPresenter implements UpcomingContract.presenter {
-
     private final UpcomingContract.view view;
     private final MovieServices movieServices;
     private final List<MovieDS> upcomingList;
     private final List<MovieDS> fullUpcomingList;
     private final ViewErrorFilter viewErrorFilter;
 
-    @Inject
     public UpcomingPresenter(
             UpcomingContract.view view,
             MovieServices movieServices,
-            @UpcomingQualifiers.FilterList List<MovieDS> upcomingList,
-            @UpcomingQualifiers.FullList List<MovieDS> fullUpcomingList,
+            List<MovieDS> upcomingList,List<MovieDS> fullUpcomingList,
             ViewErrorFilter viewErrorFilter) {
         this.view = view;
         this.movieServices = movieServices;

@@ -2,7 +2,6 @@ package com.vanskarner.cleanmovie.ui.movie;
 
 import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,18 +44,8 @@ public class MovieViewMapper {
         return list;
     }
 
-    public static MoviesFilterDS convert(List<MovieModel> movieModels, CharSequence charSequence) {
-        List<MovieDS> list = new ArrayList<>();
-        for (MovieModel item : movieModels) list.add(convert(item));
-        return new MoviesFilterDS(list, charSequence);
-    }
-
     private static MovieModel convert(MovieDS movieDS) {
         return new MovieModel(movieDS.id, movieDS.title, movieDS.image);
-    }
-
-    private static MovieDS convert(MovieModel movieModel) {
-        return new MovieDS(movieModel.id, movieModel.title, movieModel.image);
     }
 
 }

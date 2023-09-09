@@ -4,15 +4,12 @@ import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
 import com.vanskarner.movie.presentation.ViewErrorFilter;
 
-import javax.inject.Inject;
-
 class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
 
     private final UpcomingDetailContract.view view;
     private final MovieServices movieServices;
     private final ViewErrorFilter viewErrorFilter;
 
-    @Inject
     public UpcomingDetailPresenter(
             UpcomingDetailContract.view view,
             MovieServices movieServices,

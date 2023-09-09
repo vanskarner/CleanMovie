@@ -5,15 +5,11 @@ import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import java.util.Collections;
 
-import javax.inject.Inject;
-
 class FavoritesPresenter implements FavoritesContract.presenter {
-
     private final FavoritesContract.view view;
     private final MovieServices movieServices;
     private final ViewErrorFilter viewErrorFilter;
 
-    @Inject
     public FavoritesPresenter(
             FavoritesContract.view view,
             MovieServices movieServices,

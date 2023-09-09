@@ -8,8 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class DefaultUpcomingPresenterFactory implements UpcomingPresenterFactory {
-
+class DefaultUpcomingPresenterFactory implements UpcomingPresenterFactory {
     private final UpcomingContract.view view;
     private final MovieServices movieServices;
     private final List<MovieDS> upcomingList;
@@ -20,8 +19,8 @@ public class DefaultUpcomingPresenterFactory implements UpcomingPresenterFactory
     public DefaultUpcomingPresenterFactory(
             UpcomingContract.view view,
             MovieServices movieServices,
-            List<MovieDS> upcomingList,
-            List<MovieDS> fullUpcomingList,
+            @UpcomingPresenterQualifiers.FilterList List<MovieDS> upcomingList,
+            @UpcomingPresenterQualifiers.FullList List<MovieDS> fullUpcomingList,
             ViewErrorFilter viewErrorFilter) {
         this.view = view;
         this.movieServices = movieServices;

@@ -13,16 +13,17 @@ import dagger.Provides;
 @Module
 public abstract class UpcomingPresenterModule {
     @Binds
-    abstract UpcomingContract.presenter bindPresenter(UpcomingPresenter favoritesPresenter);
+    abstract UpcomingPresenterFactory
+    bindPresenterFactory(DefaultUpcomingPresenterFactory factory);
 
     @Provides
-    @UpcomingQualifiers.FullList
+    @UpcomingPresenterQualifiers.FullList
     static List<MovieDS> provideFullList() {
         return new ArrayList<>();
     }
 
     @Provides
-    @UpcomingQualifiers.FilterList
+    @UpcomingPresenterQualifiers.FilterList
     static List<MovieDS> provideFilterList() {
         return new ArrayList<>();
     }
