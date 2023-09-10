@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingFragmentBinding;
-import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
+import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.movie.MovieModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
 import com.vanskarner.movie.businesslogic.ds.MovieDS;

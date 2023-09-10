@@ -1,19 +1,18 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
 
 import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
+import com.vanskarner.cleanmovie.R;
+import com.vanskarner.movie.presentation.ErrorView;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.vanskarner.cleanmovie.R;
-import com.vanskarner.movie.presentation.ErrorView;
-
 @Singleton
-class ServerError implements ErrorView<CommonErrorDialogBinding> {
+class NoInternetError implements ErrorView<CommonErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject
-    public ServerError(ErrorDialog errorDialog) {
+    public NoInternetError(ErrorDialog errorDialog) {
         this.errorDialog = errorDialog;
     }
 
@@ -21,8 +20,8 @@ class ServerError implements ErrorView<CommonErrorDialogBinding> {
     public CommonErrorDialogBinding setupView(Runnable action) {
         CommonErrorDialogBinding binding = CommonErrorDialogBinding
                 .inflate(errorDialog.getLayoutInflater());
-        binding.ivError.setImageResource(R.drawable.ic_server_error);
-        binding.tvMsgError.setText(R.string.msg_server_error);
+        binding.ivError.setImageResource(R.drawable.ic_no_internet);
+        binding.tvMsgError.setText(R.string.msg_no_internet);
         binding.errorButton.setOnClickListener(v -> action.run());
         return binding;
     }

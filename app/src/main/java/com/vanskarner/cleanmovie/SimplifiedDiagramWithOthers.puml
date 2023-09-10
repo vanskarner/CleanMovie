@@ -1,13 +1,9 @@
 @startuml
 !include ../../../../../../../StylesForDiagrams.puml
-package cleanmovie as "com.vanskarner.cleanmovie"{
-    class MovieDetailModel<<(D,orange)Data Structure>>
-    class MovieModel<<(D,orange)Data Structure>>
-    class ViewErrorFilter
-    class ErrorDialog
-    class MovieViewMapper
-    together {
-        interface ErrorView<T><<interface>>
+
+package cleanmovie as "com.vanskarner.cleanmovie.ui"{
+    package errors {
+        class ErrorDialog
         class FavoritesLimitError
         class NoInternetError
         class NotFoundError
@@ -17,33 +13,34 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class UnknownError
     }
     together {
-        interface FavoritesContractView<<interface>>
-        interface FavoritesContractPresenter<<interface>>
         class FavoritesFragment
-        class FavoritesPresenter
         class DeleteFavoritesDialog
         class FavoritesBindAdapter
         class FavoritesDetailDialog
-
     }
     together {
-        interface UpcomingContractView<<interface>>
-        interface UpcomingContractPresenter<<interface>>
         class UpcomingFragment
-        class UpcomingPresenter
         class Pagination
         class RxSearchView
         class UpcomingBindAdapter
     }
     together {
-        interface UpcomingDetailContractView<<interface>>
-        interface UpcomingDetailContractPresenter<<interface>>
         class UpcomingDetailFragment
-        class UpcomingDetailPresenter
+    }
+    together {
+        class MovieViewMapper
+        class MovieDetailModel<<(D,orange)Data Structure>>
+        class MovieModel<<(D,orange)Data Structure>>
     }
 }
-package usecases as "com.vanskarner.usecases"{
-    interface MovieServices<<interface>>
+package usecases as "com.vanskarner.movie.presentation"{
+    interface FavoritesContractPresenter<<interface>>
+    interface FavoritesContractView<<interface>>
+    interface UpcomingContractPresenter<<interface>>
+    interface UpcomingDetailContractPresenter<<interface>>
+    interface UpcomingContractView<<interface>>
+    interface UpcomingDetailContractView<<interface>>
+    interface ErrorView<T><<interface>>
 }
 
 ErrorView <|.. FavoritesLimitError
@@ -53,52 +50,42 @@ ErrorView <|.. ServerError
 ErrorView <|.. ServiceUnavailableError
 ErrorView <|.. UnauthorisedError
 ErrorView <|.. UnknownError
-ViewErrorFilter --> "1..*" ErrorView
-ViewErrorFilter --> ErrorView
-ErrorDialog --> "1" ErrorView
+ErrorView "1" <-  ErrorDialog
+
+ErrorDialog <-- FavoritesFragment
+ErrorDialog <-- UpcomingFragment
+ErrorDialog <-- UpcomingDetailFragment
+
 
 /'Favorites Feature'/
-FavoritesContractPresenter <|.. FavoritesPresenter
-FavoritesContractView <-- FavoritesPresenter
-FavoritesPresenter --> ViewErrorFilter
-FavoritesPresenter ..> MovieViewMapper
-FavoritesContractView <|.. FavoritesFragment
+FavoritesContractView <|. FavoritesFragment
 FavoritesContractPresenter <-- FavoritesFragment
 FavoritesFragment --> FavoritesBindAdapter
 FavoritesFragment --> DeleteFavoritesDialog
 FavoritesFragment --> FavoritesDetailDialog
-FavoritesFragment --> ErrorDialog
+FavoritesFragment ..> MovieViewMapper
+/'FavoritesFragment --> ErrorDialog'/
 FavoritesDetailDialog --> MovieDetailModel
 
 /'Upcoming Feature'/
-UpcomingContractPresenter <|.. UpcomingPresenter
 UpcomingContractPresenter <-- UpcomingFragment
-UpcomingPresenter --> "0..*" MovieModel
-UpcomingPresenter --> "0..*" MovieModel
-UpcomingPresenter --> ViewErrorFilter
-UpcomingPresenter ..> MovieViewMapper
 UpcomingContractView <|.. UpcomingFragment
-UpcomingContractView <-- UpcomingPresenter
 UpcomingFragment --> Pagination
 UpcomingFragment --> UpcomingBindAdapter
-UpcomingFragment --> ErrorDialog
+UpcomingFragment ..> MovieViewMapper
+/'UpcomingFragment --> ErrorDialog'/
 UpcomingFragment --> RxSearchView
 
 /'UpcomingDetail Feature'/
-UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
 UpcomingDetailContractPresenter <-- UpcomingDetailFragment
-UpcomingDetailPresenter ..> MovieViewMapper
-UpcomingDetailPresenter --> ViewErrorFilter
 UpcomingDetailContractView <|.. UpcomingDetailFragment
-UpcomingDetailContractView <-- UpcomingDetailPresenter
-UpcomingDetailFragment --> ErrorDialog
+UpcomingDetailFragment ..> MovieViewMapper
+/'UpcomingDetailFragment --> ErrorDialog'/
 
-MovieDetailModel <.. MovieViewMapper
-MovieModel <.. MovieViewMapper
+MovieDetailModel -|> MovieModel
+MovieViewMapper ..> MovieDetailModel
+MovieViewMapper ..> MovieModel
 
-FavoritesPresenter .up.> "<<use>>" MovieServices
-UpcomingPresenter .up.> "<<use>>" MovieServices
-UpcomingDetailPresenter .up.> "<<use>>" MovieServices
 
 hide members
 skinparam Linetype ortho

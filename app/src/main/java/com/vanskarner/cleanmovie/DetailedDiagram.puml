@@ -1,24 +1,17 @@
 @startuml
 !include ../../../../../../../StylesForDiagrams.puml
-package cleanmovie as "com.vanskarner.cleanmovie"{
+
+package cleanmovie as "com.vanskarner.cleanmovie.ui"{
     class MovieViewMapper{
         - MovieViewMapper()
         + {static} convert(MovieDetailDS): MovieDetailModel
         + {static} convert(MovieDetailModel): MovieDetailDS
         + {static} convert(List<MovieDS>): List<MovieModel>
-        + {static} convert(List<MovieModel>,CharSequence):  MoviesFilterDS
         - {static} convert(MovieDS): MovieModel
-        - {static} convert(MovieModel): MovieDS
-    }
-    interface BasePresenter<<interface>>{
-        + asyncCancel(): void
     }
     class MovieDetailModel<<(D,orange)Data Structure>>
     class MovieModel<<(D,orange)Data Structure>>
-    class ViewErrorFilter{
-        + ViewErrorFilter(Map<Class<?>, Provider<ErrorView<?>>>,ErrorView<?>)
-        + filter(Throwable): ErrorView<?>
-    }
+    package errors{
     class ErrorDialog{
         - {static} TAG: String = "ErrorDialog"
         - action: Runnable
@@ -27,50 +20,25 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         + setError(ErrorView<?>,Runnable): void
         + show(FragmentManager): void
     }
-    together {
-        interface ErrorView<T><<interface>>{
-            + setupView(Runnable): T
-        }
-        class FavoritesLimitError
-        class NoInternetError
-        class NotFoundError
-        class ServerError
-        class ServiceUnavailableError
-        class UnauthorisedError
-        class UnknownError
+    class FavoritesLimitError
+            class NoInternetError
+            class NotFoundError
+            class ServerError
+            class ServiceUnavailableError
+            class UnauthorisedError
+            class UnknownError
     }
     together {
-        interface FavoritesContractView<<interface>> {
-            + showFavorites(List<MovieModel>): void
-            + showFavoriteDetail(MovieDetailModel):void
-            + setNotFavorites(boolean): void
-            + showError(ErrorView<?>): void
-            + showRemovedItems(int): void
-        }
-        interface FavoritesContractPresenter<<interface>> {
-            + getFavorites(): void
-            + getFavoriteDetail(int): void
-            + deleteFavorites(): void
-        }
         class FavoritesFragment{
             ~ singleAdapter: SingleAdapter
             ~ binding: FavoritesFragmentBinding
-            + showFavorites(List<MovieModel>): void
-            + showFavoriteDetail(MovieDetailModel):void
+            + showFavorites(List<MovieDS>): void
+            + showFavoriteDetail(MovieDetailDS):void
             + setNotFavorites(boolean): void
             + showError(ErrorView<?>): void
             + showRemovedItems(int): void
             - onClickTrashMenuItem(MenuItem): boolean
             - onClickFavoriteItem(View): void
-        }
-        class FavoritesPresenter{
-            - movieServices: MovieServices
-            + FavoritesPresenter(FavoritesContractView,
-            MovieServices,ViewErrorFilter)
-            + getFavorites(): void
-            + getFavoriteDetail(int): void
-            + deleteFavorites(): void
-            + asyncCancel(): void
         }
         class DeleteFavoritesDialog{
             - {static}TAG: String = "DeleteFavoritesDialog"
@@ -105,20 +73,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             + UpcomingBindAdapter()
             + setOnClickItem(View.OnClickListener): void
         }
-        interface UpcomingContractView<<interface>>{
-            + setSearchView(boolean): void
-            + setInitialProgress(boolean): void
-            + setPagingProgress(boolean): void
-            + enableScroll(): void
-            + paginate(): void
-            + showUpcoming(List<MovieModel>): void
-            + showError(ErrorView<?>): void
-        }
-        interface UpcomingContractPresenter<<interface>>{
-            + initialLoad(int): void
-            + loadMoreItems(int,boolean): void
-            + filter(CharSequence): void
-        }
         class UpcomingFragment{
             ~ singleAdapter: SingleAdapter
             ~ compositeDisposable: CompositeDisposable
@@ -128,7 +82,7 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             + setPagingProgress(boolean): void
             + enableScroll(): void
             + paginate(): void
-            + showUpcoming(List<MovieModel>): void
+            + showUpcoming(List<MovieDS>): void
             + showError(ErrorView<?>): void
             - configNavToolbar(): void
             - configSearchView(): void
@@ -137,105 +91,51 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             - configFilter(): void
             - getSearchView(): SearchView
         }
-        class UpcomingPresenter{
-            - movieServices: MovieServices
-            + UpcomingPresenter(UpcomingContractView, MovieServices,
-            List<MovieModel>,List<MovieModel>,ViewErrorFilter)
-            + initialLoad(int): void
-            + loadMoreItems(int,boolean): void
-            + filter(CharSequence): void
-            + asyncCancel(): void
-            - addItems(List<MovieModel>): void
-        }
     }
     together {
-        interface UpcomingDetailContractView<<interface>>{
-            + setReadyViews(boolean): void
-            + setMarkedAsFavorite(boolean): void
-            + showUpcomingDetail(MovieDetailModel): void
-            + showError(ErrorView<?>): void
-        }
-        interface UpcomingDetailContractPresenter<<interface>>{
-            + initialAction(int): void
-            + actionFavoriteMovie(MovieDetailModel): void
-        }
         class UpcomingDetailFragment{
             ~ binding: UpcomingDetailFragmentBinding
             + setReadyViews(boolean): void
             + setMarkedAsFavorite(boolean): void
-            + showUpcomingDetail(MovieDetailModel): void
+            + showUpcomingDetail(MovieDetailDS): void
             + showError(ErrorView<?>): void
             - configNavToolbar(): void
             - onClickHeartMenuItem(MenuItem): boolean
             - getMovieId(): int
             - toBase64(ImageView): String
         }
-        class UpcomingDetailPresenter{
-            - movieServices: MovieServices
-            + UpcomingDetailPresenter(UpcomingDetailContractView,
-            MovieServices,ViewErrorFilter)
-            + initialAction(int): void
-            + actionFavoriteMovie(MovieDetailModel): void
-            + asyncCancel(): void
-        }
     }
 }
 
-ErrorView <|.. FavoritesLimitError
-ErrorView <|.. NoInternetError
-ErrorView <|.. NotFoundError
-ErrorView <|.. ServerError
-ErrorView <|.. ServiceUnavailableError
-ErrorView <|.. UnauthorisedError
-ErrorView <|.. UnknownError
-ViewErrorFilter --> "1..*" ErrorView: -mapError
-ViewErrorFilter --> ErrorView: -defaultError
-ErrorDialog --> "1" ErrorView: -errorView
-
 /'Favorites Feature'/
-FavoritesContractPresenter <|.. FavoritesPresenter
-FavoritesContractView <-- FavoritesPresenter: -view
-FavoritesPresenter --> ViewErrorFilter: - viewErrorFilter
-FavoritesPresenter ..> MovieViewMapper
-FavoritesContractView <|.. FavoritesFragment
-FavoritesContractPresenter <-- FavoritesFragment: ~presenter
 FavoritesFragment --> FavoritesBindAdapter: ~ favoritesBindAdapter
 FavoritesFragment --> DeleteFavoritesDialog: ~deleteFavorites
 FavoritesFragment --> FavoritesDetailDialog: ~detailDialog
 FavoritesFragment --> ErrorDialog: ~errorDialog
 FavoritesDetailDialog --> MovieDetailModel: -model
-BasePresenter <|-- FavoritesContractPresenter
 
 /'Upcoming Feature'/
-UpcomingContractPresenter <|.. UpcomingPresenter
-UpcomingContractPresenter <-- UpcomingFragment: ~presenter
-UpcomingPresenter --> "0..*" MovieModel: -upcomingList
-UpcomingPresenter --> "0..*" MovieModel: -fullUpcomingList
-UpcomingPresenter --> ViewErrorFilter: -viewErrorFilter
-UpcomingPresenter ..> MovieViewMapper
-UpcomingContractView <|.. UpcomingFragment
-UpcomingContractView <-- UpcomingPresenter: -view
 UpcomingFragment --> Pagination:  ~pagination
 UpcomingFragment --> UpcomingBindAdapter:  ~upcomingBindAdapter
 UpcomingFragment --> ErrorDialog: ~errorDialog
 UpcomingFragment --> RxSearchView: ~rxSearchView
-BasePresenter <|-- UpcomingContractPresenter
 
 /'UpcomingDetail Feature'/
-UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
-UpcomingDetailContractPresenter <-- UpcomingDetailFragment: ~presenter
-UpcomingDetailPresenter ..> MovieViewMapper
-UpcomingDetailPresenter --> ViewErrorFilter: - viewErrorFilter
-UpcomingDetailContractView <|.. UpcomingDetailFragment
-UpcomingDetailContractView <-- UpcomingDetailPresenter: -view
 UpcomingDetailFragment --> ErrorDialog: ~errorDialog
-BasePresenter <|-- UpcomingDetailContractPresenter
 
 MovieDetailModel <.. MovieViewMapper
 MovieModel <.. MovieViewMapper
 
+/'UpcomingFragment ..> MovieViewMapper
+FavoritesFragment ..> MovieViewMapper
+UpcomingDetailFragment ..> MovieViewMapper'/
+
+MovieViewMapper ..> UpcomingFragment
+MovieViewMapper ..> FavoritesFragment
+MovieViewMapper ..> UpcomingDetailFragment
+
+left to right direction
 hide MovieViewMapper attributes
-hide ViewErrorFilter attributes
 hide FavoritesLimitError members
 hide NoInternetError members
 hide NotFoundError members

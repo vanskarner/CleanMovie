@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

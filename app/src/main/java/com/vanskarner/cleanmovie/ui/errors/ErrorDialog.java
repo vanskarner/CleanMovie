@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
 
 import android.app.Dialog;
 import android.os.Bundle;
