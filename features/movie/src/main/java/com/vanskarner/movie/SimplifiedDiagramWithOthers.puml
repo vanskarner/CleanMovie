@@ -127,8 +127,8 @@ MovieRemoteError <|-- ServiceUnavailable
 MovieRemoteError <|-- Unauthorised
 MovieRemoteErrorInterceptor --> RemoteDataErrorFilter
 /'Relations - remote-data:end'/
-Result <.. MovieServices
-FutureResult <.. MovieServices
+Result <.. MovieServices: <<use>>
+FutureResult <.. MovieServices: <<use>>
 
 /'Visualization'/
 hide members
