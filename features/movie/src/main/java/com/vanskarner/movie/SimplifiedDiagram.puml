@@ -52,6 +52,63 @@ package movie as "com.vanskarner.movie"{
         class NoInternet
         class MovieRemoteErrorInterceptor
     }
+
+    package presentation{
+        interface ErrorView<T><<interface>>
+        class ViewErrorFilter
+        interface BasePresenter<<interface>>
+
+        package favorites{
+            class DefaultFavoritesPresenterFactory
+            interface FavoritesContractView<<interface>>
+            interface FavoritesContractPresenter<<interface>>
+            class FavoritesPresenter
+            interface FavoritesPresenterFactory<<interface>>
+
+            FavoritesPresenterFactory <|- DefaultFavoritesPresenterFactory
+            FavoritesPresenterFactory ..> FavoritesContractPresenter
+            FavoritesContractPresenter <|-- FavoritesPresenter
+            FavoritesContractView <-- FavoritesPresenter
+            FavoritesContractView ..> ErrorView
+            FavoritesPresenter --> MovieServices
+            FavoritesPresenter --> ViewErrorFilter
+        }
+        package upcoming{
+            class DefaultUpcomingPresenterFactory
+            interface UpcomingContractView<<interface>>
+            interface UpcomingContractPresenter<<interface>>
+            class UpcomingPresenter
+            interface UpcomingPresenterFactory<<interface>>
+
+            UpcomingPresenterFactory <|- DefaultUpcomingPresenterFactory
+            UpcomingPresenterFactory ..> UpcomingContractPresenter
+            UpcomingContractPresenter <|-- UpcomingPresenter
+            UpcomingContractView <-- UpcomingPresenter
+            UpcomingContractView ..> ErrorView
+            UpcomingPresenter --> MovieServices
+            UpcomingPresenter --> ViewErrorFilter
+        }
+        package upcomingDetail{
+            class DefaultUpcomingDetailPresenterFactory
+            interface UpcomingDetailContractView<<interface>>
+            interface UpcomingDetailContractPresenter<<interface>>
+            class UpcomingDetailPresenter
+            interface UpcomingDetailPresenterFactory<<interface>>
+
+            UpcomingDetailPresenterFactory <|- DefaultUpcomingDetailPresenterFactory
+            UpcomingDetailPresenterFactory ..> UpcomingDetailContractPresenter
+            UpcomingDetailContractPresenter <|-- UpcomingDetailPresenter
+            UpcomingDetailContractView <-- UpcomingDetailPresenter
+            UpcomingDetailContractView ..> ErrorView
+            UpcomingDetailPresenter --> MovieServices
+            UpcomingDetailPresenter --> ViewErrorFilter
+        }
+        ViewErrorFilter --> ErrorView
+        ViewErrorFilter --> "1..*" ErrorView
+        FavoritesContractPresenter ...> BasePresenter
+        UpcomingDetailContractPresenter ...> BasePresenter
+        UpcomingContractPresenter ...> BasePresenter
+    }
 }
 
 /'Relations'/

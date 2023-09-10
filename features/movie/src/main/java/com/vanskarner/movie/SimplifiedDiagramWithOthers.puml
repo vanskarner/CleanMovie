@@ -3,8 +3,8 @@
 
 /'Specification'/
 package core as "com.vanskarner.core"{
-    interface Result<T><<interface>>
     interface FutureResult<T><<interface>>
+    interface Result<T><<interface>>
 }
 package movie as "com.vanskarner.movie"{
     package businesslogic {
@@ -34,13 +34,13 @@ package movie as "com.vanskarner.movie"{
         }
         entity MovieBO
     }
-    package persistence.local{
+    package persistence.local {
         interface MovieDao<<interface>>
         class MovieEntity<<(D,orange)Data Structure>>
         class MovieLocalRxRepository
         class MovieLocalDataMapper
     }
-    package persistence.remote{
+    package persistence.remote {
         class MovieRemoteRxRepository
         class MovieDeserializer
         class MovieDTO<<(D,orange)Data Structure>>
@@ -55,6 +55,63 @@ package movie as "com.vanskarner.movie"{
         class ServiceUnavailable
         class NoInternet
         class MovieRemoteErrorInterceptor
+    }
+
+    package presentation{
+        interface ErrorView<T><<interface>>
+        class ViewErrorFilter
+        interface BasePresenter<<interface>>
+
+        package favorites{
+            class DefaultFavoritesPresenterFactory
+            interface FavoritesContractView<<interface>>
+            interface FavoritesContractPresenter<<interface>>
+            class FavoritesPresenter
+            interface FavoritesPresenterFactory<<interface>>
+
+            FavoritesPresenterFactory <|- DefaultFavoritesPresenterFactory
+            FavoritesPresenterFactory ..> FavoritesContractPresenter
+            FavoritesContractPresenter <|-- FavoritesPresenter
+            FavoritesContractView <-- FavoritesPresenter
+            FavoritesContractView ..> ErrorView
+            FavoritesPresenter --> MovieServices
+            FavoritesPresenter --> ViewErrorFilter
+        }
+        package upcoming{
+            class DefaultUpcomingPresenterFactory
+            interface UpcomingContractView<<interface>>
+            interface UpcomingContractPresenter<<interface>>
+            class UpcomingPresenter
+            interface UpcomingPresenterFactory<<interface>>
+
+            UpcomingPresenterFactory <|- DefaultUpcomingPresenterFactory
+            UpcomingPresenterFactory ..> UpcomingContractPresenter
+            UpcomingContractPresenter <|-- UpcomingPresenter
+            UpcomingContractView <-- UpcomingPresenter
+            UpcomingContractView ..> ErrorView
+            UpcomingPresenter --> MovieServices
+            UpcomingPresenter --> ViewErrorFilter
+        }
+        package upcomingDetail{
+            class DefaultUpcomingDetailPresenterFactory
+            interface UpcomingDetailContractView<<interface>>
+            interface UpcomingDetailContractPresenter<<interface>>
+            class UpcomingDetailPresenter
+            interface UpcomingDetailPresenterFactory<<interface>>
+
+            UpcomingDetailPresenterFactory <|- DefaultUpcomingDetailPresenterFactory
+            UpcomingDetailPresenterFactory ..> UpcomingDetailContractPresenter
+            UpcomingDetailContractPresenter <|-- UpcomingDetailPresenter
+            UpcomingDetailContractView <-- UpcomingDetailPresenter
+            UpcomingDetailContractView ..> ErrorView
+            UpcomingDetailPresenter --> MovieServices
+            UpcomingDetailPresenter --> ViewErrorFilter
+        }
+        ViewErrorFilter --> ErrorView
+        ViewErrorFilter --> "1..*" ErrorView
+        FavoritesContractPresenter ...> BasePresenter
+        UpcomingDetailContractPresenter ...> BasePresenter
+        UpcomingContractPresenter ...> BasePresenter
     }
 }
 
@@ -127,8 +184,8 @@ MovieRemoteError <|-- ServiceUnavailable
 MovieRemoteError <|-- Unauthorised
 MovieRemoteErrorInterceptor --> RemoteDataErrorFilter
 /'Relations - remote-data:end'/
-Result <.. MovieServices
-FutureResult <.. MovieServices
+FutureResult <.. MovieServices: <<use>>
+Result <.. MovieServices: <<use>>
 
 /'Visualization'/
 hide members
