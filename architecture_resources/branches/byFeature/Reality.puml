@@ -1,0 +1,25 @@
+@startuml
+!include ../../StylesForDiagrams.puml
+
+title REALITY DUE TO CONTEXT \n Branch: package_by_feature
+
+package movie as "com.vanskarner.movie"{
+    interface FavoritesContractPresenter<<interface>>
+    class FavoritesPresenter classNotVisible
+    interface MovieServices<<interface>>
+    class MovieDefaultServices classNotVisible
+    interface MovieLocalRepository<<interface>>
+    class MovieLocalRxRepository classNotVisible
+    class FindFavoriteMovieUseCase classNotVisible
+
+    MovieServices <|.. MovieDefaultServices
+    MovieLocalRepository <|.. MovieLocalRxRepository
+    FavoritesContractPresenter <|.. FavoritesPresenter
+}
+FavoritesPresenter --> MovieServices
+MovieDefaultServices --> FindFavoriteMovieUseCase
+FindFavoriteMovieUseCase --> MovieLocalRepository
+
+skinparam titleFontColor red
+hide members
+@enduml

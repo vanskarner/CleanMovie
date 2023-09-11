@@ -1,16 +1,16 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title SERVICE EXPOSURE
+title EXPOSURE OF USE CASE SERVICES\n Branch: package_by_layer
 
 interface MovieServices<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>
 class MovieDS<<(D,orange)Data Structure>>
 class MoviesDS<<(D,orange)Data Structure>>
 class MoviesFilterDS<<(D,orange)Data Structure>>
-abstract MovieError<<abstract>>
-class FavoriteLimit
-abstract class MovieRemoteError<<abstract>>
+abstract DomainError<<abstract>>
+class MovieFavoriteLimit
+abstract class RemoteError<<abstract>>
 class Unauthorised
 class NotFound
 class Server
@@ -23,12 +23,12 @@ MovieServices ..> MoviesFilterDS
 MoviesDS --> "0..*" MovieDS
 MoviesFilterDS --> "0..*" MovieDS
 MoviesFilterDS --> "0..*" MovieDS
-MovieError <|-- FavoriteLimit
-MovieRemoteError <|-- NoInternet
-MovieRemoteError <|-- NotFound
-MovieRemoteError <|-- Server
-MovieRemoteError <|-- ServiceUnavailable
-MovieRemoteError <|-- Unauthorised
+DomainError <|-- MovieFavoriteLimit
+RemoteError <|-- NoInternet
+RemoteError <|-- NotFound
+RemoteError <|-- Server
+RemoteError <|-- ServiceUnavailable
+RemoteError <|-- Unauthorised
 
 hide members
 @enduml

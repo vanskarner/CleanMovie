@@ -1,0 +1,26 @@
+@startuml
+!include ../../StylesForDiagrams.puml
+title COMPLEMENTARY COMPONENT DIAGRAM \n Branch: package_by_feature
+
+component ui as "custom ui"
+component core
+component movie
+interface FavoritesServices
+interface UpcomingServices
+interface UpcomingDetailServices
+note bottom of movie
+Here should be shown the required interfaces
+(interfaces of the views to implement), but
+the tool does not have that figure (line with
+a semicircle), so I decided not to show it.
+end note
+
+ui ..> FavoritesServices
+ui ..> UpcomingServices
+ui ..> UpcomingDetailServices
+FavoritesServices -- movie
+UpcomingServices -- movie
+UpcomingDetailServices -- movie
+core <.. ui
+core <.. movie
+@enduml

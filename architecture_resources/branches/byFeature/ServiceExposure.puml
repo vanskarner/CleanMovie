@@ -1,0 +1,36 @@
+@startuml
+!include ../../StylesForDiagrams.puml
+
+title MOVIE COMPONENT SERVICE EXPOSURE  \n Branch: package_by_feature
+
+interface FavoritesContractPresenter<<interface>>
+interface UpcomingContractPresenter<<interface>>
+interface UpcomingDetailContractPresenter<<interface>>
+interface FavoritesContractView<<interface>>
+interface UpcomingContractView<<interface>>
+interface UpcomingDetailContractView<<interface>>
+class MovieDetailDS<<(D,orange)Data Structure>>
+class MovieDS<<(D,orange)Data Structure>>
+abstract MovieError<<abstract>>
+class FavoriteLimit
+abstract class MovieRemoteError<<abstract>>
+class Unauthorised
+class NotFound
+class Server
+class ServiceUnavailable
+class NoInternet
+
+FavoritesContractView ..> MovieDS
+FavoritesContractView ..> MovieDetailDS
+UpcomingContractView ..> MovieDS
+UpcomingDetailContractView ..> MovieDetailDS
+UpcomingDetailContractPresenter ..> MovieDetailDS
+MovieError <|-- FavoriteLimit
+MovieRemoteError <|-- NoInternet
+MovieRemoteError <|-- NotFound
+MovieRemoteError <|-- Server
+MovieRemoteError <|-- ServiceUnavailable
+MovieRemoteError <|-- Unauthorised
+
+hide members
+@enduml

@@ -1,7 +1,7 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title MOVIE COMPONENT SERVICE EXPOSURE
+title MOVIE COMPONENT SERVICE EXPOSURE \n Branch: package_by_component
 
 interface MovieServices<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>

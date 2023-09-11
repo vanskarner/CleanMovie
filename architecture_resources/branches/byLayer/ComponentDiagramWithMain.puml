@@ -1,8 +1,8 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-left to right direction
-title COMPONENT DIAGRAM \n Branch: package_by_layer
+
+title COMPONENT DIAGRAM WITH MAIN \n Branch: package_by_layer
 rectangle "domain" {
     component useCases as "use cases"
     component entities
@@ -14,11 +14,20 @@ rectangle "data" {
 rectangle presentation {
     component ui
 }
+component main
+
+main ..> ui
+main ..> useCases
+main ..> localData
+main ..> remoteData
 
 useCases .> entities
 useCases <.. localData
 useCases <.. remoteData
+
 entities <.. localData
 entities <.. remoteData
+
 ui ..> useCases
+skinparam Linetype ortho
 @enduml

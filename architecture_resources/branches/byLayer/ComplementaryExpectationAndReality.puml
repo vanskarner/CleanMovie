@@ -9,17 +9,21 @@ package domain as "com.vanskarner.usecases"{
     interface MovieServices<<interface>>
     class MovieDefaultServices classNotVisible
     interface MovieLocalRepository<<interface>>
-    class FindFavoriteMovieUseCase classNotVisible
+    class FindUpcomingMovieUseCase classNotVisible
 
     MovieServices <|.. MovieDefaultServices
-    MovieDefaultServices --> FindFavoriteMovieUseCase
-    FindFavoriteMovieUseCase --> MovieLocalRepository
+    MovieDefaultServices --> FindUpcomingMovieUseCase
+    FindUpcomingMovieUseCase --> MovieLocalRepository
+}
+package entities as "com.vanskarner.entities"{
+    class MovieBO
 }
 package localData as "com.vanskarner.localdata"{
     class MovieLocalRxRepository classNotVisible
 }
 
 FavoritesPresenter ..> MovieServices: <<use>>
+FindUpcomingMovieUseCase .> MovieBO: <<use>>
 MovieLocalRepository <|.. MovieLocalRxRepository
 
 skinparam titleFontColor green

@@ -1,0 +1,31 @@
+@startmindmap
+
+title Main Component Configuration \n Branch: package_by_feature
+* AppComponent
+** ProjectParametersModule
+** RoomDBModule
+** CoreModule
+*** ConcurrentRxModule
+** ViewModule
+*** AndroidInjectionModule
+*** FragmentBuildersModule
+**** FavoritesModule
+***** FavoritePresenterModule
+**** UpcomingModule
+***** UpcomingPresenterModule
+**** UpcomingDetailModule
+***** UpcomingDetailPresenterModule
+*** ViewErrorTypesModule
+** MovieModule
+*** MovieBusinessLogicModule
+**** MovieErrorModule
+*** MovieLocalRepositoryModule
+*** MovieRemoteRepositoryModule
+**** MovieRemoteErrorsModule
+
+legend
+It establishes the initial conditions and configurations
+end legend
+
+skinparam legendBackgroundColor #FEFECE
+@endmindmap

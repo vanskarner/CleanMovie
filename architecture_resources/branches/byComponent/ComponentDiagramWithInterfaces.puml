@@ -1,15 +1,15 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title COMPLEMENTARY COMPONENT DIAGRAM
+title COMPLEMENTARY COMPONENT DIAGRAM \n Branch: package_by_component
 
-component app
+component ui
 component core
 component movie
 interface services
 
-app ..> services
+ui ..> services
 services - movie
-core <.. app
+core <.. ui
 core <.. movie
 @enduml

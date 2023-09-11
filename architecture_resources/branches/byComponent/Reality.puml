@@ -1,7 +1,7 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title REALITY DUE TO CONTEXT
+title REALITY DUE TO CONTEXT \n Branch: package_by_component
 package cleanmovie as "com.vanskarner.cleanmovie" {
     class FavoritesPresenter
 }

@@ -1,7 +1,7 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title COMPONENT DIAGRAM
+title COMPONENT DIAGRAM \n Branch: package_by_component
 component core
 component movie #white{
     component localpersistence as "local persistence"
@@ -11,9 +11,9 @@ component movie #white{
     businesslogic <.. remotepersistence
     businesslogic <.. localpersistence
 }
-component app
+component ui
 
 core <.. movie
-core <.. app
-movie <.left. app
+core <.. ui
+ui ..> movie
 @enduml

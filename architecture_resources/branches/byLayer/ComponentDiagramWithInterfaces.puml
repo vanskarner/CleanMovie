@@ -1,30 +1,35 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-left to right direction
-title COMPLEMENTARY COMPONENT DIAGRAM
+title COMPLEMENTARY COMPONENT DIAGRAM \n Branch: package_by_layer
 rectangle "domain" {
-    component useCases
+    component useCases as "use cases"
     component entities
     interface services
 
     services - useCases
 }
 rectangle "data" {
-    component localData
-    component remoteData
+    component localData as "local data"
+    component remoteData as "remote data"
 }
 rectangle presentation {
-    component app
+    component ui
 }
 component core
 
-core <.. app
+localData ..> entities
+localData ..> useCases
+core <.. localData
+remoteData ..> entities
+remoteData ..> useCases
+core <.. remoteData
+
+core <.. ui
 core <.. useCases
-core <.. data
+
 
 useCases ..> entities
-useCases <.. data
-entities <.. data
-app ..> services
+ui ..> services
+skinparam Linetype ortho
 @enduml
