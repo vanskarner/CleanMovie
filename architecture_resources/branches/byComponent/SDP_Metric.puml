@@ -1,0 +1,86 @@
+@startuml
+!include ../../../architecture_resources/StylesForDiagrams.puml
+
+title CALCULATING THE METRIC FOR SDP\n branch: package_by_componente_Main
+/'Start: for core'/
+component core {
+    interface Result<T><<interface>>
+    interface FutureResult<T><<interface>>
+    interface FutureSimpleResult<<interface>>
+    interface RxFutureFactory<<interface>>
+}
+/'End: for core'/
+
+/'Start: for movie'/
+component movie {
+    abstract BaseAsyncOutPutUseCase<<abstract>>
+    abstract BaseAsyncUseCase<<abstract>>
+    abstract BaseUseCase<<abstract>>
+    interface MovieLocalRepository<<interface>>
+    class MovieLocalRxRepository
+    interface MovieRemoteRepository<<interface>>
+    class MovieRemoteRxRepository
+    class CheckFavoriteMovieUseCase
+    class DeleteAllFavoriteMoviesUseCase
+    class FindFavoriteMovieUseCase
+    class FindUpcomingMovieUseCase
+    class MovieDefaultServices
+    interface MovieServices<<interface>>
+    class ShowFavoriteMoviesUseCase
+    class ShowUpcomingMoviesUseCase
+    class ToggleMovieFavoriteUseCase
+    class MovieDS<<(D,orange)Data Structure>>
+    class MovieDetailDS<<(D,orange)Data Structure>>
+    class MoviesFilterDS<<(D,orange)Data Structure>>
+}
+/'End: for movie'/
+
+/'Start: for ui'/
+component ui{
+    class MovieViewMapper
+    class FavoritesPresenter
+    class UpcomingPresenter
+    class UpcomingDetailPresenter
+}
+/'End: for ui'/
+
+/'Relationships between components'/
+MovieRemoteRxRepository ..> FutureResult
+MovieRemoteRxRepository ..> RxFutureFactory
+
+MovieLocalRxRepository ..> FutureResult
+MovieLocalRxRepository ..> FutureSimpleResult
+MovieLocalRxRepository ..> RxFutureFactory
+
+ToggleMovieFavoriteUseCase ..> FutureResult
+ShowUpcomingMoviesUseCase ..> FutureResult
+ShowFavoriteMoviesUseCase ..> FutureResult
+MovieServices ..> FutureResult
+MovieServices ..> Result
+MovieDefaultServices ..> FutureResult
+MovieDefaultServices ..> Result
+FindUpcomingMovieUseCase ..> FutureResult
+FindFavoriteMovieUseCase ..> FutureResult
+DeleteAllFavoriteMoviesUseCase ..> FutureResult
+CheckFavoriteMovieUseCase ..> FutureResult
+MovieRemoteRepository ..> FutureResult
+MovieLocalRepository ..> FutureResult
+MovieLocalRepository ..> FutureSimpleResult
+BaseUseCase ..> Result
+BaseAsyncUseCase ..> FutureResult
+BaseAsyncOutPutUseCase ..> FutureResult
+
+MovieViewMapper ..> MovieDS
+MovieViewMapper ..> MovieDetailDS
+MovieViewMapper ..> MoviesFilterDS
+FavoritesPresenter ..> MovieServices
+UpcomingPresenter ..> MoviesFilterDS
+UpcomingPresenter ..> MovieServices
+UpcomingDetailPresenter ..> MovieDetailDS
+UpcomingDetailPresenter ..> MovieServices
+
+hide members
+/'skinparam LineType ortho'/
+skinparam packageBackgroundColor white
+left to right direction
+@enduml
