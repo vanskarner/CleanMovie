@@ -46,6 +46,7 @@ component movie {
         class MovieDefaultServices
         class ShowFavoriteMoviesUseCase
         class ShowUpcomingMoviesUseCase
+        class FilterUpcomingMoviesUseCase
         class ToggleMovieFavoriteUseCase
         class MovieDS<<(D,orange)Data Structure>>
         class MoviesDS<<(D,orange)Data Structure>>
@@ -85,8 +86,6 @@ component ui{
     together{
         class MovieViewMapper
         class FavoritesPresenter
-        class UpcomingPresenter
-        class UpcomingDetailPresenter
         class ErrorDialog
         class FavoritesLimitError
         class NoInternetError
