@@ -1,8 +1,8 @@
-package com.vanskarner.movie.businesslogic.bases;
+package com.vanskarner.movie.businesslogic.services;
 
 import com.vanskarner.core.sync.Result;
 
-public abstract class BaseUseCase<InPut, OutPut> {
+abstract class BaseUseCase<InPut, OutPut> {
 
     public Result<OutPut> execute(InPut inPutValues) {
         try {

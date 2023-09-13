@@ -1,4 +1,4 @@
-package com.vanskarner.movie.businesslogic.entities;
+package com.vanskarner.movie.businesslogic.services;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

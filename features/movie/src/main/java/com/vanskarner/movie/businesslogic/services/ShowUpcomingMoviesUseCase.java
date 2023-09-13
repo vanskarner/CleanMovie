@@ -1,7 +1,6 @@
 package com.vanskarner.movie.businesslogic.services;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.movie.businesslogic.bases.BaseAsyncUseCase;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
 

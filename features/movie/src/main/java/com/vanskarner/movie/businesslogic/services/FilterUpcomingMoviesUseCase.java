@@ -1,6 +1,5 @@
 package com.vanskarner.movie.businesslogic.services;
 
-import com.vanskarner.movie.businesslogic.bases.BaseUseCase;
 import com.vanskarner.movie.businesslogic.ds.MovieDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 

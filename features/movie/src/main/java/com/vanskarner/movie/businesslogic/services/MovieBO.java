@@ -1,6 +1,6 @@
-package com.vanskarner.movie.businesslogic.entities;
+package com.vanskarner.movie.businesslogic.services;
 
-public class MovieBO {
+class MovieBO {
     private final int voteCount;
     private final float voteAverage;
 

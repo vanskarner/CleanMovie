@@ -1,8 +1,8 @@
-package com.vanskarner.movie.businesslogic.bases;
+package com.vanskarner.movie.businesslogic.services;
 
 import com.vanskarner.core.concurrent.FutureResult;
 
-public abstract class BaseAsyncOutPutUseCase<OutPut> {
+abstract class BaseAsyncOutPutUseCase<OutPut> {
 
     public abstract FutureResult<OutPut> execute();
 
