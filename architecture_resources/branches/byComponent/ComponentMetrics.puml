@@ -1,0 +1,42 @@
+@startuml
+!include ../../StylesForDiagrams.puml
+
+title  COMPONENT METRICS \n Branch: package_by_component_Main
+component core
+component movie #white {
+    component localpersistence as "local persistence"
+    component remotepersistence as "remote persistence"
+    component businesslogic as "business logic"
+
+    businesslogic <.. remotepersistence
+    businesslogic <.. localpersistence
+}
+
+component favorites as "Favorites UI"
+component upcoming as "Upcoming UI"
+component upcomingDetail as "Upcoming Detail UI"
+
+
+note right of core: Instability (I)= 0/(16+0) = 0 \n Abstractness (A) = 6/11 = 0.55 \n Main Sequence Distance (D) = |0.55 + 0 - 1| = 0.45
+note right of movie: Instability (I)= 16/(4+16) = 0.8 \n Abstractness (A) = 10/35 = 0.29 \n Main Sequence Distance (D) = |0.29 + 0.8 - 1| = 0.09
+
+note right of favorites: Instability (I)= 0 \n Abstractness (A) = 2/7 = 0.29 \n Main Sequence Distance (D) = 0
+note right of upcoming: Instability (I)= 0 \n Abstractness (A) = 2/7 = 0.29 \n Main Sequence Distance (D) = 0
+note right of upcomingDetail: Instability (I)= 0 \n Abstractness (A) = 2/4 = 0.5  \n Main Sequence Distance (D) = 0
+
+legend
+In the metrics, I have not included the classes linked to the configuration, not because
+they are not part of the component, but because they are not so significant.
+end legend
+
+core <.. movie
+core <.. favorites
+core <.. upcoming
+core <.. upcomingDetail
+favorites ...> movie
+upcoming ...> movie
+upcomingDetail ...> movie
+
+skinparam legendBackgroundColor #FEFECE
+skinparam Linetype ortho
+@enduml
