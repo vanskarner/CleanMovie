@@ -40,10 +40,10 @@ class TestFutureResult<T> implements FutureResult<T> {
 
     @Override
     public void onResult(Consumer<? super T> onSuccess, Consumer<? super Throwable> onFailure) {
-        if (error != null) {
-            onFailure.accept(error);
-        } else {
+        if (error == null) {
             onSuccess.accept(value);
+        } else {
+            onFailure.accept(error);
         }
     }
 

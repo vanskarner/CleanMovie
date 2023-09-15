@@ -2,7 +2,9 @@ package com.vanskarner.core.concurrent;
 
 import com.vanskarner.core.Consumer;
 
-/** @noinspection unused*/
+/**
+ * @noinspection unused
+ */
 class TestFutureSimpleResult implements FutureSimpleResult {
     private Exception error;
     private Runnable runnable;
@@ -17,10 +19,10 @@ class TestFutureSimpleResult implements FutureSimpleResult {
 
     @Override
     public void onResult(Runnable onSuccess, Consumer<? super Throwable> onFailure) {
-        if (error != null) {
-            onFailure.accept(error);
-        } else {
+        if (error == null) {
             onSuccess.run();
+        } else {
+            onFailure.accept(error);
         }
     }
 

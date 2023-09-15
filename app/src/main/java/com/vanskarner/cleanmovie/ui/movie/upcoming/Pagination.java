@@ -70,7 +70,7 @@ class Pagination extends RecyclerView.OnScrollListener {
     }
 
     private boolean isLastPosition(RecyclerView.LayoutManager manager) {
-        return (getLastPosition(manager) == manager.getItemCount() - 1);
+        return getLastPosition(manager) == manager.getItemCount() - 1;
     }
 
     private int getLastPosition(@NonNull RecyclerView.LayoutManager layoutManager) {

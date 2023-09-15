@@ -5,6 +5,7 @@ import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -18,12 +19,12 @@ class FilterUpcomingMoviesUseCase extends BaseUseCase<MoviesFilterDS, MoviesFilt
 
     @Override
     protected MoviesFilterDS buildUseCase(MoviesFilterDS inputValues) {
-        String filterPatter = inputValues.query.toString().toLowerCase().trim();
+        String query = inputValues.query.toString().toLowerCase().trim();
         inputValues.filterList = inputValues.fullList;
-        if (filterPatter.isEmpty()) return inputValues;
+        if (query.isEmpty()) return inputValues;
         List<MovieDS> filteredList = new ArrayList<>();
         for (MovieDS item : inputValues.fullList)
-            if (item.title.toLowerCase().contains(filterPatter)) filteredList.add(item);
+            if (item.title.toLowerCase(Locale.ENGLISH).contains(query)) filteredList.add(item);
         inputValues.filterList = filteredList;
         return inputValues;
     }

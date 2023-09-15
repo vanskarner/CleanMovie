@@ -7,7 +7,7 @@ import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import java.util.ArrayList;
 import java.util.List;
 
-class MovieRemoteDataMapper {
+final class MovieRemoteDataMapper {
 
     private MovieRemoteDataMapper() {
     }

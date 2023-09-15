@@ -7,7 +7,7 @@ import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieViewMapper {
+public final class MovieViewMapper {
 
     private MovieViewMapper() {
     }
