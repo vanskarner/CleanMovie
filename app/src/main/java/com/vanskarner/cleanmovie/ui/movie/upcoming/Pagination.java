@@ -99,7 +99,7 @@ class Pagination extends RecyclerView.OnScrollListener {
         int[] lastPositions = (positionType == LAST_POSITION) ?
                 manager.findLastVisibleItemPositions(null) :
                 manager.findLastCompletelyVisibleItemPositions(null);
-        if (lastPositions == null || lastPositions.length <= 0) return 0;
+        if (lastPositions == null || lastPositions.length == 0) return 0;
         int max = lastPositions[0];
         for (int value : lastPositions) max = Math.max(max, value);
         return max;

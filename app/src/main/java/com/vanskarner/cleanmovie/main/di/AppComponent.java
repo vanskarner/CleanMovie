@@ -15,6 +15,7 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 
+/** @noinspection unused*/
 @Singleton
 @Component(modules = {
         ProjectParametersModule.class,
