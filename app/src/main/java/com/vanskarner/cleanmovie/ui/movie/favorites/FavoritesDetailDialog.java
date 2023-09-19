@@ -45,9 +45,4 @@ public class FavoritesDetailDialog extends DialogFragment {
                 .create();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
 }

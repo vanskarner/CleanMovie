@@ -48,9 +48,4 @@ public class ErrorDialog extends DialogFragment {
                 .create();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
 }
