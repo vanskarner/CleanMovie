@@ -35,7 +35,8 @@ class UpcomingPresenter implements UpcomingContract.presenter {
     @Override
     public void initialLoad(int page) {
         view.enableScroll();
-        if (page == 1) {
+        boolean pageInitial = page == 1;
+        if (pageInitial) {
             view.setSearchView(false);
             view.setInitialProgress(true);
             movieServices.showUpcoming(page)
