@@ -24,15 +24,17 @@ class GsonParser implements TestJsonParser {
     }
 
     private String readFile(String fileName) throws IOException {
-        String receiveString;
+        String receiveString = "";
         ClassLoader classLoader = testClass.getClassLoader();
         InputStream inputStream = Objects.requireNonNull(classLoader).getResourceAsStream(fileName);
         InputStreamReader inputStreamReader = new InputStreamReader(
                 Objects.requireNonNull(inputStream));
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         StringBuilder stringBuilder = new StringBuilder();
-        while ((receiveString = bufferedReader.readLine()) != null)
+        while (receiveString != null) {
             stringBuilder.append(receiveString);
+            receiveString = bufferedReader.readLine();
+        }
         inputStream.close();
         return stringBuilder.toString();
     }
