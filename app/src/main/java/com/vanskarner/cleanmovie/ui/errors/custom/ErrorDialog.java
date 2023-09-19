@@ -23,7 +23,6 @@ public class ErrorDialog extends DialogFragment {
 
     private ErrorView<ViewDataBinding> errorView;
     private Runnable action;
-    private ViewDataBinding binding;
 
     @Inject
     public ErrorDialog() {
@@ -42,7 +41,8 @@ public class ErrorDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        binding = errorView.setupView(action);
+        ViewDataBinding binding = errorView.setupView(action);
+        binding.setLifecycleOwner(this);
         return new AlertDialog.Builder(getLayoutInflater().getContext())
                 .setView(binding.getRoot())
                 .create();
@@ -51,7 +51,6 @@ public class ErrorDialog extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 
 }

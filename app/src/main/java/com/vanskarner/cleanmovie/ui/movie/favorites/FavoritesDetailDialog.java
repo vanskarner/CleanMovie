@@ -19,8 +19,6 @@ import javax.inject.Inject;
 public class FavoritesDetailDialog extends DialogFragment {
 
     private static final String TAG = "FavoritesDetailDialog";
-
-    private FavoriteDetailDialogBinding binding;
     private MovieDetailModel model;
 
     @Inject
@@ -38,8 +36,10 @@ public class FavoritesDetailDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        binding = FavoriteDetailDialogBinding.inflate(getLayoutInflater());
+        FavoriteDetailDialogBinding binding = FavoriteDetailDialogBinding
+                .inflate(getLayoutInflater());
         binding.setMovieDetail(model);
+        binding.setLifecycleOwner(this);
         return new AlertDialog.Builder(getLayoutInflater().getContext())
                 .setView(binding.getRoot())
                 .create();
@@ -48,7 +48,6 @@ public class FavoritesDetailDialog extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 
 }

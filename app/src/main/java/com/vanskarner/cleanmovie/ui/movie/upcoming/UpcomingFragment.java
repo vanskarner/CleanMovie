@@ -54,6 +54,7 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = UpcomingFragmentBinding.inflate(inflater, container, false);
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 
@@ -76,7 +77,6 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
         super.onDestroyView();
         compositeDisposable.clear();
         presenter.asyncCancel();
-        binding = null;
     }
 
     @Override
