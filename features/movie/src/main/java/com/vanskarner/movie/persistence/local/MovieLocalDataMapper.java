@@ -41,9 +41,12 @@ final class MovieLocalDataMapper {
 
     static MoviesDS convert(List<MovieEntity> movieEntities) {
         List<MovieBasicDS> list = new ArrayList<>();
-        for (MovieEntity entity : movieEntities)
-            list.add(new MovieBasicDS(entity.id, entity.title, entity.encodedImage));
+        for (MovieEntity entity : movieEntities) list.add(toDS(entity));
         return new MoviesDS(list);
+    }
+
+    private static MovieBasicDS toDS(MovieEntity entity) {
+        return new MovieBasicDS(entity.id, entity.title, entity.encodedImage);
     }
 
 }

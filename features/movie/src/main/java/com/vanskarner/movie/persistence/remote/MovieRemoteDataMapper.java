@@ -28,9 +28,12 @@ final class MovieRemoteDataMapper {
 
     static MoviesDS convert(List<MovieDTO> inputList) {
         List<MovieBasicDS> movieBOS = new ArrayList<>();
-        for (MovieDTO item : inputList)
-            movieBOS.add(new MovieBasicDS(item.id, item.title, item.posterPath));
+        for (MovieDTO item : inputList) movieBOS.add(toDS(item));
         return new MoviesDS(movieBOS);
+    }
+
+    private static MovieBasicDS toDS(MovieDTO item) {
+        return new MovieBasicDS(item.id, item.title, item.posterPath);
     }
 
 }
