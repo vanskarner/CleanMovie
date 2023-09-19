@@ -2,7 +2,7 @@ package com.vanskarner.movie.businesslogic.repository;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.BeforeClass;
@@ -19,7 +19,7 @@ public class FakeRemoteRepositoryTest {
     @BeforeClass
     public static void setUp() {
         savedItem = MovieDetailDS.empty();
-        savedItem.id = 1;
+        savedItem.basicInfo.id = 1;
 
         remoteRepository = new FakeRemoteRepository(Collections.singletonList(savedItem));
     }
@@ -27,7 +27,7 @@ public class FakeRemoteRepositoryTest {
     @Test
     public void getMovies_aSavedItem_returnOne() throws Exception {
         int expectedNumberItems = 1;
-        List<MovieDS> list = remoteRepository.getMovies(1).get().list;
+        List<MovieBasicDS> list = remoteRepository.getMovies(1).get().list;
         int actualNumberItems = list.size();
 
         assertEquals(expectedNumberItems, actualNumberItems);
@@ -36,11 +36,11 @@ public class FakeRemoteRepositoryTest {
     @Test
     public void getMovie_returnItem() throws Exception {
         MovieDetailDS expectedItem = savedItem;
-        MovieDetailDS actualItem = remoteRepository.getMovie(savedItem.id).get();
+        MovieDetailDS actualItem = remoteRepository.getMovie(savedItem.basicInfo.id).get();
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.basicInfo.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.basicInfo.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.basicInfo.image, actualItem.basicInfo.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);

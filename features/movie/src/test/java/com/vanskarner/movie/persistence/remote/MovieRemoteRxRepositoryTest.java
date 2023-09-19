@@ -10,7 +10,7 @@ import com.vanskarner.core.jsonparser.TestJsonParser;
 import com.vanskarner.core.jsonparser.TestJsonParserFactory;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.After;
@@ -65,7 +65,7 @@ public class MovieRemoteRxRepositoryTest {
         String fileName = "upcoming_list.json";
         simulatedServer.enqueueFrom(fileName, HttpURLConnection.HTTP_OK);
         MoviesResultDTO expectedList = jsonService.from(fileName, MoviesResultDTO.class);
-        List<MovieDS> actualList = repository.getMovies(1).get().list;
+        List<MovieBasicDS> actualList = repository.getMovies(1).get().list;
 
         assertEquals(expectedList.results.size(), actualList.size());
     }
@@ -80,9 +80,9 @@ public class MovieRemoteRxRepositoryTest {
         MovieDetailDS actualItem = repository.getMovie(1).get();
 
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.posterPath, actualItem.image);
+        assertEquals(expectedItem.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.posterPath, actualItem.basicInfo.image);
         assertEquals(expectedItem.backdropPath, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);

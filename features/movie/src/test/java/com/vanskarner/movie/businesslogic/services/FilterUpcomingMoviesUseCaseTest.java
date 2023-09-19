@@ -3,7 +3,7 @@ package com.vanskarner.movie.businesslogic.services;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 
 import org.junit.BeforeClass;
@@ -14,15 +14,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class FilterUpcomingMoviesUseCaseTest {
-    static List<MovieDS> unmodifiableList;
+    static List<MovieBasicDS> unmodifiableList;
     static FilterUpcomingMoviesUseCase useCase;
 
     @BeforeClass
     public static void setUp() {
-        List<MovieDS> mutableList = new ArrayList<>();
-        mutableList.add(new MovieDS(1, "Movie One", "any"));
-        mutableList.add(new MovieDS(2, "Movie Two", "any"));
-        mutableList.add(new MovieDS(3, "Movie Three", "any"));
+        List<MovieBasicDS> mutableList = new ArrayList<>();
+        mutableList.add(new MovieBasicDS(1, "Movie One", "any"));
+        mutableList.add(new MovieBasicDS(2, "Movie Two", "any"));
+        mutableList.add(new MovieBasicDS(3, "Movie Three", "any"));
         unmodifiableList = Collections.unmodifiableList(new ArrayList<>(mutableList));
 
         useCase = new FilterUpcomingMoviesUseCase();

@@ -29,7 +29,7 @@ public class ToggleMovieFavoriteUseCaseTest {
     public void execute_withUnregisteredItem_savedItem() throws Exception {
         int expectedNumberItems = 1;
         MovieDetailDS unregisteredItem = MovieDetailDS.empty();
-        unregisteredItem.id = 1;
+        unregisteredItem.basicInfo.id = 1;
         boolean favorite = useCase.execute(unregisteredItem).get();
         int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
 
@@ -41,7 +41,7 @@ public class ToggleMovieFavoriteUseCaseTest {
     public void execute_withRegisteredItem_deletedItem() throws Exception {
         int expectedNumberItems = 0;
         MovieDetailDS registeredItem = MovieDetailDS.empty();
-        registeredItem.id = 1;
+        registeredItem.basicInfo.id = 1;
         fakeLocalRepository.saveMovie(registeredItem).await();
         boolean favorite = useCase.execute(registeredItem).get();
         int actualNumberItems = fakeLocalRepository.getNumberMovies().get();
@@ -54,12 +54,12 @@ public class ToggleMovieFavoriteUseCaseTest {
     public void execute_withUnregisteredItemAndExceededCapacity_throwException() throws Exception {
         MovieDetailDS item1 = MovieDetailDS.empty();
         MovieDetailDS item2 = MovieDetailDS.empty();
-        item1.id = 1;
-        item2.id = 2;
+        item1.basicInfo.id = 1;
+        item2.basicInfo.id = 2;
         fakeLocalRepository.saveMovie(item1).await();
         fakeLocalRepository.saveMovie(item2).await();
         MovieDetailDS unregisteredItem = MovieDetailDS.empty();
-        unregisteredItem.id = 3;
+        unregisteredItem.basicInfo.id = 3;
         useCase.execute(unregisteredItem).get();
     }
 

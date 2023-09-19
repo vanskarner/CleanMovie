@@ -71,7 +71,7 @@
 
                     <ImageView
                         android:id="@+id/coverPageImage"
-                        imageUrl="@{movieDetail.image}"
+                        imageUrl="@{movieDetail.basicModel.image}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -111,7 +111,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="3"
-                            android:text="@{movieDetail.title}"
+                            android:text="@{movieDetail.basicModel.title}"
                             android:textColor="@color/white"
                             android:textSize="@dimen/large_text_size"
                             android:textStyle="bold"

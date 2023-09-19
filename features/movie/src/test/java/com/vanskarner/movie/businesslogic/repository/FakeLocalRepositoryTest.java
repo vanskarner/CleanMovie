@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.Before;
@@ -26,9 +26,9 @@ public class FakeLocalRepositoryTest {
     public void getMovies_aSavedItem_returnOne() throws Exception {
         int expectedNumberItems = 1;
         MovieDetailDS item = MovieDetailDS.empty();
-        item.id = 1;
+        item.basicInfo.id = 1;
         localRepository.saveMovie(item).await();
-        List<MovieDS> list = localRepository.getMovies().get().list;
+        List<MovieBasicDS> list = localRepository.getMovies().get().list;
         int actualNumberItems = list.size();
 
         assertEquals(expectedNumberItems, actualNumberItems);
@@ -37,13 +37,13 @@ public class FakeLocalRepositoryTest {
     @Test
     public void getMovie_returnItem() throws Exception {
         MovieDetailDS expectedItem = MovieDetailDS.empty();
-        expectedItem.id = 1;
+        expectedItem.basicInfo.id = 1;
         localRepository.saveMovie(expectedItem).await();
-        MovieDetailDS actualItem = localRepository.getMovie(expectedItem.id).get();
+        MovieDetailDS actualItem = localRepository.getMovie(expectedItem.basicInfo.id).get();
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.basicInfo.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.basicInfo.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.basicInfo.image, actualItem.basicInfo.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -54,17 +54,17 @@ public class FakeLocalRepositoryTest {
     @Test(expected = NoSuchElementException.class)
     public void deleteMovie_getMovieRemoved_throwNoSuchElementException() throws Exception {
         MovieDetailDS item = MovieDetailDS.empty();
-        item.id = 1;
+        item.basicInfo.id = 1;
         localRepository.saveMovie(item).await();
-        localRepository.deleteMovie(item.id).await();
-        localRepository.getMovie(item.id).get();
+        localRepository.deleteMovie(item.basicInfo.id).await();
+        localRepository.getMovie(item.basicInfo.id).get();
     }
 
     @Test
     public void deleteAllMovies_withASavedItem_returnOne() throws Exception {
         int expectedNumberItemsDeleted = 1;
         MovieDetailDS firstItem = MovieDetailDS.empty();
-        firstItem.id = 1;
+        firstItem.basicInfo.id = 1;
         localRepository.saveMovie(firstItem).await();
         int actualNumberItemsDeleted = localRepository.deleteAllMovies().get();
 
@@ -75,7 +75,7 @@ public class FakeLocalRepositoryTest {
     public void getNumberMovies_withASavedItem_returnOne() throws Exception {
         int expectedNumberItemsDeleted = 1;
         MovieDetailDS item = MovieDetailDS.empty();
-        item.id = 1;
+        item.basicInfo.id = 1;
         localRepository.saveMovie(item).await();
         int actualNumberItemsDeleted = localRepository.getNumberMovies().get();
 
@@ -85,9 +85,9 @@ public class FakeLocalRepositoryTest {
     @Test
     public void checkMovie_withValidId_itemExists() throws Exception {
         MovieDetailDS item = MovieDetailDS.empty();
-        item.id = 1;
+        item.basicInfo.id = 1;
         localRepository.saveMovie(item).await();
-        boolean exists = localRepository.checkMovie(item.id).get();
+        boolean exists = localRepository.checkMovie(item.basicInfo.id).get();
 
         assertTrue(exists);
     }
@@ -103,7 +103,7 @@ public class FakeLocalRepositoryTest {
     public void saveMovie_savedItem() throws Exception {
         int expectedNumberItems = 1;
         MovieDetailDS item = MovieDetailDS.empty();
-        item.id = 1;
+        item.basicInfo.id = 1;
         localRepository.saveMovie(item).await();
         int actualNumberItems = localRepository.getNumberMovies().get();
 

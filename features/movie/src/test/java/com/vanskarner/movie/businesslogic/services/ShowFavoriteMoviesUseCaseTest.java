@@ -18,9 +18,9 @@ public class ShowFavoriteMoviesUseCaseTest {
     public void setUp() {
         fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
         MovieDetailDS item1 = MovieDetailDS.empty();
-        item1.id = 1;
+        item1.basicInfo.id = 1;
         MovieDetailDS item2 = MovieDetailDS.empty();
-        item2.id = 1;
+        item2.basicInfo.id = 1;
         fakeLocalRepository.saveMovie(item1);
         fakeLocalRepository.saveMovie(item2);
 

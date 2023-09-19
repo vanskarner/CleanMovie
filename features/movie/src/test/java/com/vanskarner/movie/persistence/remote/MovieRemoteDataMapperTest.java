@@ -2,7 +2,7 @@ package com.vanskarner.movie.persistence.remote;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.BeforeClass;
@@ -17,7 +17,8 @@ public class MovieRemoteDataMapperTest {
 
     @BeforeClass
     public static void setup() {
-        dataStructure = new MovieDTO(1,
+        dataStructure = new MovieDTO(
+                1,
                 "Robert C. Martin's Clean Architecture is a guide that emphasizes " +
                         "craftsmanship in software design, promoting modular and maintainable " +
                         "systems through a component and decoupled structure, with the goal of " +
@@ -35,9 +36,9 @@ public class MovieRemoteDataMapperTest {
         MovieDTO expectedItem = dataStructure;
         MovieDetailDS actualItem = MovieRemoteDataMapper.convert(dataStructure);
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.posterPath, actualItem.image);
+        assertEquals(expectedItem.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.posterPath, actualItem.basicInfo.image);
         assertEquals(expectedItem.backdropPath, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -48,7 +49,7 @@ public class MovieRemoteDataMapperTest {
     @Test
     public void convert_fromMovieDTOList_toMoviesDS() {
         List<MovieDTO> expectedList = new ArrayList<>(Collections.singletonList(dataStructure));
-        List<MovieDS> actualList = MovieRemoteDataMapper.convert(expectedList).list;
+        List<MovieBasicDS> actualList = MovieRemoteDataMapper.convert(expectedList).list;
 
         assertEquals(expectedList.size(), actualList.size());
         assertEquals(expectedList.get(0).id, actualList.get(0).id);

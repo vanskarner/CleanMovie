@@ -5,17 +5,17 @@ import java.util.List;
 
 public class MoviesFilterDS {
 
-    public List<MovieDS> fullList;
+    public List<MovieBasicDS> fullList;
     public CharSequence query;
-    public List<MovieDS> filterList = Collections.emptyList();
+    public List<MovieBasicDS> filterList = Collections.emptyList();
 
-    public MoviesFilterDS(List<MovieDS> fullList, CharSequence query, List<MovieDS> filterList) {
+    public MoviesFilterDS(List<MovieBasicDS> fullList, CharSequence query, List<MovieBasicDS> filterList) {
         this.fullList = fullList;
         this.query = query;
         this.filterList = filterList;
     }
 
-    public MoviesFilterDS(List<MovieDS> fullList, CharSequence query) {
+    public MoviesFilterDS(List<MovieBasicDS> fullList, CharSequence query) {
         this.fullList = fullList;
         this.query = query;
     }

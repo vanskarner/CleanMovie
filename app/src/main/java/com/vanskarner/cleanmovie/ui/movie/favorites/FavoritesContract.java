@@ -3,7 +3,7 @@ package com.vanskarner.cleanmovie.ui.movie.favorites;
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.BasePresenter;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ interface FavoritesContract {
 
     interface view {
 
-        void showFavorites(List<MovieModel> list);
+        void showFavorites(List<MovieBasicModel> list);
 
         void showFavoriteDetail(MovieDetailModel model);
 

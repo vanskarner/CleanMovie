@@ -22,8 +22,8 @@ public class ShowUpcomingMoviesUseCaseTest {
         data = new ArrayList<>();
         MovieDetailDS item1 = MovieDetailDS.empty();
         MovieDetailDS item2 = MovieDetailDS.empty();
-        item1.id = 1;
-        item2.id = 2;
+        item1.basicInfo.id = 1;
+        item2.basicInfo.id = 2;
         data.add(item1);
         data.add(item2);
         MovieRemoteRepository fakeRemoteRepository = FakeRepositoryFactory.createRemoteRepository(data);

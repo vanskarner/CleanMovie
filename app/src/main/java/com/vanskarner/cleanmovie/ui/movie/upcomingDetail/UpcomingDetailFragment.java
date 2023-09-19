@@ -108,7 +108,7 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
     private boolean onClickHeartMenuItem(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.favoriteMenuItem) {
             MovieDetailModel movieDetail = binding.getMovieDetail();
-            movieDetail.image = toBase64(binding.coverPageImage);
+            movieDetail.basicModel.image = toBase64(binding.coverPageImage);
             movieDetail.backgroundImage = toBase64(binding.backgroundImage);
             presenter.actionFavoriteMovie(movieDetail);
         }

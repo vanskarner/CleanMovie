@@ -3,7 +3,7 @@ package com.vanskarner.cleanmovie.ui.movie;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 
@@ -17,14 +17,19 @@ import java.util.List;
 public class MovieViewMapperTest {
     static MovieDetailDS movieDetailDS;
     static MovieDetailModel movieDetailModel;
-    static MovieDS movieDS;
-    static MovieModel movieModel;
+    static MovieBasicDS movieBasicDS;
+    static MovieBasicModel movieBasicModel;
 
     @BeforeClass
     public static void setupClass() {
-        movieDetailDS = new MovieDetailDS(1,
+        movieBasicDS = new MovieBasicDS(1,
                 "Clean Architecture",
-                "Any image in base64 or http",
+                "https://blog.cleancoder.com/anyImage.jpg");
+        movieBasicModel = new MovieBasicModel(1,
+                "Clean Architecture",
+                "https://blog.cleancoder.com/anyImage.jpg");
+        movieDetailDS = new MovieDetailDS(
+                movieBasicDS,
                 "Any image in base64 or http",
                 100,
                 9.5f,
@@ -34,9 +39,8 @@ public class MovieViewMapperTest {
                         "systems through a component and decoupled structure, with the goal of " +
                         "achieving sustainable code over time.",
                 true);
-        movieDetailModel = new MovieDetailModel(1,
-                "Clean Architecture",
-                "Any image in base64 or http",
+        movieDetailModel = new MovieDetailModel(
+                movieBasicModel,
                 "Any image in base64 or http",
                 100,
                 9.5f,
@@ -46,12 +50,6 @@ public class MovieViewMapperTest {
                         "systems through a component and decoupled structure, with the goal of " +
                         "achieving sustainable code over time.",
                 true);
-        movieDS = new MovieDS(1,
-                "Clean Architecture",
-                "https://blog.cleancoder.com/anyImage.jpg");
-        movieModel = new MovieModel(1,
-                "Clean Architecture",
-                "https://blog.cleancoder.com/anyImage.jpg");
     }
 
     @Test
@@ -59,9 +57,9 @@ public class MovieViewMapperTest {
         MovieDetailDS expectedItem = movieDetailDS;
         MovieDetailModel actualItem = MovieViewMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.basicInfo.id, actualItem.basicModel.id);
+        assertEquals(expectedItem.basicInfo.title, actualItem.basicModel.title);
+        assertEquals(expectedItem.basicInfo.image, actualItem.basicModel.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -75,9 +73,9 @@ public class MovieViewMapperTest {
         MovieDetailModel expectedItem = movieDetailModel;
         MovieDetailDS actualItem = MovieViewMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.basicModel.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.basicModel.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.basicModel.image, actualItem.basicInfo.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -88,8 +86,8 @@ public class MovieViewMapperTest {
 
     @Test
     public void convert_fromMovieDSList_toMovieModelList() {
-        List<MovieDS> expectedList = new ArrayList<>(Collections.singletonList(movieDS));
-        List<MovieModel> actualList = MovieViewMapper.convert(expectedList);
+        List<MovieBasicDS> expectedList = new ArrayList<>(Collections.singletonList(movieBasicDS));
+        List<MovieBasicModel> actualList = MovieViewMapper.convert(expectedList);
 
         assertEquals(expectedList.size(), actualList.size());
         assertEquals(expectedList.get(0).id, actualList.get(0).id);
@@ -99,10 +97,10 @@ public class MovieViewMapperTest {
 
     @Test
     public void convert_fromMovieModelListAndQuery_toMoviesFilterDS() {
-        List<MovieModel> expectedList = new ArrayList<>(Collections.singletonList(movieModel));
+        List<MovieBasicModel> expectedList = new ArrayList<>(Collections.singletonList(movieBasicModel));
         String expectedQuery = "My Search";
         MoviesFilterDS moviesFilterDS = MovieViewMapper.convert(expectedList, expectedQuery);
-        List<MovieDS> actualList = moviesFilterDS.fullList;
+        List<MovieBasicDS> actualList = moviesFilterDS.fullList;
         String actualQuery = moviesFilterDS.query.toString();
 
         assertEquals(expectedList.size(), actualList.size());

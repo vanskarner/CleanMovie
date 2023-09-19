@@ -24,10 +24,10 @@ public class CheckFavoriteMovieUseCaseTest {
     @Test
     public void execute_withValidID_itemExists() throws Exception {
         MovieDetailDS item = MovieDetailDS.empty();
-        item.id = 1;
+        item.basicInfo.id = 1;
         fakeLocalRepository.saveMovie(item).await();
         boolean exists = useCase
-                .execute(item.id)
+                .execute(item.basicInfo.id)
                 .get();
 
         assertTrue(exists);

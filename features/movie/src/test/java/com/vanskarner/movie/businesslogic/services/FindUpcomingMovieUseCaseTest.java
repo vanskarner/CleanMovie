@@ -16,15 +16,15 @@ public class FindUpcomingMovieUseCaseTest {
     @Test
     public void execute_withValidID_returnItem() throws Exception {
         MovieDetailDS expectedItem = MovieDetailDS.empty();
-        expectedItem.id = 1;
+        expectedItem.basicInfo.id = 1;
         MovieRemoteRepository fakeRemoteRepository = FakeRepositoryFactory
                 .createRemoteRepository(Collections.singletonList(expectedItem));
         FindUpcomingMovieUseCase useCase = new FindUpcomingMovieUseCase(fakeRemoteRepository);
-        MovieDetailDS actualItem = useCase.execute(expectedItem.id).get();
+        MovieDetailDS actualItem = useCase.execute(expectedItem.basicInfo.id).get();
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.basicInfo.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.basicInfo.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.basicInfo.image, actualItem.basicInfo.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);

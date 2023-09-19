@@ -1,7 +1,7 @@
 package com.vanskarner.cleanmovie.ui.movie.upcoming;
 
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.ArrayList;
@@ -27,14 +27,14 @@ public abstract class UpcomingModule {
     @Provides
     @PerFragment
     @UpcomingQualifiers.FullList
-    static List<MovieModel> provideFullList() {
+    static List<MovieBasicModel> provideFullList() {
         return new ArrayList<>();
     }
 
     @Provides
     @PerFragment
     @UpcomingQualifiers.FilterList
-    static List<MovieModel> provideFilterList() {
+    static List<MovieBasicModel> provideFilterList() {
         return new ArrayList<>();
     }
 

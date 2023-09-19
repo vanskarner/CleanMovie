@@ -25,13 +25,13 @@ public class FindFavoriteMovieUseCaseTest {
     @Test
     public void execute_withValidID_returnItem() throws Exception {
         MovieDetailDS expected = MovieDetailDS.empty();
-        expected.id = 1;
+        expected.basicInfo.id = 1;
         fakeLocalRepository.saveMovie(expected).await();
-        MovieDetailDS actual = useCase.execute(expected.id).get();
+        MovieDetailDS actual = useCase.execute(expected.basicInfo.id).get();
 
-        assertEquals(expected.id, actual.id);
-        assertEquals(expected.title, actual.title);
-        assertEquals(expected.image, actual.image);
+        assertEquals(expected.basicInfo.id, actual.basicInfo.id);
+        assertEquals(expected.basicInfo.title, actual.basicInfo.title);
+        assertEquals(expected.basicInfo.image, actual.basicInfo.image);
         assertEquals(expected.backgroundImage, actual.backgroundImage);
         assertEquals(expected.voteCount, actual.voteCount);
         assertEquals(expected.voteAverage, actual.voteAverage, 0.01);

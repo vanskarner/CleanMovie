@@ -13,6 +13,7 @@ import androidx.test.filters.SmallTest;
 
 import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.After;
@@ -64,11 +65,11 @@ public class MovieLocalRxRepositoryTest {
     public void getMovie_withValidId_returnItem() throws Exception {
         MovieDetailDS expectedItem = createMovieBO(33);
         repository.saveMovie(expectedItem).await();
-        MovieDetailDS actualItem = repository.getMovie(expectedItem.id).get();
+        MovieDetailDS actualItem = repository.getMovie(expectedItem.basicInfo.id).get();
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.image, actualItem.image);
+        assertEquals(expectedItem.basicInfo.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.basicInfo.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.basicInfo.image, actualItem.basicInfo.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -124,9 +125,10 @@ public class MovieLocalRxRepositoryTest {
     }
 
     private MovieDetailDS createMovieBO(int movieId) {
-        return new MovieDetailDS(movieId,
-                "Clean Architecture",
-                "https://blog.cleancoder.com/anyImage.jpg",
+        return new MovieDetailDS(
+                new MovieBasicDS(movieId,
+                        "Clean Architecture",
+                        "https://blog.cleancoder.com/anyImage.jpg"),
                 "https://blog.cleancoder.com/anyBackImage.jpg",
                 100,
                 9.5f,

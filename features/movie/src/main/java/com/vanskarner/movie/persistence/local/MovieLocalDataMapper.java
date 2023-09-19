@@ -1,6 +1,6 @@
 package com.vanskarner.movie.persistence.local;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 
@@ -14,9 +14,10 @@ final class MovieLocalDataMapper {
 
     static MovieDetailDS convert(MovieEntity movieEntity) {
         return new MovieDetailDS(
-                movieEntity.id,
-                movieEntity.title,
-                movieEntity.encodedImage,
+                new MovieBasicDS(
+                        movieEntity.id,
+                        movieEntity.title,
+                        movieEntity.encodedImage),
                 movieEntity.encodedBackgroundImage,
                 movieEntity.voteCount,
                 movieEntity.voteAverage,
@@ -27,9 +28,9 @@ final class MovieLocalDataMapper {
 
     static MovieEntity convert(MovieDetailDS detailDS) {
         return new MovieEntity(
-                detailDS.id,
-                detailDS.title,
-                detailDS.image,
+                detailDS.basicInfo.id,
+                detailDS.basicInfo.title,
+                detailDS.basicInfo.image,
                 detailDS.backgroundImage,
                 detailDS.voteCount,
                 detailDS.voteAverage,
@@ -39,9 +40,9 @@ final class MovieLocalDataMapper {
     }
 
     static MoviesDS convert(List<MovieEntity> movieEntities) {
-        List<MovieDS> list = new ArrayList<>();
+        List<MovieBasicDS> list = new ArrayList<>();
         for (MovieEntity entity : movieEntities)
-            list.add(new MovieDS(entity.id, entity.title, entity.encodedImage));
+            list.add(new MovieBasicDS(entity.id, entity.title, entity.encodedImage));
         return new MoviesDS(list);
     }
 

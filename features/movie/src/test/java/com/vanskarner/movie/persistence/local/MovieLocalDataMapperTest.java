@@ -2,7 +2,7 @@ package com.vanskarner.movie.persistence.local;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 
 import org.junit.BeforeClass;
@@ -18,7 +18,8 @@ public class MovieLocalDataMapperTest {
 
     @BeforeClass
     public static void setup() {
-        persistenceLayerDataStructure = new MovieEntity(1,
+        persistenceLayerDataStructure = new MovieEntity(
+                1,
                 "Clean Architecture",
                 "Encoded_Image",
                 "Encoded_Background_Image",
@@ -30,9 +31,11 @@ public class MovieLocalDataMapperTest {
                         "systems through a component and decoupled structure, with the goal of " +
                         "achieving sustainable code over time.");
         businessLogicDataStructure = new MovieDetailDS(
-                2,
-                "Clean Architecture",
-                "Encoded_Image",
+                new MovieBasicDS(
+                        2,
+                        "Clean Architecture",
+                        "Encoded_Image"
+                ),
                 "Encoded_Background_Image",
                 100,
                 9.5f,
@@ -49,9 +52,9 @@ public class MovieLocalDataMapperTest {
         MovieEntity expectedItem = persistenceLayerDataStructure;
         MovieDetailDS actualItem = MovieLocalDataMapper.convert(persistenceLayerDataStructure);
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.encodedImage, actualItem.image);
+        assertEquals(expectedItem.id, actualItem.basicInfo.id);
+        assertEquals(expectedItem.title, actualItem.basicInfo.title);
+        assertEquals(expectedItem.encodedImage, actualItem.basicInfo.image);
         assertEquals(expectedItem.encodedBackgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -64,9 +67,9 @@ public class MovieLocalDataMapperTest {
         MovieDetailDS expectedItem = businessLogicDataStructure;
         MovieEntity actualItem = MovieLocalDataMapper.convert(businessLogicDataStructure);
 
-        assertEquals(expectedItem.id, actualItem.id);
-        assertEquals(expectedItem.title, actualItem.title);
-        assertEquals(expectedItem.image, actualItem.encodedImage);
+        assertEquals(expectedItem.basicInfo.id, actualItem.id);
+        assertEquals(expectedItem.basicInfo.title, actualItem.title);
+        assertEquals(expectedItem.basicInfo.image, actualItem.encodedImage);
         assertEquals(expectedItem.backgroundImage, actualItem.encodedBackgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -78,7 +81,7 @@ public class MovieLocalDataMapperTest {
     public void convert_fromMovieEntityList_toMoviesDS() {
         List<MovieEntity> expectedList =
                 new ArrayList<>(Collections.singletonList(persistenceLayerDataStructure));
-        List<MovieDS> actualList = MovieLocalDataMapper.convert(expectedList).list;
+        List<MovieBasicDS> actualList = MovieLocalDataMapper.convert(expectedList).list;
 
         assertEquals(expectedList.size(), actualList.size());
         assertEquals(expectedList.get(0).id, actualList.get(0).id);
