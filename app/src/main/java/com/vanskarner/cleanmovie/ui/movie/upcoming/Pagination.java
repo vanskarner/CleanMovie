@@ -74,13 +74,14 @@ class Pagination extends RecyclerView.OnScrollListener {
     }
 
     private int getLastPosition(@NonNull RecyclerView.LayoutManager layoutManager) {
+        int position = 0;
         if (layoutManager instanceof GridLayoutManager)
-            return lastPositionGrid((GridLayoutManager) layoutManager);
+            position = lastPositionGrid((GridLayoutManager) layoutManager);
         else if (layoutManager instanceof LinearLayoutManager)
-            return lastPositionLinear((LinearLayoutManager) layoutManager);
+            position = lastPositionLinear((LinearLayoutManager) layoutManager);
         else if (layoutManager instanceof StaggeredGridLayoutManager)
-            return lastPositionStaggered((StaggeredGridLayoutManager) layoutManager);
-        return 0;
+            position = lastPositionStaggered((StaggeredGridLayoutManager) layoutManager);
+        return position;
     }
 
     private int lastPositionGrid(@NonNull GridLayoutManager manager) {
