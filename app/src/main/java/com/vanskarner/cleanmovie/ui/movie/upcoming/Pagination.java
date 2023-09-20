@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 
@@ -79,8 +78,6 @@ class Pagination extends RecyclerView.OnScrollListener {
             position = lastPositionGrid((GridLayoutManager) layoutManager);
         else if (layoutManager instanceof LinearLayoutManager)
             position = lastPositionLinear((LinearLayoutManager) layoutManager);
-        else if (layoutManager instanceof StaggeredGridLayoutManager)
-            position = lastPositionStaggered((StaggeredGridLayoutManager) layoutManager);
         return position;
     }
 
@@ -94,16 +91,6 @@ class Pagination extends RecyclerView.OnScrollListener {
         return (positionType == LAST_POSITION) ?
                 manager.findLastVisibleItemPosition() :
                 manager.findLastCompletelyVisibleItemPosition();
-    }
-
-    private int lastPositionStaggered(@NonNull StaggeredGridLayoutManager manager) {
-        int[] lastPositions = (positionType == LAST_POSITION) ?
-                manager.findLastVisibleItemPositions(null) :
-                manager.findLastCompletelyVisibleItemPositions(null);
-        if (lastPositions == null || lastPositions.length == 0) return 0;
-        int max = lastPositions[0];
-        for (int value : lastPositions) max = Math.max(max, value);
-        return max;
     }
 
 }
