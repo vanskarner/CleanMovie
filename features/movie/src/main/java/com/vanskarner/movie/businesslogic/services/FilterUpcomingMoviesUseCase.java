@@ -21,11 +21,12 @@ class FilterUpcomingMoviesUseCase extends BaseUseCase<MoviesFilterDS, MoviesFilt
     protected MoviesFilterDS buildUseCase(MoviesFilterDS inputValues) {
         String query = inputValues.query.toString().toLowerCase().trim();
         inputValues.filterList = inputValues.fullList;
-        if (query.isEmpty()) return inputValues;
-        List<MovieBasicDS> filteredList = new ArrayList<>();
-        for (MovieBasicDS item : inputValues.fullList)
-            if (item.title.toLowerCase(Locale.ENGLISH).contains(query)) filteredList.add(item);
-        inputValues.filterList = filteredList;
+        if (!query.isEmpty()) {
+            List<MovieBasicDS> filteredList = new ArrayList<>();
+            for (MovieBasicDS item : inputValues.fullList)
+                if (item.title.toLowerCase(Locale.ENGLISH).contains(query)) filteredList.add(item);
+            inputValues.filterList = filteredList;
+        }
         return inputValues;
     }
 
