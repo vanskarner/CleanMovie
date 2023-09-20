@@ -37,7 +37,7 @@ import javax.inject.Inject;
 @RunWith(AndroidJUnit4.class)
 @MediumTest
 public class FavoritesFragmentTest {
-    DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
+    DataBindingIdlingResource dataBindingIdlingResource = DataBindingIdlingResource.newInstance();
     @Inject
     MovieServices movieServices;
 

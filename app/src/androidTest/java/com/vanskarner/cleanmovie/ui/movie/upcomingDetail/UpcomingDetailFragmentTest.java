@@ -45,7 +45,7 @@ import javax.inject.Inject;
 public class UpcomingDetailFragmentTest {
     Context context;
     TestSimulatedServer simulatedServer = TestSimulatedServerFactory.create(this.getClass());
-    DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
+    DataBindingIdlingResource dataBindingIdlingResource = DataBindingIdlingResource.newInstance();
     @Inject
     MovieServices movieServices;
 

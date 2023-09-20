@@ -47,7 +47,7 @@ import java.net.HttpURLConnection;
 public class UpcomingFragmentTest {
     Context context;
     TestSimulatedServer testMockWebServer = TestSimulatedServerFactory.create(this.getClass());
-    DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
+    DataBindingIdlingResource dataBindingIdlingResource = DataBindingIdlingResource.newInstance();
 
     @Before
     public void setUp() throws IOException {

@@ -16,11 +16,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class DataBindingIdlingResource implements IdlingResource {
+public final class DataBindingIdlingResource implements IdlingResource {
     private static final String id = UUID.randomUUID().toString();
     private static final List<ResourceCallback> idlingCallbacks = new ArrayList<>();
     private boolean wasNotIdle;
     private FragmentActivity activity;
+
+    private DataBindingIdlingResource() {
+    }
 
     @Override
     public String getName() {
@@ -92,4 +95,9 @@ public class DataBindingIdlingResource implements IdlingResource {
         }
         return bindings;
     }
+
+    public static DataBindingIdlingResource newInstance() {
+        return new DataBindingIdlingResource();
+    }
+
 }

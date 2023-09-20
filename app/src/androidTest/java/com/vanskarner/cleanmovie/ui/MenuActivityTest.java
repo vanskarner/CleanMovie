@@ -47,7 +47,7 @@ import javax.inject.Inject;
 @LargeTest
 public class MenuActivityTest {
     TestSimulatedServer simulatedServer = TestSimulatedServerFactory.create(this.getClass());
-    DataBindingIdlingResource dataBindingIdlingResource = new DataBindingIdlingResource();
+    DataBindingIdlingResource dataBindingIdlingResource = DataBindingIdlingResource.newInstance();
     @Inject
     MovieServices movieServices;
 
@@ -199,7 +199,7 @@ public class MenuActivityTest {
         scenario.close();
     }
 
-    private void markAsFavoriteAndBack(int position){
+    private void markAsFavoriteAndBack(int position) {
         onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(position, click()));
         onView(withId(R.id.favoriteMenuItem)).perform(click());
         onView(isRoot()).perform(pressBack());
