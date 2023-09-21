@@ -3,6 +3,7 @@ package com.vanskarner.movie.persistence.remote;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
+import com.vanskarner.movie.main.MovieRemoteDataQualifiers;
 
 import java.util.concurrent.TimeUnit;
 

@@ -1,4 +1,4 @@
-package com.vanskarner.movie.persistence.remote;
+package com.vanskarner.movie.main;
 
 import javax.inject.Qualifier;
 
