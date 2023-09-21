@@ -28,9 +28,9 @@ import io.reactivex.schedulers.Schedulers;
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class MovieLocalRxRepositoryTest {
-    MovieLocalRxRepository repository;
-    CompositeDisposable compositeDisposable;
-    TestRoomDB db;
+    private MovieLocalRxRepository repository;
+    private CompositeDisposable compositeDisposable;
+    private TestRoomDB db;
 
     @Before
     public void setUp() {

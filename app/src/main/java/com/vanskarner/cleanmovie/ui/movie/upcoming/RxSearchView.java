@@ -28,7 +28,7 @@ class RxSearchView {
         this.scheduler = scheduler;
     }
 
-    Disposable setFilter(SearchView searchView, Consumer<String> consumer) {
+    public Disposable setFilter(SearchView searchView, Consumer<String> consumer) {
         return getRxOnQueryTextListener(searchView)
                 .debounce(TIMEOUT, TimeUnit.MILLISECONDS, scheduler)
                 .distinctUntilChanged()

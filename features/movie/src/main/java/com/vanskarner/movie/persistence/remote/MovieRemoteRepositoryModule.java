@@ -29,7 +29,7 @@ public abstract class MovieRemoteRepositoryModule {
 
     @Provides
     @Singleton
-    static MovieApiClient provideMovieService(
+    public static MovieApiClient provideMovieService(
             MovieRemoteErrorInterceptor errorInterceptor,
             MovieDeserializer detailDeserializer,
             @MovieRemoteDataQualifiers.MovieUrl String baseUrl
@@ -52,7 +52,7 @@ public abstract class MovieRemoteRepositoryModule {
 
     @Provides
     @Singleton
-    static MovieDeserializer provideMovieDetailDeserializer(
+    public static MovieDeserializer provideMovieDetailDeserializer(
             @MovieRemoteDataQualifiers.MovieImageUrl String baseImageUrl
     ) {
         return new MovieDeserializer(baseImageUrl);

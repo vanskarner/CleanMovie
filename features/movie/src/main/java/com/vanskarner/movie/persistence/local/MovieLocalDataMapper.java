@@ -12,7 +12,7 @@ final class MovieLocalDataMapper {
     private MovieLocalDataMapper() {
     }
 
-    static MovieDetailDS convert(MovieEntity movieEntity) {
+    public static MovieDetailDS convert(MovieEntity movieEntity) {
         return new MovieDetailDS(
                 new MovieBasicDS(
                         movieEntity.id,
@@ -26,7 +26,7 @@ final class MovieLocalDataMapper {
         );
     }
 
-    static MovieEntity convert(MovieDetailDS detailDS) {
+    public static MovieEntity convert(MovieDetailDS detailDS) {
         return new MovieEntity(
                 detailDS.basicInfo.id,
                 detailDS.basicInfo.title,
@@ -39,7 +39,7 @@ final class MovieLocalDataMapper {
         );
     }
 
-    static MoviesDS convert(List<MovieEntity> movieEntities) {
+    public static MoviesDS convert(List<MovieEntity> movieEntities) {
         List<MovieBasicDS> list = new ArrayList<>();
         for (MovieEntity entity : movieEntities) list.add(toDS(entity));
         return new MoviesDS(list);

@@ -18,13 +18,13 @@ public abstract class RoomDBModule {
 
     @Provides
     @Singleton
-    static MovieDao provideMovieDetailDao(RoomDB db) {
+    public static MovieDao provideMovieDetailDao(RoomDB db) {
         return db.movieDetailDao();
     }
 
     @Provides
     @Singleton
-    static RoomDB provideDB(Context context) {
+    public static RoomDB provideDB(Context context) {
         return Room
                 .databaseBuilder(context, RoomDB.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()

@@ -12,7 +12,7 @@ final class MovieRemoteDataMapper {
     private MovieRemoteDataMapper() {
     }
 
-    static MovieDetailDS convert(MovieDTO movieDTO) {
+    public static MovieDetailDS convert(MovieDTO movieDTO) {
         return new MovieDetailDS(
                 new MovieBasicDS(
                         movieDTO.id,
@@ -26,7 +26,7 @@ final class MovieRemoteDataMapper {
         );
     }
 
-    static MoviesDS convert(List<MovieDTO> inputList) {
+    public static MoviesDS convert(List<MovieDTO> inputList) {
         List<MovieBasicDS> movieBOS = new ArrayList<>();
         for (MovieDTO item : inputList) movieBOS.add(toDS(item));
         return new MoviesDS(movieBOS);

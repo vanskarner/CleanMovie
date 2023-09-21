@@ -55,7 +55,7 @@ class FavoritesBindAdapter implements BindAdapter<MovieBasicModel, FavoritesBind
             super.itemView.setOnClickListener(onClickListener);
         }
 
-        static ItemViewHolder create(FavoriteItemBinding binding,
+        private static ItemViewHolder create(FavoriteItemBinding binding,
                                      View.OnClickListener onClickItem) {
             return new ItemViewHolder(binding, onClickItem);
         }

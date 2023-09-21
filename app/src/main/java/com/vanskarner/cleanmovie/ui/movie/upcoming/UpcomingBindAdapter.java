@@ -55,7 +55,7 @@ class UpcomingBindAdapter implements BindAdapter<MovieBasicModel, UpcomingBindAd
             super.itemView.setOnClickListener(onClickListener);
         }
 
-        static ViewHolder create(UpcomingItemBinding binding, View.OnClickListener onClickItem) {
+        private static ViewHolder create(UpcomingItemBinding binding, View.OnClickListener onClickItem) {
             return new ViewHolder(binding, onClickItem);
         }
     }
