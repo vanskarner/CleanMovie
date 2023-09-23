@@ -1,4 +1,4 @@
-package com.vanskarner.movie.businesslogic;
+package com.vanskarner.movie;
 
 public class MovieBasicDS {
 

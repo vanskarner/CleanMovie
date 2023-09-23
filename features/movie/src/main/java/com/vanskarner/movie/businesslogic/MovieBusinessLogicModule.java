@@ -8,7 +8,7 @@ import dagger.Binds;
 import dagger.Module;
 
 /** @noinspection unused*/
-@Module(includes = MovieErrorModule.class)
+@Module
 public abstract class MovieBusinessLogicModule {
 
     @Binds

@@ -19,7 +19,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /** @noinspection unused*/
-@Module(includes = MovieRemoteErrorsModule.class)
+@Module
 public abstract class TestMovieRemoteRepositoryModule {
     private static final int CONNECT_TIME_OUT_SECONDS = 3;
     private static final int READ_TIME_OUT_SECONDS = 3;

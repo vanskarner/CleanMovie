@@ -10,8 +10,8 @@ import static org.mockito.Mockito.when;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
-import com.vanskarner.movie.businesslogic.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.MoviesDS;
+import com.vanskarner.movie.MovieDetailDS;
+import com.vanskarner.movie.MoviesDS;
 import com.vanskarner.movie.MovieServices;
 
 import org.junit.After;

@@ -2,8 +2,8 @@ package com.vanskarner.movie.persistence.remote;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.MovieBasicDS;
-import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.MovieBasicDS;
+import com.vanskarner.movie.MovieDetailDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

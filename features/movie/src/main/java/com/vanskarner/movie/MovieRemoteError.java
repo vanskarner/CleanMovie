@@ -1,4 +1,4 @@
-package com.vanskarner.movie.persistence.remote;
+package com.vanskarner.movie;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

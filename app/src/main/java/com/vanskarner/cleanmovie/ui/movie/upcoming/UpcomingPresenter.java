@@ -3,7 +3,7 @@ package com.vanskarner.cleanmovie.ui.movie.upcoming;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
-import com.vanskarner.movie.businesslogic.MoviesFilterDS;
+import com.vanskarner.movie.MoviesFilterDS;
 import com.vanskarner.movie.MovieServices;
 
 import java.util.List;

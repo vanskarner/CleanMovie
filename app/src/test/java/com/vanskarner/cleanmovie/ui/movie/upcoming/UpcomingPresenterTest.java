@@ -13,9 +13,9 @@ import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.movie.businesslogic.MovieBasicDS;
-import com.vanskarner.movie.businesslogic.MoviesDS;
-import com.vanskarner.movie.businesslogic.MoviesFilterDS;
+import com.vanskarner.movie.MovieBasicDS;
+import com.vanskarner.movie.MoviesDS;
+import com.vanskarner.movie.MoviesFilterDS;
 import com.vanskarner.movie.MovieServices;
 
 import org.junit.After;

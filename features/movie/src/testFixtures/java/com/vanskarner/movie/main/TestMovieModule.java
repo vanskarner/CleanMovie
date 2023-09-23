@@ -7,9 +7,10 @@ import com.vanskarner.movie.businesslogic.MovieBusinessLogicModule;
 import dagger.Module;
 
 @Module(includes = {
+        MovieBusinessLogicModule.class,
         MovieLocalRepositoryModule.class,
         TestMovieRemoteRepositoryModule.class,
-        MovieBusinessLogicModule.class
+        MovieErrorModule.class
 })
 public class TestMovieModule {
 }
