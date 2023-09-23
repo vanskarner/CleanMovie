@@ -13,8 +13,8 @@ import androidx.test.filters.SmallTest;
 
 import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
 
 import org.junit.After;
 import org.junit.Before;
