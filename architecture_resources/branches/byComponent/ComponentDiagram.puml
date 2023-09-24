@@ -2,18 +2,25 @@
 !include ../../StylesForDiagrams.puml
 
 title COMPONENT DIAGRAM \n Branch: package_by_component
-component core
-component movie #white{
-    component localpersistence as "local persistence"
-    component remotepersistence as "remote persistence"
-    component businesslogic as "business logic"
+component Core
+component Movie #white{
+    component LocalPersistence
+    component RemotePersistence
+    component BusinessLogic
 
-    businesslogic <.. remotepersistence
-    businesslogic <.. localpersistence
+    RemotePersistence ..> BusinessLogic
+    LocalPersistence ..> BusinessLogic
 }
-component ui
 
-core <.. movie
-core <.. ui
-ui ..> movie
+component FavoritesUI
+component UpcomingUI
+component UpcomingDetailUI
+
+FavoritesUI ...> Movie
+UpcomingUI ...> Movie
+UpcomingDetailUI ...> Movie
+Movie ...> Core
+
+
+skinparam Linetype ortho
 @enduml

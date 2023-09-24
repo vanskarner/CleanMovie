@@ -2,7 +2,7 @@
 !include ../../StylesForDiagrams.puml
 
 title EXPECTATION  \n Branch: package_by_component
-package cleanmovie as "com.vanskarner.cleanmovie"{
+package cleanmovie as "com.vanskarner.cleanmovie.ui"{
     class FavoritesPresenter
 }
 package movie as "com.vanskarner.movie"{

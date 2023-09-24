@@ -1,24 +1,23 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title COMPONENT DIAGRAM WITH MAIN \n Branch: package_by_component
-component core
-component movie #white{
-    component localpersistence as "local persistence"
-    component remotepersistence as "remote persistence"
-    component businesslogic as "business logic"
+title COMPONENT DIAGRAM WITH Main \n Branch: package_by_component
+component Core
+component Movie
+component FavoritesUI
+component UpcomingUI
+component UpcomingDetailUI
+component Main
 
-    businesslogic <.. remotepersistence
-    businesslogic <.. localpersistence
-}
-component ui
-component main
+Main ..> FavoritesUI
+Main ..> UpcomingUI
+Main ..> UpcomingDetailUI
+Main ..> Movie
+Main ..> Core
+FavoritesUI ..> Movie
+UpcomingUI ..> Movie
+UpcomingDetailUI ..> Movie
+Movie ..> Core
 
-main ..> core
-main ..> ui
-main ..> movie
-core <.. movie
-core <.. ui
-ui .> movie
-
+skinparam Linetype ortho
 @enduml

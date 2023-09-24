@@ -3,13 +3,18 @@
 
 title COMPLEMENTARY COMPONENT DIAGRAM \n Branch: package_by_component
 
-component ui
-component core
-component movie
+component FavoritesUI
+component UpcomingUI
+component UpcomingDetailUI
+component Core
+component Movie
 interface services
 
-ui ..> services
-services - movie
-core <.. ui
-core <.. movie
+FavoritesUI ..> services
+UpcomingUI ..> services
+UpcomingDetailUI ..> services
+services -- Movie
+Movie ..> Core
+
+skinparam Linetype ortho
 @enduml

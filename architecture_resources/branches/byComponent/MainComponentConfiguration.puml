@@ -15,10 +15,9 @@ title Main Component Configuration \n Branch: package_by_component
 *** ViewErrorTypesModule
 ** MovieModule
 *** MovieBusinessLogicModule
-**** MovieErrorModule
 *** MovieLocalRepositoryModule
 *** MovieRemoteRepositoryModule
-**** MovieRemoteErrorsModule
+*** MovieErrorModule
 
 legend
 It establishes the initial conditions and configurations
