@@ -1,0 +1,39 @@
+@startuml
+!include ../../../../../../../../architecture_resources/StylesForDiagrams.puml
+
+/'Specification'/
+package core as "com.vanskarner.core"{
+    interface Result<T><<interface>>
+    interface FutureResult<T><<interface>>
+    interface FutureSimpleResult<<interface>>
+    interface RxFutureFactory<<interface>>
+}
+package movie as "com.vanskarner.movie"{
+    interface MovieServices<<interface>>
+    package businesslogic {
+        interface MovieLocalRepository<<interface>>
+        interface MovieRemoteRepository<<interface>>
+    }
+    package persistence.local {
+        class MovieLocalRxRepository
+    }
+    package persistence.remote {
+        class MovieRemoteRxRepository
+    }
+}
+
+/'Relations'/
+FutureResult "<<use>>" <.. MovieServices
+Result "<<use>>" <.. MovieServices
+RxFutureFactory "<<use>>" <.. MovieLocalRxRepository
+RxFutureFactory "<<use>>" <.. MovieRemoteRxRepository
+FutureSimpleResult "<<use>>" <.. MovieLocalRepository
+FutureResult "<<use>>" <.. MovieLocalRepository
+FutureResult "<<use>>" <.. MovieRemoteRepository
+MovieLocalRepository <|.. MovieLocalRxRepository
+MovieRemoteRepository <|.. MovieRemoteRxRepository
+
+/'Visualization'/
+hide members
+skinparam LineType ortho
+@enduml

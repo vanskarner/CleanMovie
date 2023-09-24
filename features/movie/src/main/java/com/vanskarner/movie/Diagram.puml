@@ -3,12 +3,35 @@
 
 /'Specification'/
 package movie as "com.vanskarner.movie"{
-    package businesslogic {
+    interface MovieServices<<interface>>
+    together {
         class MovieDetailDS<<(D,orange)Data Structure>>
-        class MovieDS<<(D,orange)Data Structure>>
+        class MovieBasicDS<<(D,orange)Data Structure>>
         class MoviesDS<<(D,orange)Data Structure>>
         class MoviesFilterDS<<(D,orange)Data Structure>>
-        interface MovieServices<<interface>>
+        exception MovieError<<abstract>>
+        exception FavoriteLimit
+        exception MovieRemoteError<<abstract>>
+        exception Unauthorised
+        exception NotFound
+        exception Server
+        exception ServiceUnavailable
+        exception NoInternet
+
+        MovieServices ..> MoviesDS
+        MovieServices ..> MovieDetailDS
+        MovieServices ..> MoviesFilterDS
+        MoviesDS --> "0..*" MovieBasicDS
+        MoviesFilterDS --> "0..*" MovieBasicDS
+        MoviesFilterDS --> "0..*" MovieBasicDS
+        NoInternet --|> MovieRemoteError
+        NotFound --|> MovieRemoteError
+        Server --|> MovieRemoteError
+        ServiceUnavailable -|> MovieRemoteError
+        MovieRemoteError <|- Unauthorised
+        FavoriteLimit -|> MovieError
+    }
+    package businesslogic {
         class MovieDefaultServices
         class FilterUpcomingMoviesUseCase
         class ToggleMovieFavoriteUseCase
@@ -18,15 +41,9 @@ package movie as "com.vanskarner.movie"{
         class ShowFavoriteMoviesUseCase
         class ShowUpcomingMoviesUseCase
         class FindUpcomingMovieUseCase
-        together {
-            interface MovieLocalRepository<<interface>>
-            interface MovieRemoteRepository<<interface>>
-        }
-        together {
-            class MovieErrorFilter
-            abstract MovieError<<abstract>>
-            class FavoriteLimit
-        }
+        interface MovieLocalRepository<<interface>>
+        interface MovieRemoteRepository<<interface>>
+        class MovieErrorFilter
         entity MovieBO
     }
     package persistence.local {
@@ -43,25 +60,12 @@ package movie as "com.vanskarner.movie"{
         interface MovieApiClient<<interface>>
         class MoviesResultDTO<<(D,orange)Data Structure>>
         class RemoteDataErrorFilter
-        abstract class MovieRemoteError<<abstract>>
-        class Unauthorised
-        class NotFound
-        class Server
-        class ServiceUnavailable
-        class NoInternet
         class MovieRemoteErrorInterceptor
     }
 }
 
 /'Relations'/
-MovieServices ..> MoviesDS
-MovieServices ..> MovieDetailDS
-MovieServices ..> MoviesFilterDS
-MoviesDS --> "0..*" MovieDS
-MoviesFilterDS --> "0..*" MovieDS
-MoviesFilterDS --> "0..*" MovieDS
-
-MovieDefaultServices .left.|> MovieServices
+MovieServices <|. MovieDefaultServices
 MovieDefaultServices --> ShowUpcomingMoviesUseCase
 MovieDefaultServices --> FindUpcomingMovieUseCase
 MovieDefaultServices --> ShowFavoriteMoviesUseCase
@@ -70,7 +74,6 @@ MovieDefaultServices --> CheckFavoriteMovieUseCase
 MovieDefaultServices --> ToggleMovieFavoriteUseCase
 MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
 MovieDefaultServices --> FilterUpcomingMoviesUseCase
-
 CheckFavoriteMovieUseCase --> MovieLocalRepository
 ToggleMovieFavoriteUseCase --> MovieLocalRepository
 DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository
@@ -79,46 +82,33 @@ ShowFavoriteMoviesUseCase --> MovieLocalRepository
 ShowUpcomingMoviesUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase ..> MovieBO
-
-MovieRemoteRepository ..> MoviesDS
-MovieRemoteRepository ..> MovieDetailDS
-MovieLocalRepository ..> MoviesDS
-MovieLocalRepository ..> MovieDetailDS
-
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
-MovieErrorFilter --> "1..*" MovieError
-MovieError <|- FavoriteLimit
+MovieError "1..*" <-- MovieErrorFilter
 
 /'Relations - local-data:start'/
+MovieLocalRepository <|.. MovieLocalRxRepository
 MovieLocalRxRepository --> MovieDao
-MovieDao ..> MovieEntity
 MovieLocalRxRepository ..> MovieLocalDataMapper
+MovieDao ..> MovieEntity
 MovieLocalDataMapper ..> MovieEntity
-MovieLocalDataMapper ..> MovieDetailDS
-MovieLocalDataMapper ..> MoviesDS
-
-MovieLocalRxRepository ..|> MovieLocalRepository
+MovieDetailDS <.. MovieLocalDataMapper
+MoviesDS <.. MovieLocalDataMapper
 /'Relations - local-data:end'/
 
 /'Relations - remote-data:start'/
-MovieRemoteRxRepository ..|> MovieRemoteRepository
+MovieRemoteRepository <|.. MovieRemoteRxRepository
 MovieRemoteRxRepository --> MovieApiClient
 MovieRemoteRxRepository ..> MovieRemoteDataMapper
 MovieApiClient ..> MovieDTO
 MovieApiClient ..> MoviesResultDTO
 MovieRemoteDataMapper ..> MovieDTO
-MovieRemoteDataMapper ..> MovieDetailDS
-MovieRemoteDataMapper ..> MoviesDS
-MovieDeserializer ..> MovieDTO
+MovieDetailDS <.. MovieRemoteDataMapper
+MoviesDS <.. MovieRemoteDataMapper
+MovieDeserializer .> MovieDTO
 MoviesResultDTO -> "0..*" MovieDTO
-RemoteDataErrorFilter --> "1..*" MovieRemoteError
-RemoteDataErrorFilter --> "1" MovieRemoteError
-MovieRemoteError <|-- NoInternet
-MovieRemoteError <|-- NotFound
-MovieRemoteError <|-- Server
-MovieRemoteError <|-- ServiceUnavailable
-MovieRemoteError <|-- Unauthorised
-MovieRemoteErrorInterceptor --> RemoteDataErrorFilter
+MovieRemoteError "1..*" <-- RemoteDataErrorFilter
+MovieRemoteError "1" <-- RemoteDataErrorFilter
+RemoteDataErrorFilter <- MovieRemoteErrorInterceptor
 /'Relations - remote-data:end'/
 
 /'Visualization'/
