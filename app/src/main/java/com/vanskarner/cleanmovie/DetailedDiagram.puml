@@ -1,7 +1,7 @@
 @startuml
 !include ../../../../../../../architecture_resources/StylesForDiagrams.puml
 
-package cleanmovie as "com.vanskarner.cleanmovie"{
+package cleanmovie as "com.vanskarner.cleanmovie.ui"{
     class MovieViewMapper{
         - MovieViewMapper()
         + {static} convert(MovieDetailDS): MovieDetailModel
