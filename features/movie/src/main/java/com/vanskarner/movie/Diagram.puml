@@ -83,7 +83,7 @@ ShowUpcomingMoviesUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase ..> MovieBO
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
-MovieError "1..*" <-- MovieErrorFilter
+MovieError "1..*" <.. MovieErrorFilter: <<use>>
 
 /'Relations - local-data:start'/
 MovieLocalRepository <|.. MovieLocalRxRepository
@@ -91,8 +91,8 @@ MovieLocalRxRepository --> MovieDao
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieDao ..> MovieEntity
 MovieLocalDataMapper ..> MovieEntity
-MovieDetailDS <.. MovieLocalDataMapper
-MoviesDS <.. MovieLocalDataMapper
+MovieDetailDS "<<use>>" <.. MovieLocalDataMapper
+MoviesDS "<<use>>" <.. MovieLocalDataMapper
 /'Relations - local-data:end'/
 
 /'Relations - remote-data:start'/
@@ -102,12 +102,12 @@ MovieRemoteRxRepository ..> MovieRemoteDataMapper
 MovieApiClient ..> MovieDTO
 MovieApiClient ..> MoviesResultDTO
 MovieRemoteDataMapper ..> MovieDTO
-MovieDetailDS <.. MovieRemoteDataMapper
-MoviesDS <.. MovieRemoteDataMapper
+MovieDetailDS "<<use>>" <.. MovieRemoteDataMapper
+MoviesDS "<<use>>" <.. MovieRemoteDataMapper
 MovieDeserializer .> MovieDTO
 MoviesResultDTO -> "0..*" MovieDTO
-MovieRemoteError "1..*" <-- RemoteDataErrorFilter
-MovieRemoteError "1" <-- RemoteDataErrorFilter
+MovieRemoteError "1..*" <.. RemoteDataErrorFilter: <<use>>
+MovieRemoteError "1" <.. RemoteDataErrorFilter: <<use>>
 RemoteDataErrorFilter <- MovieRemoteErrorInterceptor
 /'Relations - remote-data:end'/
 
