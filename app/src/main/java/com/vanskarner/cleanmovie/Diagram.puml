@@ -4,10 +4,11 @@
 package cleanmovie as "com.vanskarner.cleanmovie"{
     class MovieDetailModel<<(D,orange)Data Structure>>
     class MovieModel<<(D,orange)Data Structure>>
-    class ViewErrorFilter
-    class ErrorDialog
+
     class MovieViewMapper
     together {
+        class ViewErrorFilter
+        class ErrorDialog
         interface ErrorView<T><<interface>>
         class FavoritesLimitError
         class NoInternetError
@@ -42,9 +43,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class UpcomingDetailFragment
         class UpcomingDetailPresenter
     }
-}
-package usecases as "com.vanskarner.usecases"{
-    interface MovieServices<<interface>>
 }
 
 ErrorView <|.. FavoritesLimitError
@@ -96,10 +94,6 @@ UpcomingDetailFragment --> ErrorDialog
 
 MovieDetailModel <.. MovieViewMapper
 MovieModel <.. MovieViewMapper
-
-FavoritesPresenter .up.> "<<use>>" MovieServices
-UpcomingPresenter .up.> "<<use>>" MovieServices
-UpcomingDetailPresenter .up.> "<<use>>" MovieServices
 
 hide members
 skinparam Linetype ortho
