@@ -2,34 +2,34 @@
 !include ../../StylesForDiagrams.puml
 
 title COMPLEMENTARY COMPONENT DIAGRAM \n Branch: package_by_layer
-rectangle "domain" {
-    component useCases as "use cases"
-    component entities
+rectangle domain {
+    component UseCases
+    component Entities
     interface services
 
-    services - useCases
+    services -- UseCases
+    Entities <. UseCases
 }
 rectangle "data" {
-    component localData as "local data"
-    component remoteData as "remote data"
+    component LocalData
+    component RemoteData
 }
-rectangle presentation {
-    component ui
+rectangle presentation {   
+    component FavoritesUI
+    component UpcomingUI
+    component UpcomingDetailUI    
 }
 component core
 
-localData ..> entities
-localData ..> useCases
-core <.. localData
-remoteData ..> entities
-remoteData ..> useCases
-core <.. remoteData
+presentation ..> core
+data ..> core
+UseCases ..> core
 
-core <.. ui
-core <.. useCases
+FavoritesUI .> services
+UpcomingUI ..> services
+UpcomingDetailUI ..> services
+RemoteData ..> domain
+LocalData ..> domain
 
-
-useCases ..> entities
-ui ..> services
 skinparam Linetype ortho
 @enduml

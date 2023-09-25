@@ -2,7 +2,7 @@
 !include ../../StylesForDiagrams.puml
 
 title EXPECTATION AND REALITY \n Branch: package_by_layer
-package app as "com.vanskarner.cleanmovie"{
+package app as "com.vanskarner.cleanmovie.ui"{
     class FavoritesPresenter
 }
 package domain as "com.vanskarner.usecases"{

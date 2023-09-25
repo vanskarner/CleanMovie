@@ -5,24 +5,24 @@ title EXPOSURE OF USE CASE SERVICES\n Branch: package_by_layer
 
 interface MovieServices<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>
-class MovieDS<<(D,orange)Data Structure>>
+class MovieBasicDS<<(D,orange)Data Structure>>
 class MoviesDS<<(D,orange)Data Structure>>
 class MoviesFilterDS<<(D,orange)Data Structure>>
-abstract DomainError<<abstract>>
-class MovieFavoriteLimit
-abstract class RemoteError<<abstract>>
-class Unauthorised
-class NotFound
-class Server
-class ServiceUnavailable
-class NoInternet
+exception DomainError<<abstract>>
+exception MovieFavoriteLimit
+exception RemoteError<<abstract>>
+exception Unauthorised
+exception NotFound
+exception Server
+exception ServiceUnavailable
+exception NoInternet
 
 MovieServices ..> MoviesDS
 MovieServices ..> MovieDetailDS
 MovieServices ..> MoviesFilterDS
-MoviesDS --> "0..*" MovieDS
-MoviesFilterDS --> "0..*" MovieDS
-MoviesFilterDS --> "0..*" MovieDS
+MoviesDS --> "0..*" MovieBasicDS
+MoviesFilterDS --> "0..*" MovieBasicDS
+MoviesFilterDS --> "0..*" MovieBasicDS
 DomainError <|-- MovieFavoriteLimit
 RemoteError <|-- NoInternet
 RemoteError <|-- NotFound
