@@ -23,7 +23,7 @@ import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingDetailFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel;
 
 import java.io.ByteArrayOutputStream;
 
@@ -82,7 +82,7 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
     }
 
     @Override
-    public void showUpcomingDetail(MovieDetailModel detailModel) {
+    public void showUpcomingDetail(MovieDetailBasicModel detailModel) {
         binding.setMovieDetail(detailModel);
     }
 
@@ -107,8 +107,8 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
 
     private boolean onClickHeartMenuItem(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.favoriteMenuItem) {
-            MovieDetailModel movieDetail = binding.getMovieDetail();
-            movieDetail.image = toBase64(binding.coverPageImage);
+            MovieDetailBasicModel movieDetail = binding.getMovieDetail();
+            movieDetail.basicModel.image = toBase64(binding.coverPageImage);
             movieDetail.backgroundImage = toBase64(binding.backgroundImage);
             presenter.actionFavoriteMovie(movieDetail);
         }

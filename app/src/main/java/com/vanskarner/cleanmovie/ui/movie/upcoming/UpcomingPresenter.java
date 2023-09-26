@@ -1,7 +1,7 @@
 package com.vanskarner.cleanmovie.ui.movie.upcoming;
 
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
 import com.vanskarner.usecases.movie.MovieServices;
 import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
@@ -14,16 +14,16 @@ class UpcomingPresenter implements UpcomingContract.presenter {
 
     private final UpcomingContract.view view;
     private final MovieServices movieServices;
-    private final List<MovieModel> upcomingList;
-    private final List<MovieModel> fullUpcomingList;
+    private final List<MovieBasicModel> upcomingList;
+    private final List<MovieBasicModel> fullUpcomingList;
     private final ViewErrorFilter viewErrorFilter;
 
     @Inject
     public UpcomingPresenter(
             UpcomingContract.view view,
             MovieServices movieServices,
-            @UpcomingQualifiers.FilterList List<MovieModel> upcomingList,
-            @UpcomingQualifiers.FullList List<MovieModel> fullUpcomingList,
+            @UpcomingQualifiers.FilterList List<MovieBasicModel> upcomingList,
+            @UpcomingQualifiers.FullList List<MovieBasicModel> fullUpcomingList,
             ViewErrorFilter viewErrorFilter) {
         this.view = view;
         this.movieServices = movieServices;
@@ -90,7 +90,7 @@ class UpcomingPresenter implements UpcomingContract.presenter {
         view.setPagingProgress(false);
     }
 
-    private void addItems(List<MovieModel> list) {
+    private void addItems(List<MovieBasicModel> list) {
         fullUpcomingList.addAll(list);
         upcomingList.addAll(list);
         view.showUpcoming(upcomingList);

@@ -15,8 +15,8 @@ import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.FavoritesFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.List;
@@ -71,12 +71,12 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
     }
 
     @Override
-    public void showFavorites(List<MovieModel> list) {
+    public void showFavorites(List<MovieBasicModel> list) {
         singleAdapter.set(list);
     }
 
     @Override
-    public void showFavoriteDetail(MovieDetailModel model) {
+    public void showFavoriteDetail(MovieDetailBasicModel model) {
         detailDialog.setModel(model);
         detailDialog.show(getChildFragmentManager());
     }
@@ -111,7 +111,7 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
 
     private void onClickFavoriteItem(View itemView) {
         RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) itemView.getTag();
-        MovieModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
+        MovieBasicModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
         presenter.getFavoriteDetail(item.id);
     }
 

@@ -2,7 +2,7 @@ package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
 
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.BasePresenter;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel;
 
 interface UpcomingDetailContract {
 
@@ -12,7 +12,7 @@ interface UpcomingDetailContract {
 
         void setMarkedAsFavorite(boolean markedAsFavorite);
 
-        void showUpcomingDetail(MovieDetailModel detailModel);
+        void showUpcomingDetail(MovieDetailBasicModel detailModel);
 
         void showError(ErrorView<?> errorView);
 
@@ -22,7 +22,7 @@ interface UpcomingDetailContract {
 
         void initialAction(int id);
 
-        void actionFavoriteMovie(MovieDetailModel detailModel);
+        void actionFavoriteMovie(MovieDetailBasicModel detailModel);
 
     }
 

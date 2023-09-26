@@ -1,7 +1,7 @@
 package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
 
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
 import com.vanskarner.usecases.movie.MovieServices;
 
@@ -38,7 +38,7 @@ class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
     }
 
     @Override
-    public void actionFavoriteMovie(MovieDetailModel detailModel) {
+    public void actionFavoriteMovie(MovieDetailBasicModel detailModel) {
         movieServices.toggleFavorite(MovieViewMapper.convert(detailModel))
                 .onResult(view::setMarkedAsFavorite,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));

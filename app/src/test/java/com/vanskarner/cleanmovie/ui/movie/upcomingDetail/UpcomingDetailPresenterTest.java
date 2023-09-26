@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.usecases.movie.MovieServices;
@@ -72,7 +72,7 @@ public class UpcomingDetailPresenterTest {
     @Test
     public void actionFavoriteMovie_whenItsOk_doOkSequence() {
         boolean result = true;
-        MovieDetailModel item = MovieDetailModel.empty();
+        MovieDetailBasicModel item = MovieDetailBasicModel.empty();
         FutureResult<Boolean> futureResult = TestFutureFactory.create(result);
         when(services.toggleFavorite(any())).thenReturn(futureResult);
         presenter.actionFavoriteMovie(item);
@@ -82,7 +82,7 @@ public class UpcomingDetailPresenterTest {
 
     @Test
     public void actionFavoriteMovie_whenItFails_doFailSequence() {
-        MovieDetailModel item = MovieDetailModel.empty();
+        MovieDetailBasicModel item = MovieDetailBasicModel.empty();
         Exception anyException = new Exception("Any Exception");
         FutureResult<Boolean> futureResult = TestFutureFactory.create(anyException);
         when(services.toggleFavorite(any())).thenReturn(futureResult);

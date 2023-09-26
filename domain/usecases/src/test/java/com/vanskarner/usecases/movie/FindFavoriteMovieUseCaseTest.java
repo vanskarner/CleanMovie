@@ -31,9 +31,9 @@ public class FindFavoriteMovieUseCaseTest {
         fakeLocalRepository.saveMovie(expected).await();
         MovieDetailDS actual = useCase.execute(expected.getId()).get();
 
-        assertEquals(expected.getId(), actual.id);
-        assertEquals(expected.getTitle(), actual.title);
-        assertEquals(expected.getImage(), actual.image);
+        assertEquals(expected.getId(), actual.movieBasicDS.id);
+        assertEquals(expected.getTitle(), actual.movieBasicDS.title);
+        assertEquals(expected.getImage(), actual.movieBasicDS.image);
         assertEquals(expected.getBackgroundImage(), actual.backgroundImage);
         assertEquals(expected.getVoteCount(), actual.voteCount);
         assertEquals(expected.getVoteAverage(), actual.voteAverage, 0.01);
