@@ -40,8 +40,12 @@ class MovieMapper {
     public static MoviesDS convert(List<MovieBO> movieBO) {
         List<MovieDS> list = new ArrayList<>();
         for (MovieBO item : movieBO)
-            list.add(new MovieDS(item.getId(), item.getTitle(), item.getImage()));
+            list.add(toDS(item));
         return new MoviesDS(list);
+    }
+
+    private static MovieDS toDS(MovieBO item) {
+        return new MovieDS(item.getId(), item.getTitle(), item.getImage());
     }
 
 }
