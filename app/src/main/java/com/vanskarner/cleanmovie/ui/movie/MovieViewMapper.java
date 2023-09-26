@@ -7,7 +7,7 @@ import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieViewMapper {
+public final class MovieViewMapper {
 
     private MovieViewMapper() {
     }

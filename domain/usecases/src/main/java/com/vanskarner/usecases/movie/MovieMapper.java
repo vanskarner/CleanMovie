@@ -8,7 +8,7 @@ import com.vanskarner.usecases.movie.ds.MoviesDS;
 import java.util.ArrayList;
 import java.util.List;
 
-class MovieMapper {
+final class MovieMapper {
 
     private MovieMapper() {
     }
