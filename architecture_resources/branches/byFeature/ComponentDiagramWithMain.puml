@@ -1,35 +1,23 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title COMPONENT DIAGRAM WITH MAIN \n Branch: package_by_feature
-component core
-component movie #white{
-    component localpersistence as "local persistence"
-    component remotepersistence as "remote persistence"
-    component businesslogic as "business logic"
-    component presentation
-
-    businesslogic <.. remotepersistence
-    businesslogic <.. localpersistence
-    presentation ..> businesslogic
+title COMPONENT DIAGRAM WITH Main \n Branch: package_by_feature
+component Core
+component Movie
+component Main
+rectangle AndroidView as "Android View"{
+    component FavoritesView<<android>>
+    component UpcomingView<<android>>
+    component UpcomingDetailView<<android>>
 }
-component ui as "custom ui"
-component main
-note bottom of ui
-This component does not represent the view, but contains
-the implementation details of the view and could be
-better named "android ui", it may even be unnecessary
-to show it.
-end note
-note top of presentation
-Here is the view, represented by the
-abstractions that need to be implemented.
-end note
 
-main ..> core
-main ..> ui
-main ..> movie
-core <.. movie
-core <.. ui
-movie <.. ui
+FavoritesView ..> Movie
+UpcomingView ..> Movie
+UpcomingDetailView ..> Movie
+Movie ..> Core
+Main ..> AndroidView
+Main .> Movie
+Main ..> Core
+
+skinparam Linetype ortho
 @enduml

@@ -2,30 +2,26 @@
 !include ../../StylesForDiagrams.puml
 
 title COMPONENT DIAGRAM \n Branch: package_by_feature
-component core
-component movie #white{
-    component localpersistence as "local persistence"
-    component remotepersistence as "remote persistence"
-    component businesslogic as "business logic"
-    component presentation
 
-    businesslogic <.. remotepersistence
-    businesslogic <.. localpersistence
+component Core
+component Movie #white{
+    component LocalPersistence
+    component RemotePersistence
+    component BusinessLogic
+    component Presentation
+
+    Presentation ..> BusinessLogic
+    RemotePersistence ..> BusinessLogic
+    LocalPersistence ..> BusinessLogic
 }
-component ui as "custom ui"
-note bottom of ui
-This component does not represent the view, but contains
-the implementation details of the view and could be
-better named "android ui", it may even be unnecessary
-to show it.
-end note
-note top of presentation
-Here is the view, represented by the
-abstractions that need to be implemented.
-end note
+rectangle AndroidView as "Android View"{
+    component FavoritesView<<android>>
+    component UpcomingView<<android>>
+    component UpcomingDetailView<<android>>
+}
 
-core <.. movie
-core <.. ui
-movie <.. ui
-presentation ..> businesslogic
+Movie ...> Core
+FavoritesView ...> Movie
+UpcomingView ...> Movie
+UpcomingDetailView ...> Movie
 @enduml
