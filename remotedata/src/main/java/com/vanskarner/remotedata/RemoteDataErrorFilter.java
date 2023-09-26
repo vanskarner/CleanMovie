@@ -21,7 +21,7 @@ class RemoteDataErrorFilter {
 
     public RemoteError filter(String key) {
         Provider<RemoteError> provider = mapError.get(String.valueOf(key));
-        throw provider != null ? provider.get() : defaultError;
+        throw provider == null ? defaultError : provider.get();
     }
 
     public RemoteError getNoInternetError() {
