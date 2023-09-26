@@ -75,10 +75,10 @@ public class FavoritesPresenterTest {
     @Test
     public void getFavoriteDetail_whenItsOK_doOkSequence() {
         MovieDetailDS item = MovieDetailDS.empty();
-        item.movieBasicDS.id = 1;
+        item.movieBasic.id = 1;
         FutureResult<MovieDetailDS> futureResult = TestFutureFactory.create(item);
-        when(services.findFavorite(item.movieBasicDS.id)).thenReturn(futureResult);
-        presenter.getFavoriteDetail(item.movieBasicDS.id);
+        when(services.findFavorite(item.movieBasic.id)).thenReturn(futureResult);
+        presenter.getFavoriteDetail(item.movieBasic.id);
 
         verify(view).showFavoriteDetail(any());
     }

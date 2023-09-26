@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.vanskarner.cleanmovie.databinding.FavoriteDetailDialogBinding;
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 
 import javax.inject.Inject;
 
@@ -19,13 +19,13 @@ import javax.inject.Inject;
 public class FavoritesDetailDialog extends DialogFragment {
 
     private static final String TAG = "FavoritesDetailDialog";
-    private MovieDetailBasicModel model;
+    private MovieDetailModel model;
 
     @Inject
     public FavoritesDetailDialog() {
     }
 
-    public void setModel(@NonNull MovieDetailBasicModel model) {
+    public void setModel(@NonNull MovieDetailModel model) {
         this.model = model;
     }
 

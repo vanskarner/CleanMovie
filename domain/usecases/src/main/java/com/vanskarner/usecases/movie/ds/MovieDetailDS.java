@@ -2,7 +2,7 @@ package com.vanskarner.usecases.movie.ds;
 
 public class MovieDetailDS {
 
-    public MovieBasicDS movieBasicDS;
+    public MovieBasicDS movieBasic;
     public String backgroundImage;
     public int voteCount;
     public float voteAverage;
@@ -10,9 +10,9 @@ public class MovieDetailDS {
     public String overview;
     public boolean recommended;
 
-    public MovieDetailDS(MovieBasicDS movieBasicDS, String backgroundImage, int voteCount,
+    public MovieDetailDS(MovieBasicDS movieBasic, String backgroundImage, int voteCount,
                          float voteAverage, String releaseDate, String overview, boolean recommended) {
-        this.movieBasicDS = movieBasicDS;
+        this.movieBasic = movieBasic;
         this.backgroundImage = backgroundImage;
         this.voteCount = voteCount;
         this.voteAverage = voteAverage;
@@ -21,9 +21,9 @@ public class MovieDetailDS {
         this.recommended = recommended;
     }
 
-    public MovieDetailDS(MovieBasicDS movieBasicDS, String backgroundImage, int voteCount,
+    public MovieDetailDS(MovieBasicDS movieBasic, String backgroundImage, int voteCount,
                          float voteAverage, String releaseDate, String overview) {
-        this.movieBasicDS = movieBasicDS;
+        this.movieBasic = movieBasic;
         this.backgroundImage = backgroundImage;
         this.voteCount = voteCount;
         this.voteAverage = voteAverage;

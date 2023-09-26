@@ -12,11 +12,11 @@ public final class MovieViewMapper {
     private MovieViewMapper() {
     }
 
-    public static MovieDetailBasicModel convert(MovieDetailDS movieDetailDS) {
-        return new MovieDetailBasicModel(
-                new MovieBasicModel(movieDetailDS.movieBasicDS.id,
-                        movieDetailDS.movieBasicDS.title,
-                        movieDetailDS.movieBasicDS.image),
+    public static MovieDetailModel convert(MovieDetailDS movieDetailDS) {
+        return new MovieDetailModel(
+                new MovieBasicModel(movieDetailDS.movieBasic.id,
+                        movieDetailDS.movieBasic.title,
+                        movieDetailDS.movieBasic.image),
                 movieDetailDS.backgroundImage,
                 movieDetailDS.voteCount,
                 movieDetailDS.voteAverage,
@@ -25,7 +25,7 @@ public final class MovieViewMapper {
                 movieDetailDS.recommended);
     }
 
-    public static MovieDetailDS convert(MovieDetailBasicModel detailModel) {
+    public static MovieDetailDS convert(MovieDetailModel detailModel) {
         return new MovieDetailDS(
                 new MovieBasicDS(
                         detailModel.basicModel.id,

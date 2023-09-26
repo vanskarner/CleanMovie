@@ -22,9 +22,9 @@ public class FindUpcomingMovieUseCaseTest {
         FindUpcomingMovieUseCase useCase = new FindUpcomingMovieUseCase(fakeRemoteRepository);
         MovieDetailDS actualItem = useCase.execute(expectedItem.getId()).get();
 
-        assertEquals(expectedItem.getId(), actualItem.movieBasicDS.id);
-        assertEquals(expectedItem.getTitle(), actualItem.movieBasicDS.title);
-        assertEquals(expectedItem.getImage(), actualItem.movieBasicDS.image);
+        assertEquals(expectedItem.getId(), actualItem.movieBasic.id);
+        assertEquals(expectedItem.getTitle(), actualItem.movieBasic.title);
+        assertEquals(expectedItem.getImage(), actualItem.movieBasic.image);
         assertEquals(expectedItem.getBackgroundImage(), actualItem.backgroundImage);
         assertEquals(expectedItem.getVoteCount(), actualItem.voteCount);
         assertEquals(expectedItem.getVoteAverage(), actualItem.voteAverage, 0.01);

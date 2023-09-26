@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MovieViewMapperTest {
     static MovieDetailDS movieDetailDS;
-    static MovieDetailBasicModel movieDetailModel;
+    static MovieDetailModel movieDetailModel;
     static MovieBasicDS movieBasicDS;
     static MovieBasicModel movieBasicModel;
 
@@ -35,7 +35,7 @@ public class MovieViewMapperTest {
                         "systems through a component and decoupled structure, with the goal of " +
                         "achieving sustainable code over time.",
                 true);
-        movieDetailModel = new MovieDetailBasicModel(
+        movieDetailModel = new MovieDetailModel(
                 new MovieBasicModel(
                         1,
                         "Clean Architecture",
@@ -60,11 +60,11 @@ public class MovieViewMapperTest {
     @Test
     public void convert_fromMovieDetailDS_toMovieDetailModel() {
         MovieDetailDS expectedItem = movieDetailDS;
-        MovieDetailBasicModel actualItem = MovieViewMapper.convert(expectedItem);
+        MovieDetailModel actualItem = MovieViewMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.movieBasicDS.id, actualItem.basicModel.id);
-        assertEquals(expectedItem.movieBasicDS.title, actualItem.basicModel.title);
-        assertEquals(expectedItem.movieBasicDS.image, actualItem.basicModel.image);
+        assertEquals(expectedItem.movieBasic.id, actualItem.basicModel.id);
+        assertEquals(expectedItem.movieBasic.title, actualItem.basicModel.title);
+        assertEquals(expectedItem.movieBasic.image, actualItem.basicModel.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);
@@ -75,12 +75,12 @@ public class MovieViewMapperTest {
 
     @Test
     public void convert_fromMovieDetailModel_toMovieDetailDS() {
-        MovieDetailBasicModel expectedItem = movieDetailModel;
+        MovieDetailModel expectedItem = movieDetailModel;
         MovieDetailDS actualItem = MovieViewMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.basicModel.id, actualItem.movieBasicDS.id);
-        assertEquals(expectedItem.basicModel.title, actualItem.movieBasicDS.title);
-        assertEquals(expectedItem.basicModel.image, actualItem.movieBasicDS.image);
+        assertEquals(expectedItem.basicModel.id, actualItem.movieBasic.id);
+        assertEquals(expectedItem.basicModel.title, actualItem.movieBasic.title);
+        assertEquals(expectedItem.basicModel.image, actualItem.movieBasic.image);
         assertEquals(expectedItem.backgroundImage, actualItem.backgroundImage);
         assertEquals(expectedItem.voteCount, actualItem.voteCount);
         assertEquals(expectedItem.voteAverage, actualItem.voteAverage, 0.01);

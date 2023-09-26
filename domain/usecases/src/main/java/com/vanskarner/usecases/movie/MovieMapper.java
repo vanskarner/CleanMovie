@@ -28,9 +28,9 @@ final class MovieMapper {
 
     public static MovieBO convert(MovieDetailDS detailDS) {
         return new MovieBO(
-                detailDS.movieBasicDS.id,
-                detailDS.movieBasicDS.title,
-                detailDS.movieBasicDS.image,
+                detailDS.movieBasic.id,
+                detailDS.movieBasic.title,
+                detailDS.movieBasic.image,
                 detailDS.backgroundImage,
                 detailDS.voteCount,
                 detailDS.voteAverage,

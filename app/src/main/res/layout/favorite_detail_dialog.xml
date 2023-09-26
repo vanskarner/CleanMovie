@@ -7,7 +7,7 @@
 
         <variable
             name="movieDetail"
-            type="com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel" />
+            type="com.vanskarner.cleanmovie.ui.movie.MovieDetailModel" />
 
     </data>
 

@@ -15,7 +15,7 @@ import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.FavoritesFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
-import com.vanskarner.cleanmovie.ui.movie.MovieDetailBasicModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.singleadapter.SingleAdapter;
 
@@ -76,7 +76,7 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
     }
 
     @Override
-    public void showFavoriteDetail(MovieDetailBasicModel model) {
+    public void showFavoriteDetail(MovieDetailModel model) {
         detailDialog.setModel(model);
         detailDialog.show(getChildFragmentManager());
     }

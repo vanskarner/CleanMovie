@@ -51,9 +51,9 @@ public class MovieMapperTest {
         MovieBO expectedItem = businessObject;
         MovieDetailDS actualItem = MovieMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.getId(), actualItem.movieBasicDS.id);
-        assertEquals(expectedItem.getTitle(), actualItem.movieBasicDS.title);
-        assertEquals(expectedItem.getImage(), actualItem.movieBasicDS.image);
+        assertEquals(expectedItem.getId(), actualItem.movieBasic.id);
+        assertEquals(expectedItem.getTitle(), actualItem.movieBasic.title);
+        assertEquals(expectedItem.getImage(), actualItem.movieBasic.image);
         assertEquals(expectedItem.getBackgroundImage(), actualItem.backgroundImage);
         assertEquals(expectedItem.getVoteCount(), actualItem.voteCount);
         assertEquals(expectedItem.getVoteAverage(), actualItem.voteAverage, 0.01);
@@ -66,9 +66,9 @@ public class MovieMapperTest {
         MovieDetailDS expectedItem = dataStructure;
         MovieBO actualItem = MovieMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.movieBasicDS.id, actualItem.getId());
-        assertEquals(expectedItem.movieBasicDS.title, actualItem.getTitle());
-        assertEquals(expectedItem.movieBasicDS.image, actualItem.getImage());
+        assertEquals(expectedItem.movieBasic.id, actualItem.getId());
+        assertEquals(expectedItem.movieBasic.title, actualItem.getTitle());
+        assertEquals(expectedItem.movieBasic.image, actualItem.getImage());
         assertEquals(expectedItem.backgroundImage, actualItem.getBackgroundImage());
         assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
         assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
