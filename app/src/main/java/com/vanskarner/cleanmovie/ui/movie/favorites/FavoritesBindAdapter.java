@@ -41,7 +41,7 @@ class FavoritesBindAdapter implements BindAdapter<MovieModel, FavoritesBindAdapt
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
         FavoriteItemBinding binding = FavoriteItemBinding
                 .inflate(inflater, parent, false);
-        return new ItemViewHolder(binding, onClickItem);
+        return ItemViewHolder.create(binding, onClickItem);
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -53,6 +53,11 @@ class FavoritesBindAdapter implements BindAdapter<MovieModel, FavoritesBindAdapt
             this.binding = binding;
             super.itemView.setTag(this);
             super.itemView.setOnClickListener(onClickListener);
+        }
+
+        private static ItemViewHolder create(FavoriteItemBinding binding,
+                                             View.OnClickListener onClickItem) {
+            return new ItemViewHolder(binding, onClickItem);
         }
     }
 
