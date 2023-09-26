@@ -121,13 +121,14 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
 
     private String toBase64(ImageView imageView) {
         Drawable drawable = imageView.getDrawable();
+        String result = "";
         if (drawable instanceof BitmapDrawable) {
             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-            return Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+            result = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
         }
-        return "";
+        return result;
     }
 
 }
