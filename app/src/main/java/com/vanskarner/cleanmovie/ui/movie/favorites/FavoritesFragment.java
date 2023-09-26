@@ -46,6 +46,7 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FavoritesFragmentBinding.inflate(inflater, container, false);
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 
@@ -67,7 +68,6 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
     public void onDestroyView() {
         super.onDestroyView();
         presenter.asyncCancel();
-        binding = null;
     }
 
     @Override
