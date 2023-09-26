@@ -14,36 +14,36 @@ import dagger.multibindings.IntoMap;
 public abstract class ViewErrorTypesModule {
 
     @Binds
-    abstract ErrorView<?> bindDefaultViewError(UnknownError unknownError);
+    public abstract ErrorView<?> bindDefaultViewError(UnknownError error);
 
     @Binds
     @IntoMap
     @ClassKey(RemoteError.NotFound.class)
-    abstract ErrorView<?> bindNotFound(NotFoundError notFoundError);
+    public abstract ErrorView<?> bindNotFound(NotFoundError error);
 
     @Binds
     @IntoMap
     @ClassKey(RemoteError.ServiceUnavailable.class)
-    abstract ErrorView<?> bindServiceUnavailable(ServiceUnavailableError serviceUnavailableError);
+    public abstract ErrorView<?> bindServiceUnavailable(ServiceUnavailableError error);
 
     @Binds
     @IntoMap
     @ClassKey(RemoteError.NoInternet.class)
-    abstract ErrorView<?> bindNoInternet(NoInternetError noInternetError);
+    public abstract ErrorView<?> bindNoInternet(NoInternetError error);
 
     @Binds
     @IntoMap
     @ClassKey(RemoteError.Unauthorised.class)
-    abstract ErrorView<?> bindUnauthorised(UnauthorisedError unauthorisedError);
+    public abstract ErrorView<?> bindUnauthorised(UnauthorisedError error);
 
     @Binds
     @IntoMap
     @ClassKey(RemoteError.Server.class)
-    abstract ErrorView<?> bindServer(ServerError serverError);
+    public abstract ErrorView<?> bindServer(ServerError error);
 
     @Binds
     @IntoMap
     @ClassKey(MovieFavoriteLimit.class)
-    abstract ErrorView<?> bindFavoritesLimit(FavoritesLimitError favoritesLimitError);
+    public abstract ErrorView<?> bindFavoritesLimit(FavoritesLimitError error);
 
 }

@@ -5,12 +5,12 @@ import com.vanskarner.entities.MovieBO;
 import java.util.ArrayList;
 import java.util.List;
 
-class MovieLocalDataMapper {
+final class MovieLocalDataMapper {
 
     private MovieLocalDataMapper() {
     }
 
-    static MovieBO convert(MovieEntity movieEntity) {
+    public static MovieBO convert(MovieEntity movieEntity) {
         return new MovieBO(
                 movieEntity.id,
                 movieEntity.title,
@@ -23,7 +23,7 @@ class MovieLocalDataMapper {
         );
     }
 
-    static MovieEntity convert(MovieBO movieBO) {
+    public static MovieEntity convert(MovieBO movieBO) {
         return new MovieEntity(
                 movieBO.getId(),
                 movieBO.getTitle(),
@@ -36,7 +36,7 @@ class MovieLocalDataMapper {
         );
     }
 
-    static List<MovieBO> convert(List<MovieEntity> movieBillboardEntities) {
+    public static List<MovieBO> convert(List<MovieEntity> movieBillboardEntities) {
         List<MovieBO> movieBOS = new ArrayList<>();
         for (MovieEntity item : movieBillboardEntities) {
             movieBOS.add(convert(item));

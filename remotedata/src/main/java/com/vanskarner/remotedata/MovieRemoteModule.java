@@ -25,11 +25,11 @@ abstract class MovieRemoteModule {
 
     @Binds
     @Singleton
-    abstract MovieRemoteRepository bindRepository(MovieRemoteRxRepository repository);
+    public abstract MovieRemoteRepository bindRepository(MovieRemoteRxRepository repository);
 
     @Provides
     @Singleton
-    static MovieApiClient provideMovieService(
+    public static MovieApiClient provideMovieService(
             RemoteErrorInterceptor errorInterceptor,
             MovieDeserializer detailDeserializer,
             @MovieRemoteDataQualifiers.BaseUrl String baseUrl
@@ -52,7 +52,7 @@ abstract class MovieRemoteModule {
 
     @Provides
     @Singleton
-    static MovieDeserializer provideMovieDetailDeserializer(
+    public static MovieDeserializer provideMovieDetailDeserializer(
             @MovieRemoteDataQualifiers.BaseImageUrl String baseImageUrl
     ) {
         return new MovieDeserializer(baseImageUrl);

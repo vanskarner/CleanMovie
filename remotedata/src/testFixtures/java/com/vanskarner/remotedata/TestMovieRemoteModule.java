@@ -17,6 +17,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@SuppressWarnings("unused")
 @Module
 abstract class TestMovieRemoteModule {
     private static final int CONNECT_TIME_OUT_SECONDS = 3;
@@ -24,11 +25,11 @@ abstract class TestMovieRemoteModule {
 
     @Binds
     @Singleton
-    abstract MovieRemoteRepository bindRepository(MovieRemoteRxRepository repository);
+    public abstract MovieRemoteRepository bindRepository(MovieRemoteRxRepository repository);
 
     @Provides
     @Singleton
-    static MovieApiClient provideMovieService(
+    public static MovieApiClient provideMovieService(
             RemoteErrorInterceptor errorInterceptor,
             MovieDeserializer detailDeserializer,
             @MovieRemoteDataQualifiers.BaseUrl String baseUrl
@@ -54,7 +55,7 @@ abstract class TestMovieRemoteModule {
 
     @Provides
     @Singleton
-    static MovieDeserializer provideMovieDetailDeserializer(
+    public static MovieDeserializer provideMovieDetailDeserializer(
             @MovieRemoteDataQualifiers.BaseImageUrl String baseImageUrl
     ) {
         return new MovieDeserializer(baseImageUrl);
