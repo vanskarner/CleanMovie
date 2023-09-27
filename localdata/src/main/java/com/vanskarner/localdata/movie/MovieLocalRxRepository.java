@@ -3,8 +3,8 @@ package com.vanskarner.localdata.movie;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.movie.repository.MovieLocalRepository;
+import com.vanskarner.usecases.movie.MovieBO;
+import com.vanskarner.usecases.movie.MovieLocalRepository;
 
 import java.util.List;
 

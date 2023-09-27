@@ -3,9 +3,8 @@ package com.vanskarner.usecases.movie;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.usecases.DomainErrorFilter;
 import com.vanskarner.usecases.bases.BaseAsyncUseCase;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.error.MovieFavoriteLimit;
-import com.vanskarner.usecases.movie.repository.MovieLocalRepository;
+import com.vanskarner.usecases.movie.service.MovieDetailDS;
+import com.vanskarner.usecases.movie.service.MovieFavoriteLimit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -29,7 +29,7 @@ import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
-import com.vanskarner.usecases.movie.MovieServices;
+import com.vanskarner.usecases.movie.service.MovieServices;
 
 import org.junit.After;
 import org.junit.Before;

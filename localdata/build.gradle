@@ -30,7 +30,6 @@ android {
 dependencies {
     implementation project(':core')
     implementation project(':domain:usecases')
-    implementation project(':domain:entities')
     implementation androidx.room
     implementation androidx.roomRxjava2
     implementation dependencyInjection.dagger

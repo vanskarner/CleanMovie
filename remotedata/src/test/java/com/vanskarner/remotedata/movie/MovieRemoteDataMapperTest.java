@@ -2,7 +2,7 @@ package com.vanskarner.remotedata.movie;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.entities.MovieBO;
+import com.vanskarner.usecases.movie.MovieBO;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.vanskarner.localdata.movie;
 
-import com.vanskarner.entities.MovieBO;
+import com.vanskarner.usecases.movie.MovieBO;
 
 import java.util.ArrayList;
 import java.util.List;

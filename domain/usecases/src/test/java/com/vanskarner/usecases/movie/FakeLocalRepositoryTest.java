@@ -1,11 +1,8 @@
-package com.vanskarner.usecases.movie.repository;
+package com.vanskarner.usecases.movie;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.movie.MovieBOBuilder;
 
 import org.junit.Before;
 import org.junit.Test;

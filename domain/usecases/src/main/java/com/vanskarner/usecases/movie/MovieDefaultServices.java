@@ -3,9 +3,10 @@ package com.vanskarner.usecases.movie;
 import com.vanskarner.core.main.CoreQualifiers;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.ds.MoviesDS;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
+import com.vanskarner.usecases.movie.service.MovieDetailDS;
+import com.vanskarner.usecases.movie.service.MovieServices;
+import com.vanskarner.usecases.movie.service.MoviesDS;
+import com.vanskarner.usecases.movie.service.MoviesFilterDS;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

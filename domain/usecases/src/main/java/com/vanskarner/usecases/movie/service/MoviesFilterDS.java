@@ -1,4 +1,4 @@
-package com.vanskarner.usecases.movie.ds;
+package com.vanskarner.usecases.movie.service;
 
 import java.util.Collections;
 import java.util.List;

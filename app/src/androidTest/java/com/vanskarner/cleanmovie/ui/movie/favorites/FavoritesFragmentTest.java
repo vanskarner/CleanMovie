@@ -22,8 +22,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import com.vanskarner.cleanmovie.common.DataBindingIdlingResource;
 import com.vanskarner.cleanmovie.main.TestApp;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailDSMother;
-import com.vanskarner.usecases.movie.MovieServices;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
+import com.vanskarner.usecases.movie.service.MovieServices;
+import com.vanskarner.usecases.movie.service.MovieDetailDS;
 
 import org.junit.After;
 import org.junit.Before;

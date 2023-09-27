@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
-import com.vanskarner.entities.MovieBO;
+import com.vanskarner.usecases.movie.MovieBO;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;

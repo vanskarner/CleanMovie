@@ -2,9 +2,6 @@ package com.vanskarner.usecases.movie;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.usecases.movie.repository.FakeRepositoryFactory;
-import com.vanskarner.usecases.movie.repository.MovieLocalRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 

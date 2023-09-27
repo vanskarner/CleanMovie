@@ -1,8 +1,7 @@
-package com.vanskarner.usecases.movie.repository;
+package com.vanskarner.usecases.movie;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
-import com.vanskarner.entities.MovieBO;
 
 import java.util.List;
 

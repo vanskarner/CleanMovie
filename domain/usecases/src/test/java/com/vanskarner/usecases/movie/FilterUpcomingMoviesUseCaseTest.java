@@ -3,8 +3,8 @@ package com.vanskarner.usecases.movie;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.usecases.movie.ds.MovieBasicDS;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
+import com.vanskarner.usecases.movie.service.MovieBasicDS;
+import com.vanskarner.usecases.movie.service.MoviesFilterDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

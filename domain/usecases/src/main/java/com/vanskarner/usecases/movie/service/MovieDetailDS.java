@@ -1,4 +1,4 @@
-package com.vanskarner.usecases.movie.ds;
+package com.vanskarner.usecases.movie.service;
 
 public class MovieDetailDS {
 

@@ -1,6 +1,6 @@
 package com.vanskarner.usecases;
 
-import com.vanskarner.usecases.movie.error.MovieFavoriteLimit;
+import com.vanskarner.usecases.movie.service.MovieFavoriteLimit;
 
 import java.util.HashMap;
 import java.util.Map;

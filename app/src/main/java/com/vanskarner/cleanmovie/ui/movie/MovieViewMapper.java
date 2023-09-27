@@ -1,8 +1,8 @@
 package com.vanskarner.cleanmovie.ui.movie;
 
-import com.vanskarner.usecases.movie.ds.MovieBasicDS;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
+import com.vanskarner.usecases.movie.service.MovieBasicDS;
+import com.vanskarner.usecases.movie.service.MovieDetailDS;
+import com.vanskarner.usecases.movie.service.MoviesFilterDS;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,8 @@
 package com.vanskarner.usecases.movie;
 
-import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.movie.ds.MovieBasicDS;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.ds.MoviesDS;
+import com.vanskarner.usecases.movie.service.MovieBasicDS;
+import com.vanskarner.usecases.movie.service.MovieDetailDS;
+import com.vanskarner.usecases.movie.service.MoviesDS;
 
 import java.util.ArrayList;
 import java.util.List;

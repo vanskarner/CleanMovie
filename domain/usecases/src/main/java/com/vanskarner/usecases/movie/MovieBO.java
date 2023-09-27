@@ -1,4 +1,4 @@
-package com.vanskarner.entities;
+package com.vanskarner.usecases.movie;
 
 public class MovieBO {
 

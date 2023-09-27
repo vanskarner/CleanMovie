@@ -1,4 +1,4 @@
-package com.vanskarner.usecases.movie.error;
+package com.vanskarner.usecases.movie.service;
 
 import com.vanskarner.usecases.DomainError;
 

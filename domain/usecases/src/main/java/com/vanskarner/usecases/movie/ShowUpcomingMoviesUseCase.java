@@ -2,8 +2,7 @@ package com.vanskarner.usecases.movie;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.usecases.bases.BaseAsyncUseCase;
-import com.vanskarner.usecases.movie.ds.MoviesDS;
-import com.vanskarner.usecases.movie.repository.MovieRemoteRepository;
+import com.vanskarner.usecases.movie.service.MoviesDS;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

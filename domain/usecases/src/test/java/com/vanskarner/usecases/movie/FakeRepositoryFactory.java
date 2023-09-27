@@ -1,6 +1,4 @@
-package com.vanskarner.usecases.movie.repository;
-
-import com.vanskarner.entities.MovieBO;
+package com.vanskarner.usecases.movie;
 
 import java.util.List;
 

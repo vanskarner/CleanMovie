@@ -1,10 +1,7 @@
-package com.vanskarner.usecases.movie;
+package com.vanskarner.usecases.movie.service;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.ds.MoviesDS;
-import com.vanskarner.usecases.movie.ds.MoviesFilterDS;
 
 public interface MovieServices {
 

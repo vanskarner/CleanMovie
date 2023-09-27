@@ -1,9 +1,6 @@
 package com.vanskarner.usecases.movie;
 
-import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
-import com.vanskarner.usecases.movie.repository.FakeRepositoryFactory;
-import com.vanskarner.usecases.movie.repository.MovieLocalRepository;
+import com.vanskarner.usecases.movie.service.MovieDetailDS;
 
 import static org.junit.Assert.*;
 

@@ -9,7 +9,7 @@ import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
 import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.main.LocalDataModule;
 import com.vanskarner.remotedata.main.RemoteDataModule;
-import com.vanskarner.usecases.DomainModule;
+import com.vanskarner.usecases.main.DomainModule;
 
 import javax.inject.Singleton;
 

@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/domain/entities" />
             <option value="$PROJECT_DIR$/domain/usecases" />
             <option value="$PROJECT_DIR$/localdata" />
             <option value="$PROJECT_DIR$/remotedata" />

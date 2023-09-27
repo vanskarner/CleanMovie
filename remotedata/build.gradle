@@ -12,7 +12,6 @@ java {
 dependencies {
     implementation project(':core')
     implementation project(':domain:usecases')
-    implementation project(':domain:entities')
     implementation async.rxjava2
     implementation clientHttp.retrofit2
     implementation clientHttp.retrofit2ConverterGson

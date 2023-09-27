@@ -1,4 +1,4 @@
-package com.vanskarner.usecases;
+package com.vanskarner.usecases.main;
 
 import com.vanskarner.usecases.movie.MovieServicesModule;
 

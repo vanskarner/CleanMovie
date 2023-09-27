@@ -1,8 +1,7 @@
 package com.vanskarner.usecases.movie;
 
-import com.vanskarner.entities.MovieBO;
-import com.vanskarner.usecases.movie.ds.MovieBasicDS;
-import com.vanskarner.usecases.movie.ds.MovieDetailDS;
+import com.vanskarner.usecases.movie.service.MovieBasicDS;
+import com.vanskarner.usecases.movie.service.MovieDetailDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

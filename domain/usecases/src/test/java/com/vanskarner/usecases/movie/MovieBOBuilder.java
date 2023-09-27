@@ -1,7 +1,5 @@
 package com.vanskarner.usecases.movie;
 
-import com.vanskarner.entities.MovieBO;
-
 public class MovieBOBuilder {
     private int id = 0;
     private String title = "";

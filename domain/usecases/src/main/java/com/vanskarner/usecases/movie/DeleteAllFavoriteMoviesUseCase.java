@@ -2,7 +2,6 @@ package com.vanskarner.usecases.movie;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.usecases.bases.BaseAsyncOutPutUseCase;
-import com.vanskarner.usecases.movie.repository.MovieLocalRepository;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
