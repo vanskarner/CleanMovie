@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 import com.vanskarner.core.concurrent.rxjava.TestRxFutureFactory;
 import com.vanskarner.entities.MovieBO;
-import com.vanskarner.localdata.main.TestRoomDB;
 
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
@@ -27,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 @SmallTest
 public class MovieLocalRxRepositoryTest {
     private CompositeDisposable compositeDisposable;
-    private TestRoomDB db;
+    private MovieRoomDB db;
     private MovieLocalRxRepository repository;
 
     @Before
@@ -35,7 +34,7 @@ public class MovieLocalRxRepositoryTest {
         compositeDisposable = new CompositeDisposable();
         Scheduler testScheduler = Schedulers.trampoline();
         Context context = ApplicationProvider.getApplicationContext();
-        db = Room.inMemoryDatabaseBuilder(context, TestRoomDB.class).build();
+        db = Room.inMemoryDatabaseBuilder(context, MovieRoomDB.class).build();
         MovieDao dao = db.movieDao();
         RxFutureFactory rxFutureFactory = TestRxFutureFactory
                 .create(compositeDisposable,testScheduler, testScheduler);
