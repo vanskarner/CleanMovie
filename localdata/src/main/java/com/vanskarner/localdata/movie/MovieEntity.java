@@ -1,11 +1,11 @@
-package com.vanskarner.localdata;
+package com.vanskarner.localdata.movie;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movie_detail")
-class MovieEntity {
+public class MovieEntity {
 
     @PrimaryKey
     public int id;

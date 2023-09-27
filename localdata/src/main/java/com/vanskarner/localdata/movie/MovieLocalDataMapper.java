@@ -1,4 +1,4 @@
-package com.vanskarner.localdata;
+package com.vanskarner.localdata.movie;
 
 import com.vanskarner.entities.MovieBO;
 

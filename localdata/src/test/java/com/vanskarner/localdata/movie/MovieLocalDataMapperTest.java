@@ -1,4 +1,4 @@
-package com.vanskarner.localdata;
+package com.vanskarner.localdata.movie;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

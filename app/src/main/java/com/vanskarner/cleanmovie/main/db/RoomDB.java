@@ -1,7 +1,10 @@
-package com.vanskarner.localdata;
+package com.vanskarner.cleanmovie.main.db;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+
+import com.vanskarner.localdata.movie.MovieDao;
+import com.vanskarner.localdata.movie.MovieEntity;
 
 @Database(entities = {MovieEntity.class},
         version = 1,

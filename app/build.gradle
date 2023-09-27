@@ -56,9 +56,12 @@ dependencies {
     implementation androidx.navigationUI
     implementation async.rxjava2Android
     implementation imageLoading.glide
+    implementation androidx.room
+    implementation androidx.roomRxjava2
     implementation dependencyInjection.daggerAndroidSupport
     annotationProcessor dependencyInjection.daggerAndroidProcessor
     annotationProcessor dependencyInjection.daggerCompiler
+    annotationProcessor androidx.roomCompiler
 
     testImplementation unitTest.junit
     testImplementation unitTest.mockito
@@ -69,7 +72,6 @@ dependencies {
     androidTestImplementation androidxTest.espressoCore
     androidTestImplementation androidxTest.espressoContrib
     androidTestImplementation androidxTest.navigation
-    androidTestImplementation testFixtures(project(":localdata"))
     androidTestImplementation testFixtures(project(":remotedata"))
     androidTestImplementation async.rx2Idler
     androidTestImplementation androidxTest.fragment

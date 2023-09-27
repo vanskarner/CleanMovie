@@ -3,13 +3,14 @@ package com.vanskarner.cleanmovie.main.di;
 import android.content.Context;
 
 import com.vanskarner.cleanmovie.main.TestApp;
+import com.vanskarner.cleanmovie.main.db.TestAppDBModule;
 import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
 import com.vanskarner.cleanmovie.ui.MenuActivityTest;
 import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragmentTest;
 import com.vanskarner.core.main.CoreModule;
-import com.vanskarner.localdata.TestLocalDataModule;
+import com.vanskarner.localdata.main.LocalDataModule;
 import com.vanskarner.remotedata.main.TestRemoteDataModule;
 import com.vanskarner.usecases.DomainModule;
 
@@ -22,9 +23,10 @@ import dagger.android.AndroidInjector;
 @Singleton
 @Component(modules = {
         TestParametersModule.class,
+        TestAppDBModule.class,
         CoreModule.class,
         DomainModule.class,
-        TestLocalDataModule.class,
+        LocalDataModule.class,
         TestRemoteDataModule.class,
         ViewModule.class
 })

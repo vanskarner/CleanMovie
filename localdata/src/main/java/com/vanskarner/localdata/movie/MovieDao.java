@@ -1,4 +1,4 @@
-package com.vanskarner.localdata;
+package com.vanskarner.localdata.movie;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -11,7 +11,7 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 
 @Dao
-interface MovieDao {
+public interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insert(MovieEntity movieEntity);
