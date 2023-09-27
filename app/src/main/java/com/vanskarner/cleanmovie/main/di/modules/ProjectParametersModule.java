@@ -3,7 +3,7 @@ package com.vanskarner.cleanmovie.main.di.modules;
 import com.vanskarner.cleanmovie.BuildConfig;
 import com.vanskarner.cleanmovie.main.di.qualiers.ViewQualifiers;
 import com.vanskarner.core.main.CoreQualifiers;
-import com.vanskarner.remotedata.MovieRemoteDataQualifiers;
+import com.vanskarner.remotedata.main.MovieRemoteDataQualifiers;
 
 import javax.inject.Singleton;
 
@@ -14,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
+/** @noinspection unused*/
 @Module
 public abstract class ProjectParametersModule {
 

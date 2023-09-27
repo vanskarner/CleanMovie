@@ -1,4 +1,4 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.movie;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

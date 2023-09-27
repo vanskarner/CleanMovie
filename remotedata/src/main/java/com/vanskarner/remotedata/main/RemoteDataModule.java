@@ -1,4 +1,6 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.main;
+
+import com.vanskarner.remotedata.movie.MovieRemoteModule;
 
 import dagger.Module;
 

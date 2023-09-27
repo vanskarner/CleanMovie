@@ -7,7 +7,7 @@ import com.vanskarner.cleanmovie.main.di.modules.ProjectParametersModule;
 import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
 import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.LocalDataModule;
-import com.vanskarner.remotedata.RemoteDataModule;
+import com.vanskarner.remotedata.main.RemoteDataModule;
 import com.vanskarner.usecases.DomainModule;
 
 import javax.inject.Singleton;
@@ -16,6 +16,7 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 
+/** @noinspection unused*/
 @Singleton
 @Component(modules = {
         ProjectParametersModule.class,

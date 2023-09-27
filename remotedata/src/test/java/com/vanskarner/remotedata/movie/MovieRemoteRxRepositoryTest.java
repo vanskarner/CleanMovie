@@ -1,4 +1,4 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.movie;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,6 +11,7 @@ import com.vanskarner.core.jsonparser.TestJsonParserFactory;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
 import com.vanskarner.entities.MovieBO;
+import com.vanskarner.remotedata.RemoteError;
 
 import org.junit.After;
 import org.junit.AfterClass;

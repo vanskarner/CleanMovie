@@ -1,4 +1,4 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.main;
 
 import javax.inject.Qualifier;
 

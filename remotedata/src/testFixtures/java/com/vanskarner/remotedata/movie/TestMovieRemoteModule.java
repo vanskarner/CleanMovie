@@ -1,7 +1,8 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.movie;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vanskarner.remotedata.main.MovieRemoteDataQualifiers;
 import com.vanskarner.usecases.movie.repository.MovieRemoteRepository;
 
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressWarnings("unused")
 @Module
-abstract class TestMovieRemoteModule {
+public abstract class TestMovieRemoteModule {
     private static final int CONNECT_TIME_OUT_SECONDS = 3;
     private static final int READ_TIME_OUT_SECONDS = 3;
 

@@ -1,4 +1,4 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.movie;
 
 import static org.junit.Assert.assertEquals;
 

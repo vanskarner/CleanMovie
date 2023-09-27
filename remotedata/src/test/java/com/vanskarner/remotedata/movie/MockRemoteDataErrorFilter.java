@@ -1,4 +1,6 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.movie;
+
+import com.vanskarner.remotedata.RemoteError;
 
 import java.util.HashMap;
 import java.util.Map;

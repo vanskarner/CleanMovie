@@ -1,4 +1,6 @@
-package com.vanskarner.remotedata;
+package com.vanskarner.remotedata.main;
+
+import com.vanskarner.remotedata.RemoteError;
 
 import dagger.Binds;
 import dagger.Module;

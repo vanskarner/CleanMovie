@@ -10,7 +10,7 @@ import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragmentTest;
 import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.TestLocalDataModule;
-import com.vanskarner.remotedata.TestRemoteDataModule;
+import com.vanskarner.remotedata.main.TestRemoteDataModule;
 import com.vanskarner.usecases.DomainModule;
 
 import javax.inject.Singleton;
@@ -30,6 +30,7 @@ import dagger.android.AndroidInjector;
 })
 public interface TestAppComponent extends AndroidInjector<TestApp> {
 
+    /** @noinspection unused*/
     @Component.Factory
     interface Factory {
         TestAppComponent create(@BindsInstance Context context);
