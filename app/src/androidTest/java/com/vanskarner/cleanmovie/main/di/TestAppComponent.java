@@ -12,7 +12,7 @@ import com.vanskarner.cleanmovie.ui.movie.upcomingDetail.UpcomingDetailFragmentT
 import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.main.LocalDataModule;
 import com.vanskarner.remotedata.main.TestRemoteDataModule;
-import com.vanskarner.usecases.main.DomainModule;
+import com.vanskarner.domain.main.DomainModule;
 
 import javax.inject.Singleton;
 

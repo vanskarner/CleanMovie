@@ -3,8 +3,8 @@ package com.vanskarner.remotedata.movie;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
 import com.vanskarner.remotedata.main.MovieRemoteDataQualifiers;
-import com.vanskarner.usecases.movie.MovieBO;
-import com.vanskarner.usecases.movie.MovieRemoteRepository;
+import com.vanskarner.domain.movie.MovieBO;
+import com.vanskarner.domain.movie.MovieRemoteRepository;
 
 import java.util.List;
 

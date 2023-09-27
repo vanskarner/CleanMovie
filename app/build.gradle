@@ -47,7 +47,7 @@ dependencies {
     implementation project(':core')
     implementation project(':localdata')
     implementation project(':remotedata')
-    implementation project(':domain:usecases')
+    implementation project(':domain')
     implementation files('./libs/singleAdapter2.0.0-release.aar')
     implementation androidx.appcompat
     implementation androidx.materialDesign

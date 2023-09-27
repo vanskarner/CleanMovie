@@ -11,7 +11,7 @@ java {
 
 dependencies {
     implementation project(':core')
-    implementation project(':domain:usecases')
+    implementation project(':domain')
     implementation async.rxjava2
     implementation clientHttp.retrofit2
     implementation clientHttp.retrofit2ConverterGson
@@ -22,8 +22,8 @@ dependencies {
 
     testImplementation unitTest.junit
     testImplementation testFixtures(project(":core"))
+    testFixturesImplementation project(':domain')
 
-    testFixturesImplementation project(':domain:usecases')
     testFixturesImplementation clientHttp.retrofit2
     testFixturesImplementation clientHttp.retrofit2ConverterGson
     testFixturesImplementation clientHttp.retrofit2AdapterRxJava2

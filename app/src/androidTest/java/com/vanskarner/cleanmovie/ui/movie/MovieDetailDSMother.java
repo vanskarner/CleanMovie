@@ -1,7 +1,7 @@
 package com.vanskarner.cleanmovie.ui.movie;
 
-import com.vanskarner.usecases.movie.service.MovieBasicDS;
-import com.vanskarner.usecases.movie.service.MovieDetailDS;
+import com.vanskarner.domain.movie.service.MovieBasicDS;
+import com.vanskarner.domain.movie.service.MovieDetailDS;
 
 import java.io.BufferedReader;
 import java.io.IOException;

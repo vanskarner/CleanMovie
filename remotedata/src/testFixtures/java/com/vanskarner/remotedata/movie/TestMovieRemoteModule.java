@@ -3,7 +3,7 @@ package com.vanskarner.remotedata.movie;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vanskarner.remotedata.main.MovieRemoteDataQualifiers;
-import com.vanskarner.usecases.movie.MovieRemoteRepository;
+import com.vanskarner.domain.movie.MovieRemoteRepository;
 
 import java.util.concurrent.TimeUnit;
 

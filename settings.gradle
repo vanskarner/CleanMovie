@@ -15,6 +15,6 @@ dependencyResolutionManagement {
 rootProject.name = "Clean Movie"
 include ':app'
 include ':core'
-include ':domain:usecases'
+include ':domain'
 include ':localdata'
 include ':remotedata'

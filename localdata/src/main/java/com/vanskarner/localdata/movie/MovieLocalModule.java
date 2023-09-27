@@ -1,6 +1,6 @@
 package com.vanskarner.localdata.movie;
 
-import com.vanskarner.usecases.movie.MovieLocalRepository;
+import com.vanskarner.domain.movie.MovieLocalRepository;
 
 import javax.inject.Singleton;
 

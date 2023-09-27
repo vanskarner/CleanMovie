@@ -11,7 +11,7 @@ import com.vanskarner.core.jsonparser.TestJsonParserFactory;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
 import com.vanskarner.remotedata.RemoteError;
-import com.vanskarner.usecases.movie.MovieBO;
+import com.vanskarner.domain.movie.MovieBO;
 
 import org.junit.After;
 import org.junit.AfterClass;

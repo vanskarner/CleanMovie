@@ -1,6 +1,6 @@
 package com.vanskarner.remotedata.movie;
 
-import com.vanskarner.usecases.movie.MovieBO;
+import com.vanskarner.domain.movie.MovieBO;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -31,8 +31,8 @@
         </processorPath>
         <module name="Clean_Movie.remotedata.testFixtures" />
         <module name="Clean_Movie.core.main" />
+        <module name="Clean_Movie.domain.main" />
         <module name="Clean_Movie.remotedata.main" />
-        <module name="Clean_Movie.domain.usecases.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">

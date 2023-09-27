@@ -2,7 +2,7 @@ package com.vanskarner.cleanmovie.ui.errors.custom;
 
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.remotedata.RemoteError;
-import com.vanskarner.usecases.movie.service.MovieFavoriteLimit;
+import com.vanskarner.domain.movie.service.MovieFavoriteLimit;
 
 import dagger.Binds;
 import dagger.Module;

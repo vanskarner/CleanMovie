@@ -3,7 +3,7 @@ package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
-import com.vanskarner.usecases.movie.service.MovieServices;
+import com.vanskarner.domain.movie.service.MovieServices;
 
 import javax.inject.Inject;
 
