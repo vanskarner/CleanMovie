@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.cleanmovie.databinding.UpcomingItemBinding;
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.singleadapter.BindAdapter;
 
 import javax.inject.Inject;
 
 @PerFragment
-class UpcomingBindAdapter implements BindAdapter<MovieModel, UpcomingBindAdapter.ViewHolder> {
+class UpcomingBindAdapter implements BindAdapter<MovieBasicModel, UpcomingBindAdapter.ViewHolder> {
 
     private View.OnClickListener onClickItem;
 
@@ -28,12 +28,12 @@ class UpcomingBindAdapter implements BindAdapter<MovieModel, UpcomingBindAdapter
     }
 
     @Override
-    public Class<MovieModel> getClassItem() {
-        return MovieModel.class;
+    public Class<MovieBasicModel> getClassItem() {
+        return MovieBasicModel.class;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, MovieModel item) {
+    public void onBindViewHolder(ViewHolder viewHolder, MovieBasicModel item) {
         viewHolder.binding.setMovie(item);
     }
 

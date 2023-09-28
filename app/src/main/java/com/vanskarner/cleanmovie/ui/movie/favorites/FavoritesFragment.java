@@ -15,9 +15,9 @@ import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.FavoritesFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.presentation.ErrorView;
 import com.vanskarner.movie.presentation.favorites.FavoritesContract;
@@ -75,14 +75,14 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
     }
 
     @Override
-    public void showFavorites(List<MovieDS> list) {
-        List<MovieModel> modelList = MovieViewMapper.convert(list);
+    public void showFavorites(List<MovieBasicDS> list) {
+        List<MovieBasicModel> modelList = MovieModelMapper.convert(list);
         singleAdapter.set(modelList);
     }
 
     @Override
     public void showFavoriteDetail(MovieDetailDS movieDetailDS) {
-        MovieDetailModel movieDetailModel = MovieViewMapper.convert(movieDetailDS);
+        MovieDetailModel movieDetailModel = MovieModelMapper.convert(movieDetailDS);
         detailDialog.setModel(movieDetailModel);
         detailDialog.show(getChildFragmentManager());
     }
@@ -117,7 +117,7 @@ public class FavoritesFragment extends DaggerFragment implements FavoritesContra
 
     private void onClickFavoriteItem(View itemView) {
         RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) itemView.getTag();
-        MovieModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
+        MovieBasicModel item = singleAdapter.getItem(viewHolder.getAdapterPosition());
         presenter.getFavoriteDetail(item.id);
     }
 

@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vanskarner.cleanmovie.databinding.FavoriteItemBinding;
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.singleadapter.BindAdapter;
 
 import javax.inject.Inject;
 
 @PerFragment
-class FavoritesBindAdapter implements BindAdapter<MovieModel, FavoritesBindAdapter.ItemViewHolder> {
+class FavoritesBindAdapter implements BindAdapter<MovieBasicModel, FavoritesBindAdapter.ItemViewHolder> {
 
     private View.OnClickListener onClickItem;
 
@@ -28,12 +28,12 @@ class FavoritesBindAdapter implements BindAdapter<MovieModel, FavoritesBindAdapt
     }
 
     @Override
-    public Class<MovieModel> getClassItem() {
-        return MovieModel.class;
+    public Class<MovieBasicModel> getClassItem() {
+        return MovieBasicModel.class;
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder viewHolder, MovieModel item) {
+    public void onBindViewHolder(ItemViewHolder viewHolder, MovieBasicModel item) {
         viewHolder.binding.setMovie(item);
     }
 

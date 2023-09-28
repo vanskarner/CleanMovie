@@ -1,6 +1,6 @@
 package com.vanskarner.movie.presentation.upcoming;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +18,13 @@ public abstract class UpcomingPresenterModule {
 
     @Provides
     @UpcomingPresenterQualifiers.FullList
-    static List<MovieDS> provideFullList() {
+    static List<MovieBasicDS> provideFullList() {
         return new ArrayList<>();
     }
 
     @Provides
     @UpcomingPresenterQualifiers.FilterList
-    static List<MovieDS> provideFilterList() {
+    static List<MovieBasicDS> provideFilterList() {
         return new ArrayList<>();
     }
 

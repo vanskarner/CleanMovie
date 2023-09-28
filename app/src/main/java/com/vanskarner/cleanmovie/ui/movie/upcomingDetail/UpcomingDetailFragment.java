@@ -23,7 +23,7 @@ import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingDetailFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
+import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.presentation.ErrorView;
 import com.vanskarner.movie.presentation.upcomingDetail.UpcomingDetailContract;
@@ -86,7 +86,7 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
 
     @Override
     public void showUpcomingDetail(MovieDetailDS movieDetailDS) {
-        MovieDetailModel movieDetailModel = MovieViewMapper.convert(movieDetailDS);
+        MovieDetailModel movieDetailModel = MovieModelMapper.convert(movieDetailDS);
         binding.setMovieDetail(movieDetailModel);
     }
 
@@ -112,9 +112,9 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
     private boolean onClickHeartMenuItem(MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.favoriteMenuItem) {
             MovieDetailModel movieDetailModel = binding.getMovieDetail();
-            movieDetailModel.image = toBase64(binding.coverPageImage);
+            movieDetailModel.basicModel.image = toBase64(binding.coverPageImage);
             movieDetailModel.backgroundImage = toBase64(binding.backgroundImage);
-            MovieDetailDS movieDetailDS = MovieViewMapper.convert(movieDetailModel);
+            MovieDetailDS movieDetailDS = MovieModelMapper.convert(movieDetailModel);
             presenter.actionFavoriteMovie(movieDetailDS);
         }
         return false;

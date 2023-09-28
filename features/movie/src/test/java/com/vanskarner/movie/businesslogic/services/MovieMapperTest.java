@@ -3,7 +3,7 @@ package com.vanskarner.movie.businesslogic.services;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import com.vanskarner.movie.businesslogic.entities.MovieBO;
 
@@ -34,9 +34,11 @@ public class MovieMapperTest {
                         "systems through a component and decoupled structure, with the goal of " +
                         "achieving sustainable code over time.")
                 .build();
-        dataStructure = new MovieDetailDS(1,
-                "Clean Architecture",
-                "https://blog.cleancoder.com/anyImage.jpg",
+        dataStructure = new MovieDetailDS(
+                new MovieBasicDS(
+                        1,
+                        "Clean Architecture",
+                        "https://blog.cleancoder.com/anyImage.jpg"),
                 "https://blog.cleancoder.com/anyBackImage.jpg",
                 100,
                 9.5f,
@@ -52,9 +54,9 @@ public class MovieMapperTest {
         MovieBO expectedItem = businessObject;
         MovieDetailDS actualItem = MovieMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.getId(), actualItem.id);
-        assertEquals(expectedItem.getTitle(), actualItem.title);
-        assertEquals(expectedItem.getImage(), actualItem.image);
+        assertEquals(expectedItem.getId(), actualItem.movieBasicDS.id);
+        assertEquals(expectedItem.getTitle(), actualItem.movieBasicDS.title);
+        assertEquals(expectedItem.getImage(), actualItem.movieBasicDS.image);
         assertEquals(expectedItem.getBackgroundImage(), actualItem.backgroundImage);
         assertEquals(expectedItem.getVoteCount(), actualItem.voteCount);
         assertEquals(expectedItem.getVoteAverage(), actualItem.voteAverage, 0.01);
@@ -67,9 +69,9 @@ public class MovieMapperTest {
         MovieDetailDS expectedItem = dataStructure;
         MovieBO actualItem = MovieMapper.convert(expectedItem);
 
-        assertEquals(expectedItem.id, actualItem.getId());
-        assertEquals(expectedItem.title, actualItem.getTitle());
-        assertEquals(expectedItem.image, actualItem.getImage());
+        assertEquals(expectedItem.movieBasicDS.id, actualItem.getId());
+        assertEquals(expectedItem.movieBasicDS.title, actualItem.getTitle());
+        assertEquals(expectedItem.movieBasicDS.image, actualItem.getImage());
         assertEquals(expectedItem.backgroundImage, actualItem.getBackgroundImage());
         assertEquals(expectedItem.voteCount, actualItem.getVoteCount());
         assertEquals(expectedItem.voteAverage, actualItem.getVoteAverage(), 0.01);
@@ -80,7 +82,7 @@ public class MovieMapperTest {
     @Test
     public void convert_fromMovieBOList_toMoviesDS() {
         List<MovieBO> expectedList = new ArrayList<>(Collections.singletonList(businessObject));
-        List<MovieDS> actualList = MovieMapper.convert(expectedList).list;
+        List<MovieBasicDS> actualList = MovieMapper.convert(expectedList).list;
 
         assertEquals(expectedList.size(), actualList.size());
         assertEquals(expectedList.get(0).getId(), actualList.get(0).id);

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
@@ -38,8 +38,8 @@ public class UpcomingPresenterTest {
         view = mock(UpcomingContract.view.class);
         services = mock(MovieServices.class);
         errorFilter = mock(ViewErrorFilter.class);
-        List<MovieDS> upcomingList = new ArrayList<>();
-        List<MovieDS> fullUpcomingList = new ArrayList<>();
+        List<MovieBasicDS> upcomingList = new ArrayList<>();
+        List<MovieBasicDS> fullUpcomingList = new ArrayList<>();
 
         presenter = new UpcomingPresenter(
                 view,
@@ -58,7 +58,7 @@ public class UpcomingPresenterTest {
     public void initialLoad_whenItsOK_doOkSequence() {
         int page = 1;
         MoviesDS moviesDS = MoviesDS.empty();
-        moviesDS.list = Collections.singletonList(MovieDS.empty());
+        moviesDS.list = Collections.singletonList(MovieBasicDS.empty());
         FutureResult<MoviesDS> futureResult = TestFutureFactory.create(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.initialLoad(page);
@@ -97,7 +97,7 @@ public class UpcomingPresenterTest {
     public void loadMoreItems_whenItsOK_doOkSequence() {
         int page = 2;
         MoviesDS moviesDS = MoviesDS.empty();
-        moviesDS.list = Collections.singletonList(MovieDS.empty());
+        moviesDS.list = Collections.singletonList(MovieBasicDS.empty());
         FutureResult<MoviesDS> futureResult = TestFutureFactory.create(moviesDS);
         when(services.showUpcoming(page)).thenReturn(futureResult);
         presenter.loadMoreItems(page, true);

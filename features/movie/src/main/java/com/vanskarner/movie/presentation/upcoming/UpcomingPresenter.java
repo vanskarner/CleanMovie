@@ -1,6 +1,6 @@
 package com.vanskarner.movie.presentation.upcoming;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 import com.vanskarner.movie.businesslogic.services.MovieServices;
@@ -11,14 +11,14 @@ import java.util.List;
 class UpcomingPresenter implements UpcomingContract.presenter {
     private final UpcomingContract.view view;
     private final MovieServices movieServices;
-    private final List<MovieDS> upcomingList;
-    private final List<MovieDS> fullUpcomingList;
+    private final List<MovieBasicDS> upcomingList;
+    private final List<MovieBasicDS> fullUpcomingList;
     private final ViewErrorFilter viewErrorFilter;
 
     public UpcomingPresenter(
             UpcomingContract.view view,
             MovieServices movieServices,
-            List<MovieDS> upcomingList, List<MovieDS> fullUpcomingList,
+            List<MovieBasicDS> upcomingList, List<MovieBasicDS> fullUpcomingList,
             ViewErrorFilter viewErrorFilter) {
         this.view = view;
         this.movieServices = movieServices;

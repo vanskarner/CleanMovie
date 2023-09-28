@@ -98,11 +98,8 @@ public class MenuActivityTest {
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
-        onView(isRoot()).perform(pressBack());
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(1, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
+        markAsFavoriteAndBack(0);
+        markAsFavoriteAndBack(1);
         onView(withId(R.id.favoritesNav)).perform(click());
         onView(withId(R.id.deleteMenuItem)).perform(click());
         onView(withText(R.string.ok)).perform(click());
@@ -128,8 +125,7 @@ public class MenuActivityTest {
         onView(withId(androidx.appcompat.R.id.search_button)).perform(click());
         onView(withId(androidx.appcompat.R.id.search_src_text))
                 .perform(typeText(query), pressKey(KeyEvent.KEYCODE_ENTER));
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
+        markAsFavoriteAndBack(0);
         onView(withId(R.id.favoritesNav)).perform(click());
         onView(withId(R.id.favoritesRecycler))
                 .check(matches(withRecyclerViewItemCount(1)));
@@ -145,8 +141,7 @@ public class MenuActivityTest {
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
+        markAsFavoriteAndBack(0);
         onView(withId(R.id.favoritesNav)).perform(click());
         onView(withId(R.id.favoritesRecycler))
                 .check(matches(withRecyclerViewItemCount(1)));
@@ -172,15 +167,9 @@ public class MenuActivityTest {
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
-        onView(isRoot()).perform(pressBack());
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(1, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
-        onView(isRoot()).perform(pressBack());
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(2, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
-        onView(isRoot()).perform(pressBack());
+        markAsFavoriteAndBack(0);
+        markAsFavoriteAndBack(1);
+        markAsFavoriteAndBack(2);
         onView(withId(R.id.ivError)).inRoot(isDialog()).check(matches(isDisplayed()));
         onView(withId(R.id.ivError)).check(matches(withImageDrawable(R.drawable.ic_premium)));
         onView(withText(R.string.ok)).perform(click());
@@ -198,9 +187,7 @@ public class MenuActivityTest {
         ActivityScenario<MenuActivity> scenario = ActivityScenario.launch(MenuActivity.class);
         dataBindingIdlingResource.monitorActivity(scenario);
 
-        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.favoriteMenuItem)).perform(click());
-        onView(isRoot()).perform(pressBack());
+        markAsFavoriteAndBack(0);
         onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(1, click()));
         onView(withId(R.id.ivError)).inRoot(isDialog()).check(matches(isDisplayed()));
         onView(withId(R.id.ivError))
@@ -210,6 +197,12 @@ public class MenuActivityTest {
         onView(withId(R.id.favoritesRecycler))
                 .check(matches(withRecyclerViewItemCount(1)));
         scenario.close();
+    }
+
+    private void markAsFavoriteAndBack(int position) {
+        onView(withId(R.id.upcomingRecycler)).perform(actionOnItemAtPosition(position, click()));
+        onView(withId(R.id.favoriteMenuItem)).perform(click());
+        onView(isRoot()).perform(pressBack());
     }
 
 }

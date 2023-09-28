@@ -1,7 +1,8 @@
 package com.vanskarner.cleanmovie.ui.movie;
 
-public class MovieDetailModel extends MovieModel {
+public class MovieDetailModel {
 
+    public MovieBasicModel basicModel;
     public String backgroundImage;
     public final int voteCount;
     public final float voteAverage;
@@ -9,10 +10,10 @@ public class MovieDetailModel extends MovieModel {
     public final String overview;
     public final boolean recommended;
 
-    public MovieDetailModel(int id, String title, String image, String backgroundImage,
+    public MovieDetailModel(MovieBasicModel basicModel, String backgroundImage,
                             int voteCount, float voteAverage, String releaseDate, String overview,
                             boolean recommended) {
-        super(id, title, image);
+        this.basicModel = basicModel;
         this.backgroundImage = backgroundImage;
         this.voteCount = voteCount;
         this.voteAverage = voteAverage;

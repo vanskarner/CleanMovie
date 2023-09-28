@@ -1,7 +1,7 @@
 package com.vanskarner.movie.businesslogic.services;
 
 import com.vanskarner.movie.businesslogic.bases.BaseUseCase;
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
 
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ class FilterUpcomingMoviesUseCase extends BaseUseCase<MoviesFilterDS, MoviesFilt
         String query = inputValues.query.toString().toLowerCase().trim();
         inputValues.filterList = inputValues.fullList;
         if (!query.isEmpty()) {
-            List<MovieDS> filteredList = new ArrayList<>();
-            for (MovieDS item : inputValues.fullList)
+            List<MovieBasicDS> filteredList = new ArrayList<>();
+            for (MovieBasicDS item : inputValues.fullList)
                 if (item.title.toLowerCase(Locale.ENGLISH).contains(query)) filteredList.add(item);
             inputValues.filterList = filteredList;
         }

@@ -21,9 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
+import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
 import com.vanskarner.movie.presentation.upcoming.UpcomingContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 
@@ -109,8 +109,8 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
     }
 
     @Override
-    public void showUpcoming(List<MovieDS> list) {
-        List<MovieModel> modelList = MovieViewMapper.convert(list);
+    public void showUpcoming(List<MovieBasicDS> list) {
+        List<MovieBasicModel> modelList = MovieModelMapper.convert(list);
         singleAdapter.set(modelList);
     }
 
@@ -159,7 +159,7 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
 
     private void onClickUpcomingItem(View viewItem) {
         RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) viewItem.getTag();
-        MovieModel movieModel = singleAdapter.getItem(viewHolder.getAdapterPosition());
+        MovieBasicModel movieModel = singleAdapter.getItem(viewHolder.getAdapterPosition());
         UpcomingFragmentDirections.UpcomingAction upcomingAction =
                 UpcomingFragmentDirections.upcomingAction();
         upcomingAction.setMovieId(movieModel.id);
