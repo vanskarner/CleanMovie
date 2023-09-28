@@ -1,6 +1,5 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
 
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.remotedata.RemoteError;
 import com.vanskarner.domain.movie.service.MovieFavoriteLimit;
 

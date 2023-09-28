@@ -1,18 +1,17 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 
 @Singleton
-public class UnauthorisedError implements ErrorView<CommonErrorDialogBinding> {
+class ServiceUnavailableError implements ErrorView<CommonErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject
-    public UnauthorisedError(ErrorDialog errorDialog) {
+    public ServiceUnavailableError(ErrorDialog errorDialog) {
         this.errorDialog = errorDialog;
     }
 
@@ -20,8 +19,8 @@ public class UnauthorisedError implements ErrorView<CommonErrorDialogBinding> {
     public CommonErrorDialogBinding setupView(Runnable action) {
         CommonErrorDialogBinding binding = CommonErrorDialogBinding
                 .inflate(errorDialog.getLayoutInflater());
-        binding.ivError.setImageResource(R.drawable.ic_unauthorised);
-        binding.tvMsgError.setText(R.string.msg_unauthorized);
+        binding.ivError.setImageResource(R.drawable.ic_service_unavailable);
+        binding.tvMsgError.setText(R.string.msg_service_unavailable);
         binding.errorButton.setOnClickListener(v -> action.run());
         return binding;
     }

@@ -1,7 +1,7 @@
 package com.vanskarner.cleanmovie.ui.movie.favorites;
 
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
-import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
+import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
 import com.vanskarner.domain.movie.service.MovieServices;
 
 import java.util.Collections;
@@ -27,7 +27,7 @@ class FavoritesPresenter implements FavoritesContract.presenter {
     @Override
     public void getFavorites() {
         movieServices.showFavorite()
-                .map(moviesDS -> MovieViewMapper.convert(moviesDS.list))
+                .map(moviesDS -> MovieModelMapper.convert(moviesDS.list))
                 .onResult(movieModels -> {
                     view.showFavorites(movieModels);
                     view.setNotFavorites(movieModels.isEmpty());
@@ -37,7 +37,7 @@ class FavoritesPresenter implements FavoritesContract.presenter {
     @Override
     public void getFavoriteDetail(int id) {
         movieServices.findFavorite(id)
-                .map(MovieViewMapper::convert)
+                .map(MovieModelMapper::convert)
                 .onResult(view::showFavoriteDetail,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
     }

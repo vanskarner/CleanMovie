@@ -7,9 +7,9 @@ import com.vanskarner.domain.movie.service.MoviesFilterDS;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MovieViewMapper {
+public final class MovieModelMapper {
 
-    private MovieViewMapper() {
+    private MovieModelMapper() {
     }
 
     public static MovieDetailModel convert(MovieDetailDS movieDetailDS) {

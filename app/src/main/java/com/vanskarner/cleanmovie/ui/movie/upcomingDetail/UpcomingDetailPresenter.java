@@ -2,7 +2,7 @@ package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
 
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
+import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
 import com.vanskarner.domain.movie.service.MovieServices;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
                 .onResult(view::setMarkedAsFavorite,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
         movieServices.findUpcoming(id)
-                .map(MovieViewMapper::convert)
+                .map(MovieModelMapper::convert)
                 .onResult(movieDetailModel -> {
                     view.setReadyViews(true);
                     view.showUpcomingDetail(movieDetailModel);
@@ -39,7 +39,7 @@ class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {
 
     @Override
     public void actionFavoriteMovie(MovieDetailModel detailModel) {
-        movieServices.toggleFavorite(MovieViewMapper.convert(detailModel))
+        movieServices.toggleFavorite(MovieModelMapper.convert(detailModel))
                 .onResult(view::setMarkedAsFavorite,
                         throwable -> view.showError(viewErrorFilter.filter(throwable)));
     }

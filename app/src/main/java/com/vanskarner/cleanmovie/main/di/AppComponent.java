@@ -5,7 +5,7 @@ import android.content.Context;
 import com.vanskarner.cleanmovie.main.App;
 import com.vanskarner.cleanmovie.main.db.RoomDBModule;
 import com.vanskarner.cleanmovie.main.di.modules.ProjectParametersModule;
-import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
+import com.vanskarner.cleanmovie.main.di.modules.UIModule;
 import com.vanskarner.core.main.CoreModule;
 import com.vanskarner.localdata.main.LocalDataModule;
 import com.vanskarner.remotedata.main.RemoteDataModule;
@@ -26,7 +26,7 @@ import dagger.android.AndroidInjector;
         DomainModule.class,
         LocalDataModule.class,
         RemoteDataModule.class,
-        ViewModule.class
+        UIModule.class
 })
 public interface AppComponent extends AndroidInjector<App> {
 

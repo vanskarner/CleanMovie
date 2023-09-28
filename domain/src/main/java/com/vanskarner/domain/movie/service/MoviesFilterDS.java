@@ -3,7 +3,8 @@ package com.vanskarner.domain.movie.service;
 import java.util.Collections;
 import java.util.List;
 
-public class MoviesFilterDS {
+public class
+MoviesFilterDS {
 
     public List<MovieBasicDS> fullList;
     public CharSequence query;
