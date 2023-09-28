@@ -18,24 +18,24 @@ public abstract class UpcomingModule {
 
     @Binds
     @PerFragment
-    abstract UpcomingContract.view bindView(UpcomingFragment fragment);
+    public abstract UpcomingContract.view bindView(UpcomingFragment fragment);
 
     @Provides
     @PerFragment
-    static UpcomingContract.presenter bindPresenter(UpcomingPresenterFactory factory) {
+    public static UpcomingContract.presenter bindPresenter(UpcomingPresenterFactory factory) {
         return factory.create();
     }
 
     @Provides
     @PerFragment
     @UpcomingQualifiers.UpcomingAdapter
-    static SingleAdapter provideSingleAdapter() {
+    public static SingleAdapter provideSingleAdapter() {
         return new SingleAdapter();
     }
 
     @Provides
     @PerFragment
-    static CompositeDisposable provideCompositeDisposable() {
+    public static CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
     }
 

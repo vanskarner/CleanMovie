@@ -18,7 +18,7 @@ class UpcomingPresenter implements UpcomingContract.presenter {
     public UpcomingPresenter(
             UpcomingContract.view view,
             MovieServices movieServices,
-            List<MovieDS> upcomingList,List<MovieDS> fullUpcomingList,
+            List<MovieDS> upcomingList, List<MovieDS> fullUpcomingList,
             ViewErrorFilter viewErrorFilter) {
         this.view = view;
         this.movieServices = movieServices;
@@ -30,7 +30,8 @@ class UpcomingPresenter implements UpcomingContract.presenter {
     @Override
     public void initialLoad(int page) {
         view.enableScroll();
-        if (page == 1) {
+        boolean isInitialPage = page == 1;
+        if (isInitialPage) {
             view.setSearchView(false);
             view.setInitialProgress(true);
             movieServices.showUpcoming(page)

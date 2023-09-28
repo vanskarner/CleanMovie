@@ -18,18 +18,18 @@ public abstract class FavoritesModule {
 
     @Binds
     @PerFragment
-    abstract FavoritesContract.view bindView(FavoritesFragment fragment);
+    public abstract FavoritesContract.view bindView(FavoritesFragment fragment);
 
     @Provides
     @PerFragment
-    static FavoritesContract.presenter bindPresenter(FavoritesPresenterFactory factory) {
+    public static FavoritesContract.presenter bindPresenter(FavoritesPresenterFactory factory) {
         return factory.create();
     }
 
     @Provides
     @PerFragment
     @FavoriteQualifiers.FavoriteAdapter
-    static SingleAdapter provideSingleAdapter() {
+    public static SingleAdapter provideSingleAdapter() {
         return new SingleAdapter();
     }
 
