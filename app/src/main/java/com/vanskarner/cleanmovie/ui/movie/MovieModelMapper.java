@@ -6,7 +6,7 @@ import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieModelMapper {
+public final class MovieModelMapper {
 
     private MovieModelMapper() {
     }

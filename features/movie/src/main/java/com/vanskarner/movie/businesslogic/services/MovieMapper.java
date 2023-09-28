@@ -8,7 +8,7 @@ import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import java.util.ArrayList;
 import java.util.List;
 
-class MovieMapper {
+final class MovieMapper {
 
     private MovieMapper() {
     }
