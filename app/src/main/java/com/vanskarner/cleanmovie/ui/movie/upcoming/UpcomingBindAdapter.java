@@ -41,7 +41,7 @@ class UpcomingBindAdapter implements BindAdapter<MovieBasicModel, UpcomingBindAd
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, LayoutInflater inflater) {
         UpcomingItemBinding binding = UpcomingItemBinding
                 .inflate(inflater, parent, false);
-        return new ViewHolder(binding, onClickItem);
+        return ViewHolder.create(binding,onClickItem);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,6 +54,12 @@ class UpcomingBindAdapter implements BindAdapter<MovieBasicModel, UpcomingBindAd
             super.itemView.setTag(this);
             super.itemView.setOnClickListener(onClickListener);
         }
+
+        private static ViewHolder create(UpcomingItemBinding binding,
+                                         View.OnClickListener onClickItem) {
+            return new ViewHolder(binding, onClickItem);
+        }
+
     }
 
 }
