@@ -1,7 +1,6 @@
 package com.vanskarner.domain.movie;
 
-import com.vanskarner.domain.DomainError;
-import com.vanskarner.domain.movie.service.MovieFavoriteLimit;
+import com.vanskarner.domain.movie.service.MovieError;
 import com.vanskarner.domain.movie.service.MovieServices;
 
 import javax.inject.Singleton;
@@ -21,7 +20,7 @@ public abstract class MovieServicesModule {
 
     @Binds
     @IntoMap
-    @ClassKey(MovieFavoriteLimit.class)
-    public abstract DomainError provideFavoriteMovieLimit(MovieFavoriteLimit error);
+    @ClassKey(MovieError.MovieFavoriteLimit.class)
+    public abstract MovieError provideFavoriteMovieLimit(MovieError.MovieFavoriteLimit error);
 
 }

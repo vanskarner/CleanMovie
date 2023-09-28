@@ -1,8 +1,9 @@
 package com.vanskarner.domain.movie;
 
+import static org.junit.Assert.*;
+
 import com.vanskarner.domain.movie.service.MovieDetailDS;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.Collections;

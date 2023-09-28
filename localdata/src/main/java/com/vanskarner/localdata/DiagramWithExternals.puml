@@ -1,0 +1,25 @@
+@startuml
+!include ../../../../../../../StylesForDiagrams.puml
+
+/'Specification'/
+package localdata as "com.vanskarner.localdata" {
+    package movie{}
+}
+package domain as "com.vanskarner.domain" {
+    package movieDomain as "movie"{
+        interface MovieLocalRepository<<interface>>
+        entity MovieBO
+    }
+}
+package core as "com.vanskarner.core"{
+    interface FutureResult<T><<interface>>
+    interface FutureSimpleResult<<interface>>
+    interface RxFutureFactory<<interface>>
+}
+
+/'Relations'/
+movieDomain <.. movie: <<use>>
+core <.. movie: <<use>>
+/'Visualization'/
+hide members
+@enduml

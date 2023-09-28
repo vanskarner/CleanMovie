@@ -1,13 +1,10 @@
 @startuml
-!include ../../../../../../../../StylesForDiagrams.puml
+!include ../../../../../../../StylesForDiagrams.puml
 
 /'Specification'/
-package usecases as "com.vanskarner.usecases"{
-    class MovieDetailDS<<(D,orange)Data Structure>>
-    class MovieDS<<(D,orange)Data Structure>>
-    class MoviesDS<<(D,orange)Data Structure>>
-    class MoviesFilterDS<<(D,orange)Data Structure>>
-    interface MovieServices<<interface>>
+package usecases as "com.vanskarner.domain"{
+
+package movie {
     class MovieDefaultServices
     class FilterUpcomingMoviesUseCase
     class ToggleMovieFavoriteUseCase
@@ -17,23 +14,41 @@ package usecases as "com.vanskarner.usecases"{
     class ShowFavoriteMoviesUseCase
     class ShowUpcomingMoviesUseCase
     class FindUpcomingMovieUseCase
+    entity MovieBO
+    class MovieMapper
+    together {
+        class MovieErrorFilter
+        exception MovieError<<abstract>>
+        exception MovieFavoriteLimit
+
+        ToggleMovieFavoriteUseCase --> MovieErrorFilter
+        MovieErrorFilter --> "1..*" MovieError
+        MovieError <|-- MovieFavoriteLimit
+    }
+    together {
+        interface MovieServices<<interface>>
+        class MovieDetailDS<<(D,orange)Data Structure>>
+        class MovieBasicDS<<(D,orange)Data Structure>>
+        class MoviesDS<<(D,orange)Data Structure>>
+        class MoviesFilterDS<<(D,orange)Data Structure>>
+
+        MovieServices ..> MoviesDS
+        MovieServices ..> MovieDetailDS
+        MovieServices ..> MoviesFilterDS
+        MoviesDS --> "0..*" MovieBasicDS
+        MoviesFilterDS --> "0..*" MovieBasicDS
+        MoviesFilterDS --> "0..*" MovieBasicDS
+        MovieDetailDS --> MovieBasicDS
+    }
     together {
         interface MovieLocalRepository<<interface>>
         interface MovieRemoteRepository<<interface>>
     }
-    class MovieMapper
-    together {
-        class DomainErrorFilter
-        abstract DomainError<<abstract>>
-        class MovieFavoriteLimit
-    }
+}
+
 }
 
 /'Relations'/
-MovieServices ..> MoviesDS
-MovieServices ..> MovieDetailDS
-MovieServices ..> MoviesFilterDS
-MoviesDS --> "0..*" MovieDS
 
 MovieDefaultServices .left.|> MovieServices
 MovieDefaultServices --> ShowUpcomingMoviesUseCase
@@ -57,13 +72,14 @@ ShowUpcomingMoviesUseCase ..> MovieMapper
 FindUpcomingMovieUseCase ..> MovieMapper
 ShowFavoriteMoviesUseCase ..> MovieMapper
 FindFavoriteMovieUseCase ..> MovieMapper
+FindUpcomingMovieUseCase ..> MovieBO
 
 MovieMapper ..> MovieDetailDS
+MovieMapper ..> MovieBO
 MovieMapper ..> MoviesDS
 
-ToggleMovieFavoriteUseCase --> DomainErrorFilter
-DomainErrorFilter --> "1..*" DomainError
-DomainError <|- MovieFavoriteLimit
+MovieLocalRepository ..> MovieBO
+MovieRemoteRepository ..> MovieBO
 
 /'Visualization'/
 hide members

@@ -1,7 +1,7 @@
 package com.vanskarner.cleanmovie.ui.errors;
 
+import com.vanskarner.domain.movie.service.MovieError;
 import com.vanskarner.remotedata.RemoteError;
-import com.vanskarner.domain.movie.service.MovieFavoriteLimit;
 
 import dagger.Binds;
 import dagger.Module;
@@ -42,7 +42,7 @@ public abstract class ViewErrorTypesModule {
 
     @Binds
     @IntoMap
-    @ClassKey(MovieFavoriteLimit.class)
+    @ClassKey(MovieError.MovieFavoriteLimit.class)
     public abstract ErrorView<?> bindFavoritesLimit(FavoritesLimitError error);
 
 }

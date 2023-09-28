@@ -1,0 +1,26 @@
+@startuml
+!include ../../../../../../../StylesForDiagrams.puml
+
+/'Specification'/
+package remotedata as "com.vanskarner.remotedata"{
+    package movie{}
+}
+package domain as "com.vanskarner.domain"{
+    package movieDomain as "movie"{
+        entity MovieBO
+        interface MovieRemoteRepository<<interface>>
+    }
+}
+package core as "com.vanskarner.core"{
+    interface FutureResult<T><<interface>>
+    interface RxFutureFactory<<interface>>
+}
+
+/'Relations'/
+movieDomain <.. movie: <<use>>
+core <.. movie: <<use>>
+
+/'Visualization'/
+hide members
+skinparam Linetype ortho
+@enduml

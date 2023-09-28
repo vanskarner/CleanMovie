@@ -1,0 +1,22 @@
+@startuml
+!include ../../../../../../../StylesForDiagrams.puml
+
+/'Specification'/
+package domain as "com.vanskarner.domain" {
+    package movie{
+    }
+    package bases{
+    }
+}
+
+package core as "com.vanskarner.core" {
+    interface Result<T><<interface>>
+    interface FutureResult<T><<interface>>
+    interface FutureSimpleResult<<interface>>
+}
+/'Relations'/
+core <..  domain: "<<use>>"
+/'Visualization'/
+hide members
+skinparam LineType ortho
+@enduml

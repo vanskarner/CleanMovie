@@ -1,21 +1,21 @@
 @startuml
 !include ../../../../../../../StylesForDiagrams.puml
 
-package cleanmovie as "com.vanskarner.cleanmovie"{
-    class MovieViewMapper{
-        - MovieViewMapper()
+package cleanmovie as "com.vanskarner.cleanmovie.ui"{
+    class MovieModelMapper{
+        - MovieModelMapper()
         + {static} convert(MovieDetailDS): MovieDetailModel
         + {static} convert(MovieDetailModel): MovieDetailDS
-        + {static} convert(List<MovieDS>): List<MovieModel>
-        + {static} convert(List<MovieModel>,CharSequence):  MoviesFilterDS
-        - {static} convert(MovieDS): MovieModel
-        - {static} convert(MovieModel): MovieDS
+        + {static} convert(List<MovieBasicDS>): List<MovieBasicModel>
+        + {static} convert(List<MovieBasicModel>,CharSequence):  MoviesFilterDS
+        - {static} convert(MovieBasicDS): MovieBasicModel
+        - {static} convert(MovieBasicModel): MovieBasicDS
     }
     interface BasePresenter<<interface>>{
         + asyncCancel(): void
     }
     class MovieDetailModel<<(D,orange)Data Structure>>
-    class MovieModel<<(D,orange)Data Structure>>
+    class MovieBasicModel<<(D,orange)Data Structure>>
     class ViewErrorFilter{
         + ViewErrorFilter(Map<Class<?>, Provider<ErrorView<?>>>,ErrorView<?>)
         + filter(Throwable): ErrorView<?>
@@ -23,7 +23,6 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
     class ErrorDialog{
         - {static} TAG: String = "ErrorDialog"
         - action: Runnable
-        - binding: ViewDataBinding
         + ErrorDialog()
         + setError(ErrorView<?>,Runnable): void
         + show(FragmentManager): void
@@ -42,7 +41,7 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
     }
     together {
         interface FavoritesContractView<<interface>> {
-            + showFavorites(List<MovieModel>): void
+            + showFavorites(List<MovieBasicModel>): void
             + showFavoriteDetail(MovieDetailModel):void
             + setNotFavorites(boolean): void
             + showError(ErrorView<?>): void
@@ -56,7 +55,7 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class FavoritesFragment{
             ~ singleAdapter: SingleAdapter
             ~ binding: FavoritesFragmentBinding
-            + showFavorites(List<MovieModel>): void
+            + showFavorites(List<MovieBasicModel>): void
             + showFavoriteDetail(MovieDetailModel):void
             + setNotFavorites(boolean): void
             + showError(ErrorView<?>): void
@@ -112,7 +111,7 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             + setPagingProgress(boolean): void
             + enableScroll(): void
             + paginate(): void
-            + showUpcoming(List<MovieModel>): void
+            + showUpcoming(List<MovieBasicModel>): void
             + showError(ErrorView<?>): void
         }
         interface UpcomingContractPresenter<<interface>>{
@@ -129,7 +128,7 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
             + setPagingProgress(boolean): void
             + enableScroll(): void
             + paginate(): void
-            + showUpcoming(List<MovieModel>): void
+            + showUpcoming(List<MovieBasicModel>): void
             + showError(ErrorView<?>): void
             - configNavToolbar(): void
             - configSearchView(): void
@@ -141,12 +140,12 @@ package cleanmovie as "com.vanskarner.cleanmovie"{
         class UpcomingPresenter{
             - movieServices: MovieServices
             + UpcomingPresenter(UpcomingContractView, MovieServices,
-            List<MovieModel>,List<MovieModel>,ViewErrorFilter)
+            List<MovieBasicModel>,List<MovieBasicModel>,ViewErrorFilter)
             + initialLoad(int): void
             + loadMoreItems(int,boolean): void
             + filter(CharSequence): void
             + asyncCancel(): void
-            - addItems(List<MovieModel>): void
+            - addItems(List<MovieBasicModel>): void
         }
     }
     together {
@@ -192,12 +191,13 @@ ErrorView <|.. UnknownError
 ViewErrorFilter --> "1..*" ErrorView: -mapError
 ViewErrorFilter --> ErrorView: -defaultError
 ErrorDialog --> "1" ErrorView: -errorView
+MovieDetailModel --> MovieBasicModel
 
 /'Favorites Feature'/
 FavoritesContractPresenter <|.. FavoritesPresenter
 FavoritesContractView <-- FavoritesPresenter: -view
 FavoritesPresenter --> ViewErrorFilter: - viewErrorFilter
-FavoritesPresenter ..> MovieViewMapper
+FavoritesPresenter ..> MovieModelMapper
 FavoritesContractView <|.. FavoritesFragment
 FavoritesContractPresenter <-- FavoritesFragment: ~presenter
 FavoritesFragment --> FavoritesBindAdapter: ~ favoritesBindAdapter
@@ -210,10 +210,10 @@ BasePresenter <|-- FavoritesContractPresenter
 /'Upcoming Feature'/
 UpcomingContractPresenter <|.. UpcomingPresenter
 UpcomingContractPresenter <-- UpcomingFragment: ~presenter
-UpcomingPresenter --> "0..*" MovieModel: -upcomingList
-UpcomingPresenter --> "0..*" MovieModel: -fullUpcomingList
+UpcomingPresenter --> "0..*" MovieBasicModel: -upcomingList
+UpcomingPresenter --> "0..*" MovieBasicModel: -fullUpcomingList
 UpcomingPresenter --> ViewErrorFilter: -viewErrorFilter
-UpcomingPresenter ..> MovieViewMapper
+UpcomingPresenter ..> MovieModelMapper
 UpcomingContractView <|.. UpcomingFragment
 UpcomingContractView <-- UpcomingPresenter: -view
 UpcomingFragment --> Pagination:  ~pagination
@@ -225,17 +225,17 @@ BasePresenter <|-- UpcomingContractPresenter
 /'UpcomingDetail Feature'/
 UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
 UpcomingDetailContractPresenter <-- UpcomingDetailFragment: ~presenter
-UpcomingDetailPresenter ..> MovieViewMapper
+UpcomingDetailPresenter ..> MovieModelMapper
 UpcomingDetailPresenter --> ViewErrorFilter: - viewErrorFilter
 UpcomingDetailContractView <|.. UpcomingDetailFragment
 UpcomingDetailContractView <-- UpcomingDetailPresenter: -view
 UpcomingDetailFragment --> ErrorDialog: ~errorDialog
 BasePresenter <|-- UpcomingDetailContractPresenter
 
-MovieDetailModel <.. MovieViewMapper
-MovieModel <.. MovieViewMapper
+MovieDetailModel <.. MovieModelMapper
+MovieBasicModel <.. MovieModelMapper
 
-hide MovieViewMapper attributes
+hide MovieModelMapper attributes
 hide ViewErrorFilter attributes
 hide FavoritesLimitError members
 hide NoInternetError members

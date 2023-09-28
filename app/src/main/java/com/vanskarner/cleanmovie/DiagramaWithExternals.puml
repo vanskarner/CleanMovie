@@ -1,0 +1,20 @@
+@startuml
+!include ../../../../../../../StylesForDiagrams.puml
+
+package ui as "com.vanskarner.cleanmovie.ui"{
+    class UpcomingPresenter
+    class FavoritesPresenter
+    class UpcomingDetailPresenter
+}
+package domain as "com.vanskarner.domain"{
+    package movie{
+        interface MovieServices<<interface>>
+    }
+}
+
+UpcomingPresenter ..> MovieServices: <<use>>
+FavoritesPresenter ..> MovieServices: <<use>>
+UpcomingDetailPresenter ..> MovieServices: <<use>>
+
+hide members
+@enduml

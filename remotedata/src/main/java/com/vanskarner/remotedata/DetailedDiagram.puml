@@ -3,6 +3,7 @@
 
 /'Specification'/
 package remotedata as "com.vanskarner.remotedata"{
+package movie {
     class MovieRemoteRxRepository{
         - rxFutureFactory: RxFutureFactory
         - apiKey: String
@@ -16,16 +17,7 @@ package remotedata as "com.vanskarner.remotedata"{
         + deserialize(JsonElement,Type,JsonDeserializationContext): MovieDTO
         - getStringValue(JsonObject,String): String
     }
-    class MovieDTO<<(D,orange)Data Structure>>{
-        + id: int
-        + overview: String
-        + posterPath: String
-        + backdropPath: String
-        + releaseDate: String
-        + title: String
-        + voteCount: int
-        + voteAverage: float
-    }
+    class MovieDTO<<(D,orange)Data Structure>>
     class MovieRemoteDataMapper {
         - MovieRemoteDataMapper()
         ~ {static} convert(MovieDTO): MovieBO
@@ -41,16 +33,17 @@ package remotedata as "com.vanskarner.remotedata"{
         + filter(String): RemoteError
         + getNoInternetError(): RemoteError
     }
-    abstract class RemoteError<<abstract>>
-    class Unauthorised
-    class NotFound
-    class Server
-    class ServiceUnavailable
-    class NoInternet
+    exception RemoteError<<abstract>>
+    exception Unauthorised
+    exception NotFound
+    exception Server
+    exception ServiceUnavailable
+    exception NoInternet
     class RemoteErrorInterceptor{
         + RemoteErrorInterceptor(RemoteDataErrorFilter)
         + intercept(Chain): Response
     }
+}
 }
 
 /'Relations'/
@@ -83,5 +76,5 @@ hide ServiceUnavailable members
 hide NoInternet members
 hide MovieDTO methods
 hide MoviesResultDTO members
-
+hide MovieDTO members
 @enduml

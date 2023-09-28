@@ -4,9 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.domain.DomainErrorFilter;
-import com.vanskarner.domain.MockDomainErrorFilter;
-import com.vanskarner.domain.movie.service.MovieFavoriteLimit;
+import com.vanskarner.domain.movie.service.MovieError;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +16,9 @@ public class ToggleMovieFavoriteUseCaseTest {
     @Before
     public void setUp() {
         fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
-        DomainErrorFilter domainErrorFilter = new MockDomainErrorFilter();
+        MovieErrorFilter movieErrorFilter = new MockMovieErrorFilter();
 
-        useCase = new ToggleMovieFavoriteUseCase(fakeLocalRepository, domainErrorFilter);
+        useCase = new ToggleMovieFavoriteUseCase(fakeLocalRepository, movieErrorFilter);
     }
 
     @Test
@@ -50,7 +48,7 @@ public class ToggleMovieFavoriteUseCaseTest {
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
-    @Test(expected = MovieFavoriteLimit.class)
+    @Test(expected = MovieError.MovieFavoriteLimit.class)
     public void execute_withUnregisteredItemAndExceededCapacity_throwException() throws Exception {
         fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(1)

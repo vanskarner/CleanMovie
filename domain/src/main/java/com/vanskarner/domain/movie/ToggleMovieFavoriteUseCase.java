@@ -1,10 +1,9 @@
 package com.vanskarner.domain.movie;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.domain.DomainErrorFilter;
 import com.vanskarner.domain.bases.BaseAsyncUseCase;
 import com.vanskarner.domain.movie.service.MovieDetailDS;
-import com.vanskarner.domain.movie.service.MovieFavoriteLimit;
+import com.vanskarner.domain.movie.service.MovieError;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -13,14 +12,14 @@ import javax.inject.Singleton;
 class ToggleMovieFavoriteUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean> {
     private final static int MAXIMUM_MOVIES_SAVED = 2;
     private final MovieLocalRepository localRepository;
-    private final DomainErrorFilter domainErrorFilter;
+    private final MovieErrorFilter movieErrorFilter;
 
     @Inject
     public ToggleMovieFavoriteUseCase(
             MovieLocalRepository localRepository,
-            DomainErrorFilter domainErrorFilter) {
+            MovieErrorFilter movieErrorFilter) {
         this.localRepository = localRepository;
-        this.domainErrorFilter = domainErrorFilter;
+        this.movieErrorFilter = movieErrorFilter;
     }
 
     @Override
@@ -33,7 +32,7 @@ class ToggleMovieFavoriteUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean
         return localRepository.getNumberMovies()
                 .flatMap(numberMovies -> {
                     if (numberMovies >= MAXIMUM_MOVIES_SAVED)
-                        throw domainErrorFilter.filter(MovieFavoriteLimit.class);
+                        throw movieErrorFilter.filter(MovieError.MovieFavoriteLimit.class);
                     return localRepository.saveMovie(MovieMapper.convert(movieDetailDS))
                             .toFutureResult(true);
                 });
