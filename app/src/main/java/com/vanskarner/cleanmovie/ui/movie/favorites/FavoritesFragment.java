@@ -17,10 +17,10 @@ import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
-import com.vanskarner.movie.presentation.MovieBasicDS;
-import com.vanskarner.movie.presentation.MovieDetailDS;
-import com.vanskarner.movie.presentation.ErrorView;
-import com.vanskarner.movie.presentation.favorites.FavoritesContract;
+import com.vanskarner.movie.ui.MovieBasicDS;
+import com.vanskarner.movie.ui.MovieDetailDS;
+import com.vanskarner.movie.ui.ErrorView;
+import com.vanskarner.movie.ui.favorites.FavoritesContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.List;

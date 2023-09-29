@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.ui.ErrorView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +23,8 @@ import com.vanskarner.cleanmovie.databinding.UpcomingFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
-import com.vanskarner.movie.presentation.MovieBasicDS;
-import com.vanskarner.movie.presentation.upcoming.UpcomingContract;
+import com.vanskarner.movie.ui.MovieBasicDS;
+import com.vanskarner.movie.ui.upcoming.UpcomingContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.List;

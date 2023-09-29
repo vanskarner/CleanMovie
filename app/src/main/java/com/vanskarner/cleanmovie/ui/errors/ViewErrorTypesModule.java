@@ -1,8 +1,8 @@
 package com.vanskarner.cleanmovie.ui.errors;
 
-import com.vanskarner.movie.presentation.MovieRemoteError;
-import com.vanskarner.movie.presentation.MovieError;
-import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.ui.MovieRemoteError;
+import com.vanskarner.movie.ui.MovieError;
+import com.vanskarner.movie.ui.ErrorView;
 
 import dagger.Binds;
 import dagger.Module;

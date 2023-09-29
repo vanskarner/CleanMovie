@@ -1,6 +1,6 @@
 package com.vanskarner.movie.persistence.remote;
 
-import com.vanskarner.movie.presentation.MovieRemoteError;
+import com.vanskarner.movie.ui.MovieRemoteError;
 
 import java.util.HashMap;
 import java.util.Map;

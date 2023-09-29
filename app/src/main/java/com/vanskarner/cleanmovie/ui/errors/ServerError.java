@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.ui.ErrorView;
 
 @Singleton
 class ServerError implements ErrorView<CommonErrorDialogBinding> {

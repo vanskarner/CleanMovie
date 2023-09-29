@@ -2,7 +2,7 @@ package com.vanskarner.cleanmovie.ui.errors;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
-import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.ui.ErrorView;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

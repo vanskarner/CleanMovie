@@ -1,9 +1,9 @@
 package com.vanskarner.cleanmovie.ui.movie.favorites;
 
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
-import com.vanskarner.movie.presentation.favorites.FavoritePresenterModule;
-import com.vanskarner.movie.presentation.favorites.FavoritesContract;
-import com.vanskarner.movie.presentation.favorites.FavoritesPresenterFactory;
+import com.vanskarner.movie.ui.favorites.FavoritePresenterModule;
+import com.vanskarner.movie.ui.favorites.FavoritesContract;
+import com.vanskarner.movie.ui.favorites.FavoritesPresenterFactory;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import dagger.Binds;

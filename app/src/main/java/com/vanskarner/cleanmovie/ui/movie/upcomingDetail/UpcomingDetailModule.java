@@ -1,9 +1,9 @@
 package com.vanskarner.cleanmovie.ui.movie.upcomingDetail;
 
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
-import com.vanskarner.movie.presentation.upcomingDetail.UpcomingDetailContract;
-import com.vanskarner.movie.presentation.upcomingDetail.UpcomingDetailPresenterFactory;
-import com.vanskarner.movie.presentation.upcomingDetail.UpcomingDetailPresenterModule;
+import com.vanskarner.movie.ui.upcomingDetail.UpcomingDetailContract;
+import com.vanskarner.movie.ui.upcomingDetail.UpcomingDetailPresenterFactory;
+import com.vanskarner.movie.ui.upcomingDetail.UpcomingDetailPresenterModule;
 
 import dagger.Binds;
 import dagger.Module;

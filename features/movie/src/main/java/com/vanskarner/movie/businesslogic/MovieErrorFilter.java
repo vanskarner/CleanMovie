@@ -1,6 +1,6 @@
 package com.vanskarner.movie.businesslogic;
 
-import com.vanskarner.movie.presentation.MovieError;
+import com.vanskarner.movie.ui.MovieError;
 
 import java.util.Map;
 import java.util.Objects;

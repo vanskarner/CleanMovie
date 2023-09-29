@@ -4,7 +4,7 @@ import androidx.core.content.ContextCompat;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.PremiumErrorDialogBinding;
-import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.ui.ErrorView;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

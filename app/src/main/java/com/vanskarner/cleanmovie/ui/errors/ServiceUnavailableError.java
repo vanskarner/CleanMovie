@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
-import com.vanskarner.movie.presentation.ErrorView;
+import com.vanskarner.movie.ui.ErrorView;
 
 @Singleton
 class ServiceUnavailableError implements ErrorView<CommonErrorDialogBinding> {

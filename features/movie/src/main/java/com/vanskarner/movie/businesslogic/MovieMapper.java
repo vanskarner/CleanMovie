@@ -1,8 +1,8 @@
 package com.vanskarner.movie.businesslogic;
 
-import com.vanskarner.movie.presentation.MovieBasicDS;
-import com.vanskarner.movie.presentation.MovieDetailDS;
-import com.vanskarner.movie.presentation.MoviesDS;
+import com.vanskarner.movie.ui.MovieBasicDS;
+import com.vanskarner.movie.ui.MovieDetailDS;
+import com.vanskarner.movie.ui.MoviesDS;
 
 import java.util.ArrayList;
 import java.util.List;
