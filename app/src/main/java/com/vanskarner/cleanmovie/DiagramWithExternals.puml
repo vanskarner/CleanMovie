@@ -1,0 +1,57 @@
+@startuml
+!include ../../../../../../../StylesForDiagrams.puml
+
+package cleanmovie as "com.vanskarner.cleanmovie.ui"{
+package errors {
+    class ErrorDialog
+    class FavoritesLimitError
+    class NoInternetError
+    class NotFoundError
+    class ServerError
+    class ServiceUnavailableError
+    class UnauthorisedError
+    class UnknownError
+}
+package movie{
+    class FavoritesFragment
+    class UpcomingDetailFragment
+    class UpcomingFragment
+}
+}
+package usecases as "com.vanskarner.movie"{
+    package ui{
+        interface FavoritesContractPresenter<<interface>>
+        interface FavoritesContractView<<interface>>
+        interface UpcomingContractPresenter<<interface>>
+        interface UpcomingDetailContractPresenter<<interface>>
+        interface UpcomingContractView<<interface>>
+        interface UpcomingDetailContractView<<interface>>
+        interface ErrorView<T><<interface>>
+    }
+}
+
+ErrorView <|.. FavoritesLimitError
+ErrorView <|.. NoInternetError
+ErrorView <|.. NotFoundError
+ErrorView <|.. ServerError
+ErrorView <|.. ServiceUnavailableError
+ErrorView <|.. UnauthorisedError
+ErrorView <|.. UnknownError
+ErrorView "1" <-  ErrorDialog
+
+
+/'Favorites Feature'/
+FavoritesContractView <|.. FavoritesFragment
+FavoritesContractPresenter <.. FavoritesFragment: <<use>>
+
+/'Upcoming Feature'/
+UpcomingContractPresenter <.. UpcomingFragment: <<use>>
+UpcomingContractView <|.. UpcomingFragment
+
+/'UpcomingDetail Feature'/
+UpcomingDetailContractPresenter <.. UpcomingDetailFragment:<<use>>
+UpcomingDetailContractView <|.. UpcomingDetailFragment
+
+hide members
+skinparam Linetype ortho
+@enduml
