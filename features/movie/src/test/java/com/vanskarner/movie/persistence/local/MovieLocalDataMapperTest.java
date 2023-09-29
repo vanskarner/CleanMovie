@@ -2,8 +2,8 @@ package com.vanskarner.movie.persistence.local;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.entities.MovieBOBuilder;
+import com.vanskarner.movie.businesslogic.MovieBO;
+import com.vanskarner.movie.businesslogic.MovieBOBuilder;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

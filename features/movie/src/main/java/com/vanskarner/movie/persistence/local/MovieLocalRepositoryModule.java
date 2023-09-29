@@ -1,6 +1,6 @@
 package com.vanskarner.movie.persistence.local;
 
-import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
+import com.vanskarner.movie.businesslogic.MovieLocalRepository;
 
 import javax.inject.Singleton;
 

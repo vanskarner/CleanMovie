@@ -11,10 +11,10 @@ import static org.mockito.Mockito.when;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
-import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.MovieBasicDS;
+import com.vanskarner.movie.MoviesDS;
+import com.vanskarner.movie.MoviesFilterDS;
+import com.vanskarner.movie.MovieServices;
 import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import org.junit.After;

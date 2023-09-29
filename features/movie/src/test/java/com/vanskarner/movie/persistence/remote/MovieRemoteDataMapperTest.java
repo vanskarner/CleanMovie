@@ -2,7 +2,7 @@ package com.vanskarner.movie.persistence.remote;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.MovieBO;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

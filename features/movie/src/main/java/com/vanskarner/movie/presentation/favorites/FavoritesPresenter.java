@@ -1,6 +1,6 @@
 package com.vanskarner.movie.presentation.favorites;
 
-import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.MovieServices;
 import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import java.util.Collections;

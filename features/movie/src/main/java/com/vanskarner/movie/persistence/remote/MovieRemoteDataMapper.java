@@ -1,6 +1,6 @@
 package com.vanskarner.movie.persistence.remote;
 
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.MovieBO;
 
 import java.util.ArrayList;
 import java.util.List;

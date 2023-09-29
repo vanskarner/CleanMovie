@@ -1,6 +1,6 @@
 package com.vanskarner.movie.presentation.upcoming;
 
-import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
+import com.vanskarner.movie.MovieBasicDS;
 import com.vanskarner.movie.presentation.BasePresenter;
 import com.vanskarner.movie.presentation.ErrorView;
 

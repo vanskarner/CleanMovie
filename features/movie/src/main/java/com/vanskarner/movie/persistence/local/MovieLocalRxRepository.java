@@ -3,8 +3,8 @@ package com.vanskarner.movie.persistence.local;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
-import com.vanskarner.movie.businesslogic.repository.MovieLocalRepository;
+import com.vanskarner.movie.businesslogic.MovieBO;
+import com.vanskarner.movie.businesslogic.MovieLocalRepository;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.vanskarner.movie.presentation.upcomingDetail;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.MovieDetailDS;
+import com.vanskarner.movie.MovieServices;
 import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 class UpcomingDetailPresenter implements UpcomingDetailContract.presenter {

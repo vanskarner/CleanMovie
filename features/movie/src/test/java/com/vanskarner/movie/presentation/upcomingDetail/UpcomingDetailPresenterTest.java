@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.MovieDetailDS;
+import com.vanskarner.movie.MovieServices;
 import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import org.junit.After;

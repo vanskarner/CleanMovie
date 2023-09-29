@@ -1,9 +1,9 @@
 package com.vanskarner.movie.presentation.upcoming;
 
-import com.vanskarner.movie.businesslogic.ds.MovieBasicDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
-import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.MovieBasicDS;
+import com.vanskarner.movie.MoviesDS;
+import com.vanskarner.movie.MoviesFilterDS;
+import com.vanskarner.movie.MovieServices;
 import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import java.util.List;
