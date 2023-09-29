@@ -1,7 +1,10 @@
-package com.vanskarner.movie;
+package com.vanskarner.movie.businesslogic;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;
+import com.vanskarner.movie.presentation.MovieDetailDS;
+import com.vanskarner.movie.presentation.MoviesDS;
+import com.vanskarner.movie.presentation.MoviesFilterDS;
 
 public interface MovieServices {
 

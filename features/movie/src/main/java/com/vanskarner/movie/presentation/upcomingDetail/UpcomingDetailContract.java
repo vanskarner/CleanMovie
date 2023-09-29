@@ -1,6 +1,6 @@
 package com.vanskarner.movie.presentation.upcomingDetail;
 
-import com.vanskarner.movie.MovieDetailDS;
+import com.vanskarner.movie.presentation.MovieDetailDS;
 import com.vanskarner.movie.presentation.BasePresenter;
 import com.vanskarner.movie.presentation.ErrorView;
 

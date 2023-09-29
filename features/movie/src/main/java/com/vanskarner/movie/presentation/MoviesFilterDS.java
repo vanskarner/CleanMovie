@@ -1,4 +1,4 @@
-package com.vanskarner.movie;
+package com.vanskarner.movie.presentation;
 
 import java.util.Collections;
 import java.util.List;

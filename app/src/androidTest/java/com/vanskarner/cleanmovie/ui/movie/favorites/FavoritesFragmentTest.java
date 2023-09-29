@@ -29,8 +29,8 @@ import org.junit.runner.RunWith;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.common.MovieDetailDSMother;
-import com.vanskarner.movie.MovieDetailDS;
-import com.vanskarner.movie.MovieServices;
+import com.vanskarner.movie.presentation.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MovieServices;
 
 import javax.inject.Inject;
 

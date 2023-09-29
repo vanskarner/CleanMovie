@@ -1,4 +1,4 @@
-package com.vanskarner.movie;
+package com.vanskarner.movie.presentation;
 
 public class MovieDetailDS {
 

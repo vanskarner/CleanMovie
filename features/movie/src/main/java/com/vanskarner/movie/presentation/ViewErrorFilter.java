@@ -8,7 +8,6 @@ import javax.inject.Singleton;
 
 @Singleton
 public class ViewErrorFilter {
-
     private final Map<Class<?>, Provider<ErrorView<?>>> mapError;
     private final ErrorView<?> defaultError;
 

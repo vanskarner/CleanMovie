@@ -1,6 +1,6 @@
 package com.vanskarner.movie.presentation.upcomingDetail;
 
-import com.vanskarner.movie.MovieServices;
+import com.vanskarner.movie.businesslogic.MovieServices;
 import com.vanskarner.movie.presentation.ViewErrorFilter;
 
 import javax.inject.Inject;

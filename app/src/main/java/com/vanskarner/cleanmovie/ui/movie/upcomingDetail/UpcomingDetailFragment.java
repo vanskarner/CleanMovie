@@ -24,7 +24,7 @@ import com.vanskarner.cleanmovie.databinding.UpcomingDetailFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
-import com.vanskarner.movie.MovieDetailDS;
+import com.vanskarner.movie.presentation.MovieDetailDS;
 import com.vanskarner.movie.presentation.ErrorView;
 import com.vanskarner.movie.presentation.upcomingDetail.UpcomingDetailContract;
 

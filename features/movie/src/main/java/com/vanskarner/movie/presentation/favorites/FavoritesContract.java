@@ -1,7 +1,7 @@
 package com.vanskarner.movie.presentation.favorites;
 
-import com.vanskarner.movie.MovieBasicDS;
-import com.vanskarner.movie.MovieDetailDS;
+import com.vanskarner.movie.presentation.MovieBasicDS;
+import com.vanskarner.movie.presentation.MovieDetailDS;
 import com.vanskarner.movie.presentation.BasePresenter;
 import com.vanskarner.movie.presentation.ErrorView;
 

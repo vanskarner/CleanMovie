@@ -1,6 +1,6 @@
 package com.vanskarner.movie.businesslogic;
 
-import com.vanskarner.movie.MovieError;
+import com.vanskarner.movie.presentation.MovieError;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.vanskarner.movie;
+package com.vanskarner.movie.presentation;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

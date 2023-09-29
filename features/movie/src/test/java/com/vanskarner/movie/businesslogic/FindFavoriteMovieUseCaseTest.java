@@ -2,7 +2,7 @@ package com.vanskarner.movie.businesslogic;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.MovieDetailDS;
+import com.vanskarner.movie.presentation.MovieDetailDS;
 
 import org.junit.Before;
 import org.junit.Test;
