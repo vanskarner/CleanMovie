@@ -53,7 +53,7 @@ package movie as "com.vanskarner.movie"{
         class MovieRemoteErrorInterceptor
     }
 
-    package presentation{
+    package ui{
         interface ErrorView<T><<interface>>
         class ViewErrorFilter
         interface BasePresenter<<interface>>
