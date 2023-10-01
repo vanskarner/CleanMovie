@@ -3,10 +3,6 @@ package com.vanskarner.domain.movie;
 import com.vanskarner.core.main.CoreQualifiers;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.domain.movie.service.MovieDetailDS;
-import com.vanskarner.domain.movie.service.MovieServices;
-import com.vanskarner.domain.movie.service.MoviesDS;
-import com.vanskarner.domain.movie.service.MoviesFilterDS;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

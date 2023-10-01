@@ -1,8 +1,6 @@
 package com.vanskarner.domain.movie;
 
 import com.vanskarner.domain.bases.BaseUseCase;
-import com.vanskarner.domain.movie.service.MovieBasicDS;
-import com.vanskarner.domain.movie.service.MoviesFilterDS;
 
 import java.util.ArrayList;
 import java.util.List;

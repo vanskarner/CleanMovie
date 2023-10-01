@@ -1,7 +1,5 @@
 package com.vanskarner.domain.movie;
 
-import com.vanskarner.domain.movie.service.MovieError;
-
 import java.util.HashMap;
 import java.util.Map;
 

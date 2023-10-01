@@ -10,8 +10,8 @@ import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
-import com.vanskarner.domain.movie.service.MovieServices;
-import com.vanskarner.domain.movie.service.MovieDetailDS;
+import com.vanskarner.domain.movie.MovieServices;
+import com.vanskarner.domain.movie.MovieDetailDS;
 
 import org.junit.After;
 import org.junit.BeforeClass;

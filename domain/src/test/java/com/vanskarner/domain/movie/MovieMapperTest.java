@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.vanskarner.domain.movie.service.MovieBasicDS;
-import com.vanskarner.domain.movie.service.MovieDetailDS;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.vanskarner.cleanmovie.ui.movie;
 
-import com.vanskarner.domain.movie.service.MovieBasicDS;
-import com.vanskarner.domain.movie.service.MovieDetailDS;
-import com.vanskarner.domain.movie.service.MoviesFilterDS;
+import com.vanskarner.domain.movie.MovieBasicDS;
+import com.vanskarner.domain.movie.MovieDetailDS;
+import com.vanskarner.domain.movie.MoviesFilterDS;
 
 import java.util.ArrayList;
 import java.util.List;

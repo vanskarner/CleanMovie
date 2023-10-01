@@ -2,8 +2,6 @@ package com.vanskarner.domain.movie;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.domain.movie.service.MoviesDS;
-
 import org.junit.Before;
 import org.junit.Test;
 

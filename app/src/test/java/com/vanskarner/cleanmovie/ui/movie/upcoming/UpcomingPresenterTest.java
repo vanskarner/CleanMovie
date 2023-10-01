@@ -13,10 +13,10 @@ import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.domain.movie.service.MovieServices;
-import com.vanskarner.domain.movie.service.MovieBasicDS;
-import com.vanskarner.domain.movie.service.MoviesDS;
-import com.vanskarner.domain.movie.service.MoviesFilterDS;
+import com.vanskarner.domain.movie.MovieServices;
+import com.vanskarner.domain.movie.MovieBasicDS;
+import com.vanskarner.domain.movie.MoviesDS;
+import com.vanskarner.domain.movie.MoviesFilterDS;
 
 import org.junit.After;
 import org.junit.BeforeClass;

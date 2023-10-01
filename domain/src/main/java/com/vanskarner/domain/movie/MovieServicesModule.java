@@ -1,8 +1,5 @@
 package com.vanskarner.domain.movie;
 
-import com.vanskarner.domain.movie.service.MovieError;
-import com.vanskarner.domain.movie.service.MovieServices;
-
 import javax.inject.Singleton;
 
 import dagger.Binds;

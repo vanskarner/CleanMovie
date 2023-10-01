@@ -2,8 +2,6 @@ package com.vanskarner.domain.movie;
 
 import static org.junit.Assert.*;
 
-import com.vanskarner.domain.movie.service.MovieDetailDS;
-
 import org.junit.Before;
 import org.junit.Test;
 

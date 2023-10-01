@@ -26,9 +26,9 @@ import com.vanskarner.cleanmovie.ui.movie.MovieDetailDSMother;
 import com.vanskarner.cleanmovie.common.TestFragmentScenario;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
-import com.vanskarner.domain.movie.service.MovieServices;
+import com.vanskarner.domain.movie.MovieServices;
 import com.vanskarner.cleanmovie.R;
-import com.vanskarner.domain.movie.service.MovieDetailDS;
+import com.vanskarner.domain.movie.MovieDetailDS;
 
 import org.junit.After;
 import org.junit.Before;

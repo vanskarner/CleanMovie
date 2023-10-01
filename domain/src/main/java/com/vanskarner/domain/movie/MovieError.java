@@ -1,4 +1,4 @@
-package com.vanskarner.domain.movie.service;
+package com.vanskarner.domain.movie;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

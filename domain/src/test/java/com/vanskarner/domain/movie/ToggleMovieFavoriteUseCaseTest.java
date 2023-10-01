@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.domain.movie.service.MovieError;
-
 import org.junit.Before;
 import org.junit.Test;
 

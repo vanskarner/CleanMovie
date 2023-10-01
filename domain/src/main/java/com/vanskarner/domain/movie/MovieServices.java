@@ -1,4 +1,4 @@
-package com.vanskarner.domain.movie.service;
+package com.vanskarner.domain.movie;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;

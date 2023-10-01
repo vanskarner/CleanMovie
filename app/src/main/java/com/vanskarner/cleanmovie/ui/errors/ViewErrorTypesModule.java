@@ -1,6 +1,6 @@
 package com.vanskarner.cleanmovie.ui.errors;
 
-import com.vanskarner.domain.movie.service.MovieError;
+import com.vanskarner.domain.movie.MovieError;
 import com.vanskarner.remotedata.RemoteError;
 
 import dagger.Binds;

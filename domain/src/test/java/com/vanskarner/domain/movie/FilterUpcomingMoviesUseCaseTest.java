@@ -3,8 +3,6 @@ package com.vanskarner.domain.movie;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.domain.movie.service.MovieBasicDS;
-import com.vanskarner.domain.movie.service.MoviesFilterDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

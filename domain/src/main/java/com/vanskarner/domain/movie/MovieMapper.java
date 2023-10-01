@@ -1,9 +1,5 @@
 package com.vanskarner.domain.movie;
 
-import com.vanskarner.domain.movie.service.MovieBasicDS;
-import com.vanskarner.domain.movie.service.MovieDetailDS;
-import com.vanskarner.domain.movie.service.MoviesDS;
-
 import java.util.ArrayList;
 import java.util.List;
 

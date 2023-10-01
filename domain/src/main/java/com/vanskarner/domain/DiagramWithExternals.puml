@@ -4,18 +4,22 @@
 /'Specification'/
 package domain as "com.vanskarner.domain" {
     package movie{
-    }
-    package bases{
+
     }
 }
 
 package core as "com.vanskarner.core" {
-    interface Result<T><<interface>>
-    interface FutureResult<T><<interface>>
-    interface FutureSimpleResult<<interface>>
+    package concurrent{
+        interface FutureResult<T><<interface>>
+        interface FutureSimpleResult<<interface>>
+    }
+    package sync{
+        interface Result<T><<interface>>
+    }
 }
 /'Relations'/
-core <..  domain: "<<use>>"
+sync <.. movie: <<use>>
+concurrent <... movie: <<use>>
 /'Visualization'/
 hide members
 skinparam LineType ortho
