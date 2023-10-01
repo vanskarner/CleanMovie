@@ -12,9 +12,9 @@ package domain as "com.vanskarner.domain"{
     }
 }
 
-UpcomingPresenter ..> MovieServices: <<use>>
-FavoritesPresenter ..> MovieServices: <<use>>
-UpcomingDetailPresenter ..> MovieServices: <<use>>
+MovieServices <.. UpcomingPresenter: <<use>>
+MovieServices <.. FavoritesPresenter: <<use>>
+MovieServices <.. UpcomingDetailPresenter: <<use>>
 
 hide members
 @enduml

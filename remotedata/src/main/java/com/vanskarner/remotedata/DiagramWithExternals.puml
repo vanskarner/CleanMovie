@@ -3,7 +3,10 @@
 
 /'Specification'/
 package remotedata as "com.vanskarner.remotedata"{
-    package movie{}
+    package movie{
+        class MovieRemoteDataMapper
+        class MovieRemoteRxRepository
+    }
 }
 package domain as "com.vanskarner.domain"{
     package movieDomain as "movie"{
@@ -12,13 +15,20 @@ package domain as "com.vanskarner.domain"{
     }
 }
 package core as "com.vanskarner.core"{
-    interface FutureResult<T><<interface>>
-    interface RxFutureFactory<<interface>>
+    package concurrent{
+        interface FutureResult<T><<interface>>
+        package rxjava{
+        interface RxFutureFactory<<interface>>
+        }
+    }
 }
 
 /'Relations'/
-movieDomain <.. movie: <<use>>
-core <.. movie: <<use>>
+FutureResult <.. MovieRemoteRxRepository: <<use>>
+RxFutureFactory <.. MovieRemoteRxRepository: <<use>>
+MovieRemoteRepository <|.. MovieRemoteRxRepository
+MovieBO <.. MovieRemoteRxRepository: <<use>>
+MovieBO <.. MovieRemoteDataMapper: <<use>>
 
 /'Visualization'/
 hide members

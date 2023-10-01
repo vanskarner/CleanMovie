@@ -2,12 +2,9 @@
 !include ../../../../../../../StylesForDiagrams.puml
 
 package cleanmovie as "com.vanskarner.cleanmovie.ui"{
-    class MovieDetailModel<<(D,orange)Data Structure>>
-    class MovieBasicModel<<(D,orange)Data Structure>>
-    class ViewErrorFilter
-    class ErrorDialog
-    class MovieModelMapper
-    together {
+    package errors{
+        class ViewErrorFilter
+        class ErrorDialog
         interface ErrorView<T><<interface>>
         class FavoritesLimitError
         class NoInternetError
@@ -17,7 +14,11 @@ package cleanmovie as "com.vanskarner.cleanmovie.ui"{
         class UnauthorisedError
         class UnknownError
     }
-    together {
+    package movie{
+        class MovieDetailModel<<(D,orange)Data Structure>>
+        class MovieBasicModel<<(D,orange)Data Structure>>
+        class MovieModelMapper
+    package favorites{
         interface FavoritesContractView<<interface>>
         interface FavoritesContractPresenter<<interface>>
         class FavoritesFragment
@@ -25,9 +26,8 @@ package cleanmovie as "com.vanskarner.cleanmovie.ui"{
         class DeleteFavoritesDialog
         class FavoritesBindAdapter
         class FavoritesDetailDialog
-
     }
-    together {
+    package upcoming{
         interface UpcomingContractView<<interface>>
         interface UpcomingContractPresenter<<interface>>
         class UpcomingFragment
@@ -36,12 +36,13 @@ package cleanmovie as "com.vanskarner.cleanmovie.ui"{
         class RxSearchView
         class UpcomingBindAdapter
     }
-    together {
+    package upcomingDetail{
         interface UpcomingDetailContractView<<interface>>
         interface UpcomingDetailContractPresenter<<interface>>
         class UpcomingDetailFragment
         class UpcomingDetailPresenter
     }
+  }
 }
 
 ErrorView <|.. FavoritesLimitError
@@ -54,44 +55,43 @@ ErrorView <|.. UnknownError
 ViewErrorFilter --> "1..*" ErrorView
 ViewErrorFilter --> ErrorView
 ErrorDialog --> "1" ErrorView
-/'MovieDetailModel --> MovieBasicModel'/
 MovieBasicModel <-- MovieDetailModel
 
 /'Favorites Feature'/
 FavoritesContractPresenter <|.. FavoritesPresenter
 FavoritesContractView <-- FavoritesPresenter
-FavoritesPresenter --> ViewErrorFilter
+FavoritesPresenter ..> ViewErrorFilter
 FavoritesPresenter ..> MovieModelMapper
 FavoritesContractView <|.. FavoritesFragment
 FavoritesContractPresenter <-- FavoritesFragment
 FavoritesFragment --> FavoritesBindAdapter
-FavoritesFragment --> DeleteFavoritesDialog
+FavoritesFragment -left-> DeleteFavoritesDialog
 FavoritesFragment --> FavoritesDetailDialog
-FavoritesFragment --> ErrorDialog
-FavoritesDetailDialog --> MovieDetailModel
+FavoritesFragment ..> ErrorDialog
+FavoritesDetailDialog ..> MovieDetailModel
 
 /'Upcoming Feature'/
 UpcomingContractPresenter <|.. UpcomingPresenter
 UpcomingContractPresenter <-- UpcomingFragment
-UpcomingPresenter --> "0..*" MovieBasicModel
-UpcomingPresenter --> "0..*" MovieBasicModel
-UpcomingPresenter --> ViewErrorFilter
+UpcomingPresenter ..> "0..*" MovieBasicModel
+UpcomingPresenter ..> "0..*" MovieBasicModel
+UpcomingPresenter ..> ViewErrorFilter
 UpcomingPresenter ..> MovieModelMapper
 UpcomingContractView <|.. UpcomingFragment
 UpcomingContractView <-- UpcomingPresenter
 UpcomingFragment --> Pagination
 UpcomingFragment --> UpcomingBindAdapter
-UpcomingFragment --> ErrorDialog
+UpcomingFragment ..> ErrorDialog
 UpcomingFragment --> RxSearchView
 
 /'UpcomingDetail Feature'/
 UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
 UpcomingDetailContractPresenter <-- UpcomingDetailFragment
 UpcomingDetailPresenter ..> MovieModelMapper
-UpcomingDetailPresenter --> ViewErrorFilter
+UpcomingDetailPresenter ..> ViewErrorFilter
 UpcomingDetailContractView <|.. UpcomingDetailFragment
 UpcomingDetailContractView <-- UpcomingDetailPresenter
-UpcomingDetailFragment --> ErrorDialog
+UpcomingDetailFragment ..> ErrorDialog
 
 MovieDetailModel <.. MovieModelMapper
 MovieBasicModel <.. MovieModelMapper
