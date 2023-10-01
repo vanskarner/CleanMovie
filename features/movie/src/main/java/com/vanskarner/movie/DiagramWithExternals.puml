@@ -3,10 +3,16 @@
 
 /'Specification'/
 package core as "com.vanskarner.core"{
-    interface FutureResult<T><<interface>>
-    interface Result<T><<interface>>
-    interface FutureSimpleResult<<interface>>
-    interface RxFutureFactory<<interface>>
+package sync {
+interface Result<T><<interface>>
+}
+package concurrent {
+interface FutureResult<T><<interface>>
+interface FutureSimpleResult<<interface>>
+package rxjava{
+interface RxFutureFactory<<interface>>
+}
+}
 }
 package movie as "com.vanskarner.movie"{
     package businesslogic {
@@ -15,19 +21,23 @@ package movie as "com.vanskarner.movie"{
         interface MovieRemoteRepository<<interface>>
     }
     package persistence {
-     class MovieLocalRxRepository
-     class MovieRemoteRxRepository
+    package local{
+    class MovieLocalRxRepository
+    }
+    package remote{
+    class MovieRemoteRxRepository
+    }
     }
 }
 
 /'Relations'/
-Result <.. MovieServices: <<use>>
+Result "<<use>>" <.. MovieServices
 FutureResult <.. MovieServices: <<use>>
-FutureSimpleResult <.. MovieLocalRepository: <<use>>
+FutureSimpleResult "<<use>>" <.. MovieLocalRepository
 FutureResult <.. MovieLocalRepository: <<use>>
 FutureResult <.. MovieRemoteRepository: <<use>>
-RxFutureFactory <.. MovieRemoteRxRepository: <<use>>
-RxFutureFactory <.. MovieLocalRxRepository: <<use>>
+RxFutureFactory <... MovieRemoteRxRepository: <<use>>
+RxFutureFactory <... MovieLocalRxRepository: <<use>>
 
 /'Visualization'/
 hide members

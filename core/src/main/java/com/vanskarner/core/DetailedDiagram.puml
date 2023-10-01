@@ -35,17 +35,7 @@ package core as "com.vanskarner.core"{
         }
     }
     package concurrent{
-        interface FutureResult<T><<interface>>{
-            + map(ExceptionFunction<? super T, ? extends U>): FutureResult<U>
-            + flatMap(ExceptionFunction<? super T, ? extends FutureResult< U>>): FutureResult<U>
-            + onResult(Consumer<? super T>, Consumer<? super Throwable>): void
-            + get(): T
-        }
-        interface FutureSimpleResult<<interface>>{
-            + onResult(Runnable, Consumer<? super Throwable>): void
-            + await(): void
-            + toFutureResult(T): <T> FutureResult<T>
-        }
+        package rxjava{
         interface RxFutureFactory<<interface>>{
             + fromSingle(Single<T>): <T> FutureResult<T>
             + fromCompletable(Completable): FutureSimpleResult
@@ -79,14 +69,26 @@ package core as "com.vanskarner.core"{
             + await(): void
             + toFutureResult(T): <T> FutureResult<T>
         }
+        }
+        interface FutureResult<T><<interface>>{
+            + map(ExceptionFunction<? super T, ? extends U>): FutureResult<U>
+            + flatMap(ExceptionFunction<? super T, ? extends FutureResult< U>>): FutureResult<U>
+            + onResult(Consumer<? super T>, Consumer<? super Throwable>): void
+            + get(): T
+        }
+        interface FutureSimpleResult<<interface>>{
+            + onResult(Runnable, Consumer<? super Throwable>): void
+            + await(): void
+            + toFutureResult(T): <T> FutureResult<T>
+        }
     }
 
 }
 
 Result <|.. Success
 Result <|.. Failure
-FutureResult <.. RxFutureFactory
-FutureSimpleResult <.. RxFutureFactory
+FutureResult <.. RxFutureFactory: <<use>>
+FutureSimpleResult <.. RxFutureFactory: <<use>>
 RxFutureFactory <|.. DefaultRxFutureFactory
 SingleFutureResult <.. DefaultRxFutureFactory
 CompletableFutureSimpleResult <.. DefaultRxFutureFactory

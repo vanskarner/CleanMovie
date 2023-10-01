@@ -11,9 +11,9 @@ import static org.mockito.Mockito.when;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.movie.ui.MovieBasicDS;
-import com.vanskarner.movie.ui.MoviesDS;
-import com.vanskarner.movie.ui.MoviesFilterDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MoviesDS;
+import com.vanskarner.movie.businesslogic.MoviesFilterDS;
 import com.vanskarner.movie.businesslogic.MovieServices;
 import com.vanskarner.movie.ui.ViewErrorFilter;
 

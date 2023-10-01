@@ -1,7 +1,7 @@
 package com.vanskarner.cleanmovie.ui.movie;
 
-import com.vanskarner.movie.ui.MovieBasicDS;
-import com.vanskarner.movie.ui.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
 
 import java.util.ArrayList;
 import java.util.List;

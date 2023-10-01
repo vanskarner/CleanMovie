@@ -3,8 +3,6 @@ package com.vanskarner.movie.businesslogic;
 import static org.junit.Assert.assertEquals;
 
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.movie.ui.MovieBasicDS;
-import com.vanskarner.movie.ui.MoviesFilterDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

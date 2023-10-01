@@ -1,4 +1,4 @@
-package com.vanskarner.movie.ui;
+package com.vanskarner.movie.businesslogic;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.vanskarner.movie.businesslogic;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.movie.ui.MovieDetailDS;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

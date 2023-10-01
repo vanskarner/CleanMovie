@@ -20,13 +20,19 @@ package movie{
 }
 package usecases as "com.vanskarner.movie"{
     package ui{
+    package favorites{
         interface FavoritesContractPresenter<<interface>>
         interface FavoritesContractView<<interface>>
+    }
+    package upcoming{
         interface UpcomingContractPresenter<<interface>>
-        interface UpcomingDetailContractPresenter<<interface>>
         interface UpcomingContractView<<interface>>
+    }
+    package upcomingDetail{
+        interface UpcomingDetailContractPresenter<<interface>>
         interface UpcomingDetailContractView<<interface>>
-        interface ErrorView<T><<interface>>
+    }
+    interface ErrorView<T><<interface>>
     }
 }
 
@@ -37,7 +43,7 @@ ErrorView <|.. ServerError
 ErrorView <|.. ServiceUnavailableError
 ErrorView <|.. UnauthorisedError
 ErrorView <|.. UnknownError
-ErrorView "1" <-  ErrorDialog
+ErrorView "1" <.  ErrorDialog: <<use>>
 
 
 /'Favorites Feature'/

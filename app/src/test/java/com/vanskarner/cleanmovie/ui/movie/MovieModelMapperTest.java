@@ -2,8 +2,8 @@ package com.vanskarner.cleanmovie.ui.movie;
 
 import static org.junit.Assert.assertEquals;
 
-import com.vanskarner.movie.ui.MovieBasicDS;
-import com.vanskarner.movie.ui.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

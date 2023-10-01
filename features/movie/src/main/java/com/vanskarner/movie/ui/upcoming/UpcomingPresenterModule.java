@@ -1,6 +1,6 @@
 package com.vanskarner.movie.ui.upcoming;
 
-import com.vanskarner.movie.ui.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
 
 import java.util.ArrayList;
 import java.util.List;

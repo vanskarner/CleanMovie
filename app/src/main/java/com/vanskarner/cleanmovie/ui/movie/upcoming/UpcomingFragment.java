@@ -23,7 +23,7 @@ import com.vanskarner.cleanmovie.databinding.UpcomingFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
-import com.vanskarner.movie.ui.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
 import com.vanskarner.movie.ui.upcoming.UpcomingContract;
 import com.vanskarner.singleadapter.SingleAdapter;
 

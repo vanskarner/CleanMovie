@@ -1,8 +1,8 @@
 package com.vanskarner.movie.ui.upcoming;
 
-import com.vanskarner.movie.ui.MovieBasicDS;
-import com.vanskarner.movie.ui.MoviesDS;
-import com.vanskarner.movie.ui.MoviesFilterDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MoviesDS;
+import com.vanskarner.movie.businesslogic.MoviesFilterDS;
 import com.vanskarner.movie.businesslogic.MovieServices;
 import com.vanskarner.movie.ui.ViewErrorFilter;
 

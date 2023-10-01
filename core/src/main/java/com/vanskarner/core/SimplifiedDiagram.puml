@@ -9,20 +9,22 @@ package core as "com.vanskarner.core"{
         class Failure<T>
     }
     package concurrent{
-        interface FutureResult<T><<interface>>
-        interface FutureSimpleResult<<interface>>
+        package rxjava{
         interface RxFutureFactory<<interface>>
         class DefaultRxFutureFactory
         class SingleFutureResult<T>
         class CompletableFutureSimpleResult
+        }
+        interface FutureResult<T><<interface>>
+        interface FutureSimpleResult<<interface>>
     }
 }
 
 /'Relations'/
 Result <|.. Success
 Result <|.. Failure
-FutureResult <.. RxFutureFactory
-FutureSimpleResult <.. RxFutureFactory
+FutureResult <.. RxFutureFactory: <<use>>
+FutureSimpleResult <.. RxFutureFactory: <<use>>
 RxFutureFactory <|.. DefaultRxFutureFactory
 SingleFutureResult <.. DefaultRxFutureFactory
 CompletableFutureSimpleResult <.. DefaultRxFutureFactory

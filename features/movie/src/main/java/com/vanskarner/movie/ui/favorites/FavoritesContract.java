@@ -1,7 +1,7 @@
 package com.vanskarner.movie.ui.favorites;
 
-import com.vanskarner.movie.ui.MovieBasicDS;
-import com.vanskarner.movie.ui.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
 import com.vanskarner.movie.ui.BasePresenter;
 import com.vanskarner.movie.ui.ErrorView;
 

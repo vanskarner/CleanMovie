@@ -1,7 +1,5 @@
 package com.vanskarner.movie.persistence.remote;
 
-import com.vanskarner.movie.ui.MovieRemoteError;
-
 import java.util.Map;
 
 import javax.inject.Inject;

@@ -5,7 +5,7 @@
 package movie as "com.vanskarner.movie"{
     package businesslogic {
         class MovieDetailDS<<(D,orange)Data Structure>>
-        class MovieDS<<(D,orange)Data Structure>>
+        class MovieBasicDS<<(D,orange)Data Structure>>
         class MoviesDS<<(D,orange)Data Structure>>
         class MoviesFilterDS<<(D,orange)Data Structure>>
         interface MovieServices<<interface>>
@@ -25,8 +25,8 @@ package movie as "com.vanskarner.movie"{
         class MovieMapper
         together {
             class MovieErrorFilter
-            abstract MovieError<<abstract>>
-            class FavoriteLimit
+            exception MovieError<<abstract>>
+            exception FavoriteLimit
         }
         entity MovieBO
     }
@@ -44,12 +44,12 @@ package movie as "com.vanskarner.movie"{
         interface MovieApiClient<<interface>>
         class MoviesResultDTO<<(D,orange)Data Structure>>
         class RemoteDataErrorFilter
-        abstract class MovieRemoteError<<abstract>>
-        class Unauthorised
-        class NotFound
-        class Server
-        class ServiceUnavailable
-        class NoInternet
+        exception MovieRemoteError<<abstract>>
+        exception Unauthorised
+        exception NotFound
+        exception Server
+        exception ServiceUnavailable
+        exception NoInternet
         class MovieRemoteErrorInterceptor
     }
 
@@ -65,13 +65,13 @@ package movie as "com.vanskarner.movie"{
             class FavoritesPresenter
             interface FavoritesPresenterFactory<<interface>>
 
-            FavoritesPresenterFactory <|- DefaultFavoritesPresenterFactory
+            FavoritesPresenterFactory <|. DefaultFavoritesPresenterFactory
             FavoritesPresenterFactory ..> FavoritesContractPresenter
-            FavoritesContractPresenter <|-- FavoritesPresenter
+            FavoritesContractPresenter <|.. FavoritesPresenter
             FavoritesContractView <-- FavoritesPresenter
             FavoritesContractView ..> ErrorView
-            FavoritesPresenter --> MovieServices
-            FavoritesPresenter --> ViewErrorFilter
+            FavoritesPresenter ..> MovieServices
+            FavoritesPresenter ..> ViewErrorFilter
         }
         package upcoming{
             class DefaultUpcomingPresenterFactory
@@ -80,13 +80,13 @@ package movie as "com.vanskarner.movie"{
             class UpcomingPresenter
             interface UpcomingPresenterFactory<<interface>>
 
-            UpcomingPresenterFactory <|- DefaultUpcomingPresenterFactory
+            UpcomingPresenterFactory <|. DefaultUpcomingPresenterFactory
             UpcomingPresenterFactory ..> UpcomingContractPresenter
-            UpcomingContractPresenter <|-- UpcomingPresenter
+            UpcomingContractPresenter <|.. UpcomingPresenter
             UpcomingContractView <-- UpcomingPresenter
             UpcomingContractView ..> ErrorView
-            UpcomingPresenter --> MovieServices
-            UpcomingPresenter --> ViewErrorFilter
+            UpcomingPresenter ..> MovieServices
+            UpcomingPresenter ..> ViewErrorFilter
         }
         package upcomingDetail{
             class DefaultUpcomingDetailPresenterFactory
@@ -95,19 +95,19 @@ package movie as "com.vanskarner.movie"{
             class UpcomingDetailPresenter
             interface UpcomingDetailPresenterFactory<<interface>>
 
-            UpcomingDetailPresenterFactory <|- DefaultUpcomingDetailPresenterFactory
+            UpcomingDetailPresenterFactory <|. DefaultUpcomingDetailPresenterFactory
             UpcomingDetailPresenterFactory ..> UpcomingDetailContractPresenter
-            UpcomingDetailContractPresenter <|-- UpcomingDetailPresenter
+            UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
             UpcomingDetailContractView <-- UpcomingDetailPresenter
             UpcomingDetailContractView ..> ErrorView
-            UpcomingDetailPresenter --> MovieServices
-            UpcomingDetailPresenter --> ViewErrorFilter
+            UpcomingDetailPresenter ..> MovieServices
+            UpcomingDetailPresenter ..> ViewErrorFilter
         }
         ViewErrorFilter --> ErrorView
         ViewErrorFilter --> "1..*" ErrorView
-        FavoritesContractPresenter ...> BasePresenter
-        UpcomingDetailContractPresenter ...> BasePresenter
-        UpcomingContractPresenter ...> BasePresenter
+        FavoritesContractPresenter ...|> BasePresenter
+        UpcomingDetailContractPresenter ...|> BasePresenter
+        UpcomingContractPresenter ...|> BasePresenter
     }
 }
 
@@ -115,9 +115,9 @@ package movie as "com.vanskarner.movie"{
 MovieServices ..> MoviesDS
 MovieServices ..> MovieDetailDS
 MovieServices ..> MoviesFilterDS
-MoviesDS --> "0..*" MovieDS
-MoviesFilterDS --> "0..*" MovieDS
-MoviesFilterDS --> "0..*" MovieDS
+MoviesDS --> "0..*" MovieBasicDS
+MoviesFilterDS --> "0..*" MovieBasicDS
+MoviesFilterDS --> "0..*" MovieBasicDS
 
 MovieDefaultServices .left.|> MovieServices
 MovieDefaultServices --> ShowUpcomingMoviesUseCase
@@ -143,12 +143,13 @@ ShowFavoriteMoviesUseCase ..> MovieMapper
 FindFavoriteMovieUseCase ..> MovieMapper
 
 MovieMapper ..> MovieDetailDS
+MovieDetailDS --> MovieBasicDS
 MovieMapper ..> MovieBO
 MovieMapper ..> MoviesDS
 
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
 MovieErrorFilter --> "1..*" MovieError
-MovieError <|- FavoriteLimit
+MovieError <|-- FavoriteLimit
 
 MovieLocalRepository ..> MovieBO
 MovieRemoteRepository ..> MovieBO
@@ -178,7 +179,7 @@ MovieRemoteError <|-- NotFound
 MovieRemoteError <|-- Server
 MovieRemoteError <|-- ServiceUnavailable
 MovieRemoteError <|-- Unauthorised
-MovieRemoteErrorInterceptor --> RemoteDataErrorFilter
+MovieRemoteErrorInterceptor -> RemoteDataErrorFilter
 /'Relations - remote-data:end'/
 
 /'Visualization'/

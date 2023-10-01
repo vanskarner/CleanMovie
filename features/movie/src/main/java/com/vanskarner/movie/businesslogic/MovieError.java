@@ -1,4 +1,4 @@
-package com.vanskarner.movie.ui;
+package com.vanskarner.movie.businesslogic;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
