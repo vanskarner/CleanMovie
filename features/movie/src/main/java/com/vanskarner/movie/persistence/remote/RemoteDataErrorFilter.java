@@ -21,7 +21,7 @@ class RemoteDataErrorFilter {
 
     public MovieRemoteError filter(String key) {
         Provider<MovieRemoteError> provider = mapError.get(String.valueOf(key));
-        throw provider != null ? provider.get() : defaultError;
+        throw provider == null ? defaultError : provider.get();
     }
 
     public MovieRemoteError getNoInternetError() {

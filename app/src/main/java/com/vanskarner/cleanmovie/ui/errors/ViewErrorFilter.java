@@ -21,7 +21,7 @@ public class ViewErrorFilter {
 
     public ErrorView<?> filter(Throwable throwable) {
         Provider<ErrorView<?>> providerError = mapError.get(throwable.getClass());
-        return providerError != null ? providerError.get() : defaultError;
+        return providerError == null ? defaultError : providerError.get();
     }
 
 }

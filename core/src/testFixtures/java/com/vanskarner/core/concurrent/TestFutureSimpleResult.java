@@ -17,10 +17,10 @@ class TestFutureSimpleResult implements FutureSimpleResult {
 
     @Override
     public void onResult(Runnable onSuccess, Consumer<? super Throwable> onFailure) {
-        if (error != null) {
-            onFailure.accept(error);
-        } else {
+        if (error == null) {
             onSuccess.run();
+        } else {
+            onFailure.accept(error);
         }
     }
 
