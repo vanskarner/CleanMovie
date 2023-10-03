@@ -2,9 +2,17 @@
 !include ../../../../../../../StylesForDiagrams.puml
 
 package ui as "com.vanskarner.cleanmovie.ui"{
-    class UpcomingPresenter
+package movie {
+    package favorites{
     class FavoritesPresenter
+    }
+    package upcoming{
+    class UpcomingPresenter
+    }
+    package upcomingDetail{
     class UpcomingDetailPresenter
+    }
+}
 }
 package domain as "com.vanskarner.domain"{
     package movie{

@@ -65,7 +65,8 @@ RemoteError <|-- Unauthorised
 RemoteErrorInterceptor --> RemoteDataErrorFilter: - errorFilter
 
 /'Visualization'/
-hide RemoteDataErrorFilter attributes
+hide members
+/'hide RemoteDataErrorFilter attributes
 hide RemoteErrorInterceptor attributes
 hide MovieRemoteDataMapper attributes
 hide RemoteError members
@@ -76,5 +77,5 @@ hide ServiceUnavailable members
 hide NoInternet members
 hide MovieDTO methods
 hide MoviesResultDTO members
-hide MovieDTO members
+hide MovieDTO members'/
 @enduml

@@ -50,4 +50,6 @@ MovieLocalRxRepository --> MovieDao: -dao
 MovieDao ..> MovieEntity
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieLocalDataMapper ..> MovieEntity
+
+hide members
 @enduml
