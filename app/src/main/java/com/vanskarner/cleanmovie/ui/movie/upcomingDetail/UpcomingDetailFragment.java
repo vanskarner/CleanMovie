@@ -43,6 +43,7 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = UpcomingDetailFragmentBinding.inflate(inflater, container, false);
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 
@@ -61,7 +62,6 @@ public class UpcomingDetailFragment extends DaggerFragment implements UpcomingDe
     public void onDestroyView() {
         super.onDestroyView();
         presenter.asyncCancel();
-        binding = null;
     }
 
     @Override
