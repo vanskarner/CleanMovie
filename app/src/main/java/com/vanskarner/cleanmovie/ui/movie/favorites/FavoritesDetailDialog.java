@@ -38,6 +38,7 @@ public class FavoritesDetailDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         FavoriteDetailDialogBinding binding =
                 FavoriteDetailDialogBinding.inflate(getLayoutInflater());
+        binding.setLifecycleOwner(this);
         binding.setMovieDetail(model);
         return new AlertDialog.Builder(getLayoutInflater().getContext())
                 .setView(binding.getRoot())
