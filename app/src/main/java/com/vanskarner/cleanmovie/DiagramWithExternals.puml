@@ -13,9 +13,15 @@ package errors {
     class UnknownError
 }
 package movie{
+package favorites{
     class FavoritesFragment
-    class UpcomingDetailFragment
+}
+package upcoming{
     class UpcomingFragment
+}
+package upcomingDetail{
+    class UpcomingDetailFragment
+}
 }
 }
 package usecases as "com.vanskarner.movie"{

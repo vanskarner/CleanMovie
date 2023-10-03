@@ -15,6 +15,7 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 
+/** @noinspection unused*/
 @Singleton
 @Component(modules = {
         ProjectParametersModule.class,
@@ -25,6 +26,7 @@ import dagger.android.AndroidInjector;
 })
 public interface AppComponent extends AndroidInjector<App> {
 
+    /** @noinspection unused*/
     @Component.Factory
     interface Factory {
         AppComponent create(@BindsInstance Context context);

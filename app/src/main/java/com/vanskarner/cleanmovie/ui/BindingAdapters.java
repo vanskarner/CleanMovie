@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.vanskarner.cleanmovie.R;
 
+/** @noinspection unused*/
 public class BindingAdapters {
 
     @BindingAdapter("imageUrl")

@@ -28,6 +28,7 @@ import dagger.android.AndroidInjector;
 })
 public interface TestAppComponent extends AndroidInjector<TestApp> {
 
+    /** @noinspection unused*/
     @Component.Factory
     interface Factory {
         TestAppComponent create(@BindsInstance Context context);
