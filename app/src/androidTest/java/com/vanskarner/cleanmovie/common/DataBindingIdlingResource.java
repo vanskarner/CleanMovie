@@ -19,7 +19,7 @@ import java.util.UUID;
 public class DataBindingIdlingResource implements IdlingResource {
     private static final String id = UUID.randomUUID().toString();
     private static final List<ResourceCallback> idlingCallbacks = new ArrayList<>();
-    private boolean wasNotIdle = false;
+    private boolean wasNotIdle;
     private FragmentActivity activity;
 
     @Override
