@@ -35,14 +35,17 @@ public final class MovieDetailDSMother {
 
     private static String loadSampleImageBase64() throws IOException {
         String fileName = "base64_topic_image.txt";
-        String receiveString;
+        String receiveString = "";
         ClassLoader classLoader = MovieDetailDSMother.class.getClassLoader();
         InputStream inputStream = Objects.requireNonNull(classLoader).getResourceAsStream(fileName);
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        InputStreamReader inputStreamReader = new InputStreamReader(
+                Objects.requireNonNull(inputStream));
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         StringBuilder stringBuilder = new StringBuilder();
-        while ((receiveString = bufferedReader.readLine()) != null)
+        while (receiveString != null) {
             stringBuilder.append(receiveString);
+            receiveString = bufferedReader.readLine();
+        }
         inputStream.close();
         return stringBuilder.toString();
     }
