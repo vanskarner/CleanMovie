@@ -5,12 +5,12 @@ import com.vanskarner.movie.businesslogic.entities.MovieBO;
 import java.util.ArrayList;
 import java.util.List;
 
-class MovieRemoteDataMapper {
+final class MovieRemoteDataMapper {
 
     private MovieRemoteDataMapper() {
     }
 
-    static MovieBO convert(MovieDTO movieDTO) {
+    public static MovieBO convert(MovieDTO movieDTO) {
         return new MovieBO(
                 movieDTO.id,
                 movieDTO.title,
@@ -23,7 +23,7 @@ class MovieRemoteDataMapper {
         );
     }
 
-    static List<MovieBO> convert(List<MovieDTO> inputList) {
+    public static List<MovieBO> convert(List<MovieDTO> inputList) {
         List<MovieBO> movieBOS = new ArrayList<>();
         for (MovieDTO item : inputList) movieBOS.add(convert(item));
         return movieBOS;
