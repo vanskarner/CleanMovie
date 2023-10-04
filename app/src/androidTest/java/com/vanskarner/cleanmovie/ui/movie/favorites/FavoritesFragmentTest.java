@@ -29,8 +29,8 @@ import org.junit.runner.RunWith;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.common.MovieDetailDSMother;
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MovieServices;
 
 import javax.inject.Inject;
 
@@ -85,7 +85,7 @@ public class FavoritesFragmentTest {
         onView(withId(R.id.containerFavoriteDetail))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.title)).check(matches(withText(detailDS.title)));
+        onView(withId(R.id.title)).check(matches(withText(detailDS.basicDS.title)));
         onView(withId(R.id.overview)).check(matches(withText(detailDS.overview)));
         onView(withId(R.id.releaseDate)).check(matches(withText(detailDS.releaseDate)));
         onView(withId(R.id.tvVoteAverage))

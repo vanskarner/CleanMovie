@@ -10,7 +10,7 @@ import com.vanskarner.core.jsonparser.TestJsonParser;
 import com.vanskarner.core.jsonparser.TestJsonParserFactory;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
-import com.vanskarner.movie.businesslogic.entities.MovieBO;
+import com.vanskarner.movie.businesslogic.MovieBO;
 
 import org.junit.After;
 import org.junit.AfterClass;

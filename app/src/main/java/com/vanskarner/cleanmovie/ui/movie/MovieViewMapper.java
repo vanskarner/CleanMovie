@@ -1,8 +1,8 @@
 package com.vanskarner.cleanmovie.ui.movie;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDS;
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesFilterDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MoviesFilterDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,9 @@ public final class MovieViewMapper {
 
     public static MovieDetailModel convert(MovieDetailDS movieDetailDS) {
         return new MovieDetailModel(
-                movieDetailDS.id,
-                movieDetailDS.title,
-                movieDetailDS.image,
+                new MovieBasicModel(movieDetailDS.basicDS.id,
+                        movieDetailDS.basicDS.title,
+                        movieDetailDS.basicDS.image),
                 movieDetailDS.backgroundImage,
                 movieDetailDS.voteCount,
                 movieDetailDS.voteAverage,
@@ -27,9 +27,9 @@ public final class MovieViewMapper {
 
     public static MovieDetailDS convert(MovieDetailModel detailModel) {
         return new MovieDetailDS(
-                detailModel.id,
-                detailModel.title,
-                detailModel.image,
+                new MovieBasicDS(detailModel.basicModel.id,
+                        detailModel.basicModel.title,
+                        detailModel.basicModel.image),
                 detailModel.backgroundImage,
                 detailModel.voteCount,
                 detailModel.voteAverage,
@@ -39,24 +39,24 @@ public final class MovieViewMapper {
         );
     }
 
-    public static List<MovieModel> convert(List<MovieDS> movieDS) {
-        List<MovieModel> list = new ArrayList<>();
-        for (MovieDS item : movieDS) list.add(convert(item));
+    public static List<MovieBasicModel> convert(List<MovieBasicDS> movieBasicDS) {
+        List<MovieBasicModel> list = new ArrayList<>();
+        for (MovieBasicDS item : movieBasicDS) list.add(convert(item));
         return list;
     }
 
-    public static MoviesFilterDS convert(List<MovieModel> movieModels, CharSequence charSequence) {
-        List<MovieDS> list = new ArrayList<>();
-        for (MovieModel item : movieModels) list.add(convert(item));
+    public static MoviesFilterDS convert(List<MovieBasicModel> movieBasicModels, CharSequence charSequence) {
+        List<MovieBasicDS> list = new ArrayList<>();
+        for (MovieBasicModel item : movieBasicModels) list.add(convert(item));
         return new MoviesFilterDS(list, charSequence);
     }
 
-    private static MovieModel convert(MovieDS movieDS) {
-        return new MovieModel(movieDS.id, movieDS.title, movieDS.image);
+    private static MovieBasicModel convert(MovieBasicDS movieBasicDS) {
+        return new MovieBasicModel(movieBasicDS.id, movieBasicDS.title, movieBasicDS.image);
     }
 
-    private static MovieDS convert(MovieModel movieModel) {
-        return new MovieDS(movieModel.id, movieModel.title, movieModel.image);
+    private static MovieBasicDS convert(MovieBasicModel movieBasicModel) {
+        return new MovieBasicDS(movieBasicModel.id, movieBasicModel.title, movieBasicModel.image);
     }
 
 }

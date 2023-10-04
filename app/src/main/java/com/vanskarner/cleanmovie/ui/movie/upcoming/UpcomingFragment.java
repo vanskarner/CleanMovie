@@ -20,7 +20,7 @@ import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingFragmentBinding;
 import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 import com.vanskarner.singleadapter.SingleAdapter;
 
 import java.util.List;
@@ -105,7 +105,7 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
     }
 
     @Override
-    public void showUpcoming(List<MovieModel> list) {
+    public void showUpcoming(List<MovieBasicModel> list) {
         singleAdapter.set(list);
     }
 
@@ -154,10 +154,10 @@ public class UpcomingFragment extends DaggerFragment implements UpcomingContract
 
     private void onClickUpcomingItem(View viewItem) {
         RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) viewItem.getTag();
-        MovieModel movieModel = singleAdapter.getItem(viewHolder.getAdapterPosition());
+        MovieBasicModel movieBasicModel = singleAdapter.getItem(viewHolder.getAdapterPosition());
         UpcomingFragmentDirections.UpcomingAction upcomingAction =
                 UpcomingFragmentDirections.upcomingAction();
-        upcomingAction.setMovieId(movieModel.id);
+        upcomingAction.setMovieId(movieBasicModel.id);
         Navigation.findNavController(viewItem).navigate(upcomingAction);
     }
 

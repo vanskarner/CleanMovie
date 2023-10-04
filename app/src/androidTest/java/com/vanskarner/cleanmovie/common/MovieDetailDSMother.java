@@ -1,6 +1,7 @@
 package com.vanskarner.cleanmovie.common;
 
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,9 +21,10 @@ public final class MovieDetailDSMother {
 
     private static MovieDetailDS create(int id) throws IOException {
         String base64Image = loadSampleImageBase64();
-        return new MovieDetailDS(id,
-                "Clean Architecture",
-                base64Image,
+        return new MovieDetailDS(
+                new MovieBasicDS(id,
+                        "Clean Architecture",
+                        base64Image),
                 base64Image,
                 100,
                 9.5f,

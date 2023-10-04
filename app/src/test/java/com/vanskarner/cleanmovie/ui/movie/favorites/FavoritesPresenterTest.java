@@ -10,9 +10,9 @@ import static org.mockito.Mockito.when;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
-import com.vanskarner.movie.businesslogic.ds.MovieDetailDS;
-import com.vanskarner.movie.businesslogic.ds.MoviesDS;
-import com.vanskarner.movie.businesslogic.services.MovieServices;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MoviesDS;
+import com.vanskarner.movie.businesslogic.MovieServices;
 
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -74,11 +74,11 @@ public class FavoritesPresenterTest {
 
     @Test
     public void getFavoriteDetail_whenItsOK_doOkSequence() {
-        int movieId = 1;
-        MovieDetailDS item = mock(MovieDetailDS.class);
+        MovieDetailDS item = MovieDetailDS.empty();
+        item.basicDS.id=1;
         FutureResult<MovieDetailDS> futureResult = TestFutureFactory.create(item);
-        when(services.findFavorite(movieId)).thenReturn(futureResult);
-        presenter.getFavoriteDetail(movieId);
+        when(services.findFavorite(item.basicDS.id)).thenReturn(futureResult);
+        presenter.getFavoriteDetail(item.basicDS.id);
 
         verify(view).showFavoriteDetail(any());
     }

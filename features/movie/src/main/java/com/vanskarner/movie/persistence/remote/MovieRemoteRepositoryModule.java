@@ -2,7 +2,8 @@ package com.vanskarner.movie.persistence.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.vanskarner.movie.businesslogic.repository.MovieRemoteRepository;
+import com.vanskarner.movie.businesslogic.MovieRemoteRepository;
+import com.vanskarner.movie.main.MovieRemoteDataQualifiers;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +18,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /** @noinspection unused*/
-@Module(includes = MovieRemoteErrorsModule.class)
+@Module
 public abstract class MovieRemoteRepositoryModule {
 
     private static final int CONNECT_TIME_OUT_SECONDS = 8;

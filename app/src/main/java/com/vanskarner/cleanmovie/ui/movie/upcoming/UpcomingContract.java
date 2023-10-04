@@ -2,7 +2,7 @@ package com.vanskarner.cleanmovie.ui.movie.upcoming;
 
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.BasePresenter;
-import com.vanskarner.cleanmovie.ui.movie.MovieModel;
+import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ interface UpcomingContract {
 
         void paginate();
 
-        void showUpcoming(List<MovieModel> list);
+        void showUpcoming(List<MovieBasicModel> list);
 
         void showError(ErrorView<?> errorView);
 

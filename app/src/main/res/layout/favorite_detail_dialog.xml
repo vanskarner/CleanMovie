@@ -62,7 +62,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="3"
-                        android:text="@{movieDetail.title}"
+                        android:text="@{movieDetail.basicModel.title}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/large_text_size"
                         android:textStyle="bold"
