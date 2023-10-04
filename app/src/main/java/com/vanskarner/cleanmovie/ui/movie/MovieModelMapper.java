@@ -1,15 +1,15 @@
 package com.vanskarner.cleanmovie.ui.movie;
 
-import com.vanskarner.movie.MovieBasicDS;
-import com.vanskarner.movie.MovieDetailDS;
-import com.vanskarner.movie.MoviesFilterDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MoviesFilterDS;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MovieViewMapper {
+public final class MovieModelMapper {
 
-    private MovieViewMapper() {
+    private MovieModelMapper() {
     }
 
     public static MovieDetailModel convert(MovieDetailDS movieDetailDS) {

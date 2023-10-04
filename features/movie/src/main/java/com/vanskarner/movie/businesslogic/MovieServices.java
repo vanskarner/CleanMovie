@@ -1,4 +1,4 @@
-package com.vanskarner.movie;
+package com.vanskarner.movie.businesslogic;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;

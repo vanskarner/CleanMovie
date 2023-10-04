@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.core.remote.TestSimulatedServer;
 import com.vanskarner.core.remote.TestSimulatedServerFactory;
-import com.vanskarner.movie.MovieServices;
+import com.vanskarner.movie.businesslogic.MovieServices;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

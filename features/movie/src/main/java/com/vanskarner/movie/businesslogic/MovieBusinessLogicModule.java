@@ -1,7 +1,5 @@
 package com.vanskarner.movie.businesslogic;
 
-import com.vanskarner.movie.MovieServices;
-
 import javax.inject.Singleton;
 
 import dagger.Binds;

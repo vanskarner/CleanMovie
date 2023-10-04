@@ -1,7 +1,5 @@
 package com.vanskarner.movie.businesslogic;
 
-import com.vanskarner.movie.MovieDetailDS;
-
 import java.util.List;
 
 public final class FakeRepositoryFactory {

@@ -3,35 +3,14 @@
 
 /'Specification'/
 package movie as "com.vanskarner.movie"{
-    interface MovieServices<<interface>>
-    together {
+    package businesslogic {
+        interface MovieServices<<interface>>
+        exception MovieError<<abstract>>
+        exception FavoriteLimit
         class MovieDetailDS<<(D,orange)Data Structure>>
         class MovieBasicDS<<(D,orange)Data Structure>>
         class MoviesDS<<(D,orange)Data Structure>>
         class MoviesFilterDS<<(D,orange)Data Structure>>
-        exception MovieError<<abstract>>
-        exception FavoriteLimit
-        exception MovieRemoteError<<abstract>>
-        exception Unauthorised
-        exception NotFound
-        exception Server
-        exception ServiceUnavailable
-        exception NoInternet
-
-        MovieServices ..> MoviesDS
-        MovieServices ..> MovieDetailDS
-        MovieServices ..> MoviesFilterDS
-        MoviesDS --> "0..*" MovieBasicDS
-        MoviesFilterDS --> "0..*" MovieBasicDS
-        MoviesFilterDS --> "0..*" MovieBasicDS
-        NoInternet --|> MovieRemoteError
-        NotFound --|> MovieRemoteError
-        Server --|> MovieRemoteError
-        ServiceUnavailable -|> MovieRemoteError
-        MovieRemoteError <|- Unauthorised
-        FavoriteLimit -|> MovieError
-    }
-    package businesslogic {
         class MovieDefaultServices
         class FilterUpcomingMoviesUseCase
         class ToggleMovieFavoriteUseCase
@@ -61,10 +40,29 @@ package movie as "com.vanskarner.movie"{
         class MoviesResultDTO<<(D,orange)Data Structure>>
         class RemoteDataErrorFilter
         class MovieRemoteErrorInterceptor
+        exception MovieRemoteError<<abstract>>
+        exception Unauthorised
+        exception NotFound
+        exception Server
+        exception ServiceUnavailable
+        exception NoInternet
     }
 }
 
 /'Relations'/
+MovieServices ..> MoviesDS
+MovieServices ..> MovieDetailDS
+MovieServices ..> MoviesFilterDS
+MoviesDS --> "0..*" MovieBasicDS
+MoviesFilterDS --> "0..*" MovieBasicDS
+MoviesFilterDS --> "0..*" MovieBasicDS
+NoInternet --|> MovieRemoteError
+NotFound --|> MovieRemoteError
+Server --|> MovieRemoteError
+ServiceUnavailable -|> MovieRemoteError
+MovieRemoteError <|- Unauthorised
+MovieError <|-- FavoriteLimit
+
 MovieServices <|. MovieDefaultServices
 MovieDefaultServices --> ShowUpcomingMoviesUseCase
 MovieDefaultServices --> FindUpcomingMovieUseCase
@@ -83,7 +81,7 @@ ShowUpcomingMoviesUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase ..> MovieBO
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
-MovieError "1..*" <.. MovieErrorFilter: <<use>>
+MovieError "1..*" <.. MovieErrorFilter
 
 /'Relations - local-data:start'/
 MovieLocalRepository <|.. MovieLocalRxRepository
@@ -91,23 +89,24 @@ MovieLocalRxRepository --> MovieDao
 MovieLocalRxRepository ..> MovieLocalDataMapper
 MovieDao ..> MovieEntity
 MovieLocalDataMapper ..> MovieEntity
-MovieDetailDS "<<use>>" <.. MovieLocalDataMapper
-MoviesDS "<<use>>" <.. MovieLocalDataMapper
+MovieDetailDS <.. MovieLocalDataMapper: <<use>>
+MoviesDS <.. MovieLocalDataMapper: <<use>>
 /'Relations - local-data:end'/
 
 /'Relations - remote-data:start'/
 MovieRemoteRepository <|.. MovieRemoteRxRepository
 MovieRemoteRxRepository --> MovieApiClient
-MovieRemoteRxRepository ..> MovieRemoteDataMapper
+MovieRemoteRxRepository .> MovieRemoteDataMapper
 MovieApiClient ..> MovieDTO
-MovieApiClient ..> MoviesResultDTO
+MovieApiClient .> MoviesResultDTO
 MovieRemoteDataMapper ..> MovieDTO
-MovieDetailDS "<<use>>" <.. MovieRemoteDataMapper
-MoviesDS "<<use>>" <.. MovieRemoteDataMapper
+MovieDetailDS <.. MovieRemoteDataMapper: <<use>>
+MovieDetailDS --> MovieBasicDS
+MoviesDS <.. MovieRemoteDataMapper: <<use>>
 MovieDeserializer .> MovieDTO
-MoviesResultDTO -> "0..*" MovieDTO
-MovieRemoteError "1..*" <.. RemoteDataErrorFilter: <<use>>
-MovieRemoteError "1" <.. RemoteDataErrorFilter: <<use>>
+MoviesResultDTO --> "0..*" MovieDTO
+MovieRemoteError "1..*" <-- RemoteDataErrorFilter
+MovieRemoteError <-- RemoteDataErrorFilter
 RemoteDataErrorFilter <- MovieRemoteErrorInterceptor
 /'Relations - remote-data:end'/
 

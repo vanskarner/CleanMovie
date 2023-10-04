@@ -3,10 +3,6 @@ package com.vanskarner.movie.businesslogic;
 import com.vanskarner.core.main.CoreQualifiers;
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.sync.Result;
-import com.vanskarner.movie.MovieDetailDS;
-import com.vanskarner.movie.MovieServices;
-import com.vanskarner.movie.MoviesDS;
-import com.vanskarner.movie.MoviesFilterDS;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

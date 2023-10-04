@@ -9,12 +9,14 @@ package core as "com.vanskarner.core"{
         class Failure<T>
     }
     package concurrent{
+        package rxjava{
+            interface RxFutureFactory<<interface>>
+            class DefaultRxFutureFactory
+            class SingleFutureResult<T>
+            class CompletableFutureSimpleResult
+        }
         interface FutureResult<T><<interface>>
         interface FutureSimpleResult<<interface>>
-        interface RxFutureFactory<<interface>>
-        class DefaultRxFutureFactory
-        class SingleFutureResult<T>
-        class CompletableFutureSimpleResult
     }
 }
 

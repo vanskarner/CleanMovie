@@ -2,9 +2,9 @@ package com.vanskarner.cleanmovie.ui.movie.upcoming;
 
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorFilter;
 import com.vanskarner.cleanmovie.ui.movie.MovieBasicModel;
-import com.vanskarner.cleanmovie.ui.movie.MovieViewMapper;
-import com.vanskarner.movie.MoviesFilterDS;
-import com.vanskarner.movie.MovieServices;
+import com.vanskarner.cleanmovie.ui.movie.MovieModelMapper;
+import com.vanskarner.movie.businesslogic.MoviesFilterDS;
+import com.vanskarner.movie.businesslogic.MovieServices;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ class UpcomingPresenter implements UpcomingContract.presenter {
             view.setSearchView(false);
             view.setInitialProgress(true);
             movieServices.showUpcoming(page)
-                    .map(moviesDS -> MovieViewMapper.convert(moviesDS.list))
+                    .map(moviesDS -> MovieModelMapper.convert(moviesDS.list))
                     .onResult(movieModels -> {
                         view.setInitialProgress(false);
                         if (!movieModels.isEmpty()) {
@@ -59,7 +59,7 @@ class UpcomingPresenter implements UpcomingContract.presenter {
         if (unusedSearch) {
             view.setPagingProgress(true);
             movieServices.showUpcoming(page)
-                    .map(moviesDS -> MovieViewMapper.convert(moviesDS.list))
+                    .map(moviesDS -> MovieModelMapper.convert(moviesDS.list))
                     .onResult(movieModels -> {
                         if (!movieModels.isEmpty())
                             addItems(movieModels);
@@ -73,9 +73,9 @@ class UpcomingPresenter implements UpcomingContract.presenter {
 
     @Override
     public void filter(CharSequence charSequence) {
-        MoviesFilterDS moviesFilterDS = MovieViewMapper.convert(fullUpcomingList, charSequence);
+        MoviesFilterDS moviesFilterDS = MovieModelMapper.convert(fullUpcomingList, charSequence);
         movieServices.filterUpcoming(moviesFilterDS)
-                .map(moviesFilter -> MovieViewMapper.convert(moviesFilter.filterList))
+                .map(moviesFilter -> MovieModelMapper.convert(moviesFilter.filterList))
                 .onSuccess(movieModels -> {
                     upcomingList.clear();
                     upcomingList.addAll(movieModels);

@@ -2,8 +2,8 @@ package com.vanskarner.movie.persistence.remote;
 
 import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.rxjava.RxFutureFactory;
-import com.vanskarner.movie.MovieDetailDS;
-import com.vanskarner.movie.MoviesDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MoviesDS;
 import com.vanskarner.movie.businesslogic.MovieRemoteRepository;
 import com.vanskarner.movie.main.MovieRemoteDataQualifiers;
 

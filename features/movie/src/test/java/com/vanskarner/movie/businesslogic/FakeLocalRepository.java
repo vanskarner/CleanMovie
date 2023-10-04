@@ -4,9 +4,6 @@ import com.vanskarner.core.concurrent.FutureResult;
 import com.vanskarner.core.concurrent.FutureSimpleResult;
 import com.vanskarner.core.concurrent.TestFutureFactory;
 import com.vanskarner.core.concurrent.TestFutureSimpleFactory;
-import com.vanskarner.movie.MovieBasicDS;
-import com.vanskarner.movie.MovieDetailDS;
-import com.vanskarner.movie.MoviesDS;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,9 +3,9 @@ package com.vanskarner.cleanmovie.ui.movie;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.vanskarner.movie.MovieBasicDS;
-import com.vanskarner.movie.MovieDetailDS;
-import com.vanskarner.movie.MoviesFilterDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MoviesFilterDS;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MovieViewMapperTest {
+public class MovieModelMapperTest {
     static MovieDetailDS movieDetailDS;
     static MovieDetailModel movieDetailModel;
     static MovieBasicDS movieBasicDS;
@@ -55,7 +55,7 @@ public class MovieViewMapperTest {
     @Test
     public void convert_fromMovieDetailDS_toMovieDetailModel() {
         MovieDetailDS expectedItem = movieDetailDS;
-        MovieDetailModel actualItem = MovieViewMapper.convert(expectedItem);
+        MovieDetailModel actualItem = MovieModelMapper.convert(expectedItem);
 
         assertEquals(expectedItem.basicInfo.id, actualItem.basicModel.id);
         assertEquals(expectedItem.basicInfo.title, actualItem.basicModel.title);
@@ -71,7 +71,7 @@ public class MovieViewMapperTest {
     @Test
     public void convert_fromMovieDetailModel_toMovieDetailDS() {
         MovieDetailModel expectedItem = movieDetailModel;
-        MovieDetailDS actualItem = MovieViewMapper.convert(expectedItem);
+        MovieDetailDS actualItem = MovieModelMapper.convert(expectedItem);
 
         assertEquals(expectedItem.basicModel.id, actualItem.basicInfo.id);
         assertEquals(expectedItem.basicModel.title, actualItem.basicInfo.title);
@@ -87,7 +87,7 @@ public class MovieViewMapperTest {
     @Test
     public void convert_fromMovieDSList_toMovieModelList() {
         List<MovieBasicDS> expectedList = new ArrayList<>(Collections.singletonList(movieBasicDS));
-        List<MovieBasicModel> actualList = MovieViewMapper.convert(expectedList);
+        List<MovieBasicModel> actualList = MovieModelMapper.convert(expectedList);
 
         assertEquals(expectedList.size(), actualList.size());
         assertEquals(expectedList.get(0).id, actualList.get(0).id);
@@ -99,7 +99,7 @@ public class MovieViewMapperTest {
     public void convert_fromMovieModelListAndQuery_toMoviesFilterDS() {
         List<MovieBasicModel> expectedList = new ArrayList<>(Collections.singletonList(movieBasicModel));
         String expectedQuery = "My Search";
-        MoviesFilterDS moviesFilterDS = MovieViewMapper.convert(expectedList, expectedQuery);
+        MoviesFilterDS moviesFilterDS = MovieModelMapper.convert(expectedList, expectedQuery);
         List<MovieBasicDS> actualList = moviesFilterDS.fullList;
         String actualQuery = moviesFilterDS.query.toString();
 

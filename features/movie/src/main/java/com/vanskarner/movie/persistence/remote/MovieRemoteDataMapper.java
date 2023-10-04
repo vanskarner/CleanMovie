@@ -1,8 +1,8 @@
 package com.vanskarner.movie.persistence.remote;
 
-import com.vanskarner.movie.MovieBasicDS;
-import com.vanskarner.movie.MovieDetailDS;
-import com.vanskarner.movie.MoviesDS;
+import com.vanskarner.movie.businesslogic.MovieBasicDS;
+import com.vanskarner.movie.businesslogic.MovieDetailDS;
+import com.vanskarner.movie.businesslogic.MoviesDS;
 
 import java.util.ArrayList;
 import java.util.List;

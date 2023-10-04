@@ -1,7 +1,7 @@
 package com.vanskarner.movie.main;
 
-import com.vanskarner.movie.MovieError;
-import com.vanskarner.movie.MovieRemoteError;
+import com.vanskarner.movie.businesslogic.MovieError;
+import com.vanskarner.movie.persistence.remote.MovieRemoteError;
 
 import dagger.Binds;
 import dagger.Module;

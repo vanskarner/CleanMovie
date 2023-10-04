@@ -1,4 +1,4 @@
-package com.vanskarner.movie;
+package com.vanskarner.movie.businesslogic;
 
 public class MovieDetailDS {
     public MovieBasicDS basicInfo;
