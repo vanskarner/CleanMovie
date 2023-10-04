@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.vanskarner.cleanmovie.main.TestApp;
 import com.vanskarner.cleanmovie.main.db.TestAppDBModule;
-import com.vanskarner.cleanmovie.main.di.modules.ViewModule;
+import com.vanskarner.cleanmovie.main.di.modules.UIModule;
 import com.vanskarner.cleanmovie.ui.MenuActivityTest;
 import com.vanskarner.cleanmovie.ui.movie.favorites.FavoritesFragmentTest;
 import com.vanskarner.cleanmovie.ui.movie.upcoming.UpcomingFragmentTest;
@@ -24,7 +24,7 @@ import dagger.android.AndroidInjector;
         TestAppDBModule.class,
         CoreModule.class,
         TestMovieModule.class,
-        ViewModule.class
+        UIModule.class
 })
 public interface TestAppComponent extends AndroidInjector<TestApp> {
 
