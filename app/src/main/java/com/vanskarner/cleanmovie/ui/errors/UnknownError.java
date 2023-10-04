@@ -1,18 +1,17 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
+
+import com.vanskarner.cleanmovie.R;
+import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.vanskarner.cleanmovie.R;
-import com.vanskarner.cleanmovie.databinding.CommonErrorDialogBinding;
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
-
 @Singleton
-class ServiceUnavailableError implements ErrorView<CommonErrorDialogBinding> {
+class UnknownError implements ErrorView<CommonErrorDialogBinding> {
     private final ErrorDialog errorDialog;
 
     @Inject
-    public ServiceUnavailableError(ErrorDialog errorDialog) {
+    public UnknownError(ErrorDialog errorDialog) {
         this.errorDialog = errorDialog;
     }
 
@@ -20,8 +19,8 @@ class ServiceUnavailableError implements ErrorView<CommonErrorDialogBinding> {
     public CommonErrorDialogBinding setupView(Runnable action) {
         CommonErrorDialogBinding binding = CommonErrorDialogBinding
                 .inflate(errorDialog.getLayoutInflater());
-        binding.ivError.setImageResource(R.drawable.ic_service_unavailable);
-        binding.tvMsgError.setText(R.string.msg_service_unavailable);
+        binding.ivError.setImageResource(R.drawable.ic_unknown_error);
+        binding.tvMsgError.setText(R.string.msg_unknown_error);
         binding.errorButton.setOnClickListener(v -> action.run());
         return binding;
     }

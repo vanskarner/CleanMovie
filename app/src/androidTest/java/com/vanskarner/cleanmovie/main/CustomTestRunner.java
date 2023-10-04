@@ -9,6 +9,7 @@ import com.squareup.rx2.idler.Rx2Idler;
 
 import io.reactivex.plugins.RxJavaPlugins;
 
+/** @noinspection unused*/
 public class CustomTestRunner extends AndroidJUnitRunner {
 
     @Override

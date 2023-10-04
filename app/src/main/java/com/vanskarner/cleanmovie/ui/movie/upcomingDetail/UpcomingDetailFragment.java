@@ -21,7 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.vanskarner.cleanmovie.R;
 import com.vanskarner.cleanmovie.databinding.UpcomingDetailFragmentBinding;
-import com.vanskarner.cleanmovie.ui.errors.custom.ErrorDialog;
+import com.vanskarner.cleanmovie.ui.errors.ErrorDialog;
 import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.cleanmovie.ui.movie.MovieDetailModel;
 

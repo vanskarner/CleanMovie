@@ -18,6 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/** @noinspection unused*/
 @Module
 public abstract class TestMovieRemoteRepositoryModule {
     private static final int CONNECT_TIME_OUT_SECONDS = 3;

@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

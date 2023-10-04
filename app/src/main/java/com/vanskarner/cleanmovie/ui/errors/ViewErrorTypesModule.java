@@ -1,6 +1,5 @@
-package com.vanskarner.cleanmovie.ui.errors.custom;
+package com.vanskarner.cleanmovie.ui.errors;
 
-import com.vanskarner.cleanmovie.ui.errors.ErrorView;
 import com.vanskarner.movie.persistence.remote.MovieRemoteError;
 import com.vanskarner.movie.businesslogic.MovieError;
 

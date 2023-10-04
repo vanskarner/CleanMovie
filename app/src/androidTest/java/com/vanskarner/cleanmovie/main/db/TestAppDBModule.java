@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+/** @noinspection unused*/
 @Module
 public abstract class TestAppDBModule {
 
