@@ -1,0 +1,31 @@
+@startuml
+!include ../../../../../../../StylesForDiagrams.puml
+
+package cleanmovie as "com.vanskarner.cleanmovie.ui"{
+    package movie{
+        package favorites {
+            class FavoritesPresenter
+        }
+        package upcoming {
+            class UpcomingPresenter
+        }
+        package upcomingDetail {
+            class UpcomingDetailPresenter
+        }
+    }
+}
+
+package usecases as "com.vanskarner.movie"{
+    package businesslogic{
+        interface MovieServices<<interface>>
+    }
+}
+
+/'Relations'/
+FavoritesPresenter .up.> MovieServices: <<use>>
+UpcomingPresenter .up.> MovieServices: <<use>>
+UpcomingDetailPresenter .up.> MovieServices: <<use>>
+
+hide members
+skinparam Linetype ortho
+@enduml
