@@ -1,33 +1,29 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title COMPLEMENTARY COMPONENT DIAGRAM \n Branch: package_by_layer
-rectangle domain {
-    component UseCases
-    component Entities
+title COMPONENT DIAGRAM \n Branch: package_by_layer
 
-    UseCases .> Entities
-}
-rectangle data {
+component Domain
+
+rectangle Data {
     component LocalData
     component RemoteData
 }
-rectangle presentation {
+rectangle "UI / Presentation" {
     component FavoritesUI
     component UpcomingUI
     component UpcomingDetailUI
 }
-component core
+component Core
 
-data ..> core
-presentation ..> core
-UseCases ..> core
-
-FavoritesUI ..> UseCases
-UpcomingUI ..> UseCases
-UpcomingDetailUI ..> UseCases
-RemoteData ..> domain
-LocalData ..> domain
+Data ..> Core
+"UI / Presentation" ..> Core
+Domain ..> Core
+RemoteData ..> Domain
+LocalData ..> Domain
+FavoritesUI ..> Domain
+UpcomingUI ..> Domain
+UpcomingDetailUI ..> Domain
 
 skinparam Linetype ortho
 @enduml
