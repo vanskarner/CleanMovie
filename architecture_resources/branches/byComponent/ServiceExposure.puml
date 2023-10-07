@@ -20,6 +20,7 @@ exception NoInternet
 MovieServices ..> MoviesDS
 MovieServices ..> MovieDetailDS
 MovieServices ..> MoviesFilterDS
+MovieDetailDS --> MovieBasicDS
 MoviesDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS

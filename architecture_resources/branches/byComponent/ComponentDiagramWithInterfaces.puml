@@ -3,7 +3,7 @@
 
 title COMPLEMENTARY COMPONENT DIAGRAM \n Branch: package_by_component
 
-rectangle presentation {
+rectangle "UI / Presentation" {
     component FavoritesUI
     component UpcomingUI
     component UpcomingDetailUI
@@ -18,7 +18,7 @@ UpcomingUI ..> services
 UpcomingDetailUI .> services
 services -- Movie
 Movie ..> Core
-presentation ..> Core
+"UI / Presentation" ..> Core
 
 skinparam Linetype ortho
 @enduml

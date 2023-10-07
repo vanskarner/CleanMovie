@@ -11,7 +11,7 @@ component Movie #white{
     RemotePersistence ..> BusinessLogic
     LocalPersistence ..> BusinessLogic
 }
-rectangle Presentation {
+rectangle "UI / Presentation" {
     component FavoritesUI
     component UpcomingUI
     component UpcomingDetailUI
@@ -20,7 +20,7 @@ rectangle Presentation {
 FavoritesUI ..> Movie
 UpcomingUI ..> Movie
 UpcomingDetailUI ...> Movie
-Presentation ..> Core
+"UI / Presentation" ..> Core
 Movie ...> Core
 
 

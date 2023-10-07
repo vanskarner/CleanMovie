@@ -6,13 +6,12 @@ title Main Component Configuration \n Branch: package_by_component
 ** RoomDBModule
 ** CoreModule
 *** ConcurrentRxModule
-** ViewModule
+** UIModule
 *** AndroidInjectionModule
-*** FragmentBuildersModule
-**** FavoritesModule
-**** UpcomingModule
-**** UpcomingDetailModule
 *** ViewErrorTypesModule
+*** FavoritesModule
+*** UpcomingModule
+*** UpcomingDetailModule
 ** MovieModule
 *** MovieBusinessLogicModule
 *** MovieLocalRepositoryModule
