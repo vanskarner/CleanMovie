@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable;
 class MovieDefaultServices implements MovieServices {
 
     private final CompositeDisposable compositeDisposable;
-    private final Provider<ToggleMovieFavoriteUseCase> actionFavoriteMovieUseCaseProvider;
+    private final Provider<ToggleMovieFavoriteUseCase> toggleMovieFavoriteUseCaseProvider;
     private final Provider<CheckFavoriteMovieUseCase> checkFavoriteMovieUseCaseProvider;
     private final Provider<DeleteAllFavoriteMoviesUseCase> deleteAllFavoriteMoviesUseCaseProvider;
     private final Provider<FilterUpcomingMoviesUseCase> filterUpcomingMoviesUseCaseProvider;
@@ -24,7 +24,7 @@ class MovieDefaultServices implements MovieServices {
     @Inject
     public MovieDefaultServices(
             @CoreQualifiers.AsyncCompound CompositeDisposable compositeDisposable,
-            Provider<ToggleMovieFavoriteUseCase> actionFavoriteMovieUseCaseProvider,
+            Provider<ToggleMovieFavoriteUseCase> toggleMovieFavoriteUseCaseProvider,
             Provider<CheckFavoriteMovieUseCase> checkFavoriteMovieUseCaseProvider,
             Provider<DeleteAllFavoriteMoviesUseCase> deleteAllFavoriteMoviesUseCaseProvider,
             Provider<FilterUpcomingMoviesUseCase> filterUpcomingMoviesUseCaseProvider,
@@ -33,7 +33,7 @@ class MovieDefaultServices implements MovieServices {
             Provider<ShowFavoriteMoviesUseCase> showFavoriteMoviesUseCaseProvider,
             Provider<ShowUpcomingMoviesUseCase> showUpcomingMoviesUseCaseProvider) {
         this.compositeDisposable = compositeDisposable;
-        this.actionFavoriteMovieUseCaseProvider = actionFavoriteMovieUseCaseProvider;
+        this.toggleMovieFavoriteUseCaseProvider = toggleMovieFavoriteUseCaseProvider;
         this.checkFavoriteMovieUseCaseProvider = checkFavoriteMovieUseCaseProvider;
         this.deleteAllFavoriteMoviesUseCaseProvider = deleteAllFavoriteMoviesUseCaseProvider;
         this.filterUpcomingMoviesUseCaseProvider = filterUpcomingMoviesUseCaseProvider;
@@ -45,42 +45,50 @@ class MovieDefaultServices implements MovieServices {
 
     @Override
     public FutureResult<Boolean> toggleFavorite(MovieDetailDS detailDS) {
-        return actionFavoriteMovieUseCaseProvider.get().execute(detailDS);
+        ToggleMovieFavoriteUseCase useCase = toggleMovieFavoriteUseCaseProvider.get();
+        return useCase.execute(detailDS);
     }
 
     @Override
     public FutureResult<Boolean> checkFavorite(int movieId) {
-        return checkFavoriteMovieUseCaseProvider.get().execute(movieId);
+        CheckFavoriteMovieUseCase useCase = checkFavoriteMovieUseCaseProvider.get();
+        return useCase.execute(movieId);
     }
 
     @Override
     public FutureResult<Integer> deleteAllFavorite() {
-        return deleteAllFavoriteMoviesUseCaseProvider.get().execute();
+        DeleteAllFavoriteMoviesUseCase useCase = deleteAllFavoriteMoviesUseCaseProvider.get();
+        return useCase.execute();
     }
 
     @Override
     public Result<MoviesFilterDS> filterUpcoming(MoviesFilterDS moviesFilterDS) {
-        return filterUpcomingMoviesUseCaseProvider.get().execute(moviesFilterDS);
+        FilterUpcomingMoviesUseCase useCase = filterUpcomingMoviesUseCaseProvider.get();
+        return useCase.execute(moviesFilterDS);
     }
 
     @Override
     public FutureResult<MovieDetailDS> findFavorite(int movieId) {
-        return findFavoriteMovieUseCaseProvider.get().execute(movieId);
+        FindFavoriteMovieUseCase useCase = findFavoriteMovieUseCaseProvider.get();
+        return useCase.execute(movieId);
     }
 
     @Override
     public FutureResult<MovieDetailDS> findUpcoming(int movieId) {
-        return findUpcomingMovieUseCaseProvider.get().execute(movieId);
+        FindUpcomingMovieUseCase useCase = findUpcomingMovieUseCaseProvider.get();
+        return useCase.execute(movieId);
     }
 
     @Override
     public FutureResult<MoviesDS> showFavorite() {
-        return showFavoriteMoviesUseCaseProvider.get().execute();
+        ShowFavoriteMoviesUseCase useCase = showFavoriteMoviesUseCaseProvider.get();
+        return useCase.execute();
     }
 
     @Override
     public FutureResult<MoviesDS> showUpcoming(int page) {
-        return showUpcomingMoviesUseCaseProvider.get().execute(page);
+        ShowUpcomingMoviesUseCase useCase = showUpcomingMoviesUseCaseProvider.get();
+        return useCase.execute(page);
     }
 
     @Override
