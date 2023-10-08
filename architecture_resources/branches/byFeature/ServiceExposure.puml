@@ -10,7 +10,7 @@ interface FavoritesContractView<<interface>>
 interface UpcomingContractView<<interface>>
 interface UpcomingDetailContractView<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>
-class MovieDS<<(D,orange)Data Structure>>
+class MovieBasicDS<<(D,orange)Data Structure>>
 exception MovieError<<abstract>>
 exception FavoriteLimit
 exception MovieRemoteError<<abstract>>
@@ -20,9 +20,9 @@ exception Server
 exception ServiceUnavailable
 exception NoInternet
 
-FavoritesContractView ..> MovieDS
 FavoritesContractView ..> MovieDetailDS
-UpcomingContractView ..> MovieDS
+FavoritesContractView ..> MovieBasicDS
+UpcomingContractView ..> MovieBasicDS
 UpcomingDetailContractView ..> MovieDetailDS
 UpcomingDetailContractPresenter ..> MovieDetailDS
 MovieError <|-- FavoriteLimit
