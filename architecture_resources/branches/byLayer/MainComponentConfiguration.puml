@@ -7,19 +7,17 @@ title Main Component Configuration \n Branch: package_by_layer
 *** ConcurrentRxModule
 ** DomainModule
 *** MovieServicesModule
-**** MovieErrorModule
 ** LocalDataModule
 *** MovieLocalModule
 ** RemoteDataModule
 *** RemoteErrorsModule
 *** MovieRemoteModule
-** ViewModule
+** UIModule
 *** AndroidInjectionModule
-*** FragmentBuildersModule
-**** FavoritesModule
-**** UpcomingModule
-**** UpcomingDetailModule
 *** ViewErrorTypesModule
+*** FavoritesModule
+*** UpcomingModule
+*** UpcomingDetailModule
 
 legend
 It establishes the initial conditions and configurations

@@ -8,20 +8,14 @@ component Movie #white{
     component LocalPersistence
     component RemotePersistence
     component BusinessLogic
-    component Presentation
+    component UI
 
-    Presentation ..> BusinessLogic
+    UI ..> BusinessLogic
     RemotePersistence ..> BusinessLogic
     LocalPersistence ..> BusinessLogic
 }
-rectangle AndroidView as "Android View"{
-    component FavoritesView<<android>>
-    component UpcomingView<<android>>
-    component UpcomingDetailView<<android>>
-}
+component AndroidView<<android>>
 
 Movie ...> Core
-FavoritesView ...> Movie
-UpcomingView ...> Movie
-UpcomingDetailView ...> Movie
+AndroidView ...> Movie
 @enduml

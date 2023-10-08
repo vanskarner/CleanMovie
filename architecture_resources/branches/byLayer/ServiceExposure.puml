@@ -1,14 +1,14 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title EXPOSURE OF USE CASE SERVICES\n Branch: package_by_layer
+title EXPOSURE OF MOVIE SERVICE\n Branch: package_by_layer
 
 interface MovieServices<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>
 class MovieBasicDS<<(D,orange)Data Structure>>
 class MoviesDS<<(D,orange)Data Structure>>
 class MoviesFilterDS<<(D,orange)Data Structure>>
-exception DomainError<<abstract>>
+exception MovieError<<abstract>>
 exception MovieFavoriteLimit
 exception RemoteError<<abstract>>
 exception Unauthorised
@@ -20,10 +20,11 @@ exception NoInternet
 MovieServices ..> MoviesDS
 MovieServices ..> MovieDetailDS
 MovieServices ..> MoviesFilterDS
+MovieDetailDS --> MovieBasicDS
 MoviesDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
-DomainError <|-- MovieFavoriteLimit
+MovieError <|-- MovieFavoriteLimit
 RemoteError <|-- NoInternet
 RemoteError <|-- NotFound
 RemoteError <|-- Server

@@ -6,22 +6,17 @@ title Main Component Configuration \n Branch: package_by_feature
 ** RoomDBModule
 ** CoreModule
 *** ConcurrentRxModule
-** ViewModule
+** UIModule
 *** AndroidInjectionModule
-*** FragmentBuildersModule
-**** FavoritesModule
-***** FavoritePresenterModule
-**** UpcomingModule
-***** UpcomingPresenterModule
-**** UpcomingDetailModule
-***** UpcomingDetailPresenterModule
 *** ViewErrorTypesModule
+*** FavoritesModule
+*** UpcomingModule
+*** UpcomingDetailModule
 ** MovieModule
 *** MovieBusinessLogicModule
-**** MovieErrorModule
 *** MovieLocalRepositoryModule
 *** MovieRemoteRepositoryModule
-**** MovieRemoteErrorsModule
+*** MovieErrorModule
 
 legend
 It establishes the initial conditions and configurations

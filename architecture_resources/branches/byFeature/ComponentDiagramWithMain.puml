@@ -5,15 +5,9 @@ title COMPONENT DIAGRAM WITH Main \n Branch: package_by_feature
 component Core
 component Movie
 component Main
-rectangle AndroidView as "Android View"{
-    component FavoritesView<<android>>
-    component UpcomingView<<android>>
-    component UpcomingDetailView<<android>>
-}
+component AndroidView<<android>>
 
-FavoritesView ..> Movie
-UpcomingView ..> Movie
-UpcomingDetailView ..> Movie
+AndroidView ..> Movie
 Movie ..> Core
 Main ..> AndroidView
 Main .> Movie
