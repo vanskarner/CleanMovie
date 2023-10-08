@@ -1,7 +1,7 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title COMPONENT DIAGRAM \n Branch: package_by_layer
+title COMPONENT DIAGRAM WITH MAIN\n Branch: package_by_layer
 component Main
 component Domain
 rectangle Data {

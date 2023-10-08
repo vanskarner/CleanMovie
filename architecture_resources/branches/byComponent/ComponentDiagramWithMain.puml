@@ -1,7 +1,7 @@
 @startuml
 !include ../../StylesForDiagrams.puml
 
-title COMPONENT DIAGRAM WITH Main \n Branch: package_by_component
+title COMPONENT DIAGRAM WITH MAIN \n Branch: package_by_component
 component Core
 component Movie
 rectangle presentation {
