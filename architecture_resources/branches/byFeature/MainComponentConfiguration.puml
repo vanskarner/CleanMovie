@@ -10,8 +10,11 @@ title Main Component Configuration \n Branch: package_by_feature
 *** AndroidInjectionModule
 *** ViewErrorTypesModule
 *** FavoritesModule
+**** FavoritePresenterModule
 *** UpcomingModule
+**** UpcomingPresenterModule
 *** UpcomingDetailModule
+**** UpcomingDetailPresenterModule
 ** MovieModule
 *** MovieBusinessLogicModule
 *** MovieLocalRepositoryModule
