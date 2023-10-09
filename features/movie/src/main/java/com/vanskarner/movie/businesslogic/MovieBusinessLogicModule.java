@@ -61,4 +61,10 @@ public abstract class MovieBusinessLogicModule {
     @ClassKey(ToggleMovieFavoriteUseCase.class)
     public abstract UseCase<?,?>
     bindToggleMovieFavoriteUseCase(ToggleMovieFavoriteUseCase useCase);
+
+    @Binds
+    @IntoMap
+    @ClassKey(MovieError.FavoriteLimitError.class)
+    public abstract MovieError provideFavoriteMovieLimit(MovieError.FavoriteLimitError error);
+
 }

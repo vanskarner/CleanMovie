@@ -50,7 +50,7 @@ public class ToggleMovieFavoriteUseCaseTest {
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
-    @Test(expected = MovieError.FavoriteLimit.class)
+    @Test(expected = MovieError.FavoriteLimitError.class)
     public void execute_withUnregisteredItemAndExceededCapacity_throwException() throws Exception {
         MovieDetailDS item1 = MovieDetailDS.empty();
         MovieDetailDS item2 = MovieDetailDS.empty();

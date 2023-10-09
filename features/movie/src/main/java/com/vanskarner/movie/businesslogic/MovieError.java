@@ -6,9 +6,9 @@ import javax.inject.Singleton;
 public abstract class MovieError extends RuntimeException {
 
     @Singleton
-    public static class FavoriteLimit extends MovieError {
+    public static class FavoriteLimitError extends MovieError {
         @Inject
-        public FavoriteLimit() {
+        public FavoriteLimitError() {
         }
     }
 
