@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class ToggleMovieFavoriteUseCase extends BaseAsyncUseCase<MovieDetailDS, Boolean> {
+class ToggleMovieFavoriteUseCase extends UseCase<FutureResult<Boolean>, MovieDetailDS> {
     private final static int MAXIMUM_MOVIES_SAVED = 2;
     private final MovieLocalRepository localRepository;
     private final MovieErrorFilter movieErrorFilter;

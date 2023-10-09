@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class ShowUpcomingMoviesUseCase extends BaseAsyncUseCase<Integer, MoviesDS> {
+class ShowUpcomingMoviesUseCase extends UseCase<FutureResult<MoviesDS>, Integer> {
 
     private final MovieRemoteRepository remoteRepository;
 

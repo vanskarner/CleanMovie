@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class DeleteAllFavoriteMoviesUseCase extends BaseAsyncOutPutUseCase<Integer> {
+class DeleteAllFavoriteMoviesUseCase extends UseCase<FutureResult<Integer>, Void> {
 
     private final MovieLocalRepository localRepository;
 
@@ -16,8 +16,7 @@ class DeleteAllFavoriteMoviesUseCase extends BaseAsyncOutPutUseCase<Integer> {
     }
 
     @Override
-    public FutureResult<Integer> execute() {
+    public FutureResult<Integer> execute(Void unused) {
         return localRepository.deleteAllMovies();
     }
-
 }

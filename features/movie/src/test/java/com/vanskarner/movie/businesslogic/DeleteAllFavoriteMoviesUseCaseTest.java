@@ -25,7 +25,7 @@ public class DeleteAllFavoriteMoviesUseCaseTest {
     @Test
     public void execute_numberItemsDeleted() throws Exception {
         int expectedNumberItems = fakeLocalRepository.getNumberMovies().get();
-        int actualNumberItems = useCase.execute().get();
+        int actualNumberItems = useCase.execute(null).get();
 
         assertEquals(expectedNumberItems, actualNumberItems);
     }

@@ -58,7 +58,7 @@ class MovieDefaultServices implements MovieServices {
     @Override
     public FutureResult<Integer> deleteAllFavorite() {
         DeleteAllFavoriteMoviesUseCase useCase = deleteAllFavoriteMoviesUseCaseProvider.get();
-        return useCase.execute();
+        return useCase.execute(null);
     }
 
     @Override
@@ -82,7 +82,7 @@ class MovieDefaultServices implements MovieServices {
     @Override
     public FutureResult<MoviesDS> showFavorite() {
         ShowFavoriteMoviesUseCase useCase = showFavoriteMoviesUseCaseProvider.get();
-        return useCase.execute();
+        return useCase.execute(null);
     }
 
     @Override
