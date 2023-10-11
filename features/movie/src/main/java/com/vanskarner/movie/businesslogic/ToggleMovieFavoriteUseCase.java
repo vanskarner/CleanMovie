@@ -8,20 +8,23 @@ import javax.inject.Singleton;
 @Singleton
 class ToggleMovieFavoriteUseCase extends UseCase<FutureResult<Boolean>, MovieDetailDS> {
     private final static int MAXIMUM_MOVIES_SAVED = 2;
+    private final CheckFavoriteMovieUseCase checkFavoriteMovieUseCase;
     private final MovieLocalRepository localRepository;
     private final MovieErrorFilter movieErrorFilter;
 
     @Inject
     public ToggleMovieFavoriteUseCase(
+            CheckFavoriteMovieUseCase checkFavoriteMovieUseCase,
             MovieLocalRepository localRepository,
             MovieErrorFilter movieErrorFilter) {
+        this.checkFavoriteMovieUseCase = checkFavoriteMovieUseCase;
         this.localRepository = localRepository;
         this.movieErrorFilter = movieErrorFilter;
     }
 
     @Override
     public FutureResult<Boolean> execute(MovieDetailDS movieDetailDS) {
-        return localRepository.checkMovie(movieDetailDS.basicDS.id)
+        return checkFavoriteMovieUseCase.execute(movieDetailDS.basicDS.id)
                 .flatMap(exist -> exist ? deleteMovie(movieDetailDS) : saveMovie(movieDetailDS));
     }
 

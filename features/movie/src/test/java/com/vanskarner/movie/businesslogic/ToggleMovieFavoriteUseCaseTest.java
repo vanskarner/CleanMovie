@@ -16,8 +16,13 @@ public class ToggleMovieFavoriteUseCaseTest {
     public void setUp() {
         fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
         MovieErrorFilter domainErrorFilter = new MockMovieErrorFilter();
+        CheckFavoriteMovieUseCase checkFavoriteMovieUseCase =
+                new CheckFavoriteMovieUseCase(fakeLocalRepository);
 
-        useCase = new ToggleMovieFavoriteUseCase(fakeLocalRepository, domainErrorFilter);
+        useCase = new ToggleMovieFavoriteUseCase(
+                checkFavoriteMovieUseCase,
+                fakeLocalRepository,
+                domainErrorFilter);
     }
 
     @Test
