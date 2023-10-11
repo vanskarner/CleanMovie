@@ -12,6 +12,8 @@ import javax.inject.Singleton;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.multibindings.IntoMap;
+import dagger.multibindings.StringKey;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -58,5 +60,29 @@ public abstract class MovieRemoteRepositoryModule {
     ) {
         return new MovieDeserializer(baseImageUrl);
     }
+
+    @Binds
+    public abstract MovieRemoteError bindDefaultRemoteError(MovieRemoteError.Server error);
+
+    @Binds
+    @IntoMap
+    @StringKey("NoInternet")
+    public abstract MovieRemoteError bindNoInternet(MovieRemoteError.NoInternet error);
+
+    @Binds
+    @IntoMap
+    @StringKey("401")
+    public abstract MovieRemoteError bindUnauthorised(MovieRemoteError.Unauthorised error);
+
+    @Binds
+    @IntoMap
+    @StringKey("404")
+    public abstract MovieRemoteError bindNotFound(MovieRemoteError.NotFound error);
+
+    @Binds
+    @IntoMap
+    @StringKey("503")
+    public abstract MovieRemoteError
+    bindServiceUnavailable(MovieRemoteError.ServiceUnavailable error);
 
 }

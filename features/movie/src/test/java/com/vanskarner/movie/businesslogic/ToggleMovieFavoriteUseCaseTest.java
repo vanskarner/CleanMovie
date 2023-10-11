@@ -52,7 +52,7 @@ public class ToggleMovieFavoriteUseCaseTest {
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
-    @Test(expected = MovieError.FavoriteLimit.class)
+    @Test(expected = MovieError.FavoriteLimitError.class)
     public void execute_withUnregisteredItemAndExceededCapacity_throwException() throws Exception {
         fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(1)

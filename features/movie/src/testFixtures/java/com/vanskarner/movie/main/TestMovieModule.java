@@ -9,8 +9,7 @@ import dagger.Module;
 @Module(includes = {
         MovieLocalRepositoryModule.class,
         TestMovieRemoteRepositoryModule.class,
-        MovieBusinessLogicModule.class,
-        MovieErrorModule.class
+        MovieBusinessLogicModule.class
 })
 public class TestMovieModule {
 }
