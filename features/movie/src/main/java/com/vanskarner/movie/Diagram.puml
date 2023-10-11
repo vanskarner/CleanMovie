@@ -6,12 +6,14 @@ package movie as "com.vanskarner.movie"{
     package businesslogic {
         interface MovieServices<<interface>>
         exception MovieError<<abstract>>
-        exception FavoriteLimit
+        exception FavoriteLimitError
         class MovieDetailDS<<(D,orange)Data Structure>>
         class MovieBasicDS<<(D,orange)Data Structure>>
         class MoviesDS<<(D,orange)Data Structure>>
         class MoviesFilterDS<<(D,orange)Data Structure>>
         class MovieDefaultServices
+        class MovieUseCaseFilter
+        abstract UseCase<OutPut,Input><<abstract>>
         class FilterUpcomingMoviesUseCase
         class ToggleMovieFavoriteUseCase
         class CheckFavoriteMovieUseCase
@@ -61,17 +63,19 @@ NotFound --|> MovieRemoteError
 Server --|> MovieRemoteError
 ServiceUnavailable -|> MovieRemoteError
 MovieRemoteError <|- Unauthorised
-MovieError <|-- FavoriteLimit
+MovieError <|-- FavoriteLimitError
 
-MovieServices <|. MovieDefaultServices
-MovieDefaultServices --> ShowUpcomingMoviesUseCase
-MovieDefaultServices --> FindUpcomingMovieUseCase
-MovieDefaultServices --> ShowFavoriteMoviesUseCase
-MovieDefaultServices --> FindFavoriteMovieUseCase
-MovieDefaultServices --> CheckFavoriteMovieUseCase
-MovieDefaultServices --> ToggleMovieFavoriteUseCase
-MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
-MovieDefaultServices --> FilterUpcomingMoviesUseCase
+MovieDefaultServices .|> MovieServices
+MovieUseCaseFilter <- MovieDefaultServices
+UseCase "1..*" <- MovieUseCaseFilter
+UseCase <|-- ShowUpcomingMoviesUseCase
+UseCase <|-- FindUpcomingMovieUseCase
+UseCase <|-- ShowFavoriteMoviesUseCase
+UseCase <|-- FindFavoriteMovieUseCase
+UseCase <|-- CheckFavoriteMovieUseCase
+UseCase <|-- ToggleMovieFavoriteUseCase
+UseCase <|-- DeleteAllFavoriteMoviesUseCase
+UseCase <|-- FilterUpcomingMoviesUseCase
 CheckFavoriteMovieUseCase --> MovieLocalRepository
 ToggleMovieFavoriteUseCase --> MovieLocalRepository
 DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository
@@ -81,7 +85,8 @@ ShowUpcomingMoviesUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase --> MovieRemoteRepository
 FindUpcomingMovieUseCase ..> MovieBO
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
-MovieError "1..*" <.. MovieErrorFilter
+ToggleMovieFavoriteUseCase -> CheckFavoriteMovieUseCase
+MovieError "1..*" <- MovieErrorFilter
 
 /'Relations - local-data:start'/
 MovieLocalRepository <|.. MovieLocalRxRepository
