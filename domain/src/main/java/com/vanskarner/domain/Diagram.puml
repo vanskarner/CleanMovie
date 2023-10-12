@@ -6,6 +6,8 @@ package usecases as "com.vanskarner.domain"{
 
 package movie {
     class MovieDefaultServices
+    abstract UseCase<Output,Input><<abstract>>
+    class MovieUseCaseFilter
     class FilterUpcomingMoviesUseCase
     class ToggleMovieFavoriteUseCase
     class CheckFavoriteMovieUseCase
@@ -19,11 +21,11 @@ package movie {
     together {
         class MovieErrorFilter
         exception MovieError<<abstract>>
-        exception MovieFavoriteLimit
+        exception FavoriteLimitError
 
         ToggleMovieFavoriteUseCase --> MovieErrorFilter
         MovieErrorFilter --> "1..*" MovieError
-        MovieError <|-- MovieFavoriteLimit
+        MovieError <|-- FavoriteLimitError
     }
     together {
         interface MovieServices<<interface>>
@@ -49,19 +51,21 @@ package movie {
 }
 
 /'Relations'/
-
-MovieDefaultServices .left.|> MovieServices
-MovieDefaultServices --> ShowUpcomingMoviesUseCase
-MovieDefaultServices --> FindUpcomingMovieUseCase
-MovieDefaultServices --> ShowFavoriteMoviesUseCase
-MovieDefaultServices --> FindFavoriteMovieUseCase
-MovieDefaultServices --> CheckFavoriteMovieUseCase
-MovieDefaultServices --> ToggleMovieFavoriteUseCase
-MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
-MovieDefaultServices --> FilterUpcomingMoviesUseCase
+MovieDefaultServices ..|> MovieServices
+MovieUseCaseFilter <- MovieDefaultServices
+MovieUseCaseFilter --> "1..*" UseCase
+UseCase <|-- ShowUpcomingMoviesUseCase
+UseCase <|-- FindUpcomingMovieUseCase
+UseCase <|-- ShowFavoriteMoviesUseCase
+UseCase <|-- FindFavoriteMovieUseCase
+UseCase <|-- CheckFavoriteMovieUseCase
+UseCase <|-- ToggleMovieFavoriteUseCase
+UseCase <|-- DeleteAllFavoriteMoviesUseCase
+UseCase <|-- FilterUpcomingMoviesUseCase
 
 CheckFavoriteMovieUseCase --> MovieLocalRepository
 ToggleMovieFavoriteUseCase --> MovieLocalRepository
+ToggleMovieFavoriteUseCase -> CheckFavoriteMovieUseCase
 DeleteAllFavoriteMoviesUseCase --> MovieLocalRepository
 FindFavoriteMovieUseCase --> MovieLocalRepository
 ShowFavoriteMoviesUseCase --> MovieLocalRepository
