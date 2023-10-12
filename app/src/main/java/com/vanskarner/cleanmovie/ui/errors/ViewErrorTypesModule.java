@@ -43,7 +43,7 @@ public abstract class ViewErrorTypesModule {
 
     @Binds
     @IntoMap
-    @ClassKey(MovieError.FavoriteLimit.class)
+    @ClassKey(MovieError.FavoriteLimitError.class)
     public abstract ErrorView<?> bindFavoritesLimit(FavoritesLimitError error);
 
 }

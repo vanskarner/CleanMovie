@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class FindFavoriteMovieUseCase extends BaseAsyncUseCase<Integer, MovieDetailDS> {
+class FindFavoriteMovieUseCase extends UseCase<FutureResult<MovieDetailDS>, Integer> {
 
     private final MovieLocalRepository localRepository;
 
