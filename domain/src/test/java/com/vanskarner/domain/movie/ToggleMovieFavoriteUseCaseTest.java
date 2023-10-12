@@ -15,8 +15,13 @@ public class ToggleMovieFavoriteUseCaseTest {
     public void setUp() {
         fakeLocalRepository = FakeRepositoryFactory.createLocalRepository();
         MovieErrorFilter movieErrorFilter = new MockMovieErrorFilter();
+        CheckFavoriteMovieUseCase checkFavoriteMovieUseCase =
+                new CheckFavoriteMovieUseCase(fakeLocalRepository);
 
-        useCase = new ToggleMovieFavoriteUseCase(fakeLocalRepository, movieErrorFilter);
+        useCase = new ToggleMovieFavoriteUseCase(
+                checkFavoriteMovieUseCase,
+                fakeLocalRepository,
+                movieErrorFilter);
     }
 
     @Test
@@ -46,7 +51,7 @@ public class ToggleMovieFavoriteUseCaseTest {
         assertEquals(expectedNumberItems, actualNumberItems);
     }
 
-    @Test(expected = MovieError.MovieFavoriteLimit.class)
+    @Test(expected = MovieError.FavoriteLimitError.class)
     public void execute_withUnregisteredItemAndExceededCapacity_throwException() throws Exception {
         fakeLocalRepository.saveMovie(new MovieBOBuilder()
                 .withId(1)

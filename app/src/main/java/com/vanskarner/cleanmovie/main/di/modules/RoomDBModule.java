@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.main.db;
+package com.vanskarner.cleanmovie.main.di.modules;
 
 import android.content.Context;
 

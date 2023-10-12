@@ -13,7 +13,7 @@ public class MockMovieErrorFilter extends MovieErrorFilter {
 
     private static Map<Class<?>, Provider<MovieError>> getMapError() {
         Map<Class<?>, Provider<MovieError>> map = new HashMap<>();
-        map.put(MovieError.MovieFavoriteLimit.class, MovieError.MovieFavoriteLimit::new);
+        map.put(MovieError.FavoriteLimitError.class, MovieError.FavoriteLimitError::new);
         return map;
     }
 

@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.main.di.modules;
+package com.vanskarner.cleanmovie.ui.main;
 
 import com.vanskarner.cleanmovie.main.di.scopes.PerFragment;
 import com.vanskarner.cleanmovie.ui.errors.ViewErrorTypesModule;

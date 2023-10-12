@@ -1,13 +1,13 @@
 package com.vanskarner.domain.movie;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.domain.bases.BaseAsyncUseCase;
+import com.vanskarner.domain.common.UseCase;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class CheckFavoriteMovieUseCase extends BaseAsyncUseCase<Integer, Boolean> {
+class CheckFavoriteMovieUseCase extends UseCase<FutureResult<Boolean>, Integer> {
 
     private final MovieLocalRepository localRepository;
 

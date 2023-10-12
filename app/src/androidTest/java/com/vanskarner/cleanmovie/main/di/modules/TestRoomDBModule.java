@@ -1,4 +1,4 @@
-package com.vanskarner.cleanmovie.main.db;
+package com.vanskarner.cleanmovie.main.di.modules;
 
 import android.content.Context;
 
@@ -13,7 +13,7 @@ import dagger.Provides;
 
 /** @noinspection unused*/
 @Module
-public abstract class TestAppDBModule {
+public abstract class TestRoomDBModule {
     @Provides
     @Singleton
     public static MovieDao provideMovieDetailDao(RoomDB db) {
@@ -28,4 +28,5 @@ public abstract class TestAppDBModule {
                 .fallbackToDestructiveMigration()
                 .build();
     }
+
 }

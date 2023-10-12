@@ -1,13 +1,13 @@
 package com.vanskarner.domain.movie;
 
 import com.vanskarner.core.concurrent.FutureResult;
-import com.vanskarner.domain.bases.BaseAsyncUseCase;
+import com.vanskarner.domain.common.UseCase;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class ShowUpcomingMoviesUseCase extends BaseAsyncUseCase<Integer, MoviesDS> {
+class ShowUpcomingMoviesUseCase extends UseCase<FutureResult<MoviesDS>, Integer> {
 
     private final MovieRemoteRepository remoteRepository;
 
