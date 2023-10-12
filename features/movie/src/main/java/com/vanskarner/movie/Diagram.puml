@@ -10,6 +10,8 @@ package movie as "com.vanskarner.movie"{
         class MoviesFilterDS<<(D,orange)Data Structure>>
         interface MovieServices<<interface>>
         class MovieDefaultServices
+        abstract UseCase<Output,Input><<abstract>>
+        class MovieUseCaseFilter
         class FilterUpcomingMoviesUseCase
         class ToggleMovieFavoriteUseCase
         class CheckFavoriteMovieUseCase
@@ -18,16 +20,12 @@ package movie as "com.vanskarner.movie"{
         class ShowFavoriteMoviesUseCase
         class ShowUpcomingMoviesUseCase
         class FindUpcomingMovieUseCase
-        together {
-            interface MovieLocalRepository<<interface>>
-            interface MovieRemoteRepository<<interface>>
-        }
+        interface MovieLocalRepository<<interface>>
+        interface MovieRemoteRepository<<interface>>
         class MovieMapper
-        together {
-            class MovieErrorFilter
-            exception MovieError<<abstract>>
-            exception FavoriteLimit
-        }
+        class MovieErrorFilter
+        exception MovieError<<abstract>>
+        exception FavoriteLimitError
         entity MovieBO
     }
     package persistence.local {
@@ -119,15 +117,17 @@ MoviesDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
 
-MovieDefaultServices .left.|> MovieServices
-MovieDefaultServices --> ShowUpcomingMoviesUseCase
-MovieDefaultServices --> FindUpcomingMovieUseCase
-MovieDefaultServices --> ShowFavoriteMoviesUseCase
-MovieDefaultServices --> FindFavoriteMovieUseCase
-MovieDefaultServices --> CheckFavoriteMovieUseCase
-MovieDefaultServices --> ToggleMovieFavoriteUseCase
-MovieDefaultServices --> DeleteAllFavoriteMoviesUseCase
-MovieDefaultServices --> FilterUpcomingMoviesUseCase
+MovieDefaultServices ..|> MovieServices
+MovieUseCaseFilter <- MovieDefaultServices
+MovieUseCaseFilter --> "1..*" UseCase
+UseCase <|-- ShowUpcomingMoviesUseCase
+UseCase <|-- FindUpcomingMovieUseCase
+UseCase <|-- ShowFavoriteMoviesUseCase
+UseCase <|-- FindFavoriteMovieUseCase
+UseCase <|-- CheckFavoriteMovieUseCase
+UseCase <|-- ToggleMovieFavoriteUseCase
+UseCase <|-- DeleteAllFavoriteMoviesUseCase
+UseCase <|-- FilterUpcomingMoviesUseCase
 
 CheckFavoriteMovieUseCase --> MovieLocalRepository
 ToggleMovieFavoriteUseCase --> MovieLocalRepository
@@ -149,7 +149,7 @@ MovieMapper ..> MoviesDS
 
 ToggleMovieFavoriteUseCase --> MovieErrorFilter
 MovieErrorFilter --> "1..*" MovieError
-MovieError <|-- FavoriteLimit
+MovieError <|-- FavoriteLimitError
 
 MovieLocalRepository ..> MovieBO
 MovieRemoteRepository ..> MovieBO
