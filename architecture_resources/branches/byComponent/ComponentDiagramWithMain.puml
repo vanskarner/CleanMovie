@@ -4,21 +4,21 @@
 title COMPONENT DIAGRAM WITH MAIN \n Branch: package_by_component
 component Core
 component Movie
-rectangle presentation {
+rectangle "UI / Presentation" {
     component FavoritesUI
     component UpcomingUI
     component UpcomingDetailUI
 }
 component Main
 
-Main ..> presentation
+Main ..> "UI / Presentation"
 Main ..> Movie
 Main ..> Core
 FavoritesUI ..> Movie
 UpcomingUI ..> Movie
 UpcomingDetailUI ..> Movie
 Movie ..> Core
-presentation ..> Core
+"UI / Presentation" ..> Core
 
 skinparam Linetype ortho
 @enduml

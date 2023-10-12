@@ -10,7 +10,6 @@ title Main Component Configuration \n Branch: package_by_layer
 ** LocalDataModule
 *** MovieLocalModule
 ** RemoteDataModule
-*** RemoteErrorsModule
 *** MovieRemoteModule
 ** UIModule
 *** AndroidInjectionModule

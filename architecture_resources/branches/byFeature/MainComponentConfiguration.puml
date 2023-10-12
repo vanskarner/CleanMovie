@@ -19,7 +19,6 @@ title Main Component Configuration \n Branch: package_by_feature
 *** MovieBusinessLogicModule
 *** MovieLocalRepositoryModule
 *** MovieRemoteRepositoryModule
-*** MovieErrorModule
 
 legend
 It establishes the initial conditions and configurations

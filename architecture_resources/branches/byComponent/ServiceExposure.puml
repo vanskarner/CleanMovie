@@ -9,7 +9,7 @@ class MovieBasicDS<<(D,orange)Data Structure>>
 class MoviesDS<<(D,orange)Data Structure>>
 class MoviesFilterDS<<(D,orange)Data Structure>>
 exception MovieError<<abstract>>
-exception FavoriteLimit
+exception FavoriteLimitError
 exception MovieRemoteError<<abstract>>
 exception Unauthorised
 exception NotFound
@@ -24,7 +24,7 @@ MovieDetailDS --> MovieBasicDS
 MoviesDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
-MovieError <|-- FavoriteLimit
+MovieError <|-- FavoriteLimitError
 MovieRemoteError <|-- NoInternet
 MovieRemoteError <|-- NotFound
 MovieRemoteError <|-- Server

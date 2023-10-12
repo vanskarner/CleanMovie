@@ -12,7 +12,7 @@ interface UpcomingDetailContractView<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>
 class MovieBasicDS<<(D,orange)Data Structure>>
 exception MovieError<<abstract>>
-exception FavoriteLimit
+exception FavoriteLimitError
 exception MovieRemoteError<<abstract>>
 exception Unauthorised
 exception NotFound
@@ -25,7 +25,7 @@ FavoritesContractView ..> MovieBasicDS
 UpcomingContractView ..> MovieBasicDS
 UpcomingDetailContractView ..> MovieDetailDS
 UpcomingDetailContractPresenter ..> MovieDetailDS
-MovieError <|-- FavoriteLimit
+MovieError <|-- FavoriteLimitError
 MovieRemoteError <|-- NoInternet
 MovieRemoteError <|-- NotFound
 MovieRemoteError <|-- Server

@@ -5,7 +5,7 @@ title EXPECTATION AND REALITY \n Branch: package_by_layer
 package app as "com.vanskarner.cleanmovie.ui"{
     class FavoritesPresenter
 }
-package domain as "com.vanskarner.usecases"{
+package domain as "com.vanskarner.domain"{
     interface MovieServices<<interface>>
     class MovieDefaultServices classNotVisible
     interface MovieLocalRepository<<interface>>
