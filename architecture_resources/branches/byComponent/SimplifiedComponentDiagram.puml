@@ -1,0 +1,21 @@
+@startuml
+!include ../../StylesForDiagrams.puml
+
+title COMPONENT DIAGRAM \n Branch: package_by_component
+component Core
+component Movie
+rectangle "UI / Presentation" {
+    component FavoritesUI
+    component UpcomingUI
+    component UpcomingDetailUI
+}
+
+FavoritesUI ..> Movie
+UpcomingUI ..> Movie
+UpcomingDetailUI ..> Movie
+"UI / Presentation" ..> Core
+Movie ..> Core
+
+
+skinparam Linetype ortho
+@enduml

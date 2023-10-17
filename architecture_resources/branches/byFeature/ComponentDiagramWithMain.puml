@@ -5,7 +5,7 @@ title COMPONENT DIAGRAM WITH MAIN \n Branch: package_by_feature
 component Core
 component Movie
 component Main
-component AndroidView<<android>>
+component AndroidView<<android>>#LimeGreen
 
 AndroidView ..> Movie
 Movie ..> Core

@@ -14,7 +14,7 @@ component Movie #white{
     RemotePersistence ..> BusinessLogic
     LocalPersistence ..> BusinessLogic
 }
-component AndroidView<<android>>
+component AndroidView<<android>>#LimeGreen
 
 Movie ...> Core
 AndroidView ...> Movie
