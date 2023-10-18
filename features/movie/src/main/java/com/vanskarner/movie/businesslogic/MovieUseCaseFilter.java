@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+@SuppressWarnings("unchecked")
 @Singleton
 class MovieUseCaseFilter {
     private final Map<Class<?>, Provider<UseCase<?, ?>>> useCaseMap;
@@ -17,7 +18,6 @@ class MovieUseCaseFilter {
     }
 
     public <T extends UseCase<?, ?>> T filter(Class<T> classKey) {
-        //noinspection unchecked
         return (T) Objects.requireNonNull(useCaseMap.get(classKey)).get();
     }
 
