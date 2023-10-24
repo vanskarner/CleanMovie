@@ -1,0 +1,12 @@
+@startuml
+!include ../StylesForDiagrams.puml
+
+title COMPONENT DIAGRAM \n Branch: package_by_feature
+
+component Core
+component Movie
+component AndroidView<<android>>#LimeGreen
+
+Movie ...> Core
+AndroidView ...> Movie
+@enduml

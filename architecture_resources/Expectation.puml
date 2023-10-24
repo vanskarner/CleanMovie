@@ -1,0 +1,25 @@
+@startuml
+!include ../StylesForDiagrams.puml
+
+title EXPECTATION \n Branch: package_by_feature
+
+package movie as "com.vanskarner.movie"{
+    interface FavoritesContractPresenter<<interface>>
+    class FavoritesPresenter classNotVisible
+    interface MovieServices<<interface>> classNotVisible
+    class MovieDefaultServices classNotVisible
+    interface MovieLocalRepository<<interface>> classNotVisible
+    class MovieLocalRxRepository classNotVisible
+    class FindFavoriteMovieUseCase classNotVisible
+
+    MovieServices <|.. MovieDefaultServices
+    MovieLocalRepository <|.. MovieLocalRxRepository
+    FavoritesContractPresenter <|.. FavoritesPresenter
+}
+FavoritesPresenter --> MovieServices
+MovieDefaultServices --> FindFavoriteMovieUseCase
+FindFavoriteMovieUseCase --> MovieLocalRepository
+
+skinparam titleFontColor green
+hide members
+@enduml
