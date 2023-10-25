@@ -1,7 +1,7 @@
 @startuml
-!include ../../StylesForDiagrams.puml
+!include ../StylesForDiagrams.puml
 
-title EXPOSURE OF MOVIE SERVICE\n Branch: package_by_layer
+title MOVIE COMPONENT SERVICE EXPOSURE \n Branch: package_by_component
 
 interface MovieServices<<interface>>
 class MovieDetailDS<<(D,orange)Data Structure>>
@@ -10,7 +10,7 @@ class MoviesDS<<(D,orange)Data Structure>>
 class MoviesFilterDS<<(D,orange)Data Structure>>
 exception MovieError<<abstract>>
 exception FavoriteLimitError
-exception RemoteError<<abstract>>
+exception MovieRemoteError<<abstract>>
 exception Unauthorised
 exception NotFound
 exception Server
@@ -25,11 +25,11 @@ MoviesDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
 MoviesFilterDS --> "0..*" MovieBasicDS
 MovieError <|-- FavoriteLimitError
-RemoteError <|-- NoInternet
-RemoteError <|-- NotFound
-RemoteError <|-- Server
-RemoteError <|-- ServiceUnavailable
-RemoteError <|-- Unauthorised
+MovieRemoteError <|-- NoInternet
+MovieRemoteError <|-- NotFound
+MovieRemoteError <|-- Server
+MovieRemoteError <|-- ServiceUnavailable
+MovieRemoteError <|-- Unauthorised
 
 hide members
 @enduml

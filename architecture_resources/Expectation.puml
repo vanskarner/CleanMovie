@@ -1,5 +1,5 @@
 @startuml
-!include ../../StylesForDiagrams.puml
+!include ../StylesForDiagrams.puml
 
 title EXPECTATION  \n Branch: package_by_component
 package cleanmovie as "com.vanskarner.cleanmovie.ui"{

@@ -1,5 +1,5 @@
 @startuml
-!include ../../../../../../../../architecture_resources/StylesForDiagrams.puml
+!include ../../../../../../../../StylesForDiagrams.puml
 
 /'Specification'/
 package core as "com.vanskarner.core"{

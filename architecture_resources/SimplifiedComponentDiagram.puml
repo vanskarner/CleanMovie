@@ -1,7 +1,7 @@
 @startuml
-!include ../../StylesForDiagrams.puml
+!include ../StylesForDiagrams.puml
 
-title COMPONENT DIAGRAM WITH MAIN \n Branch: package_by_component
+title COMPONENT DIAGRAM \n Branch: package_by_component
 component Core
 component Movie
 rectangle "UI / Presentation" {
@@ -9,16 +9,13 @@ rectangle "UI / Presentation" {
     component UpcomingUI
     component UpcomingDetailUI
 }
-component Main
 
-Main ..> "UI / Presentation"
-Main ..> Movie
-Main ..> Core
 FavoritesUI ..> Movie
 UpcomingUI ..> Movie
 UpcomingDetailUI ..> Movie
-Movie ..> Core
 "UI / Presentation" ..> Core
+Movie ..> Core
+
 
 skinparam Linetype ortho
 @enduml

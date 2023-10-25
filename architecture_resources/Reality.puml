@@ -1,27 +1,25 @@
 @startuml
-!include ../../StylesForDiagrams.puml
+!include ../StylesForDiagrams.puml
 
-title EXPECTATION AND REALITY \n Branch: package_by_layer
-package app as "com.vanskarner.cleanmovie.ui"{
+title REALITY DUE TO CONTEXT \n Branch: package_by_component
+package cleanmovie as "com.vanskarner.cleanmovie.ui" {
     class FavoritesPresenter
 }
-package domain as "com.vanskarner.domain"{
+package movie as "com.vanskarner.movie" {
     interface MovieServices<<interface>>
     class MovieDefaultServices classNotVisible
     interface MovieLocalRepository<<interface>>
     class FindFavoriteMovieUseCase classNotVisible
+    class MovieLocalRxRepository classNotVisible
 
     MovieServices <|.. MovieDefaultServices
     MovieDefaultServices --> FindFavoriteMovieUseCase
     FindFavoriteMovieUseCase --> MovieLocalRepository
-}
-package localData as "com.vanskarner.localdata"{
-    class MovieLocalRxRepository classNotVisible
+    MovieLocalRepository <|.. MovieLocalRxRepository
 }
 
 FavoritesPresenter ..> MovieServices: <<use>>
-MovieLocalRepository <|.. MovieLocalRxRepository
 
-skinparam titleFontColor green
+skinparam titleFontColor red
 hide members
 @enduml
