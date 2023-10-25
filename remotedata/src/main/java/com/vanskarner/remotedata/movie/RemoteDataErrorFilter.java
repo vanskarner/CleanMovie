@@ -22,7 +22,7 @@ class RemoteDataErrorFilter {
     }
 
     public RemoteError filter(String key) {
-        Provider<RemoteError> provider = mapError.get(String.valueOf(key));
+        Provider<RemoteError> provider = mapError.get(key);
         throw provider == null ? defaultError : provider.get();
     }
 
