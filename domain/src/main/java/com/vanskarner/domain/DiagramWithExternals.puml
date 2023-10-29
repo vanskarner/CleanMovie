@@ -4,7 +4,17 @@
 /'Specification'/
 package domain as "com.vanskarner.domain" {
     package movie{
-
+        class FindUpcomingMovieUseCase
+        class FindFavoriteMovieUseCase
+        class FilterUpcomingMoviesUseCase
+        class DeleteAllFavoriteMoviesUseCase
+        class CheckFavoriteMovieUseCase
+        class ShowFavoriteMoviesUseCase
+        class ShowUpcomingMoviesUseCase
+        class ToggleMovieFavoriteUseCase
+        interface MovieLocalRepository<<interface>>
+        interface MovieRemoteRepository<<interface>>
+        interface MovieServices<<interface>>
     }
 }
 
@@ -18,8 +28,20 @@ package core as "com.vanskarner.core" {
     }
 }
 /'Relations'/
-sync <.. movie: <<use>>
-concurrent <... movie: <<use>>
+FutureResult <.. FindUpcomingMovieUseCase: <<use>>
+FutureResult <.. FindFavoriteMovieUseCase: <<use>>
+Result <.. FilterUpcomingMoviesUseCase: <<use>>
+FutureResult <.. DeleteAllFavoriteMoviesUseCase: <<use>>
+FutureResult <.. CheckFavoriteMovieUseCase: <<use>>
+FutureResult <.. ShowFavoriteMoviesUseCase: <<use>>
+FutureResult <.. ToggleMovieFavoriteUseCase: <<use>>
+FutureResult <.. MovieLocalRepository: <<use>>
+FutureSimpleResult <.. MovieLocalRepository: <<use>>
+FutureResult <.. MovieRemoteRepository: <<use>>
+FutureResult <.. MovieRemoteRepository: <<use>>
+FutureResult <.. MovieServices: <<use>>
+Result <.. MovieServices: <<use>>
+
 /'Visualization'/
 hide members
 skinparam LineType ortho
