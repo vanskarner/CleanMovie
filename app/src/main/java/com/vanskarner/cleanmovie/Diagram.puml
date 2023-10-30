@@ -132,6 +132,7 @@ ErrorDialog <.. UpcomingFragment: <<use>>
 /'UpcomingDetail Feature'/
 ErrorDialog <.. UpcomingDetailFragment: <<use>>
 UpcomingDetailFragment ..> MovieModelMapper: <<use>>
+UpcomingDetailFragment ..> MovieDetailModel: <<use>>
 
 MovieDetailModel --> MovieBasicModel
 MovieModelMapper ..> MovieDetailModel
