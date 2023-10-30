@@ -89,6 +89,7 @@ UpcomingDetailContractPresenter <|.. UpcomingDetailPresenter
 UpcomingDetailContractPresenter <-- UpcomingDetailFragment
 UpcomingDetailPresenter ..> MovieModelMapper
 UpcomingDetailPresenter ..> ViewErrorFilter
+UpcomingDetailPresenter .> MovieDetailModel
 UpcomingDetailContractView <|.. UpcomingDetailFragment
 UpcomingDetailContractView <-- UpcomingDetailPresenter
 UpcomingDetailFragment ..> ErrorDialog
