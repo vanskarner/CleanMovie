@@ -1,7 +1,11 @@
+<div align="right" size="1px">
+<a href='https://github.com/vanskarner/CleanMovie/blob/package_by_component_Main/README_SPA.md'>Spanish</a>
+</div>
+
 ![CleanMovieCover](https://github.com/vanskarner/CleanMovie/assets/39975255/5984299f-24c4-436f-ac1e-086a2aecc399)
 
 # Clean Architecture | Android
-Application of the concepts and principles from Uncle Bob's Clean Architecture book in a simple Android project.
+Application of the guidelines and principles from the book Clean Architecture: A Craftsman's Guide to Software Structure and Design by Uncle Bob in a simple Android project.
 
 |Martin, Robert C. Clean Architecture: A Craftsman's Guide to Software Structure and Design. Prentice Hall, 2017|
 |:---:|
@@ -11,32 +15,43 @@ Application of the concepts and principles from Uncle Bob's Clean Architecture b
 </p>
 
 ## Introduction
-To ensure project comprehension, we have chosen to utilize the most basic elements, avoiding the overload of details that is often encountered in Android development. The focus is on maintaining simplicity, making it accessible to those who are getting familiar with the subject. It is also important to mention that, while the project is based on Java to highlight [the significance of context](https://github.com/vanskarner/CleanMovie/wiki/The-Context-Matters) in these guides, Kotlin is generally recommended as the primary language for Android application development, as it offers a modern and concise syntax, officially endorsed by Google.
+To ensure the understanding of the project, we have chosen to use the most basic elements, avoiding the overload of details that usually occurs in Android development, keeping it simple and making it more understandable for those who are just getting familiar with the subject.
+
+While the project is developed in Java, it is only to highlight [the importance of context](https://github.com/vanskarner/CleanMovie/wiki/The-Context-Matters) in these guides, as Kotlin is generally recommended as the main language for Android application development, as it offers a modern and concise syntax, officially endorsed by Google.
 
 ![ExampleCleanMovie](https://user-images.githubusercontent.com/39975255/234139272-fc119831-0b79-4ca6-aaf5-6898d4624408.gif)
 
 ## Project division
-The repository has 2 branches that represent the same project. These branches represent the approaches to decoupling the code.
+The repository has 4 branches that represent the same system but decoupled in different ways:
 
-| Package by Component | Package by Layer |
-| ------------- | ------------- | 
-| ![ByComponent](https://github.com/vanskarner/CleanMovie/assets/39975255/c0662f98-0edb-4fb3-aa14-7d3fc8268b2b) | ![ByLayer](https://user-images.githubusercontent.com/39975255/234137255-72c9cf1c-e119-4f08-af89-f6cff3f37523.png)|
+| package_by_component_Main | package_by_component_Secondary |
+| --- | --- |
+| ![ByComponent- Main](https://github.com/vanskarner/CleanMovie/assets/39975255/6d542b6d-1042-4447-be61-e38b3778539b) | ![ByComponente - Secondary](https://github.com/vanskarner/CleanMovie/assets/39975255/6d542b6d-1042-4447-be61-e38b3778539b) |
+
+| package_by_feature | package_by_layer |
+| --- | --- |
+| ![ByFeature](https://github.com/vanskarner/CleanMovie/assets/39975255/2558784a-876b-4834-9079-35e2f02a75b6) | ![ByLayer](https://github.com/vanskarner/CleanMovie/assets/39975255/2f2d9001-032b-49a2-bbe2-09b05072be92) |
 
 ## Testing capability
-Each module of the project has its associated unit and integration tests according to the branch of the project.
+Each project module in all branches has its own associated tests.
 
-|Execution of end-to-end and integration tests|End-to-end and integration test report|
-|-|-|
-|![EndToEndTestRunning](https://user-images.githubusercontent.com/39975255/234135918-05f205b7-6296-43a5-b0f5-b2d5ed23d5d8.gif)|![EndToEndTestReport](https://user-images.githubusercontent.com/39975255/234136214-c9aa2faa-cde7-41e8-be7d-a1633991d3f0.jpg)|
+| Execution of end-to-end tests |
+| :---: |
+| ![EndToEndTestRunning](https://user-images.githubusercontent.com/39975255/234135918-05f205b7-6296-43a5-b0f5-b2d5ed23d5d8.gif) |
+
+| Test reports |
+| :---: |
+| ![gif-pruebas](https://github.com/vanskarner/CleanMovie/assets/39975255/834208cb-0731-4b4e-9ec0-0e64aab55616) |
 
 ## Wiki
-Get a broader understanding of clean architecture by following the guidelines provided [HERE](https://github.com/vanskarner/CleanMovie/wiki)
+Get a broader understanding of Clean Architecture by following the guidelines provided [HERE](https://github.com/vanskarner/CleanMovie/wiki).
 
 ## Discussions
 Refer to the discussions section [HERE](https://github.com/vanskarner/CleanMovie/discussions)
 
 ## Considerations
-- If you want to use the app, you need to first generate your developer api key at [Themoviedb API](https://www.themoviedb.org/settings/api). Then once generated, you must put in the file [data.properties](https://github.com/vanskarner/CleanMovie/blob/package_per_component/data.properties):
+
+- If you want to use the app, you need to first generate your developer api key at [Themoviedb API](https://www.themoviedb.org/settings/api). Then, once generated, you must put that key in the [data.properties](https://github.com/vanskarner/CleanMovie/blob/package_by_component_Main/data.properties) file:
 ```properties
 #Project properties
 themoviedbApiKey="HERE_YOUR_KEY"
