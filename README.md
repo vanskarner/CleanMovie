@@ -43,6 +43,13 @@ Each project module in all branches has its own associated tests.
 | :---: |
 | ![gif-pruebas](https://github.com/vanskarner/CleanMovie/assets/39975255/834208cb-0731-4b4e-9ec0-0e64aab55616) |
 
+## Metrics
+Each branch has its own analysis to know its associated metrics. The results of this analysis can be found in the [Project Summary](https://github.com/vanskarner/CleanMovie/wiki/Project-Summary) section.
+
+<p align="center">
+  <img src="https://github.com/vanskarner/CleanMovie/assets/39975255/bf241b81-da29-4a86-beb9-fe9d33714c4d" alt="Metrics of the main branch" style="display: block; margin: auto;">
+</p>
+
 ## Wiki
 Get a broader understanding of Clean Architecture by following the guidelines provided [HERE](https://github.com/vanskarner/CleanMovie/wiki).
 
