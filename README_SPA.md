@@ -43,6 +43,13 @@ Cada módulo del proyecto en todas las ramas tiene asociado sus propias pruebas.
 | :---: |
 | ![gif-pruebas](https://github.com/vanskarner/CleanMovie/assets/39975255/834208cb-0731-4b4e-9ec0-0e64aab55616) |
 
+## Métricas
+Cada rama tiene su propio análisis para conocer sus métricas asociadas. Los resultados de este análisis se puede encontrar en la sección de [Resumen de Proyecto](https://github.com/vanskarner/CleanMovie/wiki/Resumen-del-Proyecto).
+
+<p align="center">
+  <img src="https://github.com/vanskarner/CleanMovie/assets/39975255/bf241b81-da29-4a86-beb9-fe9d33714c4d" alt="Metrics of the main branch" style="display: block; margin: auto;">
+</p>
+
 ## Wiki
 Obtenga una comprensión más amplia sobre la **Arquitectura Limpia** siguiendo las guias proporcionadas [AQUÍ](https://github.com/vanskarner/CleanMovie/wiki/Inicio)
 
