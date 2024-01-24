@@ -64,3 +64,7 @@ Refer to the discussions section [HERE](https://github.com/vanskarner/CleanMovie
 themoviedbApiKey="HERE_YOUR_KEY"
 ```
 - To run any type of test, an API key is not necessary.
+
+## Another Example in Kotlin
+
+A simple and small application that follows the concepts described in this wiki but using Kotlin, Coroutines, ViewModel, LiveData and Hilt: https://github.com/vanskarner/CleanExampleKT
