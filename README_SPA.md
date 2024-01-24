@@ -63,3 +63,7 @@ Consulte la sección de discusiones [AQUÍ](https://github.com/vanskarner/CleanM
 themoviedbApiKey="HERE_YOUR_KEY"
 ```
 - Para ejecutar cualquier tipo de prueba, no es necesaria una clave API.
+
+## Otro ejemplo usando Kotlin
+
+Una simple y pequeña aplicacion que sigue los conceptos de descritos en esta la wiki pero usando Kotlin, Corrutinas, ViewModel, LiveData y Hilt: https://github.com/vanskarner/CleanExampleKT
