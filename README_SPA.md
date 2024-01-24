@@ -66,4 +66,4 @@ themoviedbApiKey="HERE_YOUR_KEY"
 
 ## Otro ejemplo usando Kotlin
 
-Una simple y pequeña aplicacion que sigue los conceptos de descritos en esta la wiki pero usando Kotlin, Corrutinas, ViewModel, LiveData y Hilt: https://github.com/vanskarner/CleanExampleKT
+Una simple y pequeña aplicacion que sigue los conceptos descritos en esta wiki pero usando Kotlin, Corrutinas, ViewModel, LiveData y Hilt: https://github.com/vanskarner/CleanExampleKT
