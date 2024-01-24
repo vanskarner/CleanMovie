@@ -64,6 +64,6 @@ themoviedbApiKey="HERE_YOUR_KEY"
 ```
 - Para ejecutar cualquier tipo de prueba, no es necesaria una clave API.
 
-## Otro ejemplo usando Kotlin
+## Otro jemplo usando Kotlin
 
-Una simple y pequeña aplicacion que sigue los conceptos descritos en esta wiki pero usando Kotlin, Corrutinas, ViewModel, LiveData y Hilt: https://github.com/vanskarner/CleanExampleKT
+Una simple y pequeña aplicación que sigue los conceptos descritos en esta wiki pero usando Kotlin, Corrutinas, ViewModel, LiveData y Hilt: https://github.com/vanskarner/CleanExampleKT
